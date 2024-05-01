@@ -24,5 +24,10 @@ $ gem install design_system
 ## Contributing
 Contribution directions go here.
 
+Created using:
+```bash
+rails plugin new design_system -MOC --skip-system-test --full --no-mountable
+```
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
