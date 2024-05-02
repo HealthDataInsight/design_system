@@ -1,0 +1,153 @@
+/* ==========================================================================
+   COMPONENTS/ #CHECKBOXES
+   ========================================================================== */
+
+/**
+ * 1. remove 300ms pause on mobile.
+ * 2. Fix bug in IE11 caused by transform rotate (-45deg).
+ */
+
+$ndrsuk-checkboxes-size: ndrsuk-spacing(6);
+$ndrsuk-checkboxes-label-padding-left-right: 12px;
+
+.ndrsuk-checkboxes__item {
+  @include ndrsuk-font(19);
+
+  clear: left;
+  display: block;
+  margin-bottom: ndrsuk-spacing(2);
+  min-height: $ndrsuk-checkboxes-size;
+  padding: 0 0 0 $ndrsuk-checkboxes-size;
+  position: relative;
+}
+
+.ndrsuk-checkboxes__item:last-child,
+.ndrsuk-checkboxes__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.ndrsuk-checkboxes__input {
+  cursor: pointer;
+  height: $ndrsuk-checkboxes-size;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: $ndrsuk-checkboxes-size;
+  z-index: 1;
+}
+
+.ndrsuk-checkboxes__label {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 8px $ndrsuk-checkboxes-label-padding-left-right ndrsuk-spacing(1);
+  -ms-touch-action: manipulation; /* 1 */
+  touch-action: manipulation;
+}
+
+.ndrsuk-checkboxes__hint {
+  display: block;
+  padding-left: $ndrsuk-checkboxes-label-padding-left-right;
+  padding-right: $ndrsuk-checkboxes-label-padding-left-right;
+}
+
+.ndrsuk-checkboxes__input + .ndrsuk-checkboxes__label::before {
+  background: $ndrsuk-form-element-background-color;
+  border: $ndrsuk-border-width-form-element solid $ndrsuk-form-border-color;
+  box-sizing: border-box;
+  content: "";
+  height: $ndrsuk-checkboxes-size;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: $ndrsuk-checkboxes-size;
+}
+
+.ndrsuk-checkboxes__input + .ndrsuk-checkboxes__label::after {
+  background: transparent;
+  border: solid;
+  border-top-color: transparent;
+  border-width: 0 0 $ndrsuk-border-width $ndrsuk-border-width;
+  content: "";
+  height: 10px;
+  left: 10px;
+  opacity: 0; /* 2 */
+  position: absolute;
+  top: 13px;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  width: 22px;
+}
+
+/*
+ * Focus state
+ *
+ * 1. Since box-shadows are removed when users customise their colours
+ *    We set a transparent outline that is shown instead.
+ *    https://accessibility.blog.gov.uk/2017/03/27/how-users-change-colours-on-websites/
+ */
+
+.ndrsuk-checkboxes__input:focus + .ndrsuk-checkboxes__label::before {
+  @include ndrsuk-focused-checkbox();
+}
+
+/* Selected state */
+
+.ndrsuk-checkboxes__input:checked + .ndrsuk-checkboxes__label::after {
+  opacity: 1;
+}
+
+/* Disabled state */
+
+.ndrsuk-checkboxes__input:disabled,
+.ndrsuk-checkboxes__input:disabled + .ndrsuk-checkboxes__label {
+  cursor: default;
+}
+
+.ndrsuk-checkboxes__input:disabled + .ndrsuk-checkboxes__label {
+  opacity: 0.5;
+}
+
+/* Divider variant */
+
+.ndrsuk-checkboxes__divider {
+  $ndrsuk-divider-size: $ndrsuk-checkboxes-size !default;
+  @include ndrsuk-font(19);
+
+  color: $ndrsuk-text-color;
+  margin-bottom: ndrsuk-spacing(2);
+  text-align: center;
+  width: $ndrsuk-divider-size;
+}
+
+/*
+ * Conditional
+ *
+ * 1. Calculate the amount of padding needed to keep the border
+ *    centered against the checkbox.
+ * 2. Move the border centered with the checkbox.
+ * 3. Move the contents of the conditional inline with the label.
+ */
+
+$conditional-border-width: $ndrsuk-border-width-mobile;
+$conditional-border-padding: ($ndrsuk-checkboxes-size * 0.5) - ($conditional-border-width * 0.5); /* 1 */
+$conditional-margin-left: $conditional-border-padding; /* 2 */
+$conditional-padding-left: $conditional-border-padding + $ndrsuk-checkboxes-label-padding-left-right; /* 3 */
+
+.ndrsuk-checkboxes__conditional {
+  @include ndrsuk-responsive-margin(4, "bottom");
+  border-left: $conditional-border-width solid $ndrsuk-form-border-color;
+  margin-left: $conditional-margin-left;
+  padding-left: $conditional-padding-left;
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.js-enabled .ndrsuk-checkboxes__conditional--hidden {
+  display: none;
+}

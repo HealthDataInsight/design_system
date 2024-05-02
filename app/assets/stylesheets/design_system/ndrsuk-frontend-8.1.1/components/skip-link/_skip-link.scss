@@ -1,0 +1,25 @@
+/* ==========================================================================
+   COMPONENTS / #SKIP-LINK
+   ========================================================================== */
+
+/**
+ * 1. Hides the skip link off the page,
+ * 2. until the link gains focus from keyboard tabbing.
+ */
+
+.ndrsuk-skip-link {
+  left: -9999px; /* [1] */
+  padding: ndrsuk-spacing(2);
+  position: absolute;
+
+  &:active,
+  &:focus {
+    left: ndrsuk-spacing(3); /* [2] */
+    top: ndrsuk-spacing(3);
+    z-index: 2;
+  }
+
+  &:visited {
+    color: $color_ndrsuk-black;
+  }
+}

@@ -1,0 +1,15 @@
+/* ==========================================================================
+   UTILITIES / #CLEARFIX
+   ========================================================================== */
+
+/**
+ * Automatically clear an elements
+ * child elements
+ *
+ * Usage: class="ndrsuk-u-clear"
+ * See tools/mixins
+ */
+
+.ndrsuk-u-clear {
+  @include clearfix();
+}

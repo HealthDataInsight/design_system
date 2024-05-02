@@ -1,0 +1,14 @@
+// ==========================================================================
+// COMPONENTS / #LIST-BORDER
+// ==========================================================================
+
+/**
+ * Adds a grey border to the bottom of an <li> tag
+ *
+ * Usage: class="ndrsuk-list--border"
+ */
+
+.ndrsuk-list--border li {
+  border-bottom: 1px solid $color_ndrsuk-grey-4;
+  padding: 8px 0 16px;
+}

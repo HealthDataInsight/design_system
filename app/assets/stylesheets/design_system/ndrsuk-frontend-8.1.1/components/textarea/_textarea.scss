@@ -1,0 +1,25 @@
+/* ==========================================================================
+   COMPONENTS/ #TEXTAREA
+   ========================================================================== */
+
+.ndrsuk-textarea {
+  @include ndrsuk-font(19);
+
+  -webkit-appearance: none;
+  border: $ndrsuk-border-width-form-element solid $ndrsuk-form-border-color;
+  border-radius: 0;
+  box-sizing: border-box;
+  display: block;
+  min-height: 40px;
+  padding: ndrsuk-spacing(1);
+  resize: vertical;
+  width: 100%;
+
+  &:focus {
+    @include ndrsuk-focused-input;
+  }
+}
+
+.ndrsuk-textarea--error {
+  border: $ndrsuk-border-width-form-element-error solid $ndrsuk-error-color;
+}

@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Dummy</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<% content_for :head do %>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <%= stylesheet_link_tag "application" %>
-  </head>
+  <meta name="description" content="">
+  <title>Dummy</title>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%#= stylesheet_link_tag "application" %>
+<% end %>
+
+<%= render template: "layouts/#{controller.brand}" %>
+
+<%= link_to 'GOV.UK', url_for(brand: 'govuk') %>
+<%= link_to 'HDI', url_for(brand: 'hdi') %>
+<%= link_to 'NDRS', url_for(brand: 'ndrsuk') %>
+<%= link_to 'NHS', url_for(brand: 'nhsuk') %>
