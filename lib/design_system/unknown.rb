@@ -5,7 +5,7 @@ module DesignSystem
   class Unknown < Base
     def initialize(context)
       super
-      raise "Error: Unknown client"
+      raise 'Error: Unknown client'
     end
   end
 end
