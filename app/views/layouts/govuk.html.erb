@@ -2,14 +2,14 @@
 <html lang="en" class="govuk-template app-html-class">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="blue">
+    <meta name="theme-color" content="black">
 
     <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
     <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
     <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="blue">
     <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
     <link rel="manifest" href="/assets/manifest.json">
-    <%= stylesheet_link_tag 'govuk' %>
+    <%= stylesheet_link_tag 'govuk', 'data-turbo-track': 'reload' %>
 
     <meta property="og:image" content="YOUR-DOMAIN/images/govuk-opengraph-image.png">
 
@@ -105,9 +105,10 @@
       </p>
     </div>
     <a href="#" class="govuk-back-link">Back</a>
-    <main class="govuk-main-wrapper app-main-class" id="main-content">
-      <h1 class="govuk-heading-xl">Customised page template</h1>
 
+    <%= yield :breadcrumbs %>
+
+    <main class="govuk-main-wrapper app-main-class" id="main-content">
       <%= yield %>
     </main>
   </div>

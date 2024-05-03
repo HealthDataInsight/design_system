@@ -11,7 +11,8 @@ module DesignSystem
     include Components::Headings
 
     attr_reader :brand
-    delegate :capture, :content_tag, :link_to, :link_to_unless_current, to: :@context
+
+    delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 
     def initialize(brand, context)
       @brand = brand
@@ -19,10 +20,11 @@ module DesignSystem
     end
 
     def render
+      content_for_breadcrumbs if @breadcrumbs.present?
+
       render_main_container do
         safe_buffer = ActiveSupport::SafeBuffer.new
 
-        safe_buffer.concat(render_breadcrumbs) if @breadcrumbs.present?
         safe_buffer.concat(render_main_heading) if @main_heading
         safe_buffer.concat(render_form) if @form_object
 

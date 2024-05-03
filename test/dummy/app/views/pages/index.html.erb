@@ -1,1 +1,11 @@
-Index Page
+<%=
+design_system do |ds|
+  ds.breadcrumb 'One', root_path
+  ds.breadcrumb 'Two', root_path
+  ds.breadcrumb 'Three', root_path
+
+  ds.main_heading 'Page#index heading'
+
+  # ds.form @assistant
+end
+%>

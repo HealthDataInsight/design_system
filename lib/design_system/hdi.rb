@@ -19,20 +19,22 @@ module DesignSystem
 
     private
 
-    def render_main_container(&)
-      content_tag(:div, class: 'mx-auto w-full', &)
-    end
+    # def render_main_container(&)
+    #   content_tag(:div, class: 'mx-auto w-full', &)
+    # end
 
     def render_main_heading
       content_tag(:h1, @main_heading, class: 'text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl')
     end
 
-    def render_breadcrumbs
-      content_tag(:div, class: 'max-w-lg mb-4') do
-        content_tag(:nav, 'aria-label': 'Breadcrumb', class: 'flex') do
-          content_tag(:ol, class: 'flex items-center space-x-4', role: 'list') do
-            @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
-              safe_buffer.concat(render_breadcrumb(breadcrumb))
+    def content_for_breadcrumbs
+      content_for(:breadcrumbs) do
+        content_tag(:div, class: 'max-w-lg mb-4') do
+          content_tag(:nav, 'aria-label': 'Breadcrumb', class: 'flex') do
+            content_tag(:ol, class: 'flex items-center space-x-4', role: 'list') do
+              @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
+                safe_buffer.concat(render_breadcrumb(breadcrumb))
+              end
             end
           end
         end

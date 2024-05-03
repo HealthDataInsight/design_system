@@ -8,7 +8,7 @@
     <link rel="preconnect  dns-prefetch" href="https://www.nhs.uk/">
     <link rel="preconnect  dns-prefetch" href="https://assets.nhs.uk/" crossorigin>
 
-    <%= stylesheet_link_tag 'ndrsuk' %>
+    <%= stylesheet_link_tag 'ndrsuk', 'data-turbo-track': 'reload' %>
 
     <script src="/js/main.min.js" defer></script>
 
@@ -28,7 +28,6 @@
 <body class="">
   <script>
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-
   </script>
 
   <a class="ndrsuk-skip-link" href="#maincontent">Skip to main content</a>
@@ -117,23 +116,7 @@
 
   </header>
 
-  <nav class="ndrsuk-breadcrumb" aria-label="Breadcrumb">
-    <div class="ndrsuk-width-container">
-      <ol class="ndrsuk-breadcrumb__list">
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level one</a></li>
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level two</a></li>
-
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level three</a></li>
-
-      </ol>
-      <p class="ndrsuk-breadcrumb__back">
-        <a class="ndrsuk-breadcrumb__backlink" href="#">
-          <span class="ndrsuk-u-visually-hidden">Back to &nbsp;</span>
-          Level three
-        </a>
-      </p>
-    </div>
-  </nav>
+  <%= yield :breadcrumbs %>
 
   <div class="ndrsuk-width-container ">
 
@@ -141,13 +124,9 @@
 
       <div class="ndrsuk-grid-row">
         <div class="ndrsuk-grid-column-two-thirds">
-          <h1>
-            Content page template
-          </h1>
+          <%= yield %>
         </div>
       </div>
-
-      <%= yield %>
 
     </main>
   </div>

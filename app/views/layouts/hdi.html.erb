@@ -2,8 +2,9 @@
 <html class="h-full">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%#= render "design_system/head/#{controller.brand}" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <%= stylesheet_link_tag 'hdi', 'data-turbo-track': 'reload' %>
     <%#= javascript_importmap_tags %>
 
     <%= yield :head %>
@@ -109,6 +110,8 @@
           <%#= current_user_image_tag %>
         </a>
       </div>
+
+      <%= yield :breadcrumbs %>
 
       <main class="lg:pl-72">
         <div class="xl:pr-96">
