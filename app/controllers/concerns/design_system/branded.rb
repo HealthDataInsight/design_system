@@ -4,7 +4,7 @@ module DesignSystem
     extend ActiveSupport::Concern
 
     included do
-      # layout :brand
+      helper DesignSystemHelper
     end
 
     def brand
