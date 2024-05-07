@@ -1,3 +1,5 @@
-@use 'govuk-frontend-5.3.1/all';
+$govuk-assets-path: "/design_system/govuk-frontend-5.3.1/";
+
+@import 'govuk-frontend-5.3.1/all';
 
 // Use extreme caution when making any design system level style changes or additions here.
