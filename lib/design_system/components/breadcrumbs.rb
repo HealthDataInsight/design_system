@@ -9,15 +9,17 @@ module DesignSystem
 
       private
 
-      def render_breadcrumbs
-        safe_buffer = ActiveSupport::SafeBuffer.new
+      def content_for_breadcrumbs
+        content_for(:breadcrumbs) do
+          safe_buffer = ActiveSupport::SafeBuffer.new
 
-        @breadcrumbs.each do |breadcrumb|
-          safe_buffer.concat(render_breadcrumb(breadcrumb))
-          safe_buffer.concat(' > ') unless @breadcrumbs.last == breadcrumb
+          @breadcrumbs.each do |breadcrumb|
+            safe_buffer.concat(render_breadcrumb(breadcrumb))
+            safe_buffer.concat(' > ') unless @breadcrumbs.last == breadcrumb
+          end
+
+          safe_buffer
         end
-
-        safe_buffer
       end
 
       def render_breadcrumb(breadcrumb)

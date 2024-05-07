@@ -8,7 +8,7 @@
     <link rel="preconnect  dns-prefetch" href="https://www.nhs.uk/">
     <link rel="preconnect  dns-prefetch" href="https://assets.nhs.uk/" crossorigin>
 
-    <%= stylesheet_link_tag 'ndrsuk' %>
+    <%= stylesheet_link_tag 'ndrsuk', 'data-turbo-track': 'reload' %>
 
     <script src="/js/main.min.js" defer></script>
 
@@ -28,7 +28,6 @@
 <body class="">
   <script>
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-
   </script>
 
   <a class="ndrsuk-skip-link" href="#maincontent">Skip to main content</a>
@@ -69,71 +68,11 @@
       </div>
 
     </div>
-    <div class="ndrsuk-navigation-container">
-      <nav class="ndrsuk-navigation" id="header-navigation" role="navigation" aria-label="Primary navigation">
-        <ul class="ndrsuk-header__navigation-list">
-          <li class="ndrsuk-header__navigation-item">
-            <a class="ndrsuk-header__navigation-link" href="#">
-              Health A-Z
-            </a>
-          </li>
-          <li class="ndrsuk-header__navigation-item">
-            <a class="ndrsuk-header__navigation-link" href="#">
-              Live Well
-            </a>
-          </li>
-          <li class="ndrsuk-header__navigation-item">
-            <a class="ndrsuk-header__navigation-link" href="#">
-              Care and support
-            </a>
-          </li>
-          <li class="ndrsuk-header__navigation-item">
-            <a class="ndrsuk-header__navigation-link" href="#">
-              Pregnancy
-            </a>
-          </li>
-          <li class="ndrsuk-header__navigation-item">
-            <a class="ndrsuk-header__navigation-link" href="#">
-              NDRS services
-            </a>
-          </li>
-          <li class="ndrsuk-header__navigation-item ndrsuk-header__navigation-item--home">
-            <a class="ndrsuk-header__navigation-link" href="/">
-              Home
-            </a>
-          </li>
-          <li class="ndrsuk-mobile-menu-container">
-            <button class="ndrsuk-header__menu-toggle ndrsuk-header__navigation-link" id="toggle-menu" aria-expanded="false">
-              <span class="ndrsuk-u-visually-hidden">Browse</span>
-              More
-              <svg class="ndrsuk-icon ndrsuk-icon__chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z"></path>
-              </svg>
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
 
+    <%= render partial: 'ndrsuk/navigation' %>
   </header>
 
-  <nav class="ndrsuk-breadcrumb" aria-label="Breadcrumb">
-    <div class="ndrsuk-width-container">
-      <ol class="ndrsuk-breadcrumb__list">
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level one</a></li>
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level two</a></li>
-
-        <li class="ndrsuk-breadcrumb__item"><a class="ndrsuk-breadcrumb__link" href="#">Level three</a></li>
-
-      </ol>
-      <p class="ndrsuk-breadcrumb__back">
-        <a class="ndrsuk-breadcrumb__backlink" href="#">
-          <span class="ndrsuk-u-visually-hidden">Back to &nbsp;</span>
-          Level three
-        </a>
-      </p>
-    </div>
-  </nav>
+  <%= yield :breadcrumbs %>
 
   <div class="ndrsuk-width-container ">
 
@@ -141,13 +80,9 @@
 
       <div class="ndrsuk-grid-row">
         <div class="ndrsuk-grid-column-two-thirds">
-          <h1>
-            Content page template
-          </h1>
+          <%= yield %>
         </div>
       </div>
-
-      <%= yield %>
 
     </main>
   </div>

@@ -2,14 +2,14 @@
 <html lang="en" class="govuk-template app-html-class">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="blue">
+    <meta name="theme-color" content="black">
 
     <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
     <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
     <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="blue">
     <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
     <link rel="manifest" href="/assets/manifest.json">
-    <%= stylesheet_link_tag 'govuk' %>
+    <%= stylesheet_link_tag 'govuk', 'data-turbo-track': 'reload' %>
 
     <meta property="og:image" content="YOUR-DOMAIN/images/govuk-opengraph-image.png">
 
@@ -68,28 +68,7 @@
         <a href="#" class="govuk-header__link govuk-header__service-name">
           Service name
         </a>
-        <nav aria-label="Menu" class="govuk-header__navigation">
-          <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" hidden>
-            Menu
-          </button>
-          <ul id="navigation" class="govuk-header__navigation-list">
-            <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-              <a class="govuk-header__link" href="#">
-                Navigation item 1
-              </a>
-            </li>
-            <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="#">
-                Navigation item 2
-              </a>
-            </li>
-            <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="#">
-                Navigation item 3
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <%= render partial: 'govuk/navigation' %>
       </div>
     </div>
   </header>
@@ -105,9 +84,10 @@
       </p>
     </div>
     <a href="#" class="govuk-back-link">Back</a>
-    <main class="govuk-main-wrapper app-main-class" id="main-content">
-      <h1 class="govuk-heading-xl">Customised page template</h1>
 
+    <%= yield :breadcrumbs %>
+
+    <main class="govuk-main-wrapper app-main-class" id="main-content">
       <%= yield %>
     </main>
   </div>

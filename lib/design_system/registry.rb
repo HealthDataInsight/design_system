@@ -1,5 +1,5 @@
 module DesignSystem
-  # This provides a design system factory 
+  # This provides a design system factory
   module Registry
     class << self
       attr_accessor :design_systems

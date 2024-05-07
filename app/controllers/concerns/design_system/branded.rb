@@ -4,11 +4,21 @@ module DesignSystem
     extend ActiveSupport::Concern
 
     included do
-      # layout :brand
+      attr_reader :navigation_items
+
+      helper DesignSystemHelper
+
+      # TODO: Work out how to use a hook to include this
+      helper HdiHelper
     end
 
     def brand
       raise NotImplementedError, 'You need to implement #brand in your ApplicationController'
+    end
+
+    def add_navigation_item(label, path)
+      @navigation_items ||= []
+      @navigation_items << { label:, path: }
     end
   end
 end
