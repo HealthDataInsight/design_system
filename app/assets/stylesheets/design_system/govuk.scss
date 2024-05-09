@@ -1,5 +1,7 @@
-$govuk-assets-path: "/design_system/govuk-frontend-5.3.1/";
-
-@import 'govuk-frontend-5.3.1/all';
+// Using the GOVUK frontend with configuration.
+// https://sass-lang.com/documentation/at-rules/use/#configuration
+@use 'govuk-frontend-5.3.1/all'  with (
+  $govuk-assets-path: "/design_system/govuk-frontend-5.3.1/"
+);
 
 // Use extreme caution when making any design system level style changes or additions here.
