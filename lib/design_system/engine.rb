@@ -1,6 +1,7 @@
 require 'sprockets/rails/quiet_assets'
 
 module DesignSystem
+  # This is the main engine class for the design system.
   class Engine < ::Rails::Engine
     # Allow changes to the design system to be reloaded in development.
     config.autoload_paths << File.expand_path('..', __dir__) if Rails.env.development?
