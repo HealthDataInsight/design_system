@@ -1,0 +1,18 @@
+<%=
+design_system do |ds|
+  ds.main_heading 'Assistants'
+end
+%>
+
+<p style="color: green"><%= notice %></p>
+
+<div id="assistants">
+  <% @assistants.each do |assistant| %>
+    <%= render assistant %>
+    <p>
+      <%= link_to "Show this assistant", assistant %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New assistant", new_assistant_path %>

@@ -1,0 +1,17 @@
+---
+default: &default
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5
+
+development:
+  <<: *default
+  database: <%= Rails.root.join('db', 'development.sqlite3') %>
+
+test:
+  <<: *default
+  database: <%= Rails.root.join('db', 'test.sqlite3') %>
+
+production:
+  <<: *default
+  database: <%= Rails.root.join('db', 'production.sqlite3') %>
