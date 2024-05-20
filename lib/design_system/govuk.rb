@@ -1,5 +1,6 @@
 require_relative 'base'
 
+# This is the design system module
 module DesignSystem
   # This is the GOV.UK adapter for the design system
   class Govuk < Base
@@ -35,5 +36,5 @@ module DesignSystem
     end
   end
 
-  Registry.register(Govuk, 'govuk')
+  Registry.register(Govuk)
 end

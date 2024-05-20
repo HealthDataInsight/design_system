@@ -4,12 +4,11 @@ module DesignSystem
     class << self
       attr_accessor :design_systems
 
-      def register(klass, *brands)
+      def register(klass)
         @design_systems ||= {}
 
-        brands.each do |brand|
-          @design_systems[brand] = klass
-        end
+        brand = klass.name.split('::').last.underscore
+        @design_systems[brand] = klass
       end
 
       def unregister(*brands)
@@ -21,7 +20,7 @@ module DesignSystem
       def design_system(brand, context)
         klass = Registry.design_systems.fetch(brand, Unknown)
 
-        klass.new(brand, context)
+        klass.new(context)
       end
     end
   end

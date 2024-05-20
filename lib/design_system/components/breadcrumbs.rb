@@ -22,6 +22,17 @@ module DesignSystem
         end
       end
 
+      def home_path?(path)
+        root_hash = Rails.application.routes.recognize_path(@context.root_path)
+        path_hash = Rails.application.routes.recognize_path(path)
+
+        %i[controller action].each do |key|
+          return false if root_hash[key] != path_hash[key]
+        end
+
+        true
+      end
+
       def render_breadcrumb(breadcrumb)
         link_to_unless_current(breadcrumb[:label], breadcrumb[:path])
       end

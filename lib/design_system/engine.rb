@@ -1,4 +1,4 @@
-require 'sprockets/rails/quiet_assets'
+require 'action_dispatch/middleware/remote_ip'
 
 module DesignSystem
   # This is the main engine class for the design system.
@@ -8,10 +8,11 @@ module DesignSystem
 
     # Adding Rack::Static to serve up assets from the design_systems
     initializer 'design_system.add_middleware' do |app|
-      app.middleware.insert_before(
-        ::Sprockets::Rails::QuietAssets,
+      app.middleware.insert_after(
+        ::ActionDispatch::RemoteIp,
         ::Rack::Static,
-        urls: ['/design_system/nhsuk-frontend-8.1.1', '/design_system/ndrsuk-frontend-8.1.1',
+        urls: ['/design_system/nhsuk-frontend-8.1.1',
+               '/design_system/ndrsuk-frontend-8.1.1',
                '/design_system/govuk-frontend-5.3.1'],
         root: DesignSystem::Engine.root.join('public')
       )

@@ -1,4 +1,3 @@
-require 'action_view/helpers/tag_helper'
 require_relative 'components/breadcrumbs'
 require_relative 'components/form'
 require_relative 'components/headings'
@@ -10,13 +9,14 @@ module DesignSystem
     include Components::Form
     include Components::Headings
 
-    attr_reader :brand
-
     delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 
-    def initialize(brand, context)
-      @brand = brand
+    def initialize(context)
       @context = context
+    end
+
+    def brand
+      self.class.name.split('::').last.underscore
     end
 
     def render
