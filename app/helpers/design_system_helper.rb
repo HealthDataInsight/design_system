@@ -1,12 +1,23 @@
 require 'design_system/registry'
 
+# The helpers for the design system
 module DesignSystemHelper
+  include ActionView::Helpers::FormHelper
+
+  def brand
+    controller.send(:brand)
+  end
+
   # This method provides access to the current design system adapter
   def design_system
-    instance = DesignSystem::Registry.design_system(controller.brand, self)
+    instance = DesignSystem::Registry.design_system(brand, self)
 
-    yield instance
+    if block_given?
+      yield instance
 
-    instance.render
+      instance.render
+    else
+      instance
+    end
   end
 end

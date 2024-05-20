@@ -1,5 +1,6 @@
 require_relative 'govuk'
 
+# Extend the design system module to include Nhsuk
 module DesignSystem
   # This is the NHSUK adapter for the design system
   class Nhsuk < Govuk
@@ -18,15 +19,19 @@ module DesignSystem
                 safe_buffer.concat(render_breadcrumb(breadcrumb))
               end
             end +
-              content_tag(:p, class: "#{brand}-breadcrumb__back") do
-                link_to(@breadcrumbs.last[:path],
-                        class: "#{brand}-breadcrumb__backlink",
-                        'aria-current': @context.current_page?(@breadcrumbs.last[:path]) ? 'page' : nil) do
-                  content_tag(:span, 'Back to &nbsp;'.html_safe, class: "#{brand}-u-visually-hidden") +
-                    @breadcrumbs.last[:label]
-                end
-              end
+              content_for_back_link
           end
+        end
+      end
+    end
+
+    def content_for_back_link
+      content_tag(:p, class: "#{brand}-breadcrumb__back") do
+        link_to(@breadcrumbs.last[:path],
+                class: "#{brand}-breadcrumb__backlink",
+                'aria-current': @context.current_page?(@breadcrumbs.last[:path]) ? 'page' : nil) do
+          content_tag(:span, 'Back to &nbsp;'.html_safe, class: "#{brand}-u-visually-hidden") +
+            @breadcrumbs.last[:label]
         end
       end
     end
@@ -41,5 +46,5 @@ module DesignSystem
     end
   end
 
-  Registry.register(Nhsuk, 'nhsuk')
+  Registry.register(Nhsuk)
 end
