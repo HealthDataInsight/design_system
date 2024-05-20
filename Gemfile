@@ -12,6 +12,7 @@ gem 'sprockets-rails'
 # gem "debug", ">= 1.0.0"
 gem 'dartsass-rails', '~> 0.5'
 gem 'ndr_dev_support', '~> 7.2'
+gem 'sqlite3', '~> 1.3'
 
 group :test do
   gem 'mocha', '~> 2.2.0'

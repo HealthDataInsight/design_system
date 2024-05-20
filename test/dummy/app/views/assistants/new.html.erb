@@ -1,0 +1,13 @@
+<%=
+design_system do |ds|
+  ds.main_heading 'New assistant'
+end
+%>
+
+<%= render "form", assistant: @assistant %>
+
+<br>
+
+<div>
+  <%= link_to "Back to assistants", assistants_path %>
+</div>
