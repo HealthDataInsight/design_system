@@ -14,6 +14,10 @@ gem 'dartsass-rails', '~> 0.5'
 gem 'ndr_dev_support', '~> 7.2'
 gem 'sqlite3', '~> 1.3'
 
+group :development, :test do
+  gem 'cypress-rails'
+end
+
 group :test do
   gem 'mocha', '~> 2.2.0'
 end

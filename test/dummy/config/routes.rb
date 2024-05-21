@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'pages#index'
+  post 'form-handler', to: 'pages#form_handler'
 
   resources :assistants
 end

@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     design_system (0.1.0)
-      rails (~> 7.1, >= 7.1.3.2)
+      rails (>= 7.1.3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -117,6 +117,9 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    cypress-rails (0.7.0)
+      puma (>= 3.8.0)
+      railties (>= 5.2.0)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -330,6 +333,7 @@ PLATFORMS
   arm64-darwin
 
 DEPENDENCIES
+  cypress-rails
   dartsass-rails (~> 0.5)
   design_system!
   mocha (~> 2.2.0)
