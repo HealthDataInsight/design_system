@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     design_system (0.1.0)
-      rails (~> 7.1, >= 7.1.3.2)
+      rails (>= 7.1.3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -117,6 +117,9 @@ GEM
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
+    cypress-rails (0.7.0)
+      puma (>= 3.8.0)
+      railties (>= 5.2.0)
     dartsass-rails (0.5.0)
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
@@ -133,7 +136,14 @@ GEM
       activesupport (>= 6.1)
     google-protobuf (4.26.1-arm64-darwin)
       rake (>= 13)
+    govuk_design_system_formbuilder (5.3.3)
+      actionview (>= 6.1)
+      activemodel (>= 6.1)
+      activesupport (>= 6.1)
+      html-attributes-utils (~> 1)
     highline (3.0.1)
+    html-attributes-utils (1.0.2)
+      activesupport (>= 6.1.4.4)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -330,11 +340,14 @@ PLATFORMS
   arm64-darwin
 
 DEPENDENCIES
+  cypress-rails
   dartsass-rails (~> 0.5)
   design_system!
+  govuk_design_system_formbuilder (~> 5.3.3)
   mocha (~> 2.2.0)
   ndr_dev_support (~> 7.2)
   puma
+  simplecov
   sprockets-rails
   sqlite3 (~> 1.3)
 
