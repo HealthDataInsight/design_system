@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include DesignSystem::Branded
 
   before_action :add_navigation
+  helper_method :brand
 
   private
 
