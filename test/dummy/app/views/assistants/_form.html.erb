@@ -10,21 +10,4 @@
       </ul>
     </div>
   <% end %>
-  <%= form.error_summary %>
-
-  <%= form.ds_label :title, "Alternative title" %>
-  <%= form.ds_email_field :email %>
-  <%= form.ds_text_field(:title) %>
-  <%= form.ds_number_field :account_number %>
-  <%= form.ds_password_field :password %>
-  <%= form.ds_telephone_field :phone %>
-  <%= form.ds_url_field :url %>
-  <%= form.ds_check_box :sign_here %>
-  <%= form.ds_date_field :date_of_birth, date_of_birth: true, legend: { text: 'Enter your date of birth' }, hint: { text: 'For example, 31 3 1980' } %>  <%= form.ds_file_field :profile_photo, label: { text: 'Identification photograph' }, hint: { text: 'Upload a clear colour photograph of yourself looking straight at the camera' } %>
-  <%= form.ds_text_area :job_description, label: { text: 'Job description' }, hint: { text: 'Describe your typical day' }, rows: 9 %>
-  <%= form.ds_collection_select :new_department_id, assistant.departments, :id, :name, label: { text: "Which department do you work in?" }, hint: { text: "You can find it on your ID badge" } %>
-  <%= form.ds_collection_check_boxes :assistant_ids, assistant.departments, :id, :name, legend: { text: "Which department do you work in?" }, hint: { text: "You can find it on your ID badge" } %>
-  <%= form.ds_collection_radio_buttons :new_department_id, assistant.departments, :id, :name, legend: { text: 'Which department do you work for?' }, hint: { text: 'There should be a sign near your desk' } %>
-
-  <%= form.ds_submit %>
 <% end %>
