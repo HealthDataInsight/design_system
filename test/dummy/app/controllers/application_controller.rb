@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :add_navigation
 
-  private 
+  private
 
   def add_navigation
     add_navigation_item('Manage Assistants', assistants_path)
