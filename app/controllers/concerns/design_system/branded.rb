@@ -18,7 +18,7 @@ module DesignSystem
 
     def add_navigation_item(label, path)
       @navigation_items ||= []
-      @navigation_items << { label:, path: }
+      @navigation_items << { label: label, path: path }
     end
   end
 end

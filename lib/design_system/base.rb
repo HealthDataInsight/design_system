@@ -34,8 +34,8 @@ module DesignSystem
 
     private
 
-    def render_main_container(&)
-      content_tag(:div, &)
+    def render_main_container(&block)
+      content_tag(:div, &block)
     end
   end
 end

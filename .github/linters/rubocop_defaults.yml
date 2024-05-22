@@ -7,7 +7,9 @@ inherit_mode:
     - Exclude
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.0
+  Exclude:
+    - "test/dummy/db/schema.rb"
 
 # Ignore rules related to templated files
 Layout/EmptyLines:

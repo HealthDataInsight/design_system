@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Ruby on Rails Engine to consistent, compliant sites using ' \
                      'GOV.UK, NHS, NDRS and HDI design systems'
   spec.license     = 'MIT'
+  spec.required_ruby_version = '>= 3.0.4'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -23,7 +24,7 @@ Gem::Specification.new do |spec|
     Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
-  spec.add_dependency 'rails', '>= 7.1.3.2'
+  spec.add_dependency 'rails', '>= 7.0.8.1'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
