@@ -14,11 +14,11 @@ AllCops:
 # Ignore rules related to templated files
 Layout/EmptyLines:
   Exclude:
-    - "config/**/*.rb"
+    - "test/dummy/config/**/*.rb"
 
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
-    - "config/**/*.rb"
+    - "test/dummy/config/**/*.rb"
 
 Rails/Date:
   Enabled: false
@@ -29,29 +29,29 @@ Rails/TimeZone:
 Style/Documentation:
   Exclude:
     - "app/helpers/application_helper.rb"
-    - "config/**/*.rb"
+    - "test/dummy/config/**/*.rb"
 
 Style/GlobalStdStream:
   Exclude:
-    - "config/environments/production.rb"
+    - "test/dummy/config/environments/production.rb"
 
 Style/OptionalBooleanParameter:
   Enabled: false
 
 Style/RedundantConstantBase:
   Exclude:
-    - "config/environments/production.rb"
+    - "test/dummy/config/environments/production.rb"
 
 Style/RedundantFetchBlock:
   Exclude:
-    - "config/puma.rb"
+    - "test/dummy/config/puma.rb"
 
 Style/StringLiterals:
   Exclude:
-    - "config.ru"
-    - "config/**/*.rb"
+    - "test/dummy/config.ru"
+    - "test/dummy/config/**/*.rb"
     - "Rakefile"
 
 Style/SymbolArray:
   Exclude:
-    - "config/initializers/filter_parameter_logging.rb"
+    - "test/dummy/config/initializers/filter_parameter_logging.rb"
