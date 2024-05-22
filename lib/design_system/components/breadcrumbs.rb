@@ -4,7 +4,7 @@ module DesignSystem
     module Breadcrumbs
       def breadcrumb(label, path)
         @breadcrumbs ||= []
-        @breadcrumbs << { label:, path: }
+        @breadcrumbs << { label: label, path: path }
       end
 
       private
