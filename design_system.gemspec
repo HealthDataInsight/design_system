@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Ruby on Rails Engine to consistent, compliant sites using ' \
                      'GOV.UK, NHS, NDRS and HDI design systems'
   spec.license     = 'MIT'
-  spec.required_ruby_version = '>= 3.0.4'
+  spec.required_ruby_version = '>= 3.1.6'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.
