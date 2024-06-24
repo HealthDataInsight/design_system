@@ -19,7 +19,7 @@ module HdiHelper
 
   private
 
-  def hdi_sidebar_navigation_svg_tag(active, &block)
+  def hdi_sidebar_navigation_svg_tag(active, &)
     svg_classes = %w[
       h-6 w-6 shrink-0
     ]
@@ -36,6 +36,6 @@ module HdiHelper
                 'stroke-width': '1.5',
                 stroke: 'currentColor',
                 'aria-hidden': 'true',
-                class: svg_classes.join(' '), &block)
+                class: svg_classes.join(' '), &)
   end
 end

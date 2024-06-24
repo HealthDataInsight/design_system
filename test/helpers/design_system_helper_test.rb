@@ -18,7 +18,7 @@ class DesignSystemHelperTest < ActionView::TestCase
 
   test 'design_system returns correct instance' do
     brand = 'govuk'
-    controller.stubs(brand: brand)
+    controller.stubs(brand:)
     assert_equal @registry.design_system(brand, self).brand, design_system.brand
   end
 
