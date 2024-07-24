@@ -6,6 +6,16 @@ design_system do |ds|
 
   ds.main_heading 'Page#index heading'
 
+  ds.table do |table|
+	  table.caption = 'Dates and amounts'
+	  table.add_column_heading 'Date'
+	  table.add_column_heading 'Amount'
+	  table.add_column('First 6 weeks')
+	  table.add_column('£109.80 per week')
+	  table.add_row ['Next 33 weeks','£109.80 per week']
+	  table.add_numeric_column('January')
+	  table.add_numeric_column('£85') 
+  end
   # ds.form @assistant
 end
 %>
