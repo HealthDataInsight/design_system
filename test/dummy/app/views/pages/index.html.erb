@@ -5,6 +5,16 @@ design_system do |ds|
   ds.breadcrumb 'Three', root_path
 
   ds.main_heading 'Page#index heading'
+  
+  
+  ds.tab do |tab|
+	  tab.title = 'Contents'
+	  #(name, id, selected)
+	  tab.add_tab_panel('Past day', 'past-day', sel: true)
+	  tab.add_tab_panel('Past week', 'past-week')
+	  tab.add_tab_panel('Past month', 'past-month')
+	  tab.add_tab_panel('Past year', 'past-year')
+  end
 
   # ds.form @assistant
 end
