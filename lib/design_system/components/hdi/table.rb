@@ -17,15 +17,7 @@ module DesignSystem
 
             safe_buffer.concat(
               content_tag(:tbody, class: 'divide-y divide-gray-200') do
-                tbody_buffer = ActiveSupport::SafeBuffer.new
-                tbody_buffer.concat(content_for_row(@table.columns)) unless @table.columns.empty?
-
-                @table.rows.each do |row|
-                  tbody_buffer.concat(content_for_row(row))
-                end
-
-                tbody_buffer.concat(content_for_numeric_row(@table.numeric_cols)) unless @table.numeric_cols.empty?
-                tbody_buffer
+                content_table_body
               end
             )
             safe_buffer
@@ -36,8 +28,10 @@ module DesignSystem
           content_tag(:thead) do
             content_tag(:tr) do
               headings.each_with_object(ActiveSupport::SafeBuffer.new) do |heading, safe_buffer|
-                safe_buffer.concat(content_tag(:th, heading, scope: 'col',
-                                                             class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900'))
+                safe_buffer.concat(
+                  content_tag(:th, heading, scope: 'col',
+                                            class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900')
+                )
               end
             end
           end

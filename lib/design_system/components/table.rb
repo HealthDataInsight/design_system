@@ -21,19 +21,23 @@ module DesignSystem
 
           safe_buffer.concat(
             content_tag(:tbody, nil, class: "#{brand}-table__body") do
-              tbody_buffer = ActiveSupport::SafeBuffer.new
-              tbody_buffer.concat(content_for_row(@table.columns)) unless @table.columns.empty?
-
-              @table.rows.each do |row|
-                tbody_buffer.concat(content_for_row(row))
-              end
-
-              tbody_buffer.concat(content_for_numeric_row(@table.numeric_cols)) unless @table.numeric_cols.empty?
-              tbody_buffer
+              content_table_body
             end
           )
           safe_buffer
         end
+      end
+
+      def content_table_body
+        tbody_buffer = ActiveSupport::SafeBuffer.new
+        tbody_buffer.concat(content_for_row(@table.columns)) unless @table.columns.empty?
+
+        @table.rows.each do |row|
+          tbody_buffer.concat(content_for_row(row))
+        end
+
+        tbody_buffer.concat(content_for_numeric_row(@table.numeric_cols)) unless @table.numeric_cols.empty?
+        tbody_buffer
       end
 
       def table_heading(headings: [])
