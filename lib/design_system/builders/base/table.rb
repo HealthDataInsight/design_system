@@ -1,4 +1,4 @@
-require 'design_system/table'
+require 'design_system/components/table'
 
 module DesignSystem
   module Builders
@@ -6,7 +6,7 @@ module DesignSystem
       # This mixin module is used to provide table builder.
       module Table
         def table
-          @table = ::DesignSystem::Table.new
+          @table = ::DesignSystem::Components::Table.new
 
           yield @table
         end
