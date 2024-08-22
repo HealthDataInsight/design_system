@@ -1,11 +1,11 @@
-require_relative 'components/breadcrumbs'
+require_relative 'components/base/breadcrumbs'
 require_relative 'components/form'
 require_relative 'components/headings'
 
 module DesignSystem
   # This is the base class for design system adapters
   class Base
-    include Components::Breadcrumbs
+    include Components::Base::Breadcrumbs
     include Components::Form
     include Components::Headings
 
