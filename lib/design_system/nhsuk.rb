@@ -7,7 +7,7 @@ module DesignSystem
   class Nhsuk < Govuk
     include Components::Nhsuk::Breadcrumbs
 
-    private
+    # private
 
     # def render_main_container(&)
     #   content_tag(:div, class: "#{brand}-width-container", &)
