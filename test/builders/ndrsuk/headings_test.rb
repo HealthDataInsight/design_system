@@ -4,7 +4,7 @@ require_relative '../nhsuk/headings_test'
 module DesignSystem
   module Builders
     module Ndrsuk
-      # This tests the ndrs headings component
+      # This tests the ndrs headings builder
       class HeadingsTest < Nhsuk::HeadingsTest
         include DesignSystemHelper
 

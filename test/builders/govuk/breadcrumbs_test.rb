@@ -5,7 +5,7 @@ require 'test_helper'
 module DesignSystem
   module Builders
     module Govuk
-      # This tests the govuk breadcrumbs component
+      # This tests the govuk breadcrumbs builder
       class BreadcrumbsTest < ActionView::TestCase
         include DesignSystemHelper
 

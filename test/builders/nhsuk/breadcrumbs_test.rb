@@ -5,7 +5,7 @@ require 'test_helper'
 module DesignSystem
   module Builders
     module Nhsuk
-      # This tests the nhsuk breadcrumbs component
+      # This tests the nhsuk breadcrumbs builder
       class BreadcrumbsTest < ActionView::TestCase
         include DesignSystemHelper
 
