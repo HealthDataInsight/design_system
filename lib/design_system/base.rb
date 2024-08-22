@@ -1,14 +1,14 @@
-require_relative 'components/breadcrumbs'
-require_relative 'components/form'
-require_relative 'components/headings'
+require_relative 'components/base/breadcrumbs'
+require_relative 'components/base/form'
+require_relative 'components/base/headings'
 require_relative 'components/table'
 
 module DesignSystem
   # This is the base class for design system adapters
   class Base
-    include Components::Breadcrumbs
-    include Components::Form
-    include Components::Headings
+    include Components::Base::Breadcrumbs
+    include Components::Base::Form
+    include Components::Base::Headings
     include Components::Table
 
     delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
