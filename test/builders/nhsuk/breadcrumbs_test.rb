@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module DesignSystem
-  module Components
+  module Builders
     module Nhsuk
       # This tests the nhsuk breadcrumbs component
       class BreadcrumbsTest < ActionView::TestCase

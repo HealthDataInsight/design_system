@@ -1,5 +1,5 @@
 module DesignSystem
-  module Components
+  module Builders
     module Nhsuk
       # This mixin module is used to provide NHS breadcrumbs.
       module Breadcrumbs

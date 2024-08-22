@@ -1,5 +1,5 @@
 module DesignSystem
-  module Components
+  module Builders
     module Hdi
       # This concern is used to provide HDI breadcrumbs.
       module Breadcrumbs

@@ -2,7 +2,7 @@ require 'test_helper'
 require_relative '../nhsuk/headings_test'
 
 module DesignSystem
-  module Components
+  module Builders
     module Ndrsuk
       # This tests the ndrs headings component
       class HeadingsTest < Nhsuk::HeadingsTest

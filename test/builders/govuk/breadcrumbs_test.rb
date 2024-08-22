@@ -3,7 +3,7 @@
 require 'test_helper'
 
 module DesignSystem
-  module Components
+  module Builders
     module Govuk
       # This tests the govuk breadcrumbs component
       class BreadcrumbsTest < ActionView::TestCase

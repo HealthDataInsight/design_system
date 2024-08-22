@@ -1,18 +1,18 @@
 require 'test_helper'
 
 module DesignSystem
-  module Components
-    module Govuk
-      # This tests the govuk headings component
+  module Builders
+    module Nhsuk
+      # This tests the nhs headings component
       class HeadingsTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
+          @brand = 'nhsuk'
           @controller.stubs(:brand).returns(@brand)
         end
 
-        test 'rendering govuk main heading' do
+        test 'rendering nhs main heading' do
           @output_buffer = design_system do |ds|
             ds.main_heading('Welcome!')
           end

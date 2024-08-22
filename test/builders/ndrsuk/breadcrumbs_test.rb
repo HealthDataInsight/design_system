@@ -4,7 +4,7 @@ require 'test_helper'
 require_relative '../nhsuk/breadcrumbs_test'
 
 module DesignSystem
-  module Components
+  module Builders
     module Ndrsuk
       # This tests the ndrsuk breadcrumbs component
       class BreadcrumbsTest < Nhsuk::BreadcrumbsTest
