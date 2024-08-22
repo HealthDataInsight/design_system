@@ -1,5 +1,5 @@
 module DesignSystem
-  module Components
+  module Builders
     module Hdi
       # This mixin module is used to provide HDI page headings.
       module Headings

@@ -1,5 +1,5 @@
 module DesignSystem
-  module Components
+  module Builders
     module Govuk
       # This mixin module is used to provide GOVUK breadcrumbs.
       module Breadcrumbs

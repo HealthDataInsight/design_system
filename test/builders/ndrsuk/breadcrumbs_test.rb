@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'test_helper'
-require_relative '../nhsuk/headings_test'
+require_relative '../nhsuk/breadcrumbs_test'
 
 module DesignSystem
-  module Components
+  module Builders
     module Ndrsuk
-      # This tests the ndrs headings component
-      class HeadingsTest < Nhsuk::HeadingsTest
+      # This tests the ndrsuk breadcrumbs builder
+      class BreadcrumbsTest < Nhsuk::BreadcrumbsTest
         include DesignSystemHelper
 
         setup do

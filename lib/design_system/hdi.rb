@@ -1,13 +1,13 @@
 require_relative 'base'
-require 'design_system/components/hdi/breadcrumbs'
-require 'design_system/components/hdi/headings'
+require 'design_system/builders/hdi/breadcrumbs'
+require 'design_system/builders/hdi/headings'
 
 # Extend the design system module to include Hdi
 module DesignSystem
   # This is the HDI branded adapter for the design system
   class Hdi < Base
-    include DesignSystem::Components::Hdi::Breadcrumbs
-    include DesignSystem::Components::Hdi::Headings
+    include Builders::Hdi::Breadcrumbs
+    include Builders::Hdi::Headings
 
     # private
 

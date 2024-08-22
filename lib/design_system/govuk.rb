@@ -1,13 +1,13 @@
 require_relative 'base'
-require_relative 'components/govuk/breadcrumbs'
-require_relative 'components/govuk/headings'
+require_relative 'builders/govuk/breadcrumbs'
+require_relative 'builders/govuk/headings'
 
 # This is the design system module
 module DesignSystem
   # This is the GOV.UK adapter for the design system
   class Govuk < Base
-    include Components::Govuk::Breadcrumbs
-    include Components::Govuk::Headings
+    include Builders::Govuk::Breadcrumbs
+    include Builders::Govuk::Headings
 
     # private
 

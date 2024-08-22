@@ -1,9 +1,9 @@
 require 'test_helper'
 
 module DesignSystem
-  module Components
+  module Builders
     module Govuk
-      # This tests the govuk headings component
+      # This tests the govuk headings builder
       class HeadingsTest < ActionView::TestCase
         include DesignSystemHelper
 

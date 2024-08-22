@@ -1,5 +1,5 @@
 module DesignSystem
-  module Components
+  module Builders
     module Base
       # This mixin module is used to provide a form.
       module Form

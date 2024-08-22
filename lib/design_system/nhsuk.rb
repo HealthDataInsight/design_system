@@ -1,11 +1,11 @@
 require_relative 'govuk'
-require_relative 'components/nhsuk/breadcrumbs'
+require_relative 'builders/nhsuk/breadcrumbs'
 
 # Extend the design system module to include Nhsuk
 module DesignSystem
   # This is the NHSUK adapter for the design system
   class Nhsuk < Govuk
-    include Components::Nhsuk::Breadcrumbs
+    include Builders::Nhsuk::Breadcrumbs
 
     # private
 
