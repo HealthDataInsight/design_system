@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DesignSystem
   module Builders
     module Nhsuk
@@ -7,28 +9,35 @@ module DesignSystem
 
         private
 
-        ## <thead>
-        def table_heading(headings: [])
+        def render_headers
           content_tag(:thead, role: 'rowgroup', class: "#{brand}-table__head") do
             content_tag(:tr, role: 'row') do
-              headings.each_with_object(ActiveSupport::SafeBuffer.new) do |heading, safe_buffer|
-                safe_buffer.concat(content_tag(:th, heading, scope: 'col', class: '', role: 'columnheader'))
+              @table.headers.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
+                header_buffer.concat(render_header_cells(header))
               end
             end
           end
         end
 
-        ## <tbody><tr>
-        def content_for_row(row)
-          content_tag(:tr, nil, class: "#{brand}-table__row") do
-            row.each_with_object(ActiveSupport::SafeBuffer.new) do |col, safe_buffer|
-              safe_buffer.concat(content_tag(:td, col, class: "#{brand}-table__cell"))
-            end
+        def render_header_cells(header)
+          header.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, head_buffer|
+            head_buffer.concat(render_headers_cell(cell))
           end
         end
 
-        def content_for_numeric_row(row)
-          content_for_row(row)
+        def render_headers_cell(cell)
+          classes = "#{brand}-table__header"
+          classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
+
+          content_tag(:th, cell[:content], cell[:options].merge(scope: 'col', class: classes, role: 'columnheader'))
+        end
+
+        def render_row(row)
+          content_tag(:tr, role: 'row', class: "#{brand}-table__row") do
+            row.each_with_object(ActiveSupport::SafeBuffer.new).with_index do |(cell, cell_buffer), index|
+              cell_buffer.concat(render_cell(cell, index, 'row'))
+            end
+          end
         end
       end
     end

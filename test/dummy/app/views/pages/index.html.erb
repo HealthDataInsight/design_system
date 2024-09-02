@@ -7,14 +7,16 @@ design_system do |ds|
   ds.main_heading 'Page#index heading'
 
   ds.table do |table|
-	  table.caption = 'Dates and amounts'
-	  table.add_column_heading 'Date'
-	  table.add_column_heading 'Amount'
-	  table.add_column('First 6 weeks')
-	  table.add_column('£109.80 per week')
-	  table.add_row ['Next 33 weeks','£109.80 per week']
-	  table.add_numeric_column('January')
-	  table.add_numeric_column('£85') 
+	  table.caption = 'Name and Age'
+	  table.add_header do |header|
+	     header.add_cell('Name', data: {'toggle': "table" , 'sort-name': "name" , 'sort-order': "desc", 'pagination':"false"} )
+	     header.add_numeric_cell('Age', data: { sortable: false })
+	  end
+	  
+	  table.add_row do |row|
+ 	     row.add_cell('John Doe', data: { id: 1 })
+ 	     row.add_numeric_cell('30', data: { id: 2 })
+ 	  end
   end
   # ds.form @assistant
 end

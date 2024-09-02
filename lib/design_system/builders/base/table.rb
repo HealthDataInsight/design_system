@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'design_system/components/table'
 
 module DesignSystem
@@ -16,45 +18,49 @@ module DesignSystem
         def render_table
           content_tag(:table, nil, class: "#{brand}-table") do
             safe_buffer = ActiveSupport::SafeBuffer.new
-            safe_buffer.concat(content_tag(:caption, @table.caption, class: "#{brand}-table__caption")) if @table.caption
-
-            safe_buffer.concat(table_heading(headings: @table.headings)) unless @table.headings.empty?
-
-            safe_buffer.concat(
-              content_tag(:tbody, nil, class: "#{brand}-table__body") do
-                content_table_body
-              end
-            )
+            if @table.caption
+              safe_buffer.concat(content_tag(:caption, @table.caption,
+                                             class: "#{brand}-table__caption"))
+            end
+            safe_buffer.concat(render_headers)
+            safe_buffer.concat(render_rows)
             safe_buffer
           end
         end
 
-        def content_table_body
-          tbody_buffer = ActiveSupport::SafeBuffer.new
-          tbody_buffer.concat(content_for_row(@table.columns)) unless @table.columns.empty?
-
-          @table.rows.each do |row|
-            tbody_buffer.concat(content_for_row(row))
-          end
-
-          tbody_buffer.concat(content_for_numeric_row(@table.numeric_cols)) unless @table.numeric_cols.empty?
-          tbody_buffer
-        end
-
-        def table_heading(headings: [])
-          raise 'Client must implement this table_heading'
-        end
-
-        def content_for_data
-          @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, safe_buffer|
-            safe_buffer.concat(content_for_row(row))
+        def render_rows
+          content_tag(:tbody, class: "#{brand}-table__body") do
+            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
+              rows_buffer.concat(render_row(row))
+            end
           end
         end
 
-        def content_for_row(_row)
-          raise 'Client must implement this content_for_row'
+        def render_cell(cell, index, scope)
+          if index.zero?
+            render_header_cell(cell, scope)
+          else
+            render_data_cell(cell)
+          end
         end
-        ###
+
+        def render_header_cell(cell, scope)
+          classes = "#{brand}-table__header"
+          classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
+
+          content_tag(:th, cell[:content], cell[:options].merge(scope:, class: classes))
+        end
+
+        def render_data_cell(cell)
+          classes = "#{brand}-table__cell"
+          classes += " #{brand}-table__cell--numeric" if cell_numeric?(cell)
+
+          content_tag(:td, cell[:content], cell[:options].merge(class: classes))
+        end
+
+        def cell_numeric?(cell)
+          cell[:options][:type] == 'numeric'
+        end
       end
     end
   end

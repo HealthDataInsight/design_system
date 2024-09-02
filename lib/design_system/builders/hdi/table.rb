@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DesignSystem
   module Builders
     module Hdi
@@ -8,45 +10,52 @@ module DesignSystem
         private
 
         def render_table
-          content_tag(:table, nil, class: 'min-w-full divide-y divide-gray-300') do
+          content_tag(:table, class: 'min-w-full divide-y divide-gray-300') do
             safe_buffer = ActiveSupport::SafeBuffer.new
-
             safe_buffer.concat(content_tag(:caption, @table.caption, class: 'caption_top')) if @table.caption
-
-            safe_buffer.concat(table_heading(headings: @table.headings)) unless @table.headings.empty?
-
-            safe_buffer.concat(
-              content_tag(:tbody, class: 'divide-y divide-gray-200') do
-                content_table_body
-              end
-            )
+            safe_buffer.concat(render_headers)
+            safe_buffer.concat(render_rows)
             safe_buffer
           end
         end
 
-        def table_heading(headings: [])
+        def render_headers
           content_tag(:thead) do
             content_tag(:tr) do
-              headings.each_with_object(ActiveSupport::SafeBuffer.new) do |heading, safe_buffer|
-                safe_buffer.concat(
-                  content_tag(:th, heading, scope: 'col',
-                                            class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900')
-                )
+              @table.headers.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
+                header_buffer.concat(render_header_cells(header))
               end
             end
           end
         end
 
-        def content_for_row(row)
-          content_tag(:tr) do
-            row.each_with_object(ActiveSupport::SafeBuffer.new) do |col, safe_buffer|
-              safe_buffer.concat(content_tag(:td, col, class: 'whitespace-nowrap px-3 py-4 text-sm text-gray-500'))
+        def render_header_cells(header)
+          header.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, head_buffer|
+            head_buffer.concat(
+              content_tag(:th, cell[:content],
+                          cell[:options].merge(scope: 'col',
+                                               class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900'))
+            )
+          end
+        end
+
+        def render_rows
+          content_tag(:tbody, class: 'divide-y divide-gray-200') do
+            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, safe_buffer|
+              safe_buffer.concat(render_row(row))
             end
           end
         end
 
-        def content_for_numeric_row(row)
-          content_for_row(row)
+        def render_row(row)
+          content_tag(:tr) do
+            row.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, cell_buffer|
+              cell_buffer.concat(
+                content_tag(:td, cell[:content],
+                            cell[:options].merge(class: 'whitespace-nowrap px-3 py-4 text-sm text-gray-500'))
+              )
+            end
+          end
         end
       end
     end
