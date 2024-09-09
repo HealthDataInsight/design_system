@@ -22,20 +22,13 @@ module DesignSystem
         def render_headers
           content_tag(:thead) do
             content_tag(:tr) do
-              @table.headers.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
-                header_buffer.concat(render_header_cells(header))
+              @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, header_buffer|
+                header_buffer <<
+                  content_tag(:th, cell[:content],
+                              cell[:options].merge(scope: 'col',
+                                                   class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900'))
               end
             end
-          end
-        end
-
-        def render_header_cells(header)
-          header.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, head_buffer|
-            head_buffer.concat(
-              content_tag(:th, cell[:content],
-                          cell[:options].merge(scope: 'col',
-                                               class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900'))
-            )
           end
         end
 

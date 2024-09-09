@@ -4,41 +4,34 @@ module DesignSystem
   module Components
     # This is the class to define table component structure
     class Table
-      attr_accessor :caption, :headers, :rows
+      attr_accessor :caption, :columns, :rows
 
       def initialize
-        @headers = []
+        @columns = []
         @rows = []
       end
 
-      def add_header(&block)
-        header_builder = HeaderBuilder.new
-        block.call(header_builder)
-        @headers << header_builder.cells
+      def add_column(content, options = {})
+        @columns << { content:, options: }
       end
 
-      def add_row(&block)
-        row_builder = RowBuilder.new
-        block.call(row_builder)
-        @rows << row_builder.cells
-      end
-    end
-
-    # This class helps in building the header for the table <th>
-    class HeaderBuilder
-      attr_reader :cells
-
-      def initialize
-        @cells = []
-      end
-
-      def add_cell(content, options = {})
-        @cells << { content:, options: }
-      end
-
-      def add_numeric_cell(content, options = {})
+      def add_numeric_column(content, options = {})
         default_options = { type: 'numeric' }
-        @cells << { content:, options: default_options.merge(options) }
+        @columns << { content:, options: default_options.merge(options) }
+      end
+
+      def add_row(*cells, &block)
+        if block_given?
+          row_builder = RowBuilder.new(@columns)
+          block.call(row_builder)
+          @rows << row_builder.cells
+        else
+          row = cells.map.with_index do |content, i|
+            options = @columns[i][:options][:type] == 'numeric' ? { type: 'numeric' } : {}
+            { content:, options: }
+          end
+          @rows << row
+        end
       end
     end
 
@@ -46,17 +39,18 @@ module DesignSystem
     class RowBuilder
       attr_reader :cells
 
-      def initialize
+      def initialize(columns)
         @cells = []
+        @columns = columns
       end
 
       def add_cell(content, options = {})
+        index = @cells.size
+        if @columns[index][:options][:type] == 'numeric'
+          default_options = { type: 'numeric' }
+          options = default_options.merge(options)
+        end
         @cells << { content:, options: }
-      end
-
-      def add_numeric_cell(content, options = {})
-        default_options = { type: 'numeric' }
-        @cells << { content:, options: default_options.merge(options) }
       end
     end
   end

@@ -12,16 +12,10 @@ module DesignSystem
         def render_headers
           content_tag(:thead, class: "#{brand}-table__head") do
             content_tag(:tr, class: "#{brand}-table__row") do
-              @table.headers.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
-                header_buffer.concat(render_header_cells(header))
+              @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |column, header_buffer|
+                header_buffer.concat(render_header_cell(column, 'col'))
               end
             end
-          end
-        end
-
-        def render_header_cells(header)
-          header.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, head_buffer|
-            head_buffer.concat(render_header_cell(cell, 'col'))
           end
         end
 

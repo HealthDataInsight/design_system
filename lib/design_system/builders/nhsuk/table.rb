@@ -12,8 +12,8 @@ module DesignSystem
         def render_headers
           content_tag(:thead, role: 'rowgroup', class: "#{brand}-table__head") do
             content_tag(:tr, role: 'row') do
-              @table.headers.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
-                header_buffer.concat(render_header_cells(header))
+              @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |column, header_buffer|
+                header_buffer.concat(render_headers_cell(column))
               end
             end
           end

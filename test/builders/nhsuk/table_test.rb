@@ -16,9 +16,7 @@ module DesignSystem
           @output_buffer = design_system do |ds|
             ds.table do |table|
               table.caption = 'X and Y'
-              table.add_header do |header|
-                header.add_cell('X')
-              end
+              table.add_column('X')
             end
           end
 
