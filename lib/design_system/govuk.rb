@@ -9,7 +9,6 @@ module DesignSystem
   class Govuk < Base
     include Builders::Govuk::Breadcrumbs
     include Builders::Govuk::Headings
-    include Builders::Govuk::Table
 
     # private
 

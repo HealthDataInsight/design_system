@@ -9,7 +9,6 @@ module DesignSystem
     include Builders::Base::Breadcrumbs
     include Builders::Base::Form
     include Builders::Base::Headings
-    include Builders::Base::Table
 
     delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 
@@ -29,7 +28,6 @@ module DesignSystem
 
         safe_buffer.concat(render_main_heading) if @main_heading
         safe_buffer.concat(render_form) if @form_object
-        safe_buffer.concat(render_table) if @table
         safe_buffer
       end
     end

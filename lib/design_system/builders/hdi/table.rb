@@ -3,13 +3,22 @@
 module DesignSystem
   module Builders
     module Hdi
-      # This concern is used to provide HDI Table.
-      module Table
-        extend ActiveSupport::Concern
+      # This class is used to provide HDI Table.
+      class Table < ::DesignSystem::Builders::Base::Table
+        def render_table
+          @table = ::DesignSystem::Components::Table.new
+          yield @table
+
+          content_tag(:div) do
+            safe_buffer = ActiveSupport::SafeBuffer.new
+            safe_buffer.concat(table_content) if @table
+            safe_buffer
+          end
+        end
 
         private
 
-        def render_table
+        def table_content
           content_tag(:table, class: 'min-w-full divide-y divide-gray-300') do
             safe_buffer = ActiveSupport::SafeBuffer.new
             safe_buffer.concat(content_tag(:caption, @table.caption, class: 'caption_top')) if @table.caption

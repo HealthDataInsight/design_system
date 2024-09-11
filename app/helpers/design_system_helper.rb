@@ -20,4 +20,10 @@ module DesignSystemHelper
       instance
     end
   end
+
+  def ds_table(&)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.table(brand, self, &)
+  end
 end

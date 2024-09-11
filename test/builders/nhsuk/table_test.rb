@@ -13,11 +13,9 @@ module DesignSystem
         end
 
         test 'rendering nhsuk table' do
-          @output_buffer = design_system do |ds|
-            ds.table do |table|
-              table.caption = 'X and Y'
-              table.add_column('X')
-            end
+          @output_buffer = ds_table do |table|
+            table.caption = 'X and Y'
+            table.add_column('X')
           end
 
           assert_select("table.#{@brand}-table")

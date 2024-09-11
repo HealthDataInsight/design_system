@@ -7,7 +7,6 @@ module DesignSystem
   # This is the NHSUK adapter for the design system
   class Nhsuk < Govuk
     include Builders::Nhsuk::Breadcrumbs
-    include Builders::Nhsuk::Table
 
     # private
 

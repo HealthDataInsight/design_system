@@ -9,7 +9,6 @@ module DesignSystem
   class Hdi < Base
     include Builders::Hdi::Breadcrumbs
     include Builders::Hdi::Headings
-    include Builders::Hdi::Table
 
     # private
 

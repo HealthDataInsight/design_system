@@ -5,19 +5,35 @@ require 'design_system/components/table'
 module DesignSystem
   module Builders
     module Base
-      # This mixin module is used to provide table builder.
-      module Table
-        def table
-          @table = ::DesignSystem::Components::Table.new
+      # This class is used to provide table builder.
+      class Table
+        delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 
+        def initialize(context)
+          @context = context
+        end
+
+        def brand
+          self.class.name.split('::')[-2].underscore
+        end
+
+        def render_table
+          @table = ::DesignSystem::Components::Table.new
           yield @table
+
+          content_tag(:div) do
+            safe_buffer = ActiveSupport::SafeBuffer.new
+            safe_buffer.concat(table_content) if @table
+            safe_buffer
+          end
         end
 
         private
 
-        def render_table
+        def table_content
           content_tag(:table, nil, class: "#{brand}-table") do
             safe_buffer = ActiveSupport::SafeBuffer.new
+
             if @table.caption
               safe_buffer.concat(content_tag(:caption, @table.caption,
                                              class: "#{brand}-table__caption"))

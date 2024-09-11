@@ -3,10 +3,8 @@
 module DesignSystem
   module Builders
     module Nhsuk
-      # This concern is used to provide GOVUK Table.
-      module Table
-        extend ActiveSupport::Concern
-
+      # This class is used to provide Nhsuk Table.
+      class Table < ::DesignSystem::Builders::Govuk::Table
         private
 
         def render_headers
