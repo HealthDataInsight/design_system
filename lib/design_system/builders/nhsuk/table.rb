@@ -17,12 +17,6 @@ module DesignSystem
           end
         end
 
-        def render_header_cells(header)
-          header.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, head_buffer|
-            head_buffer.concat(render_headers_cell(cell))
-          end
-        end
-
         def render_headers_cell(cell)
           classes = "#{brand}-table__header"
           classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
