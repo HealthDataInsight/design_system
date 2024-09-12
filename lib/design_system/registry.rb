@@ -22,6 +22,12 @@ module DesignSystem
 
         klass.new(context)
       end
+
+      def table(brand, context, &)
+        klass = "DesignSystem::Builders::#{brand.camelize}::Table".constantize
+
+        klass.new(context).render_table(&)
+      end
     end
   end
 end

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'builders/base/breadcrumbs'
 require_relative 'builders/base/form'
 require_relative 'builders/base/headings'
+require_relative 'builders/base/table'
 
 module DesignSystem
   # This is the base class for design system adapters

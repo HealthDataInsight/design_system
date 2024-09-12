@@ -1,5 +1,6 @@
 require_relative 'govuk'
 require_relative 'builders/nhsuk/breadcrumbs'
+require_relative 'builders/nhsuk/table'
 
 # Extend the design system module to include Nhsuk
 module DesignSystem

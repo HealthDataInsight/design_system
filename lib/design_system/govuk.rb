@@ -1,6 +1,7 @@
 require_relative 'base'
 require_relative 'builders/govuk/breadcrumbs'
 require_relative 'builders/govuk/headings'
+require_relative 'builders/govuk/table'
 
 # This is the design system module
 module DesignSystem

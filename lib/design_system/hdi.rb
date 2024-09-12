@@ -1,6 +1,7 @@
 require_relative 'base'
-require 'design_system/builders/hdi/breadcrumbs'
-require 'design_system/builders/hdi/headings'
+require_relative 'builders/hdi/breadcrumbs'
+require_relative 'builders/hdi/headings'
+require_relative 'builders/hdi/table'
 
 # Extend the design system module to include Hdi
 module DesignSystem
