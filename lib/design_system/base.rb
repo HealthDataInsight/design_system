@@ -1,15 +1,16 @@
-require_relative 'components/breadcrumbs'
-require_relative 'components/form'
-require_relative 'components/headings'
-require_relative 'components/tab'
+# frozen_string_literal: true
+
+require_relative 'builders/base/breadcrumbs'
+require_relative 'builders/base/form'
+require_relative 'builders/base/headings'
+require_relative 'builders/base/table'
 
 module DesignSystem
   # This is the base class for design system adapters
   class Base
-    include Components::Breadcrumbs
-    include Components::Form
-    include Components::Headings
-    include Components::Tab
+    include Builders::Base::Breadcrumbs
+    include Builders::Base::Form
+    include Builders::Base::Headings
 
     delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 

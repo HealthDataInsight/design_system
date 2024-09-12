@@ -1,9 +1,9 @@
 require 'test_helper'
 
 module DesignSystem
-  module Components
+  module Builders
     module Hdi
-      # This tests the HDI breadcrumbs component
+      # This tests the HDI breadcrumbs builder
       class BreadcrumbsTest < ActionView::TestCase
         include DesignSystemHelper
 
