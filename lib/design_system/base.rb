@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'builders/base/breadcrumbs'
 require_relative 'builders/base/form'
 require_relative 'builders/base/headings'
@@ -28,6 +30,7 @@ module DesignSystem
 
         safe_buffer.concat(render_main_heading) if @main_heading
         safe_buffer.concat(render_form) if @form_object
+
         safe_buffer
       end
     end

@@ -23,7 +23,8 @@ module DesignSystem
 
           content_tag(:div) do
             safe_buffer = ActiveSupport::SafeBuffer.new
-            safe_buffer.concat(table_content) if @table
+            safe_buffer.concat(table_content)
+
             safe_buffer
           end
         end
@@ -40,6 +41,7 @@ module DesignSystem
             end
             safe_buffer.concat(render_headers)
             safe_buffer.concat(render_rows)
+
             safe_buffer
           end
         end
