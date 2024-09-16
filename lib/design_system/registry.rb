@@ -16,16 +16,10 @@ module DesignSystem
         end
       end
 
-      def fixed_elements(brand, context)
-        klass = namespaced_builder_klass(brand, 'FixedElements')
+      def builder(brand, klass_name, context)
+        klass = namespaced_builder_klass(brand, klass_name)
 
         klass.new(context)
-      end
-
-      def table(brand, context, &)
-        klass = namespaced_builder_klass(brand, 'Table')
-
-        klass.new(context).render_table(&)
       end
 
       private
@@ -33,7 +27,7 @@ module DesignSystem
       def namespaced_builder_klass(brand, klass_name)
         raise ArgumentError, "Unknown brand: #{brand}" unless design_systems.include?(brand)
 
-        "DesignSystem::Builders::#{brand.camelize}::#{klass_name}".constantize
+        "DesignSystem::Builders::#{brand.camelize}::#{klass_name.camelize}".constantize
       end
     end
   end

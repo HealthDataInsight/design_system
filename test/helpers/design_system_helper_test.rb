@@ -19,7 +19,8 @@ class DesignSystemHelperTest < ActionView::TestCase
   test 'ds_fixed_elements returns correct instance' do
     brand = 'govuk'
     controller.stubs(brand:)
-    assert_equal @registry.fixed_elements(brand, self).brand, ds_fixed_elements.brand
+    assert_equal @registry.builder(brand, 'fixed_elements', self).brand, ds_fixed_elements.brand
+    assert_equal @registry.builder(brand, 'FixedElements', self).brand, ds_fixed_elements.brand
   end
 
   test 'ds_fixed_elements responds to block' do
