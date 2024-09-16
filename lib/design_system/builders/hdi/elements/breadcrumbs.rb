@@ -46,9 +46,9 @@ module DesignSystem
               else
                 content_tag :div, class: 'flex items-center' do
                   BREADCRUMB_DIVIDER_SVG + link_to(breadcrumb[:label], breadcrumb[:path],
-                                                  class: 'ml-4 text-sm font-medium text-gray-500 hover:text-gray-700',
-                                                  style: 'margin-left: 1rem', # ml-4 should work, but doesn't
-                                                  'aria-current': is_current_page ? 'page' : nil)
+                                                   class: 'ml-4 text-sm font-medium text-gray-500 hover:text-gray-700',
+                                                   style: 'margin-left: 1rem', # ml-4 should work, but doesn't
+                                                   'aria-current': is_current_page ? 'page' : nil)
                 end
               end
             end

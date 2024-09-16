@@ -2,7 +2,7 @@ module DesignSystem
   module Builders
     module Generic
       module Elements
-      # This mixin module is used to provide breadcrumbs.
+        # This mixin module is used to provide breadcrumbs.
         module Breadcrumbs
           def breadcrumb(label, path)
             @breadcrumbs ||= []

@@ -11,7 +11,6 @@ module DesignSystem
       class FixedElements < ::DesignSystem::Builders::Generic::FixedElements
         include Elements::Breadcrumbs
         include Elements::Headings
-
       end
     end
   end
