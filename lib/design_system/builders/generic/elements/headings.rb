@@ -1,6 +1,6 @@
 module DesignSystem
   module Builders
-    module Base
+    module Generic
       module Elements
         # This mixin module is used to provide page headings.
         module Headings
