@@ -9,9 +9,9 @@ module DesignSystem
     module Generic
       # This class is used to provide table builder.
       class FixedElements
-        include Builders::Base::Breadcrumbs
-        include Builders::Base::Form
-        include Builders::Base::Headings
+        include Elements::Breadcrumbs
+        include Elements::Form
+        include Elements::Headings
 
         delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
 

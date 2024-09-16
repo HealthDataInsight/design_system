@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'design_system/builders/generic/table'
+
 module DesignSystem
   module Builders
     module Govuk
