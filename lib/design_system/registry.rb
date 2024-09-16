@@ -16,7 +16,7 @@ module DesignSystem
         end
       end
 
-      def design_system(brand, context)
+      def fixed_elements(brand, context)
         klass = namespaced_builder_klass(brand, 'FixedElements')
 
         klass.new(context)

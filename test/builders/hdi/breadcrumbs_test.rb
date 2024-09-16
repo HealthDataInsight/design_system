@@ -12,7 +12,7 @@ module DesignSystem
         end
 
         test 'rendering HDI breadcrumbs' do
-          design_system do |ds|
+          ds_fixed_elements do |ds|
             ds.breadcrumb('Home', root_path)
             ds.breadcrumb('Somewhere else', rails_health_check_path)
           end

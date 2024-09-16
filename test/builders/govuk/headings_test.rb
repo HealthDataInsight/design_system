@@ -13,7 +13,7 @@ module DesignSystem
         end
 
         test 'rendering govuk main heading' do
-          @output_buffer = design_system do |ds|
+          @output_buffer = ds_fixed_elements do |ds|
             ds.main_heading('Welcome!')
           end
 
