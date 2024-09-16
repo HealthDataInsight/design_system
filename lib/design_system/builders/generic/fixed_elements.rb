@@ -7,7 +7,7 @@ require_relative 'elements/headings'
 module DesignSystem
   module Builders
     module Generic
-      # This class is used to provide table builder.
+      # This class is used to provide the generic fixed elements builder.
       class FixedElements
         include Elements::Breadcrumbs
         include Elements::Form

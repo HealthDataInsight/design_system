@@ -7,7 +7,7 @@ require_relative 'elements/headings'
 module DesignSystem
   module Builders
     module Govuk
-      # This class is used to provide table builder.
+      # This class is used to provide the GOVUK fixed elements builder.
       class FixedElements < ::DesignSystem::Builders::Generic::FixedElements
         include Elements::Breadcrumbs
         include Elements::Headings
