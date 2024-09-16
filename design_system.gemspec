@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
     Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
+  spec.add_dependency 'govuk_design_system_formbuilder', '~> 5.3.3'
   spec.add_dependency 'rails', '>= 7.0.8.1'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
