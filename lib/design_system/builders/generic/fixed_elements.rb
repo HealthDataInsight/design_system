@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'base'
 require_relative 'elements/breadcrumbs'
 require_relative 'elements/form'
 require_relative 'elements/headings'
@@ -8,20 +9,10 @@ module DesignSystem
   module Builders
     module Generic
       # This class is used to provide the generic fixed elements builder.
-      class FixedElements
+      class FixedElements < Base
         include Elements::Breadcrumbs
         include Elements::Form
         include Elements::Headings
-
-        delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
-
-        def initialize(context)
-          @context = context
-        end
-
-        def brand
-          self.class.name.split('::')[-2].underscore
-        end
 
         def render
           content_for_breadcrumbs if @breadcrumbs.present?
