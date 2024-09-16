@@ -34,23 +34,27 @@ class DesignSystemHelperTest < ActionView::TestCase
   end
 
   test 'ds_form_builder returns govuk form builder' do
-    assert_equal DesignSystem::FormBuilders::Govuk,
-                 DesignSystem::Registry.form_builder('govuk')
+    controller.stubs(brand: 'govuk')
+
+    assert_equal DesignSystem::FormBuilders::Govuk, ds_form_builder
   end
 
   test 'ds_form_builder returns hdi form builder' do
-    assert_equal DesignSystem::FormBuilders::Hdi,
-                 DesignSystem::Registry.form_builder('hdi')
+    controller.stubs(brand: 'hdi')
+
+    assert_equal DesignSystem::FormBuilders::Hdi, ds_form_builder
   end
 
   test 'ds_form_builder returns ndrsuk form builder' do
-    assert_equal DesignSystem::FormBuilders::Ndrsuk,
-                 DesignSystem::Registry.form_builder('ndrsuk')
+    controller.stubs(brand: 'ndrsuk')
+
+    assert_equal DesignSystem::FormBuilders::Ndrsuk, ds_form_builder
   end
 
   test 'ds_form_builder returns nhsuk form builder' do
-    assert_equal DesignSystem::FormBuilders::Nhsuk,
-                 DesignSystem::Registry.form_builder('nhsuk')
+    controller.stubs(brand: 'nhsuk')
+
+    assert_equal DesignSystem::FormBuilders::Nhsuk, ds_form_builder
   end
 
   test 'form_with sets the govuk form builder' do

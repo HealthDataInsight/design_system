@@ -10,5 +10,10 @@ module FormBuilders
       @brand = 'nhsuk'
       @builder = DesignSystem::FormBuilders::Nhsuk
     end
+
+    test 'Registry.form_builder returns Nhsuk form builder' do
+      assert_equal DesignSystem::FormBuilders::Nhsuk,
+                   DesignSystem::Registry.form_builder(@brand)
+    end
   end
 end

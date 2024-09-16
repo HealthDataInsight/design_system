@@ -22,6 +22,10 @@ module DesignSystem
         klass.new(context)
       end
 
+      def form_builder(brand)
+        "DesignSystem::FormBuilders::#{brand.camelcase}".constantize
+      end
+
       private
 
       def namespaced_builder_klass(brand, klass_name)
