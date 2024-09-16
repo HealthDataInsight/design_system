@@ -1,10 +1,8 @@
 require_relative 'nhsuk'
 
-# Extend the design system module to include Ndrsuk
-module DesignSystem
-  # This is the NDRS branding adapter for the design system
-  class Ndrsuk < Nhsuk
-  end
+# This is the NDRS branding adapter for the design system
 
-  Registry.register(Ndrsuk)
-end
+require_relative 'builders/ndrsuk/fixed_elements'
+require_relative 'builders/ndrsuk/table'
+
+DesignSystem::Registry.register('ndrsuk')

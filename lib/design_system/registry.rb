@@ -4,11 +4,10 @@ module DesignSystem
     class << self
       attr_accessor :design_systems
 
-      def register(klass)
-        @design_systems ||= {}
+      def register(brand)
+        @design_systems ||= []
 
-        brand = klass.name.split('::').last.underscore
-        @design_systems[brand] = klass
+        @design_systems << brand
       end
 
       def unregister(*brands)
@@ -18,15 +17,23 @@ module DesignSystem
       end
 
       def design_system(brand, context)
-        klass = Registry.design_systems.fetch(brand, Unknown)
+        klass = namespaced_builder_klass(brand, 'FixedElements')
 
         klass.new(context)
       end
 
       def table(brand, context, &)
-        klass = "DesignSystem::Builders::#{brand.camelize}::Table".constantize
+        klass = namespaced_builder_klass(brand, 'Table')
 
         klass.new(context).render_table(&)
+      end
+
+      private
+
+      def namespaced_builder_klass(brand, klass_name)
+        raise ArgumentError, "Unknown brand: #{brand}" unless design_systems.include?(brand)
+
+        "DesignSystem::Builders::#{brand.camelize}::#{klass_name}".constantize
       end
     end
   end
