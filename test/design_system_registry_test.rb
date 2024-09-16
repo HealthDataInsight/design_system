@@ -13,7 +13,7 @@ class DesignSystemRegistryTest < ActiveSupport::TestCase
   test 'can register/unregister a new design system' do
     @registry.unregister('govuk')
     assert_equal 3, @registry.design_systems.count
-    @registry.register(DesignSystem::Govuk)
+    @registry.register('govuk')
     assert_equal 4, @registry.design_systems.count
   end
 

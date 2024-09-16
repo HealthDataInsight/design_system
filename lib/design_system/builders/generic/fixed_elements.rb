@@ -20,7 +20,7 @@ module DesignSystem
         end
 
         def brand
-          self.class.name.split('::').last.underscore
+          self.class.name.split('::')[-2].underscore
         end
 
         def render
