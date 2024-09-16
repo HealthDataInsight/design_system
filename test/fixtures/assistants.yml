@@ -1,9 +1,12 @@
 ---
 one:
   title: Lorem ipsum dolor sit amet
+  department_id: 1
 
 two:
   title: consectetur adipisicing elit
+  department_id: 2
 
 three:
   title: sed do eiusmod tempor incididunt
+  department_id: 3
