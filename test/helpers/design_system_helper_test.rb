@@ -32,4 +32,56 @@ class DesignSystemHelperTest < ActionView::TestCase
     end
     assert block_excuted
   end
+
+  test 'ds_form_builder returns govuk form builder' do
+    assert_equal DesignSystem::FormBuilders::Govuk,
+                 DesignSystem::Registry.form_builder('govuk')
+  end
+
+  test 'ds_form_builder returns hdi form builder' do
+    assert_equal DesignSystem::FormBuilders::Hdi,
+                 DesignSystem::Registry.form_builder('hdi')
+  end
+
+  test 'ds_form_builder returns ndrsuk form builder' do
+    assert_equal DesignSystem::FormBuilders::Ndrsuk,
+                 DesignSystem::Registry.form_builder('ndrsuk')
+  end
+
+  test 'ds_form_builder returns nhsuk form builder' do
+    assert_equal DesignSystem::FormBuilders::Nhsuk,
+                 DesignSystem::Registry.form_builder('nhsuk')
+  end
+
+  test 'form_with sets the govuk form builder' do
+    controller.stubs(brand: 'govuk')
+
+    form_with(url: root_path) do |ds|
+      assert_kind_of DesignSystem::FormBuilders::Govuk, ds
+    end
+  end
+
+  test 'form_with sets the hdi form builder' do
+    controller.stubs(brand: 'hdi')
+
+    form_with(url: root_path) do |ds|
+      assert_kind_of DesignSystem::FormBuilders::Hdi, ds
+    end
+  end
+
+  test 'form_with sets the ndrsuk form builder' do
+    controller.stubs(brand: 'ndrsuk')
+
+    form_with(url: root_path) do |ds|
+      assert_kind_of DesignSystem::FormBuilders::Ndrsuk, ds
+    end
+  end
+
+  test 'form_with sets the nhsuk form builder' do
+    controller.stubs(brand: 'nhsuk')
+
+    form_with(url: root_path) do |ds|
+      assert_kind_of DesignSystem::FormBuilders::Nhsuk, ds
+    end
+  end
 end
