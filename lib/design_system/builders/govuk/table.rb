@@ -4,7 +4,7 @@ module DesignSystem
   module Builders
     module Govuk
       # This concern is used to provide GOVUK Table.
-      class Table < ::DesignSystem::Builders::Base::Table
+      class Table < ::DesignSystem::Builders::Generic::Table
         private
 
         def render_headers
