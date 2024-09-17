@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     design_system (0.1.0)
-      govuk_design_system_formbuilder (~> 5.3.3)
+      govuk_design_system_formbuilder (~> 5.6.0)
       rails (>= 7.0.8.1)
 
 GEM
@@ -137,7 +137,7 @@ GEM
       activesupport (>= 6.1)
     google-protobuf (3.25.3-arm64-darwin)
     google-protobuf (3.25.3-x86_64-darwin)
-    govuk_design_system_formbuilder (5.3.3)
+    govuk_design_system_formbuilder (5.6.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
       activesupport (>= 6.1)
