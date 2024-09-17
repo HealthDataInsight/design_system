@@ -9,6 +9,37 @@ module DesignSystem
       def self.brand
         name.demodulize.underscore
       end
+
+      private
+
+      # Helper copied from https://github.com/NHSDigital/ndr_ui/blob/main/app/helpers/ndr_ui/css_helper.rb with thanks.
+      # This method merges the specified css_classes into the options hash
+      def css_class_options_merge(options, css_classes = [], &block)
+        options = options.symbolize_keys
+        css_classes += options[:class].split(' ') if options.include?(:class)
+        yield(css_classes) if block_given?
+        options[:class] = css_classes.join(' ') unless css_classes.empty?
+        unless css_classes == css_classes.uniq
+          fail "Multiple css class definitions: #{css_classes.inspect}"
+        end
+
+        options
+      end
+
+      # This method exposes some useful Rails magic as a helper method
+      def separate_content_or_options(content_or_options = nil, options = nil)
+        content = nil
+        options ||= {}
+
+        content_is_options = content_or_options.is_a?(Hash)
+        if content_is_options
+          options.merge! content_or_options
+        else
+          content = content_or_options
+        end
+
+        return content, options
+      end
     end
   end
 end

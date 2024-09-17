@@ -16,16 +16,8 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
-        options ||= {}
-
-        content_is_options = content_or_options.is_a?(Hash)
-        if content_is_options
-          options.merge! content_or_options
-          @content = nil
-        else
-          @content = content_or_options
-        end
-        text = @content || translated_label(method)
+        content, options = separate_content_or_options(content_or_options, options)
+        text = content || translated_label(method)
 
         # size [String] the size of the label font, can be +xl+, +l+, +m+, +s+ or nil
         # tag [Symbol,String] the label's wrapper tag, intended to allow labels to act as page headings
