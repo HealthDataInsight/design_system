@@ -126,7 +126,7 @@ module GovukFormBuilderTestable
               assert_equal 'assistant-title-field', button['aria-controls']
               assert_equal 'Show password', button['aria-label']
               assert_equal 'hidden', button['hidden']
-              end
+            end
           end
         end
       end
