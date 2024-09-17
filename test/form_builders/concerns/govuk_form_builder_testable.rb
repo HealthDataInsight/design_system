@@ -17,13 +17,13 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_label with content' do
+    test 'ds_label with content and options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        concat f.ds_label(:title, 'Titlezzz')
+        concat f.ds_label(:title, 'Titlezzz', class: 'bob', 'data-foo': 'bar')
       end
 
       assert_select('form') do
-        assert_select("label.#{@brand}-label", 'Titlezzz')
+        assert_select("label.#{@brand}-label[data-foo=bar]", 'Titlezzz')
       end
     end
 

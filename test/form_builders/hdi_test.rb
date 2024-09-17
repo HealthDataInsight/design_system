@@ -27,13 +27,13 @@ module FormBuilders
       end
     end
 
-    test 'ds_label with content' do
+    test 'ds_label with content and options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        concat f.ds_label(:title, 'Titlezzz')
+        concat f.ds_label(:title, 'Titlezzz', class: 'bob', 'data-foo': 'bar')
       end
 
       assert_select('form') do
-        assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Titlezzz')
+        assert_select('label.bob.block.text-sm.font-medium.leading-6.text-gray-900[data-foo=bar]', 'Titlezzz')
       end
     end
 
