@@ -9,6 +9,8 @@ module GovukFormBuilderTestable
       assert_equal @brand, @builder.brand
     end
 
+    # TODO: Test ds_file_field
+
     test 'ds_label' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_label(:title)
@@ -37,53 +39,6 @@ module GovukFormBuilderTestable
 
         assert_select('form') do
           assert_select("label.#{@brand}-label", 'Title, yarr')
-        end
-      end
-    end
-
-    test 'ds_text_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title)
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label", 'Title')
-
-          input = assert_select("input.#{@brand}-input[type=text]").first
-          assert_equal 'Lorem ipsum dolor sit amet', input['value']
-        end
-      end
-    end
-
-    test 'ds_text_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label", 'Title')
-
-          input = assert_select("input.#{@brand}-input.geoff[type=text][placeholder=bar]").first
-          assert_equal 'Lorem ipsum dolor sit amet', input['value']
-        end
-      end
-    end
-
-    test 'ds_text_field with pirate locale' do
-      I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-          f.ds_text_field(:title)
-        end
-
-        assert_select('form') do
-          assert_select("div.#{@brand}-form-group") do
-            assert_select("label.#{@brand}-label", 'Title, yarr')
-
-            input = assert_select("input.#{@brand}-input[type=text]").first
-            assert_equal 'Lorem ipsum dolor sit amet', input['value']
-          end
         end
       end
     end
@@ -177,8 +132,53 @@ module GovukFormBuilderTestable
       end
     end
 
-    # TODO: Test ds_file_field
-
     # TODO: Test ds_text_area
+
+    test 'ds_text_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          input = assert_select("input.#{@brand}-input[type=text]").first
+          assert_equal 'Lorem ipsum dolor sit amet', input['value']
+        end
+      end
+    end
+
+    test 'ds_text_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          input = assert_select("input.#{@brand}-input.geoff[type=text][placeholder=bar]").first
+          assert_equal 'Lorem ipsum dolor sit amet', input['value']
+        end
+      end
+    end
+
+    test 'ds_text_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_text_field(:title)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label", 'Title, yarr')
+
+            input = assert_select("input.#{@brand}-input[type=text]").first
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
+          end
+        end
+      end
+    end
   end
 end

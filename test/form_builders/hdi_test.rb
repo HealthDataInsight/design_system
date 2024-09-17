@@ -18,6 +18,8 @@ module FormBuilders
                    DesignSystem::Registry.form_builder(@brand)
     end
 
+    # TODO: Test ds_file_field
+
     test 'ds_label' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_label(:title)
@@ -46,62 +48,6 @@ module FormBuilders
 
         assert_select('form') do
           assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title, yarr')
-        end
-      end
-    end
-
-    test 'ds_text_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title)
-      end
-
-      assert_select('form') do
-        assert_select('div') do
-          assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title')
-          assert_select('div.mt-2') do
-            input = assert_select('input[type=text]').first
-            assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
-                         input['class']
-            assert_equal 'Lorem ipsum dolor sit amet', input['value']
-          end
-        end
-      end
-    end
-
-    test 'ds_text_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
-      end
-
-      assert_select('form') do
-        assert_select('div') do
-          assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900')
-          assert_select('div.mt-2') do
-            input = assert_select('input[type=text][placeholder=bar]').first
-            assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 geoff',
-                         input['class']
-            assert_equal 'Lorem ipsum dolor sit amet', input['value']
-          end
-        end
-      end
-    end
-
-    test 'ds_text_field with pirate locale' do
-      I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-          f.ds_text_field(:title)
-        end
-
-        assert_select('form') do
-          assert_select('div') do
-            assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title, yarr')
-            assert_select('div.mt-2') do
-              input = assert_select('input[type=text]').first
-              assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
-                           input['class']
-              assert_equal 'Lorem ipsum dolor sit amet', input['value']
-            end
-          end
         end
       end
     end
@@ -171,8 +117,62 @@ module FormBuilders
       end
     end
 
-    # TODO: Test ds_file_field
-
     # TODO: Test ds_text_area
+
+    test 'ds_text_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title)
+      end
+
+      assert_select('form') do
+        assert_select('div') do
+          assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title')
+          assert_select('div.mt-2') do
+            input = assert_select('input[type=text]').first
+            assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                         input['class']
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
+          end
+        end
+      end
+    end
+
+    test 'ds_text_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select('div') do
+          assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900')
+          assert_select('div.mt-2') do
+            input = assert_select('input[type=text][placeholder=bar]').first
+            assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 geoff',
+                         input['class']
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
+          end
+        end
+      end
+    end
+
+    test 'ds_text_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_text_field(:title)
+        end
+
+        assert_select('form') do
+          assert_select('div') do
+            assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title, yarr')
+            assert_select('div.mt-2') do
+              input = assert_select('input[type=text]').first
+              assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                           input['class']
+              assert_equal 'Lorem ipsum dolor sit amet', input['value']
+            end
+          end
+        end
+      end
+    end
   end
 end
