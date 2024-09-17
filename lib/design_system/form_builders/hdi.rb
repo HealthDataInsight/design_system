@@ -48,6 +48,10 @@ module DesignSystem
             end
         end
       end
+
+      # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
+      # def ds_file_field(object_name, method, options = {})
+      # end
     end
   end
 end

@@ -90,6 +90,10 @@ module DesignSystem
                                      password_hidden_announcement_text: nil, **options)
       end
 
+      # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
+      # def ds_file_field(object_name, method, options = {})
+      # end
+
       private
 
       def translated_label(method)
