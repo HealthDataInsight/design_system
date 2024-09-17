@@ -16,5 +16,37 @@ module FormBuilders
       assert_equal DesignSystem::FormBuilders::Hdi,
                    DesignSystem::Registry.form_builder(@brand)
     end
+
+    test 'ds_label' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        concat f.ds_label(:title)
+      end
+
+      assert_select('form') do
+        assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title')
+      end
+    end
+
+    test 'ds_label with content' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        concat f.ds_label(:title, 'Titlezzz')
+      end
+
+      assert_select('form') do
+        assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Titlezzz')
+      end
+    end
+
+    test 'ds_label with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          concat f.ds_label(:title)
+        end
+
+        assert_select('form') do
+          assert_select('label.block.text-sm.font-medium.leading-6.text-gray-900', 'Title, yarr')
+        end
+      end
+    end
   end
 end

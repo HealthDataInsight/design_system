@@ -1,0 +1,6 @@
+pirate:
+  activerecord:
+    attributes:
+      assistant:
+        title: Title, yarr
+        department_id: Department, yarr

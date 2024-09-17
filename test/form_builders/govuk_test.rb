@@ -8,7 +8,7 @@ module FormBuilders
 
     def setup
       @brand = 'govuk'
-      @builder = DesignSystem::FormBuilders::Govuk    
+      @builder = DesignSystem::FormBuilders::Govuk
     end
 
     test 'Registry.form_builder returns Govuk form builder' do
