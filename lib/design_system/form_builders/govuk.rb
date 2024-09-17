@@ -26,6 +26,33 @@ module DesignSystem
         govuk_label(method, text:, size: nil, hidden: false, tag: nil, caption: nil, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
+      def ds_text_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+
+        # hint [Hash,Proc] The content of the hint. No hint will be added if 'text' is left +nil+. When a +Proc+ is
+        #   supplied the hint will be wrapped in a +div+ instead of a +span+
+        # hint text [String] the hint text
+        # hint kwargs [Hash] additional arguments are applied as attributes to the hint
+        #
+        # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
+        #   or +one-quarter+, +one-third+, +one-half+, +two-thirds+ or +full+ width of the container
+        # extra_letter_spacing [Boolean] when true adds space between characters to increase the readability of
+        #   sequences of letters and numbers. Defaults to +false+.
+        # label [Hash,Proc] configures or sets the associated label content
+        # caption [Hash] configures or sets the caption content which is inserted above the label
+        # caption text [String] the caption text
+        # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
+        # caption kwargs [Hash] additional arguments are applied as attributes on the caption +span+ element
+        # form_group [Hash] configures the form group
+        # form_group kwargs [Hash] additional attributes added to the form group
+        # prefix_text [String] the text placed before the input. No prefix will be added if left +nil+
+        # suffix_text [String] the text placed after the input. No suffix will be added if left +nil+
+        # block [Block] arbitrary HTML that will be rendered between the hint and the input
+        govuk_text_field(method, hint: {}, label:, caption: {}, width: nil, extra_letter_spacing: false,
+                                 form_group: {}, prefix_text: nil, suffix_text: nil, **options)
+      end
+
       private
 
       def translated_label(method)
