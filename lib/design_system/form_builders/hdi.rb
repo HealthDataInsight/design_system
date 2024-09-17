@@ -32,12 +32,15 @@ module DesignSystem
                                             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
                                           ])
 
+        hint = options.delete(:hint)
+        options[:'aria-describedby'] = field_id("#{method}-hint") if hint
         options[:autocapitalize] = 'none'
         options[:autocomplete] = 'current-password'
         options[:spellcheck] = 'false'
 
         content_tag(:div) do
           ds_label(method) +
+            optional_hint(method, hint) +
             content_tag(:div, class: 'mt-2') do
               password_field(method, options)
             end
@@ -56,12 +59,24 @@ module DesignSystem
                                             focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
                                           ])
 
+        hint = options.delete(:hint)
+        options['aria-describedby'] = field_id("#{method}-hint") if hint
+
         content_tag(:div) do
           ds_label(method) +
+            optional_hint(method, hint) +
             content_tag(:div, class: 'mt-2') do
               text_field(method, options)
             end
         end
+      end
+
+      private
+
+      def optional_hint(method, hint)
+        return nil if hint.nil?
+
+        content_tag(:p, hint, id: field_id("#{method}-hint"), class: 'mt-2 text-sm text-gray-500')
       end
     end
   end

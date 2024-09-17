@@ -40,17 +40,9 @@ module DesignSystem
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
       def ds_password_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
-        # hint [Hash,Proc] The content of the hint. No hint will be added if 'text' is left +nil+. When a +Proc+ is
-        #   supplied the hint will be wrapped in a +div+ instead of a +span+
-        # hint text [String] the hint text
-        # hint kwargs [Hash] additional arguments are applied as attributes to the hint
-        # label [Hash,Proc] configures or sets the associated label content
-        # label text [String] the label text
-        # label size [String] the size of the label font, can be +xl+, +l+, +m+, +s+ or nil
-        # label tag [Symbol,String] the label's wrapper tag, intended to allow labels to act as page headings
-        # label hidden [Boolean] control the visability of the label. Hidden labels will stil be read by screenreaders
-        # label kwargs [Hash] additional arguments are applied as attributes on the +label+ element
         # caption [Hash] configures or sets the caption content which is inserted above the label
         # caption text [String] the caption text
         # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
@@ -68,7 +60,7 @@ module DesignSystem
         # become visible in plain text. Defaults to "Your password is visible"
         # password_hidden_announcement_text [String] Announcement made to screen reader users when their password has
         # been obscured and is not visible. Defaults to "Your password is hidden"
-        govuk_password_field(method, hint: {}, label:, caption: {}, form_group: {}, show_password_text: nil,
+        govuk_password_field(method, hint:, label:, caption: {}, form_group: {}, show_password_text: nil,
                                      hide_password_text: nil, show_password_aria_label_text: nil,
                                      hide_password_aria_label_text: nil, password_shown_announcement_text: nil,
                                      password_hidden_announcement_text: nil, **options)
@@ -81,17 +73,13 @@ module DesignSystem
       # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
       def ds_text_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
-        # hint [Hash,Proc] The content of the hint. No hint will be added if 'text' is left +nil+. When a +Proc+ is
-        #   supplied the hint will be wrapped in a +div+ instead of a +span+
-        # hint text [String] the hint text
-        # hint kwargs [Hash] additional arguments are applied as attributes to the hint
-        #
         # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
         #   or +one-quarter+, +one-third+, +one-half+, +two-thirds+ or +full+ width of the container
         # extra_letter_spacing [Boolean] when true adds space between characters to increase the readability of
         #   sequences of letters and numbers. Defaults to +false+.
-        # label [Hash,Proc] configures or sets the associated label content
         # caption [Hash] configures or sets the caption content which is inserted above the label
         # caption text [String] the caption text
         # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
@@ -101,7 +89,7 @@ module DesignSystem
         # prefix_text [String] the text placed before the input. No prefix will be added if left +nil+
         # suffix_text [String] the text placed after the input. No suffix will be added if left +nil+
         # block [Block] arbitrary HTML that will be rendered between the hint and the input
-        govuk_text_field(method, hint: {}, label:, caption: {}, width: nil, extra_letter_spacing: false,
+        govuk_text_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false,
                                  form_group: {}, prefix_text: nil, suffix_text: nil, **options)
       end
 
