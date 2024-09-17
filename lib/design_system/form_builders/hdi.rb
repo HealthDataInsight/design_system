@@ -50,7 +50,11 @@ module DesignSystem
       end
 
       # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
-      # def ds_file_field(object_name, method, options = {})
+      # def ds_file_field(method, options = {})
+      # end
+
+      # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
+      # def ds_text_area(method, options = {})
       # end
     end
   end

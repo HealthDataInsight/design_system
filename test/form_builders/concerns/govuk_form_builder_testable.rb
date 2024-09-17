@@ -178,5 +178,7 @@ module GovukFormBuilderTestable
     end
 
     # TODO: Test ds_file_field
+
+    # TODO: Test ds_text_area
   end
 end
