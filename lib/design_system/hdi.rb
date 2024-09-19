@@ -1,21 +1,8 @@
-require_relative 'base'
-require_relative 'builders/hdi/breadcrumbs'
-require_relative 'builders/hdi/headings'
+# frozen_string_literal: true
+
+# This is the HDI branded adapter for the design system
+
+require_relative 'builders/hdi/fixed_elements'
 require_relative 'builders/hdi/table'
 
-# Extend the design system module to include Hdi
-module DesignSystem
-  # This is the HDI branded adapter for the design system
-  class Hdi < Base
-    include Builders::Hdi::Breadcrumbs
-    include Builders::Hdi::Headings
-
-    # private
-
-    # def render_main_container(&)
-    #   content_tag(:div, class: 'mx-auto w-full', &)
-    # end
-  end
-
-  Registry.register(Hdi)
-end
+DesignSystem::Registry.register('hdi')

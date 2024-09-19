@@ -16,17 +16,18 @@ class DesignSystemHelperTest < ActionView::TestCase
     assert_equal 'geoff', brand
   end
 
-  test 'design_system returns correct instance' do
+  test 'ds_fixed_elements returns correct instance' do
     brand = 'govuk'
     controller.stubs(brand:)
-    assert_equal @registry.design_system(brand, self).brand, design_system.brand
+    assert_equal @registry.builder(brand, 'fixed_elements', self).brand, ds_fixed_elements.brand
+    assert_equal @registry.builder(brand, 'FixedElements', self).brand, ds_fixed_elements.brand
   end
 
-  test 'design_system responds to block' do
+  test 'ds_fixed_elements responds to block' do
     block_excuted = false
 
     controller.stubs(brand: 'govuk')
-    design_system do |_ds|
+    ds_fixed_elements do |_ds|
       block_excuted = true
     end
     assert block_excuted
