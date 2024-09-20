@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
 require 'design_system/components/table'
+require_relative 'base'
 
 module DesignSystem
   module Builders
-    module Base
+    module Generic
       # This class is used to provide table builder.
-      class Table
-        delegate :capture, :content_for, :content_tag, :link_to, :link_to_unless_current, to: :@context
-
-        def initialize(context)
-          @context = context
-        end
-
-        def brand
-          self.class.name.split('::')[-2].underscore
-        end
-
+      class Table < Base
         def render_table
           @table = ::DesignSystem::Components::Table.new
           yield @table

@@ -1,3 +1,4 @@
+# These are HDI specific view helper methods
 module HdiHelper
   def hdi_sidebar_navigation_svg(label, path, active, options = {}, &block)
     css_classes = %w[

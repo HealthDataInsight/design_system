@@ -9,8 +9,8 @@ module DesignSystemHelper
   end
 
   # This method provides access to the current design system adapter
-  def design_system
-    instance = DesignSystem::Registry.design_system(brand, self)
+  def ds_fixed_elements
+    instance = DesignSystem::Registry.builder(brand, 'fixed_elements', self)
 
     if block_given?
       yield instance
@@ -24,6 +24,6 @@ module DesignSystemHelper
   def ds_table(&)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.table(brand, self, &)
+    DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
   end
 end

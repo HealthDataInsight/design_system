@@ -4,7 +4,7 @@ module DesignSystem
   module Builders
     module Hdi
       # This class is used to provide HDI Table.
-      class Table < ::DesignSystem::Builders::Base::Table
+      class Table < ::DesignSystem::Builders::Generic::Table
         def render_table
           @table = ::DesignSystem::Components::Table.new
           yield @table
