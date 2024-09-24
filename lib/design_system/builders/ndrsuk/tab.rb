@@ -3,7 +3,7 @@
 module DesignSystem
   module Builders
     module Ndrsuk
-      # This class provides GOVUK Tab.
+      # This class provides Ndrsuk Tab.
       class Tab < ::DesignSystem::Builders::Nhsuk::Tab
       end
     end
