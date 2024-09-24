@@ -20,7 +20,7 @@ module DesignSystem
 
           assert_select('ul.govuk-tabs__list li', 2)
           assert_select('a.govuk-tabs__tab', text: 'Test')
-          assert_select('div.govuk-tabs__panel p', text: 'test paragraph')
+          assert_select('div.govuk-tabs__panel', text: 'test paragraph')
         end
       end
     end
