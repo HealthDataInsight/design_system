@@ -6,6 +6,7 @@ require_relative 'base'
 module DesignSystem
   module Builders
     module Generic
+      # This class provides generic methods to display tab on html.
       class Tab < Base
         def render_tabs
           @tab = ::DesignSystem::Components::Tab.new
@@ -27,7 +28,7 @@ module DesignSystem
           list_buffer = ActiveSupport::SafeBuffer.new
           list_buffer.concat(
             content_tag(:ul, class: "#{brand}-tabs__list") do
-              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(name, id, sel), link_buffer|
+              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(name, _content, id, sel), link_buffer|
                 style = if sel
                           "#{brand}-tabs__list-item #{brand}-tabs__list-item--selected"
                         else
@@ -47,7 +48,7 @@ module DesignSystem
         def tabs_body_content
           body_buffer = ActiveSupport::SafeBuffer.new
           body_buffer.concat(
-            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(content, id, sel), safe_buffer|
+            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, sel), safe_buffer|
               style = if sel
                         "#{brand}-tabs__panel"
                       else

@@ -18,8 +18,8 @@ ds_table do |table|
   table.add_numeric_column('Age', data: { sortable: false })
 
   table.add_row do |row|
-	  row.add_cell('John Doe', data: { id: 1 })
-	  row.add_cell(30, data: { id: 2 })
+    row.add_cell('John Doe', data: { id: 1 })
+    row.add_cell(30, data: { id: 2 })
   end
   table.add_row 'John Doe', 30
 end
@@ -28,13 +28,17 @@ end
 <%=	
 ds_tab do |tab|
   tab.title = 'Contents'
-  
-   # TODO: Ask Tim how table(as content) can be added at this point
-  #(content, id, selected)
-  tab.add_tab_panel('Profile', 'profile', sel: true)
-  tab.add_tab_panel('Dashboard', 'dashboard')
-  tab.add_tab_panel('Settings', 'settings')
-  tab.add_tab_panel('Contacts', 'contacts')
+  #(name, content, id, selected)
+  tab.add_tab_panel('Profile', ds_table do |table|
+                                 table.caption = 'Profile'
+                                 table.add_column('Name')
+                                 table.add_column('Gender')
+                                 table.add_numeric_column('Age')
+                                 table.add_row 'Ryan', 'Male', 30
+                               end, 'profile', sel: true)
+  tab.add_tab_panel('Dashboard','this is dashboard' ,'dashboard')
+  tab.add_tab_panel('Settings', 'this is settings','settings')
+  tab.add_tab_panel('Contacts', 'this is contacts', 'contacts')
 end
-	
+  
 %>

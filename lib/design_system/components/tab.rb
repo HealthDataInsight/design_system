@@ -10,8 +10,8 @@ module DesignSystem
         @tabs = []
       end
 
-      def add_tab_panel(name, id, sel: false)
-        @tabs << [name, id, sel]
+      def add_tab_panel(name, content, id, sel: false)
+        @tabs << [name, content, id, sel]
       end
     end
   end

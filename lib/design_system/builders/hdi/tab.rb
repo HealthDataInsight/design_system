@@ -3,7 +3,7 @@
 module DesignSystem
   module Builders
     module Hdi
-      # This class provides GOVUK Tab.
+      # This class provides methods to render HDI tab.
       class Tab < ::DesignSystem::Builders::Generic::Tab
         def render_tabs
           @tab = ::DesignSystem::Components::Tab.new
@@ -24,7 +24,7 @@ module DesignSystem
           list_buffer.concat(
             content_tag(:ul, class: 'flex flex-wrap -mb-px text-sm font-medium text-center', id: 'default-tab',
                              'data-tabs-toggle': '#default-tab-content', role: 'tablist') do
-              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(name, id, sel), link_buffer|
+              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(name, _content, id, sel), link_buffer|
                 style = if sel
                           'inline-block py-2 px-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg'
                         else
@@ -47,7 +47,7 @@ module DesignSystem
 
           body_buffer.concat(
             content_tag(:div, id: 'default-tab-content') do
-              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(content, id, _sel), safe_buffer|
+              @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, _sel), safe_buffer|
                 style = 'hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800'
                 safe_buffer.concat(
                   content_tag(:div, class: style, id:, role: 'tabpanel', 'aria-labelledby': "#{id}-tab") do
