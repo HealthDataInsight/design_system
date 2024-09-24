@@ -4,5 +4,6 @@
 
 require_relative 'builders/govuk/fixed_elements'
 require_relative 'builders/govuk/table'
+require_relative 'builders/govuk/tab'
 
 DesignSystem::Registry.register('govuk')

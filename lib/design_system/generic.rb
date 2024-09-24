@@ -4,3 +4,4 @@
 
 require_relative 'builders/generic/fixed_elements'
 require_relative 'builders/generic/table'
+require_relative 'builders/generic/tab'
