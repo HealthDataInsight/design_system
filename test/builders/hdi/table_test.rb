@@ -3,7 +3,7 @@ require 'test_helper'
 module DesignSystem
   module Builders
     module Hdi
-      # This tests the govuk headings builder
+      # This tests the hdi table builder
       class TableTest < ActionView::TestCase
         include DesignSystemHelper
 
