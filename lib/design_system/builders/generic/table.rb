@@ -23,50 +23,40 @@ module DesignSystem
         private
 
         def table_content
-          content_tag(:table, nil, class: "#{brand}-table") do
+          content_tag :table do
             safe_buffer = ActiveSupport::SafeBuffer.new
-
-            if @table.caption
-              safe_buffer.concat(content_tag(:caption, @table.caption,
-                                             class: "#{brand}-table__caption"))
-            end
+            safe_buffer.concat(content_tag(:caption, @table.caption)) if @table.caption
             safe_buffer.concat(render_headers)
             safe_buffer.concat(render_rows)
-
             safe_buffer
           end
         end
 
-        def render_rows
-          content_tag(:tbody, class: "#{brand}-table__body") do
-            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
-              rows_buffer.concat(render_row(row))
+        def render_headers
+          content_tag :thead do
+            content_tag :tr do
+              @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
+                options = cell_numeric?(header) ? header[:options].merge(align: 'right') : header[:options]
+                header_buffer.concat(content_tag(:th, header[:content], options))
+              end
             end
           end
         end
 
-        def render_cell(cell, index, scope)
-          if index.zero?
-            render_header_cell(cell, scope)
-          else
-            render_data_cell(cell)
+        def render_rows
+          content_tag :tbody do
+            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
+              rows_buffer.concat(content_tag(:tr) do
+                row.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, cell_buffer|
+                  options = cell_numeric?(cell) ? cell[:options].merge(align: 'right') : cell[:options]
+                  cell_buffer.concat(content_tag(:td, cell[:content], options))
+                end
+              end)
+            end
           end
         end
 
-        def render_header_cell(cell, scope)
-          classes = "#{brand}-table__header"
-          classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
-
-          content_tag(:th, cell[:content], cell[:options].merge(scope:, class: classes))
-        end
-
-        def render_data_cell(cell)
-          classes = "#{brand}-table__cell"
-          classes += " #{brand}-table__cell--numeric" if cell_numeric?(cell)
-
-          content_tag(:td, cell[:content], cell[:options].merge(class: classes))
-        end
-
+        # This method is for table component to identify if cell is numeric type
         def cell_numeric?(cell)
           cell[:options][:type] == 'numeric'
         end
