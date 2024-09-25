@@ -73,10 +73,6 @@ module DesignSystem
 
           content_tag(:td, cell[:content], cell[:options].merge(class: classes))
         end
-
-        def cell_numeric?(cell)
-          cell[:options][:type] == 'numeric'
-        end
       end
     end
   end
