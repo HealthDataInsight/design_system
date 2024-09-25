@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'design_system/registry'
 
 # The helpers for the design system
@@ -35,5 +37,11 @@ module DesignSystemHelper
     raise ArgumentError unless block_given?
 
     DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
+  end
+
+  def ds_tab(&)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'tab', self).render_tabs(&)
   end
 end
