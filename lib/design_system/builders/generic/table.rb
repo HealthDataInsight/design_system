@@ -55,6 +55,11 @@ module DesignSystem
             end
           end
         end
+
+        # This method is for table component to identify if cell is numeric type
+        def cell_numeric?(cell)
+          cell[:options][:type] == 'numeric'
+        end
       end
     end
   end

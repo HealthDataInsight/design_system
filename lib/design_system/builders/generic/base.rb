@@ -12,11 +12,6 @@ module DesignSystem
         def brand
           self.class.name.split('::')[2].underscore
         end
-
-        # This method is for table component to identify if cell is numeric type
-        def cell_numeric?(cell)
-          cell[:options][:type] == 'numeric'
-        end
       end
     end
   end
