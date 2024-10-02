@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'builders/nhsuk/button'
 require_relative 'builders/nhsuk/fixed_elements'
 require_relative 'builders/nhsuk/tab'
 require_relative 'builders/nhsuk/table'

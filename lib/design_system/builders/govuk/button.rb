@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'design_system/builders/generic/tab'
+require 'design_system/builders/generic/button'
 
 module DesignSystem
   module Builders
