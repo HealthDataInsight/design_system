@@ -6,7 +6,7 @@ require_relative 'base'
 module DesignSystem
   module Builders
     module Generic
-      # This class provides generic methods to display tab on html.
+      # This class provides generic methods to display button on html.
       class Button < Base
         def render_button(text, _style, options)
           safe_buffer = ActiveSupport::SafeBuffer.new

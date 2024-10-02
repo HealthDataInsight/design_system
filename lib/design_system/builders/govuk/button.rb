@@ -5,7 +5,7 @@ require 'design_system/builders/generic/button'
 module DesignSystem
   module Builders
     module Govuk
-      # This class provides GOVUK Tab.
+      # This class provides GOVUK Button.
       class Button < ::DesignSystem::Builders::Generic::Button
         def render_button(text, style, options)
           safe_buffer = ActiveSupport::SafeBuffer.new
