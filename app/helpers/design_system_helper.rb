@@ -34,4 +34,12 @@ module DesignSystemHelper
 
     DesignSystem::Registry.builder(brand, 'tab', self).render_tabs(&)
   end
+
+  def ds_button(text, style = 'primary', options = {})
+    DesignSystem::Registry.builder(brand, 'button', self).render_button(text, style, options)
+  end
+
+  def ds_start_button(text, href = '#', options = {})
+    DesignSystem::Registry.builder(brand, 'button', self).render_start_button(text, href, options)
+  end
 end
