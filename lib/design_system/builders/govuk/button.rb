@@ -19,8 +19,9 @@ module DesignSystem
                      when 'reverse' # dark bg
                        "#{brand}-button #{brand}-button--inverse"
                      end
-          merged_options = options.merge('data-module': "#{brand}-button")
-          safe_buffer.concat(content_tag(:button, text, type: 'submit', class: @classes, **merged_options))
+          href_path = options[:href]
+          merged_options = options.except(:href).merge('data-module': "#{brand}-button")
+          safe_buffer.concat(content_tag_button(text, href_path, merged_options))
           safe_buffer
         end
 
@@ -45,6 +46,15 @@ module DesignSystem
                                       content_tag(:path, '', fill: 'currentColor', d: 'M0 0h13l20 20-20 20H0l20-20z')
                                     end
             )
+          end
+        end
+
+        def content_tag_button(text, href_path, merged_options)
+          if href_path
+            content_tag(:a, text,
+                        { href: href_path, class: @classes, role: 'button', **merged_options })
+          else
+            content_tag(:button, text, type: 'submit', class: @classes, **merged_options)
           end
         end
       end

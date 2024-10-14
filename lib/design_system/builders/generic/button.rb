@@ -10,7 +10,15 @@ module DesignSystem
       class Button < Base
         def render_button(text, _style, options)
           safe_buffer = ActiveSupport::SafeBuffer.new
-          safe_buffer.concat(content_tag(:button, text, type: 'submit', **options))
+          href_path = options[:href]
+          merged_options = options.except(:href)
+          content_tag_button = if href_path
+                                 content_tag(:a, text,
+                                             { href: href_path, role: 'button', **merged_options })
+                               else
+                                 content_tag(:button, text, type: 'submit', **merged_options)
+                               end
+          safe_buffer.concat(content_tag_button)
           safe_buffer
         end
       end

@@ -20,6 +20,12 @@ module DesignSystem
           assert_select('button.govuk-button.govuk-button--secondary', text: 'Cancel')
         end
 
+        test 'rendering govuk action link as button' do
+          @output_buffer = ds_button('Home', 'secondary', { href: '/' })
+
+          assert_select('a.govuk-button.govuk-button--secondary', text: 'Home', href: '/')
+        end
+
         test 'rendering govuk start button' do
           @output_buffer = ds_start_button('Start', '/start')
 
