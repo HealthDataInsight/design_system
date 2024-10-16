@@ -19,7 +19,8 @@ module DesignSystem
                      when 'reverse' # dark bg
                        "#{brand}-button #{brand}-button--inverse"
                      end
-          href_path = options[:href]
+
+          href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
           merged_options = options.except(:href).merge('data-module': "#{brand}-button")
           safe_buffer.concat(content_tag_button(text, href_path, merged_options))
           safe_buffer

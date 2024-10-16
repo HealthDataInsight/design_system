@@ -8,9 +8,12 @@ module DesignSystem
     module Generic
       # This class provides generic methods to display button on html.
       class Button < Base
+        include Rails.application.routes.url_helpers
+
         def render_button(text, _style, options)
           safe_buffer = ActiveSupport::SafeBuffer.new
-          href_path = options[:href]
+
+          href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
           merged_options = options.except(:href)
           content_tag_button = if href_path
                                  content_tag(:a, text,

@@ -32,6 +32,11 @@ module DesignSystem
           assert_select('a.govuk-button.govuk-button--start', href: '/start')
           assert_select('a svg', 1)
         end
+
+        test 'rendering govuk action link as button with href as hash' do
+          @output_buffer = ds_button('Home', 'secondary', { href: { controller: :assistants, action: :index, only_path: true } })
+          assert_select('a.govuk-button.govuk-button--secondary', text: 'Home', href: '/assistants')
+        end
       end
     end
   end

@@ -16,7 +16,7 @@ module DesignSystem
                        'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded'
                      end
 
-          href_path = options[:href]
+          href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
           merged_options = options.except(:href)
           safe_buffer.concat(content_tag_button(text, href_path, merged_options))
           safe_buffer
