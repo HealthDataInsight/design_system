@@ -7,29 +7,43 @@ module DesignSystem
     module Govuk
       # This class provides GOVUK Button.
       class Button < ::DesignSystem::Builders::Generic::Button
-        def render_button(text, style, options)
-          safe_buffer = ActiveSupport::SafeBuffer.new
-          @classes = case style
-                     when 'primary'
-                       "#{brand}-button"
-                     when 'secondary'
-                       "#{brand}-button #{brand}-button--secondary"
-                     when 'warning'
-                       "#{brand}-button #{brand}-button--warning"
-                     when 'reverse' # dark bg
-                       "#{brand}-button #{brand}-button--inverse"
-                     end
+        def render_button(content_or_options = nil, options = nil, &block)
+          if content_or_options.is_a? Hash
+            options = content_or_options
+          else
+            options ||= {}
+          end
+  
+          options = { "name" => "button", "type" => "submit" }.merge!(options.stringify_keys)
+          # css_class_options_merge ...
+          # safe_buffer = ActiveSupport::SafeBuffer.new
+          # @classes = case style
+          #            when 'primary'
+          #              "#{brand}-button"
+          #            when 'secondary'
+          #              "#{brand}-button #{brand}-button--secondary"
+          #            when 'warning'
+          #              "#{brand}-button #{brand}-button--warning"
+          #            when 'reverse' # dark bg
+          #              "#{brand}-button #{brand}-button--inverse"
+          #            end
 
-          href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
-          merged_options = options.except(:href).merge('data-module': "#{brand}-button")
-          safe_buffer.concat(content_tag_button(text, href_path, merged_options))
-          safe_buffer
+          # href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
+          # merged_options = options.except(:href).merge('data-module': "#{brand}-button")
+          # safe_buffer.concat(content_tag_button(text, href_path, merged_options))
+  
+          if block_given?
+            button_tag(options = nil, &block)
+          else
+            button_tag(content_or_options, options)
+          end
         end
 
         def render_start_button(text, href, options)
-          safe_buffer = ActiveSupport::SafeBuffer.new
-          safe_buffer.concat(render_start_tag(text, href, options))
-          safe_buffer
+          # safe_buffer = ActiveSupport::SafeBuffer.new
+          # safe_buffer.concat(render_start_tag(text, href, options))
+          # safe_buffer
+          render_start_tag(text, href, options)
         end
 
         private
