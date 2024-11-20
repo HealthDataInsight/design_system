@@ -46,8 +46,9 @@ end
   
 %>
 
-<!--text, style=[primary secondary warning reverse] -->
-<%= ds_button('Save and continue', 'primary', {'data-id': 1})%>
+<!--style=[secondary warning reverse] default is primary-->
 <%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'})%>
-<!-- Link as buttons , if href path is provided -->
-<%= ds_button('Go to Asssistants home', 'primary', {'data-id': 1, href: "/assistants"})%>
+
+<%= ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1%>
+
+<%= ds_button_tag 'Reset', type: 'reset', disabled: true%>

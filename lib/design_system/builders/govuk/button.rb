@@ -7,42 +7,22 @@ module DesignSystem
     module Govuk
       # This class provides GOVUK Button.
       class Button < ::DesignSystem::Builders::Generic::Button
-        def render_button(content_or_options = nil, options = nil, &block)
-          if content_or_options.is_a? Hash
-            options = content_or_options
-          else
-            options ||= {}
-          end
-  
-          options = { "name" => "button", "type" => "submit" }.merge!(options.stringify_keys)
-          # css_class_options_merge ...
-          # safe_buffer = ActiveSupport::SafeBuffer.new
-          # @classes = case style
-          #            when 'primary'
-          #              "#{brand}-button"
-          #            when 'secondary'
-          #              "#{brand}-button #{brand}-button--secondary"
-          #            when 'warning'
-          #              "#{brand}-button #{brand}-button--warning"
-          #            when 'reverse' # dark bg
-          #              "#{brand}-button #{brand}-button--inverse"
-          #            end
+        def render_button(content_or_options = nil, options = nil, &)
+          options = prep_button_options(content_or_options, options)
+          options[:class] = "#{brand}-button"
 
-          # href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
-          # merged_options = options.except(:href).merge('data-module': "#{brand}-button")
-          # safe_buffer.concat(content_tag_button(text, href_path, merged_options))
-  
+          options = css_class_options_merge(options) do |button_classes|
+            button_classes << style_class_hash[options['style']]
+          end
+
           if block_given?
-            button_tag(options = nil, &block)
+            button_tag(options = nil, &)
           else
             button_tag(content_or_options, options)
           end
         end
 
         def render_start_button(text, href, options)
-          # safe_buffer = ActiveSupport::SafeBuffer.new
-          # safe_buffer.concat(render_start_tag(text, href, options))
-          # safe_buffer
           render_start_tag(text, href, options)
         end
 
@@ -64,13 +44,12 @@ module DesignSystem
           end
         end
 
-        def content_tag_button(text, href_path, merged_options)
-          if href_path
-            content_tag(:a, text,
-                        { href: href_path, class: @classes, role: 'button', **merged_options })
-          else
-            content_tag(:button, text, type: 'submit', class: @classes, **merged_options)
-          end
+        def style_class_hash
+          {
+            'secondary' => "#{brand}-button--secondary",
+            'warning' => "#{brand}-button--warning",
+            'reverse' => "#{brand}-button--inverse"
+          }
         end
       end
     end

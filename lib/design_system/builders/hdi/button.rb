@@ -5,34 +5,42 @@ module DesignSystem
     module Hdi
       # This class provides methods to render HDI button.
       class Button < ::DesignSystem::Builders::Generic::Button
-        def render_button(text, style, options)
-          safe_buffer = ActiveSupport::SafeBuffer.new
-          @classes = case style
-                     when 'primary', 'reverse', 'start'
-                       'bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded'
-                     when 'secondary'
-                       'bg-white-500 hover:bg-gray-50 text-gray font-bold py-2 px-4 rounded'
-                     when 'warning'
-                       'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded'
-                     end
+        def render_button(content_or_options = nil, options = nil, &)
+          options = prep_button_options(content_or_options, options)
+          options[:class] = 'font-bold py-2 px-4 rounded'
 
-          href_path = options[:href].is_a?(Hash) ? url_for(options[:href]) : options[:href]
-          merged_options = options.except(:href)
-          safe_buffer.concat(content_tag_button(text, href_path, merged_options))
-          safe_buffer
-        end
-
-        def render_start_button(text, _href, options)
-          render_button(text, 'primary', options)
-        end
-
-        def content_tag_button(text, href_path, merged_options)
-          if href_path
-            content_tag(:a, text,
-                        { href: href_path, role: 'button', class: @classes, **merged_options })
-          else
-            content_tag(:button, text, type: 'submit', class: @classes, **merged_options)
+          options = css_class_options_merge(options) do |button_classes|
+            button_classes << style_class_hash[options['style']]
           end
+
+          options = add_disabled_class(options) if options[:disabled]
+
+          if block_given?
+            button_tag(options = nil, &)
+          else
+            button_tag(content_or_options, options)
+          end
+        end
+
+        def render_start_button(_text, _href, _options)
+          nil
+        end
+
+        private
+
+        def add_disabled_class(options)
+          css_class_options_merge(options) do |button_classes|
+            button_classes << 'disabled:bg-gray-300 text-indigo-500 cursor-not-allowed'
+          end
+        end
+
+        def style_class_hash
+          {
+            'primary' => 'bg-indigo-600 hover:bg-indigo-500 text-white',
+            'secondary' => 'bg-white-500 hover:bg-gray-50 text-gray',
+            'warning' => 'bg-red-500 hover:bg-red-600 text-white',
+            'reverse' => 'bg-white hover:bg-indigo-400 text-indigo-500'
+          }
         end
       end
     end

@@ -15,15 +15,9 @@ module DesignSystem
         end
 
         test 'rendering govuk button' do
-          @output_buffer = ds_button('Cancel', 'secondary')
+          @output_buffer = ds_button_tag('Cancel', style: 'secondary')
 
           assert_select('button.govuk-button.govuk-button--secondary', text: 'Cancel')
-        end
-
-        test 'rendering govuk action link as button' do
-          @output_buffer = ds_button('Home', 'secondary', { href: '/' })
-
-          assert_select('a.govuk-button.govuk-button--secondary', text: 'Home', href: '/')
         end
 
         test 'rendering govuk start button' do
@@ -31,11 +25,6 @@ module DesignSystem
 
           assert_select('a.govuk-button.govuk-button--start', href: '/start')
           assert_select('a svg', 1)
-        end
-
-        test 'rendering govuk action link as button with href as hash' do
-          @output_buffer = ds_button('Home', 'secondary', { href: { controller: :assistants, action: :index, only_path: true } })
-          assert_select('a.govuk-button.govuk-button--secondary', text: 'Home', href: '/assistants')
         end
       end
     end
