@@ -42,4 +42,14 @@ module DesignSystemHelper
   def ds_button_tag(content_or_options = nil, options = nil, &)
     DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
   end
+
+  def ds_pagination(collection = nil, options = {})
+    defaults = {
+      renderer: DesignSystem::Registry.builder(brand, 'pagination_renderer', self),
+      previous_label: '&laquo; Previous',
+      next_label: 'Next &raquo;'
+    }
+
+    will_paginate(collection, defaults.merge!(options))
+  end
 end
