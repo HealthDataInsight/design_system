@@ -55,11 +55,11 @@ end
 
 <%=
 ds_table do |table|
-	table.caption = 'Assistants'
-	table.add_column('Title')
-	@assistants.each do |assistant|
-	  table.add_row assistant.title
-	end
+  table.caption = 'Assistants'
+  table.add_column('Title')
+  @assistants.each do |assistant|
+    table.add_row assistant.title
+  end
 end
 %>
 
