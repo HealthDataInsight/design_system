@@ -5,12 +5,10 @@ module DesignSystem
     module Generic
       # This class is used to provide will_paginate renderer.
       class PaginationRenderer < WillPaginate::ActionView::LinkRenderer
+        include DesignSystem::Builders::Concerns::BrandDerivable
+
         def initialize(context)
           @context = context
-        end
-
-        def brand
-          self.class.name.split('::')[2].underscore
         end
 
         def container_attributes
