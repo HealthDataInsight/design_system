@@ -16,9 +16,9 @@ module DesignSystem
       raise NotImplementedError, 'You need to implement #brand in your ApplicationController'
     end
 
-    def add_navigation_item(label, path)
+    def add_navigation_item(label, path, options = {})
       @navigation_items ||= []
-      @navigation_items << { label:, path: }
+      @navigation_items << { label:, path:, options: }
     end
   end
 end
