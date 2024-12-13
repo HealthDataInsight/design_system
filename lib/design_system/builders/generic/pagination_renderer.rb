@@ -9,12 +9,10 @@ module DesignSystem
       class PaginationRenderer < WillPaginate::ActionView::LinkRenderer
         include DesignSystem::Builders::Concerns::BrandDerivable
 
-        # No initialize method available in WillPaginate::ActionView::LinkRenderer
-        # rubocop:disable Lint/MissingSuper
         def initialize(context)
           @context = context
+          super()
         end
-        # rubocop:enable Lint/MissingSuper
 
         def container_attributes
           { class: "#{brand}-pagination", role: 'navigation', 'aria-label': 'Pagination' }
