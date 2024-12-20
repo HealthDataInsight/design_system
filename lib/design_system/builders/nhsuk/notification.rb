@@ -6,11 +6,13 @@ module DesignSystem
       # This class provides Nhsuk notifications html.
       class Notification < ::DesignSystem::Builders::Govuk::Notification
         def render_notice(msg)
+          # rubocop:disable Rails/OutputSafety
           header = content_tag(:h3, class: "#{brand}-warning-callout__label") do
             'Important'.html_safe +
               content_tag(:span, ':', class: "#{brand}-u-visually-hidden")
           end
-          content = content_tag(:p, msg)
+          content = content_tag(:p, msg.html_safe)
+          # rubocop:enable Rails/OutputSafety
           content_tag(:div, class: "#{brand}-warning-callout") do
             header + content
           end

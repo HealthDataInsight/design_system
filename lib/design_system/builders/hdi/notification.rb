@@ -67,11 +67,13 @@ module DesignSystem
         end
 
         def text_notice_content(msg)
+          # rubocop:disable Rails/OutputSafety
           content_tag(:div, class: 'ml-3 flex-1 md:flex md:justify-between') do
             content_tag(:p, class: 'text-sm text-blue-700 dark:text-white', 'data-test': 'notice') do
-              msg
+              msg.html_safe
             end
           end
+          # rubocop:enable Rails/OutputSafety
         end
       end
     end
