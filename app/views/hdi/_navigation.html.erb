@@ -2,13 +2,25 @@
   <li>
     <ul role="list" class="-mx-2 space-y-1">
       <%# Rails.application.routes.recognize_path() %>
+      <!-- Home -->
+      <%= hdi_sidebar_navigation_svg('Home', root_path, current_page?(root_path)) do %>
+        <!-- Heroicon name: outline/home -->
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      <% end %>
+
+      <!-- Navigation Items -->
       <% controller.navigation_items.each do |item| %>
         <li>
-          <%= hdi_sidebar_navigation_svg(item[:label], item[:path], false, item[:options]) do %>
-            <!-- Heroicon name: outline/home -->
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          <%= hdi_sidebar_navigation_svg(item[:label], item[:path], params[:controller]==item[:label], item[:options]) do %>
+            <%= item[:options][:icon].html_safe if item[:options][:icon].present? %>
           <% end %>
         </li>
+      <% end %>
+
+      <!-- Sign out -->
+      <%= hdi_sidebar_navigation_svg('Sign out', destroy_user_session_path, false, data: { turbo: false }) do %>
+        <!-- Heroicon name: outline/arrow-right-on-rectangle -->
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
       <% end %>
     </ul>
   </li>
