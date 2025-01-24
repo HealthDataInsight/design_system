@@ -13,6 +13,7 @@ class PagesController < ApplicationController
 
     # Paginate the array
     @assistants = assistants.paginate(page: params[:page], per_page: 1)
+    flash.now.notice = 'Alerts and notices have been added'
   end
 
   def form_handler
