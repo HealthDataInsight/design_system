@@ -11,16 +11,10 @@
       <!-- Navigation Items -->
       <% controller.navigation_items.each do |item| %>
         <li>
-          <%= hdi_sidebar_navigation_svg(item[:label], item[:path], params[:controller]==item[:label], item[:options]) do %>
+          <%= hdi_sidebar_navigation_svg(item[:label], item[:path], params[:controller]==item[:options][:controller], item[:options]) do %>
             <%= item[:options][:icon].html_safe if item[:options][:icon].present? %>
           <% end %>
         </li>
-      <% end %>
-
-      <!-- Sign out -->
-      <%= hdi_sidebar_navigation_svg('Sign out', destroy_user_session_path, false, data: { turbo: false }) do %>
-        <!-- Heroicon name: outline/arrow-right-on-rectangle -->
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
       <% end %>
     </ul>
   </nav>
