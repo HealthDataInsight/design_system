@@ -15,3 +15,4 @@
 /test/dummy/tmp/
 megalinter-reports/
 .rubocop-https---*
+.vscode/
