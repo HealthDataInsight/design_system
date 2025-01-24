@@ -111,7 +111,7 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     cgi (0.4.1)
-    charlock_holmes (0.7.7)
+    charlock_holmes (0.7.9)
     childprocess (5.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
@@ -338,6 +338,7 @@ GEM
 PLATFORMS
   arm64-darwin
   x86_64-darwin-23
+  x86_64-darwin-24
 
 DEPENDENCIES
   cypress-rails
