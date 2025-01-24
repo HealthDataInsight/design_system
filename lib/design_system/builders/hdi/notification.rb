@@ -49,7 +49,8 @@ module DesignSystem
 
         def text_alert_content(msg)
           content_tag(:div, class: 'ml-3') do
-            content_tag(:div, msg, data: { test: 'alert' }, class: 'text-sm text-red-700 dark:text-white')
+            content_tag(:div, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
+                        data: { test: 'alert' }, class: 'text-sm text-red-700 dark:text-white')
           end
         end
 
@@ -67,13 +68,11 @@ module DesignSystem
         end
 
         def text_notice_content(msg)
-          # rubocop:disable Rails/OutputSafety
           content_tag(:div, class: 'ml-3 flex-1 md:flex md:justify-between') do
             content_tag(:p, class: 'text-sm text-blue-700 dark:text-white', 'data-test': 'notice') do
-              msg.html_safe
+              sanitize(msg, tags: %w[b p br a], attributes: %w[href targ])
             end
           end
-          # rubocop:enable Rails/OutputSafety
         end
       end
     end

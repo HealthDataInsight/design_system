@@ -5,13 +5,13 @@ module DesignSystem
     module Generic
       # This class provides generic methods to display notifications.
       class Notification < Base
+        include ActionView::Helpers::SanitizeHelper
         def render_alert(msg)
-          # rubocop:disable Rails/OutputSafety
           content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': 'error-summary-title', role: 'alert',
                             tabindex: '-1') do
-            content_tag(:h2, msg.html_safe, class: "#{brand}-error-summary__title", id: 'error-summary-title')
+            content_tag(:h2, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
+                        class: "#{brand}-error-summary__title", id: 'error-summary-title')
           end
-          # rubocop:enable Rails/OutputSafety
         end
 
         def render_notice(msg)
@@ -32,11 +32,10 @@ module DesignSystem
         end
 
         def banner_content(msg)
-          # rubocop:disable Rails/OutputSafety
           content_tag(:div, class: "#{brand}-notification-banner__content") do
-            content_tag(:p, msg.html_safe, class: "#{brand}-notification-banner__heading")
+            content_tag(:p, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
+                        class: "#{brand}-notification-banner__heading")
           end
-          # rubocop:enable Rails/OutputSafety
         end
       end
     end

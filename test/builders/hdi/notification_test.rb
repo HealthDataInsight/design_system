@@ -34,6 +34,16 @@ module DesignSystem
             assert_select 'div.text-sm.text-red-700.dark\\:text-white', 'Test alert!'
           end
         end
+
+        test 'rendering hdi alert with sanitisation' do
+          @output_buffer = ds_alert('<p>Test alert!</p>')
+
+          assert_select 'div.rounded-md.bg-red-50.dark\\:bg-red-900.p-4.mb-4' do
+            assert_select 'div.text-sm.text-red-700.dark\\:text-white' do
+              assert_select 'p', text: 'Test alert!'
+            end
+          end
+        end
       end
     end
   end
