@@ -26,9 +26,9 @@
     <%= yield :head %>
   </head>
 <body class="">
- <%= javascript_tag nonce: true do %>
-   document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
- <% end %>
+  <script>
+    document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+  </script>
 
   <a class="ndrsuk-skip-link" href="#maincontent">Skip to main content</a>
 
@@ -77,7 +77,7 @@
   <div class="ndrsuk-width-container ">
 
     <main class="ndrsuk-main-wrapper " id="maincontent" role="main">
-      <%= render :partial => 'layouts/alert_and_notice' %>
+
       <div class="ndrsuk-grid-row">
         <div class="ndrsuk-grid-column-full">
           <%= yield %>

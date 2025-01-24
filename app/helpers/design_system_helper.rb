@@ -52,12 +52,4 @@ module DesignSystemHelper
 
     will_paginate(collection, defaults.merge!(options))
   end
-
-  def ds_alert(message)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message)
-  end
-
-  def ds_notice(message)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
-  end
 end
