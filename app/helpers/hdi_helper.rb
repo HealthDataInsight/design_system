@@ -1,5 +1,14 @@
 # These are HDI specific view helper methods
 module HdiHelper
+  def nav_item_active?(item)
+    # This helper checks if the navigation item should render in 'active' style
+    return instance_exec(&item[:options][:active]) if item[:options][:active].respond_to?(:call)
+
+    return false if item[:options][:controller].blank?
+
+    params[:controller] == item[:options][:controller]
+  end
+
   def hdi_sidebar_navigation_svg(label, path, active, options = {}, &block)
     css_classes = %w[
       group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
