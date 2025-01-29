@@ -14,8 +14,6 @@ gem 'dartsass-rails', '~> 0.5'
 gem 'ndr_dev_support', '~> 7.2'
 gem 'sqlite3', '~> 1.3'
 
-gem 'will_paginate', '~> 3.1', '>= 3.1.6'
-
 group :development, :test do
   gem 'cypress-rails'
 end
