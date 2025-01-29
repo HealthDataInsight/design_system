@@ -13,7 +13,9 @@ module DesignSystem
         ::Rack::Static,
         urls: ['/design_system/nhsuk-frontend-9.1.0',
                '/design_system/ndrsuk-frontend-8.1.1',
-               '/design_system/govuk-frontend-5.3.1'],
+               '/design_system/govuk-frontend-5.3.1',
+               '/design_system/flowbite-2.5.1',
+               '/design_system/heroicon-2.1.5'],
         root: DesignSystem::Engine.root.join('public')
       )
     end
