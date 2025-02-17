@@ -11,7 +11,7 @@ module HdiHelper
 
   def hdi_sidebar_navigation_svg(label, path, active, options = {}, &)
     icon_name = options[:icon] if options[:icon].present?
-    svg_path = "design_system/heroicons-2.1.5/icon-#{icon_name}.svg"
+    svg_path = "/design_system/heroicons-2.1.5/icon-#{icon_name}.svg"
 
     css_classes = %w[
       group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
