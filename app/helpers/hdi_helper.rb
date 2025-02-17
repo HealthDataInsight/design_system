@@ -1,7 +1,6 @@
 # These are HDI specific view helper methods
 module HdiHelper
   def hdi_sidebar_navigation_svg(item)
-    label = item[:label]
     path = item[:path]
     active = current_page?(path)
     options = item[:options] || {}
@@ -22,7 +21,7 @@ module HdiHelper
 
     options['class'] = css_classes.join(' ')
     link_to(path, **options) do
-      hdi_sidebar_navigation_svg_tag(svg_path, active) + label
+      hdi_sidebar_navigation_svg_tag(svg_path, active) + item[:label]
     end
   end
 
