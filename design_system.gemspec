@@ -3,7 +3,7 @@ require_relative 'lib/design_system/version'
 Gem::Specification.new do |spec|
   spec.name        = 'design_system'
   spec.version     = DesignSystem::VERSION
-  spec.authors     = ['Tim Gentry']
+  spec.authors     = ['Filis Liu', 'Nick Robinson', 'Shilpi Goel', 'Tim Gentry']
   spec.email       = ['52189+timgentry@users.noreply.github.com']
   spec.homepage    = 'https://github.com/HealthDataInsight/design_system'
   spec.summary     = 'Design System Engine for GOV.UK, NHS, NDRS and HDI'
