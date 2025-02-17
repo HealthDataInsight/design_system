@@ -5,15 +5,15 @@ class HdiHelperTest < ActionView::TestCase
 
   test 'nav_item_active?' do
     # should be active with callable active
-    assert nav_item_active?({ options: { active: -> { true } } })
+    assert nav_item_active?(options: { active: -> { true } })
 
     # should be active with matching controller and inactive otherwise
     @controller.params = { controller: 'pages' }
-    assert nav_item_active?({ options: { controller: 'pages' } })
-    assert_not nav_item_active?({ options: { controller: 'users' } })
+    assert nav_item_active?(options: { controller: 'pages' })
+    assert_not nav_item_active?(options: { controller: 'users' })
 
     # should not be active with blank controller
-    assert_not nav_item_active?({ options: { controller: '' } })
+    assert_not nav_item_active?(options: { controller: '' })
   end
 
   test 'sidebar_navigation_svg' do

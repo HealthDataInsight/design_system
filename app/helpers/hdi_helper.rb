@@ -2,11 +2,12 @@
 module HdiHelper
   def nav_item_active?(item)
     # This helper checks if the navigation item should render in 'active' style
-    return instance_exec(&item[:options][:active]) if item[:options][:active].respond_to?(:call)
+    options = item[:options] || {}
 
-    return false if item[:options][:controller].blank?
+    return options[:active].call if options[:active].respond_to?(:call)
+    return false if options[:controller].blank?
 
-    params[:controller] == item[:options][:controller]
+    params[:controller] == options[:controller]
   end
 
   def hdi_sidebar_navigation_svg(label, path, active, options = {}, &)
