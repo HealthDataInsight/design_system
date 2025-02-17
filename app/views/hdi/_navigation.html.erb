@@ -4,7 +4,7 @@
       <%# Rails.application.routes.recognize_path() %>
       <% controller.navigation_items.each do |item| %>
         <li>
-          <%= hdi_sidebar_navigation_svg(item[:label], item[:path], nav_item_active?(item), item[:options]) %>
+          <%= hdi_sidebar_navigation_svg(item) %>
         </li>
       <% end %>
     </ul>

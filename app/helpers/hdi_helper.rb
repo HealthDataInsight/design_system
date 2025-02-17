@@ -1,15 +1,10 @@
 # These are HDI specific view helper methods
 module HdiHelper
-  def nav_item_active?(item)
-    # This helper checks if the navigation item should render in 'active' style
-    return instance_exec(&item[:options][:active]) if item[:options][:active].respond_to?(:call)
+  def hdi_sidebar_navigation_svg(item)
+    path = item[:path]
+    active = current_page?(path)
+    options = item[:options] || {}
 
-    return false if item[:options][:controller].blank?
-
-    params[:controller] == item[:options][:controller]
-  end
-
-  def hdi_sidebar_navigation_svg(label, path, active, options = {}, &)
     icon_name = options[:icon] if options[:icon].present?
     svg_path = "/design_system/heroicons-2.1.5/icon-#{icon_name}.svg"
 
@@ -26,7 +21,7 @@ module HdiHelper
 
     options['class'] = css_classes.join(' ')
     link_to(path, **options) do
-      hdi_sidebar_navigation_svg_tag(svg_path, active) + label
+      hdi_sidebar_navigation_svg_tag(svg_path, active) + item[:label]
     end
   end
 
