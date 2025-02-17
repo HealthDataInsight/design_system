@@ -24,7 +24,7 @@ class HdiHelperTest < ActionView::TestCase
     )
     assert_select 'a[data-test="foo"].flex.text-indigo-600', /Home\z/ do
       assert_select 'a[href=?]', root_path
-      assert_select 'img[src=?]', 'design_system/heroicons-2.1.5/icon-home.svg'
+      assert_select 'img[src=?]', '/design_system/heroicons-2.1.5/icon-home.svg'
     end
 
     @output_buffer = ActionView::OutputBuffer.new(
@@ -34,7 +34,7 @@ class HdiHelperTest < ActionView::TestCase
     )
     assert_select 'a[data-test="foo"].flex.text-gray-700', /Home\z/ do
       assert_select 'a[href=?]', root_path
-      assert_select 'img[src=?]', 'design_system/heroicons-2.1.5/icon-home.svg'
+      assert_select 'img[src=?]', '/design_system/heroicons-2.1.5/icon-home.svg'
     end
   end
 end
