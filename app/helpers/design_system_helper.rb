@@ -44,4 +44,30 @@ module DesignSystemHelper
 
     DesignSystem::Registry.builder(brand, 'tab', self).render_tabs(&)
   end
+
+  def ds_start_button(text, href = '#', options = {})
+    DesignSystem::Registry.builder(brand, 'button', self).render_start_button(text, href, options)
+  end
+
+  def ds_button_tag(content_or_options = nil, options = nil, &)
+    DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
+  end
+
+  def ds_pagination(collection = nil, options = {})
+    defaults = {
+      renderer: DesignSystem::Registry.builder(brand, 'pagination_renderer', self),
+      previous_label: '&laquo; Previous',
+      next_label: 'Next &raquo;'
+    }
+
+    will_paginate(collection, defaults.merge!(options))
+  end
+
+  def ds_alert(message)
+    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message)
+  end
+
+  def ds_notice(message)
+    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
+  end
 end

@@ -45,3 +45,22 @@ ds_tab do |tab|
 end
   
 %>
+
+<!--style=[secondary warning reverse] default is primary-->
+<%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
+
+<%= ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1 %>
+
+<%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
+
+<%=
+ds_table do |table|
+  table.caption = 'Assistants'
+  table.add_column('Title')
+  @assistants.each do |assistant|
+    table.add_row assistant.title
+  end
+end
+%>
+
+<%= ds_pagination(@assistants) %>

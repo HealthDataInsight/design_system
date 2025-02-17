@@ -6,7 +6,7 @@
     <ul id="navigation" class="govuk-header__navigation-list">
       <% controller.navigation_items.each do |item| %>
         <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-          <%= link_to(item[:label], item[:path], class: 'govuk-header__link') %>
+          <%= link_to(item[:label], item[:path], item[:options].merge(class: 'govuk-header__link')) %>
         </li>
       <% end %>
     </ul>

@@ -4,7 +4,7 @@
       <ul class="ndrsuk-header__navigation-list">
         <% controller.navigation_items.each do |item| %>
           <li class="ndrsuk-header__navigation-item">
-            <%= link_to(item[:label], item[:path], class: 'ndrsuk-header__navigation-link') %>
+            <%= link_to(item[:label], item[:path], item[:options].merge(class: 'ndrsuk-header__navigation-link')) %>
           </li>
         <% end %>
         <li class="ndrsuk-header__navigation-item ndrsuk-header__navigation-item--home">

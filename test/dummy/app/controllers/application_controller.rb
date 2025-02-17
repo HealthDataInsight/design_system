@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
 
   include DesignSystem::Branded
 
-  before_action :add_navigation
+  before_action :add_navigation, :set_service_name
+  helper_method :brand
 
   private
 
@@ -21,5 +22,9 @@ class ApplicationController < ActionController::Base
     session[:brand] ||= 'nhsuk'
     session[:brand] = params[:brand] if params[:brand]
     session[:brand]
+  end
+
+  def set_service_name
+    @service_name = 'Design system'
   end
 end
