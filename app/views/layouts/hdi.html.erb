@@ -3,10 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="/design_system/flowbite-2.5.1/flowbite.min.js"></script>
 
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'hdi', 'data-turbo-track': 'reload' %>
-    <%#= javascript_importmap_tags %>
+    <%= javascript_importmap_tags %>
 
     <%= yield :head %>
   </head>
@@ -70,11 +71,9 @@
               <div class="flex h-16 shrink-0 items-center">
                 <img class="h-8 w-auto" src="/health-data-insight-logo.png" alt="Health Data Insight">
               </div>
-              <nav class="flex flex-1 flex-col">
+              <nav aria-label="Menu" class="flex flex-1 flex-col">
                 <ul role="list" class="flex flex-1 flex-col gap-y-7">
-
                   <%= render 'hdi/navigation' %>
-
                 </ul>
               </nav>
             </div>

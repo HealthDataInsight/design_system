@@ -1,6 +1,13 @@
 # These are HDI specific view helper methods
 module HdiHelper
-  def hdi_sidebar_navigation_svg(label, path, active, options = {}, &block)
+  def hdi_sidebar_navigation_svg(item)
+    path = item[:path]
+    active = current_page?(path)
+    options = item[:options] || {}
+
+    icon_name = options[:icon] if options[:icon].present?
+    svg_path = "/design_system/heroicons-2.1.5/icon-#{icon_name}.svg"
+
     css_classes = %w[
       group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
     ]
@@ -14,13 +21,13 @@ module HdiHelper
 
     options['class'] = css_classes.join(' ')
     link_to(path, **options) do
-      hdi_sidebar_navigation_svg_tag(active, &block) + label
+      hdi_sidebar_navigation_svg_tag(svg_path, active) + item[:label]
     end
   end
 
   private
 
-  def hdi_sidebar_navigation_svg_tag(active, &)
+  def hdi_sidebar_navigation_svg_tag(svg_path, active)
     svg_classes = %w[
       h-6 w-6 shrink-0
     ]
@@ -30,13 +37,8 @@ module HdiHelper
       svg_classes.push('text-gray-400', 'group-hover:text-indigo-600',
                        'dark:group-hover:text-indigo-300')
     end
-    content_tag(:svg,
-                xmlns: 'http://www.w3.org/2000/svg',
-                fill: 'none',
-                viewBox: '0 0 24 24',
-                'stroke-width': '1.5',
-                stroke: 'currentColor',
-                'aria-hidden': 'true',
-                class: svg_classes.join(' '), &)
+
+    content_tag(:img, nil, src: svg_path, class: svg_classes.join(' '),
+                           'aria-hidden': 'true')
   end
 end
