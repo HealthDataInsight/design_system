@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency 'rails', '>= 7.0.8.1'
+  spec.add_dependency 'stimulus-rails', '~> 1.3'
   spec.add_dependency 'will_paginate', '~> 3.3'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
