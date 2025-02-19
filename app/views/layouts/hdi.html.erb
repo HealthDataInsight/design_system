@@ -2,12 +2,17 @@
 <html class="h-full">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/design_system/tailwind-4.0.7/index.js"></script>
     <script src="/design_system/flowbite-2.5.1/flowbite.min.js"></script>
 
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'hdi', 'data-turbo-track': 'reload' %>
-    <%= javascript_importmap_tags %>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-clifford: #da373d;
+      }
+    </style>
+    <%#= javascript_importmap_tags %>
 
     <%= yield :head %>
   </head>
