@@ -21,6 +21,19 @@ Or install it yourself as:
 $ gem install design_system
 ```
 
+Add the following to `app/assets/config/manifest.js`:
+
+```ruby
+//= link design_system/controllers/index.js
+```
+
+Add the following to `app/javascript/controllers/index.js`:
+
+```javascript
+import { registerControllers } from "design_system/controllers"
+registerControllers(application)
+```
+
 ## Contributing
 Contribution directions go here.
 
