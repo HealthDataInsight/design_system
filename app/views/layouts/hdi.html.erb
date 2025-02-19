@@ -5,14 +5,12 @@
     <script src="/design_system/tailwind-4.0.7/index.js"></script>
     <script src="/design_system/flowbite-2.5.1/flowbite.min.js"></script>
 
-    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'hdi', 'data-turbo-track': 'reload' %>
     <style type="text/tailwindcss">
       @theme {
         --color-clifford: #da373d;
       }
     </style>
-    <%#= javascript_importmap_tags %>
 
     <%= yield :head %>
   </head>
