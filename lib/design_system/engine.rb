@@ -6,6 +6,15 @@ module DesignSystem
     # Allow changes to the design system to be reloaded in development.
     config.autoload_paths << File.expand_path('..', __dir__) if Rails.env.development?
 
+    initializer 'design_system.importmap', before: 'importmap' do |app|
+      app.config.importmap.paths << Engine.root.join('config/importmap.rb')
+      app.config.importmap.cache_sweepers << Engine.root.join('app/assets/javascripts')
+    end
+
+    initializer 'design_system.assets.precompile' do |app|
+      app.config.assets.precompile += %w[design_system/controllers/index.js]
+    end
+
     # Adding Rack::Static to serve up assets from the design_systems
     initializer 'design_system.add_middleware' do |app|
       app.middleware.insert_after(
