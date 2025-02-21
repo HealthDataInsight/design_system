@@ -60,4 +60,19 @@ module DesignSystemHelper
   def ds_notice(message)
     DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
   end
+
+  def ds_timeago(date, refresh_interval: 60_000, format: :long)
+    return if date.blank?
+
+    content = I18n.l(date, format:)
+
+    tag.time(content,
+             title: content,
+             data: {
+               controller: 'timeago',
+               timeago_datetime_value: date.iso8601,
+               timeago_refresh_interval_value: refresh_interval,
+               timeago_add_suffix_value: true
+             })
+  end
 end

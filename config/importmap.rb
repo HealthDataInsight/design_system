@@ -1,4 +1,2 @@
+pin 'stimulus-timeago', to: 'https://cdn.jsdelivr.net/npm/@stimulus-components/timeago@5.0.2/+esm'
 pin 'design_system/controllers', to: 'design_system/controllers/index.js'
-
-pin 'javascript-time-ago', to: 'https://ga.jspm.io/npm:javascript-time-ago@2.5.11/index.js'
-pin 'relative-time-format', to: 'https://ga.jspm.io/npm:relative-time-format@1.1.6/index.js'

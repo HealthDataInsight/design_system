@@ -1,5 +1,5 @@
 require 'action_dispatch/middleware/remote_ip'
-
+require 'stimulus-rails'
 module DesignSystem
   # This is the main engine class for the design system.
   class Engine < ::Rails::Engine
