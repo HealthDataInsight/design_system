@@ -23,6 +23,10 @@ module DesignSystemHelper
     end
   end
 
+  def ds_render_template(design_system_layout = 'application')
+    render(template: "layouts/#{brand}/#{design_system_layout}")
+  end
+
   def ds_table(&)
     raise ArgumentError unless block_given?
 
