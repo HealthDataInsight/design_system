@@ -16,7 +16,7 @@ The SCSS files are currently in the [downloaded repo's](https://github.com/alpha
 - ./utilities/**/*
 - ./vendor/**/*
 
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/govuk-frontend-5.3.1), retaining the folder structure.
+These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/govuk-frontend-5.3.1), retaining the folder structure.
 
 ### Javascript
 
@@ -24,10 +24,10 @@ The javascript files are located in ./packages/govuk-frontend/dist/govuk/:
 - govuk-frontend.min.js
 - govuk-frontend.min.js.map
 
-These need to be copied to the [public folder](../public/design_system/govuk-frontend-5.3.1)
+These need to be copied to the [public folder](../public/design_system/static/govuk-frontend-5.3.1)
 
 ### Other Assets
-All files in the repo's ./packages/govuk-frontend/dist/govuk/assets folder need to be copied to the [public folder](../public/design_system/govuk-frontend-5.3.1), again retaining the folder structure.
+All files in the repo's ./packages/govuk-frontend/dist/govuk/assets folder need to be copied to the [public folder](../public/design_system/static/govuk-frontend-5.3.1), again retaining the folder structure.
 
 ### Layout
 The [layout file](../app/views/layouts/govuk.html.erb) will need to be updated to change version numbers of links, etc.
@@ -38,17 +38,17 @@ The SCSS files are currently in the [downloaded repo's](https://github.com/nhsuk
 - ./components/**/*
 - ./core/**/*
 
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/nhsuk-frontend-9.1.0), retaining the folder structure.
+These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/nhsuk-frontend-9.1.0), retaining the folder structure.
 
 ### Javascript
 
 The javascript file is located in the ./dist folder:
 - nhsuk.min.js
 
-It needs to be copied to the [public folder](../public/design_system/nhsuk-frontend-9.1.0) and renamed as nhsuk.min.js
+It needs to be copied to the [public folder](../public/design_system/static/nhsuk-frontend-9.1.0) and renamed as nhsuk.min.js
 
 ### Assets
-The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/nhsuk-frontend-9.1.0), again retaining the folder structure.
+The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/static/nhsuk-frontend-9.1.0), again retaining the folder structure.
 
 ### Layout
 The [layout file](../app/views/layouts/nhsuk.html.erb) will need to be updated to change version numbers of links, etc.
@@ -59,17 +59,17 @@ The SCSS files are currently in the [downloaded repo's](https://github.com/Healt
 - ./components/**/*
 - ./core/**/*
 
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/ndrsuk-frontend-8.1.1), retaining the folder structure.
+These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/ndrsuk-frontend-8.1.1), retaining the folder structure.
 
 ### Javascript
 
 The javascript file is located in the ./dist folder:
 - ndrsuk.min.js
 
-It needs to be copied to the [public folder](../public/design_system/ndrsuk-frontend-9.1.0) and renamed as ndrsuk.min.js
+It needs to be copied to the [public folder](../public/design_system/static/ndrsuk-frontend-9.1.0) and renamed as ndrsuk.min.js
 
 ### Assets
-The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/ndrsuk-frontend-9.1.0), again retaining the folder structure.
+The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/static/ndrsuk-frontend-9.1.0), again retaining the folder structure.
 
 ### Layout
 The [layout file](../app/views/layouts/ndrsuk.html.erb) will need to be updated to change version numbers of links, etc.

@@ -3,6 +3,7 @@ PATH
   specs:
     design_system (0.1.0)
       rails (>= 7.0.8.1)
+      stimulus-rails (~> 1.3)
       will_paginate (~> 3.3)
 
 GEM
@@ -140,6 +141,10 @@ GEM
     highline (3.0.1)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.1.0)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.7.2)
     irb (1.13.1)
       rdoc (>= 4.0.0)
@@ -319,6 +324,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.7.3-arm64-darwin)
     sqlite3 (1.7.3-x86_64-darwin)
+    stimulus-rails (1.3.4)
+      railties (>= 6.0.0)
     stringio (3.1.0)
     thor (1.3.1)
     timeout (0.4.1)
@@ -345,6 +352,7 @@ DEPENDENCIES
   cypress-rails
   dartsass-rails (~> 0.5)
   design_system!
+  importmap-rails (~> 2.1)
   mocha (~> 2.2.0)
   ndr_dev_support (~> 7.2)
   puma
