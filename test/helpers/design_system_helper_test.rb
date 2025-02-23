@@ -1,9 +1,11 @@
 require 'test_helper'
 require_relative '../../app/helpers/design_system_helper'
+require_relative '../../app/helpers/hdi_helper'
 
 class DesignSystemHelperTest < ActionView::TestCase
   def setup
     @registry = DesignSystem::Registry
+    @controller.class.helper HdiHelper
   end
 
   def teardown
@@ -31,5 +33,35 @@ class DesignSystemHelperTest < ActionView::TestCase
       block_excuted = true
     end
     assert block_excuted
+  end
+
+  test 'ds_render_template default to application layout' do
+    @controller.stubs(
+      brand: 'hdi',
+      navigation_items: [{ label: 'Test Item', path: '/test' }]
+    )
+
+    @output_buffer = ds_render_template
+
+    # head should be inserted for all layouts
+    assert_includes @output_buffer, 'tailwind.config'
+    # body uses the default layout
+    assert_includes @output_buffer, 'HDI Portal'
+    assert_includes @output_buffer, 'Test Item'
+  end
+
+  test 'ds_render_template renders left_panel custom layout upon request' do
+    @controller.stubs(
+      brand: 'hdi',
+      navigation_items: [{ label: 'Test Item', path: '/test' }]
+    )
+
+    @output_buffer = ds_render_template('left_panel')
+
+    # head should be inserted for all layouts
+    assert_includes @output_buffer, 'tailwind.config'
+    # body uses the left_panel layout
+    assert_includes @output_buffer, 'https://images.unsplash.com/photo-1496917756835-20cb06e75b4e'
+    refute_includes @output_buffer, 'Test Item'
   end
 end
