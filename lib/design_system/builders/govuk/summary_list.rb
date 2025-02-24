@@ -15,8 +15,7 @@ module DesignSystem
           content_tag(:div, class: item_classes.join(' ')) do
             item_buffer = ActiveSupport::SafeBuffer.new
 
-            item_buffer.concat(render_key(item))
-            item_buffer.concat(render_value(item))
+            item_buffer.concat(render_data(item))
             item_buffer.concat(render_actions(item)) if item[:actions].any?
 
             item_buffer
