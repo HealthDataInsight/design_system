@@ -20,7 +20,8 @@ module DesignSystem
         else
           @items << {
             key: { content: key, options: {} },
-            value: { content: value, options: {} }
+            value: { content: value, options: {} },
+            actions: []
           }
         end
       end

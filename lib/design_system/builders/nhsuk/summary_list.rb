@@ -8,6 +8,23 @@ module DesignSystem
       class SummaryList < ::DesignSystem::Builders::Generic::SummaryList
         private
 
+        def validate_mix_actions
+          if @summary_list.items.any? { |item| item[:actions].empty? } &&
+             @summary_list.items.any? { |item| item[:actions].any? }
+            raise ArgumentError, 'A mix of items with and without actions is not supported for NHS brand.'
+          end
+        end
+
+        def render_items
+          validate_mix_actions
+
+          content_tag(:dl, class: 'nhsuk-summary-list') do
+            @summary_list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, items_buffer|
+              items_buffer.concat(render_item(item))
+            end
+          end
+        end
+
         def render_actions(item)
           content_tag(:dd, class: 'nhsuk-summary-list__actions') do
             if item[:actions].length == 1

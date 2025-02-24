@@ -12,8 +12,15 @@ end
 
 <%=
 ds_summary_list do |list|
-  list.add_item(key: 'Age', value: 55) do |item|
-    item.add_action('View', { path: root_path })
+  list.add_item(key: 'Name', value: 'John Doe') do |item|
+    item.add_action('Test action (Root)', { path: root_path, hidden_text: 'name' })
+    item.add_action('Change', { hidden_text: 'name' })
+  end
+  list.add_item(key: 'Gender', value: 'Male') do |item|
+    item.add_action('View')
+  end
+  list.add_item(key: 'Age', value: 30) do |item|
+    item.add_action('View')
   end
 end
 %>

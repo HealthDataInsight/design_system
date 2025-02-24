@@ -8,6 +8,21 @@ module DesignSystem
       class SummaryList < ::DesignSystem::Builders::Generic::SummaryList
         private
 
+        def render_item(item)
+          item_classes = ['govuk-summary-list__row']
+          item_classes << 'govuk-summary-list__row--no-actions' if item[:actions].empty?
+
+          content_tag(:div, class: item_classes.join(' ')) do
+            item_buffer = ActiveSupport::SafeBuffer.new
+
+            item_buffer.concat(render_key(item))
+            item_buffer.concat(render_value(item))
+            item_buffer.concat(render_actions(item)) if item[:actions].any?
+
+            item_buffer
+          end
+        end
+
         def render_actions(item)
           content_tag(:dd, class: 'govuk-summary-list__actions') do
             if item[:actions].length == 1

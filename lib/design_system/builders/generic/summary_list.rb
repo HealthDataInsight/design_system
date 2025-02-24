@@ -31,19 +31,15 @@ module DesignSystem
           content_tag(:div, class: "#{brand}-summary-list__row") do
             item_buffer = ActiveSupport::SafeBuffer.new
 
-            item_buffer.concat(render_key(item))
-            item_buffer.concat(render_value(item))
+            item_buffer.concat(render_data(item))
             item_buffer.concat(render_actions(item)) if item[:actions].any?
 
             item_buffer
           end
         end
 
-        def render_key(item)
+        def render_data(item)
           content_tag(:dt, item[:key][:content], class: "#{brand}-summary-list__key")
-        end
-
-        def render_value(item)
           content_tag(:dd, item[:value][:content], class: "#{brand}-summary-list__value")
         end
 
