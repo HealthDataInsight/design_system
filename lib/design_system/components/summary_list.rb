@@ -10,7 +10,7 @@ module DesignSystem
         @items = []
       end
 
-      def add_item(key: nil, value: nil, actions: [], &block)
+      def add_item(key: nil, value: nil, &block)
         if block_given?
           item_builder = ItemBuilder.new
           item_builder.key(key)
@@ -20,10 +20,7 @@ module DesignSystem
         else
           @items << {
             key: { content: key, options: {} },
-            value: { content: value, options: {} },
-            actions: Array(actions).map do |action|
-              { content: action[:content], href: action[:options][:path] || '#', options: {} }
-            end
+            value: { content: value, options: {} }
           }
         end
       end
