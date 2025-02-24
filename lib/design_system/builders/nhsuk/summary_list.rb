@@ -4,7 +4,7 @@ require 'design_system/builders/generic/summary_list'
 
 module DesignSystem
   module Builders
-    module Govuk
+    module Nhsuk
       class SummaryList < ::DesignSystem::Builders::Generic::SummaryList
       end
     end

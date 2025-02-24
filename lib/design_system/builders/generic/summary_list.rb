@@ -20,7 +20,7 @@ module DesignSystem
         private
 
         def render_items
-          content_tag(:dl) do
+          content_tag(:dl, class: "#{brand}-summary-list") do
             @summary_list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, items_buffer|
               items_buffer.concat(render_item(item))
             end
@@ -28,7 +28,7 @@ module DesignSystem
         end
 
         def render_item(item)
-          content_tag(:div) do
+          content_tag(:div, class: "#{brand}-summary-list__row") do
             item_buffer = ActiveSupport::SafeBuffer.new
 
             item_buffer.concat(render_key(item))
@@ -40,16 +40,16 @@ module DesignSystem
         end
 
         def render_key(item)
-          content_tag(:dt, item[:key][:content])
+          content_tag(:dt, item[:key][:content], class: "#{brand}-summary-list__key")
         end
 
         def render_value(item)
-          content_tag(:dd, item[:value][:content])
+          content_tag(:dd, item[:value][:content], class: "#{brand}-summary-list__value")
         end
 
         def render_actions(item)
-          content_tag(:dd) do
-            content_tag(:ul) do
+          content_tag(:dd, class: "#{brand}-summary-list__actions") do
+            content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
               item[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
                 actions_buffer.concat(render_action(action))
               end
@@ -58,10 +58,14 @@ module DesignSystem
         end
 
         def render_action(action)
-          content_tag(:li) do
-            content_tag(:a, action[:content], href: '#') do
+          content_tag(:li, class: "#{brand}-summary-list__actions-list-item") do
+            content_tag(:a, class: "#{brand}-link", href: action[:options][:path] || '#') do
               safe_buffer = ActiveSupport::SafeBuffer.new
               safe_buffer.concat(action[:content])
+
+              if action[:hidden_text]
+                safe_buffer.concat(content_tag(:span, action[:hidden_text], class: 'govuk-visually-hidden'))
+              end
 
               safe_buffer
             end
