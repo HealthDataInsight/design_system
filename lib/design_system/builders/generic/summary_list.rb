@@ -12,44 +12,44 @@ module DesignSystem
           yield @summary_list
 
           safe_buffer = ActiveSupport::SafeBuffer.new
-          safe_buffer.concat(render_items)
+          safe_buffer.concat(render_rows)
 
           safe_buffer
         end
 
         private
 
-        def render_items
+        def render_rows
           content_tag(:dl, class: "#{brand}-summary-list") do
-            @summary_list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, items_buffer|
-              items_buffer.concat(render_item(item))
+            @summary_list.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
+              rows_buffer.concat(render_row(row))
             end
           end
         end
 
-        def render_item(item)
+        def render_row(row)
           content_tag(:div, class: "#{brand}-summary-list__row") do
-            item_buffer = ActiveSupport::SafeBuffer.new
+            row_buffer = ActiveSupport::SafeBuffer.new
 
-            item_buffer.concat(render_data(item))
-            item_buffer.concat(render_actions(item)) if item[:actions].any?
+            row_buffer.concat(render_data(row))
+            row_buffer.concat(render_actions(row)) if row[:actions].any?
 
-            item_buffer
+            row_buffer
           end
         end
 
-        def render_data(item)
-          content_tag(:dt, item[:key][:content], class: "#{brand}-summary-list__key")
-          content_tag(:dd, item[:value][:content], class: "#{brand}-summary-list__value")
+        def render_data(row)
+          content_tag(:dt, row[:key][:content], class: "#{brand}-summary-list__key")
+          content_tag(:dd, row[:value][:content], class: "#{brand}-summary-list__value")
         end
 
-        def render_actions(item)
+        def render_actions(row)
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
-            if item[:actions].length == 1
-              render_action(item[:actions].first)
+            if row[:actions].length == 1
+              render_action(row[:actions].first)
             else
               content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
-                item[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
+                row[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
                   actions_buffer.concat(content_tag(:li, render_action(action),
                                                     class: "#{brand}-summary-list__actions-list-item"))
                 end

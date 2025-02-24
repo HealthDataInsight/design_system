@@ -8,27 +8,27 @@ module DesignSystem
       class SummaryList < ::DesignSystem::Builders::Generic::SummaryList
         private
 
-        def render_item(item)
-          item_classes = ['govuk-summary-list__row']
-          item_classes << 'govuk-summary-list__row--no-actions' if item[:actions].empty?
+        def render_row(row)
+          row_classes = ['govuk-summary-list__row']
+          row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].empty?
 
-          content_tag(:div, class: item_classes.join(' ')) do
-            item_buffer = ActiveSupport::SafeBuffer.new
+          content_tag(:div, class: row_classes.join(' ')) do
+            row_buffer = ActiveSupport::SafeBuffer.new
 
-            item_buffer.concat(render_data(item))
-            item_buffer.concat(render_actions(item)) if item[:actions].any?
+            row_buffer.concat(render_data(row))
+            row_buffer.concat(render_actions(row)) if row[:actions].any?
 
-            item_buffer
+            row_buffer
           end
         end
 
-        def render_actions(item)
+        def render_actions(row)
           content_tag(:dd, class: 'govuk-summary-list__actions') do
-            if item[:actions].length == 1
-              render_action(item[:actions].first)
+            if row[:actions].length == 1
+              render_action(row[:actions].first)
             else
               content_tag(:ul, class: 'govuk-summary-list__actions-list') do
-                item[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
+                row[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
                   actions_buffer.concat(content_tag(:li, render_action(action),
                                                     class: 'govuk-summary-list__actions-list-item'))
                 end

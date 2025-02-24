@@ -3,22 +3,21 @@
 module DesignSystem
   module Components
     class SummaryList
-      # TODO: rename item to row and fix rowbuilder conflicts
-      attr_accessor :items
+      attr_accessor :rows
 
       def initialize
-        @items = []
+        @rows = []
       end
 
-      def add_item(key: nil, value: nil, &block)
+      def add_row(key: nil, value: nil, &block)
         if block_given?
-          item_builder = ItemBuilder.new
-          item_builder.key(key)
-          item_builder.value(value)
-          yield(item_builder)
-          @items << item_builder.to_h
+          row_builder = SummaryListRowBuilder.new
+          row_builder.key(key)
+          row_builder.value(value)
+          yield(row_builder)
+          @rows << row_builder.to_h
         else
-          @items << {
+          @rows << {
             key: { content: key, options: {} },
             value: { content: value, options: {} },
             actions: []
@@ -27,7 +26,7 @@ module DesignSystem
       end
     end
 
-    class ItemBuilder
+    class SummaryListRowBuilder
       def initialize
         @key = {}
         @value = {}
