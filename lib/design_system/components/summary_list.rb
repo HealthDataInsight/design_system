@@ -9,7 +9,7 @@ module DesignSystem
         @rows = []
       end
 
-      def add_row(key: nil, value: nil, actions: [], &block)
+      def add_item(key: nil, value: nil, actions: [], &block)
         if block_given?
           row_builder = RowBuilder.new
           yield(row_builder)
