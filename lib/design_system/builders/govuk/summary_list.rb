@@ -6,24 +6,58 @@ module DesignSystem
   module Builders
     module Govuk
       class SummaryList < ::DesignSystem::Builders::Generic::SummaryList
-        def render_rows
-          content_tag(:dl, nil, class: "#{brand}-summary-list") do
-            @summary_list.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
-              rows_buffer.concat(render_row(row))
+        private
+
+        def render_items
+          content_tag(:dl, class: "#{brand}-summary-list") do
+            @summary_list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, items_buffer|
+              items_buffer.concat(render_item(item))
             end
           end
         end
 
-        private
-
-        def render_row(row)
+        def render_item(item)
           content_tag(:div, class: "#{brand}-summary-list__row") do
-            row_buffer = ActiveSupport::SafeBuffer.new
+            item_buffer = ActiveSupport::SafeBuffer.new
 
-            row_buffer.concat(content_tag(:dt, row[:key][:content], class: "#{brand}-summary-list__key"))
-            row_buffer.concat(content_tag(:dd, row[:value][:content], class: "#{brand}-summary-list__value"))
+            item_buffer.concat(render_key(item))
+            item_buffer.concat(render_value(item))
+            item_buffer.concat(render_actions(item)) if item[:actions].any?
 
-            # TODO: add actions
+            item_buffer
+          end
+        end
+
+        def render_key(item)
+          content_tag(:dt, item[:key][:content], class: "#{brand}-summary-list__key")
+        end
+
+        def render_value(item)
+          content_tag(:dd, item[:value][:content], class: "#{brand}-summary-list__value")
+        end
+
+        def render_actions(item)
+          content_tag(:dd, class: "#{brand}-summary-list__actions") do
+            content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
+              item[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
+                actions_buffer.concat(render_action(action))
+              end
+            end
+          end
+        end
+
+        def render_action(action)
+          content_tag(:li, class: "#{brand}-summary-list__actions-list-item") do
+            content_tag(:a, class: "#{brand}-link", href: action[:options][:path] || '#') do
+              safe_buffer = ActiveSupport::SafeBuffer.new
+              safe_buffer.concat(action[:content])
+
+              if action[:hidden_text]
+                safe_buffer.concat(content_tag(:span, action[:hidden_text], class: 'govuk-visually-hidden'))
+              end
+
+              safe_buffer
+            end
           end
         end
       end

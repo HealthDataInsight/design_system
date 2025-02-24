@@ -12,11 +12,26 @@ end
 
 <%=
 ds_summary_list do |list|
-  list.add_item(key: 'Age', value: 55, actions: ['view'])
+  list.add_item(key: 'Age', value: 55) do |item|
+    item.add_action('View', { path: root_path })
+  end
 end
 %>
 
+<%=
+ds_table do |table|
+  table.caption = 'Name and Age'
 
+  table.add_column('Name', data: {'toggle': "table" , 'sort-name': "name" , 'sort-order': "desc", 'pagination':"false"} )
+  table.add_numeric_column('Age', data: { sortable: false })
+
+  table.add_row do |row|
+    row.add_cell('John Doe', data: { id: 1 })
+    row.add_cell(30, data: { id: 2 })
+  end
+  table.add_row 'John Doe', 30
+end
+%>
 
 <%=	
 ds_tab do |tab|
