@@ -19,6 +19,10 @@ ds_summary_list do |list|
   list.add_row(key: 'Age', values: 30) do |row|
     row.add_action('View')
   end
+  list.add_row(key: 'Email') do |row|
+    row.add_value('Enter email information', { path: root_path })
+    row.add_action('View')
+  end
   list.add_row(key: 'Contact', values: ['0123456789', 'john.doe@email.com']) do |row|
     row.add_action('View')
   end

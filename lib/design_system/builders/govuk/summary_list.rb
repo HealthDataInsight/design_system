@@ -13,41 +13,29 @@ module DesignSystem
           row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].empty?
 
           content_tag(:div, class: row_classes.join(' ')) do
-            row_buffer = ActiveSupport::SafeBuffer.new
-
-            row_buffer.concat(render_key(row))
-            row_buffer.concat(render_values(row))
-            row_buffer.concat(render_actions(row)) if row[:actions].any?
-
-            row_buffer
+            [render_key(row),
+             render_value(row),
+             render_actions(row)].compact.join.html_safe
           end
         end
 
-        def render_actions(row)
-          content_tag(:dd, class: 'govuk-summary-list__actions') do
-            if row[:actions].length == 1
-              render_action(row[:actions].first)
+        def render_value(row)
+          return if row[:values].nil? || row[:values].empty?
+
+          content_tag(:dd, class: 'govuk-summary-list__value') do
+            if row[:values].length == 1
+              wrap_value(row[:values].first)
             else
-              content_tag(:ul, class: 'govuk-summary-list__actions-list') do
-                row[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
-                  actions_buffer.concat(content_tag(:li, render_action(action),
-                                                    class: 'govuk-summary-list__actions-list-item'))
-                end
-              end
+              row[:values].map { |value| wrap_value(value) }.join.html_safe
             end
           end
         end
 
-        def render_action(action)
-          content_tag(:a, class: 'govuk-link', href: action[:options][:path] || '#') do
-            safe_buffer = ActiveSupport::SafeBuffer.new
-            safe_buffer.concat(action[:content])
-
-            if action[:options][:hidden_text]
-              safe_buffer.concat(content_tag(:span, action[:options][:hidden_text], class: 'govuk-visually-hidden'))
-            end
-
-            safe_buffer
+        def wrap_value(value)
+          if value[:options]&.dig(:path)
+            link_to(value[:content], value[:options][:path] || '#', class: "#{brand}-link")
+          else
+            content_tag(:p, value[:content], class: "#{brand}-body")
           end
         end
       end

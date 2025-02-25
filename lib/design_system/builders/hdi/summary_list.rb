@@ -10,21 +10,15 @@ module DesignSystem
 
         def render_rows
           content_tag(:dl, class: 'py-4 min-w-full divide-y divide-gray-300 overflow-hidden') do
-            @summary_list.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
-              rows_buffer.concat(render_row(row))
-            end
+            @summary_list.rows.map { |row| render_row(row) }.join.html_safe
           end
         end
 
         def render_row(row)
           content_tag(:div, class: 'flex px-3 py-4 sm:grid sm:grid-cols-3 sm:gap-3 sm:px-6') do
-            row_buffer = ActiveSupport::SafeBuffer.new
-
-            row_buffer.concat(render_key(row))
-            row_buffer.concat(render_values(row))
-            row_buffer.concat(render_actions(row)) if row[:actions].any?
-
-            row_buffer
+            [render_key(row),
+             render_value(row),
+             render_actions(row)].compact.join.html_safe
           end
         end
 
@@ -32,12 +26,21 @@ module DesignSystem
           content_tag(:dt, row[:key][:content], class: 'text-sm font-semibold text-gray-900 flex items-center')
         end
 
-        def render_values(row)
-          content_tag(:dd, row[:value][:content],
-                      class: 'whitespace-nowrap px-3 text-sm text-gray-500 sm:mt-0 flex items-center')
+        def render_value(row)
+          return if row[:values].nil? || row[:values].empty?
+
+          content_tag(:dd, class: 'whitespace-nowrap text-sm text-gray-500 sm:mt-0') do
+            if row[:values].length == 1
+              row[:values].first[:content]
+            else
+              row[:values].map { |value| content_tag(:p, value[:content]) }.join.html_safe
+            end
+          end
         end
 
         def render_actions(row)
+          return if row[:actions].nil? || row[:actions].empty?
+
           content_tag(:dd, class: 'flex flex-wrap items-center') do
             content_tag(:ul, class: 'flex flex-wrap items-center gap-2 sm:gap-1') do
               row[:actions].map.with_index do |action, index|
@@ -50,9 +53,9 @@ module DesignSystem
         end
 
         def render_action(action)
-          content_tag(:a, action[:content],
-                      href: action[:options][:path] || '#',
-                      class: 'flex items-center text-sm font-semibold text-hdi-violet underline hover:text-indigo-600')
+          link_to(action[:content],
+                  action[:options][:path] || '#',
+                  class: 'flex items-center text-sm font-semibold text-hdi-violet underline hover:text-indigo-600')
         end
 
         def action_item_spacing(index, total)
