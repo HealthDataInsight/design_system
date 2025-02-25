@@ -21,7 +21,7 @@ module DesignSystem
             row_buffer = ActiveSupport::SafeBuffer.new
 
             row_buffer.concat(render_key(row))
-            row_buffer.concat(render_value(row))
+            row_buffer.concat(render_values(row))
             row_buffer.concat(render_actions(row)) if row[:actions].any?
 
             row_buffer
@@ -32,7 +32,7 @@ module DesignSystem
           content_tag(:dt, row[:key][:content], class: 'text-sm font-semibold text-gray-900 flex items-center')
         end
 
-        def render_value(row)
+        def render_values(row)
           content_tag(:dd, row[:value][:content],
                       class: 'whitespace-nowrap px-3 text-sm text-gray-500 sm:mt-0 flex items-center')
         end

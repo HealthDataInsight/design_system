@@ -32,7 +32,7 @@ module DesignSystem
             row_buffer = ActiveSupport::SafeBuffer.new
 
             row_buffer.concat(render_key(row))
-            row_buffer.concat(render_value(row))
+            row_buffer.concat(render_values(row))
             row_buffer.concat(render_actions(row)) if row[:actions].any?
 
             row_buffer
@@ -43,8 +43,16 @@ module DesignSystem
           content_tag(:dt, row[:key][:content], class: "#{brand}-summary-list__key")
         end
 
-        def render_value(row)
-          content_tag(:dd, row[:value][:content], class: "#{brand}-summary-list__value")
+        def render_values(row)
+          content_tag(:dd, class: "#{brand}-summary-list__value") do
+            if row[:values].length == 1
+              row[:values].first[:content]
+            else
+              row[:values].map do |value|
+                content_tag(:p, value[:content], class: "#{brand}-body")
+              end.join.html_safe
+            end
+          end
         end
 
         def render_actions(row)
@@ -54,7 +62,8 @@ module DesignSystem
             else
               content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
                 row[:actions].each_with_object(ActiveSupport::SafeBuffer.new) do |action, actions_buffer|
-                  actions_buffer.concat(content_tag(:li, render_action(action),
+                  actions_buffer.concat(content_tag(:li,
+                                                    render_action(action),
                                                     class: "#{brand}-summary-list__actions-list-item"))
                 end
               end

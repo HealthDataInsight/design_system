@@ -12,14 +12,14 @@ end
 
 <%=
 ds_summary_list do |list|
-  list.add_row(key: 'Name', value: 'John Doe') do |row|
-    row.add_action('Test action (Root)', { path: root_path, hidden_text: 'name' })
+  list.add_row(key: 'Name', values: 'John Doe') do |row|
+    row.add_action('Root', { path: root_path, hidden_text: 'name' })
     row.add_action('Change', { hidden_text: 'name' })
   end
-  list.add_row(key: 'Gender', value: 'Male') do |row|
+  list.add_row(key: 'Age', values: 30) do |row|
     row.add_action('View')
   end
-  list.add_row(key: 'Age', value: 30) do |row|
+  list.add_row(key: 'Contact', values: ['0123456789', 'john.doe@email.com']) do |row|
     row.add_action('View')
   end
 end
