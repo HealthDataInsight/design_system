@@ -15,7 +15,7 @@ module DesignSystem
         end
 
         def render_row(row)
-          content_tag(:div, class: 'flex px-3 py-4 sm:grid sm:grid-cols-3 sm:gap-3 sm:px-6') do
+          content_tag(:div, class: 'flex-wrap px-3 py-4 sm:grid sm:grid-cols-3 sm:gap-3 sm:px-6') do
             [render_key(row),
              render_value(row),
              render_actions(row)].compact.join.html_safe
@@ -41,7 +41,7 @@ module DesignSystem
         def render_actions(row)
           return if row[:actions].nil? || row[:actions].empty?
 
-          content_tag(:dd, class: 'flex flex-wrap items-center') do
+          content_tag(:dd, class: 'flex flex-wrap justify-between items-center sm:justify-end') do
             content_tag(:ul, class: 'flex flex-wrap items-center gap-2 sm:gap-1') do
               row[:actions].map.with_index do |action, index|
                 content_tag(:li,
