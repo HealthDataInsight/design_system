@@ -9,7 +9,7 @@ module DesignSystem
         private
 
         def render_rows
-          content_tag(:dl, class: 'min-w-full divide-y divide-gray-300 overflow-hidden') do
+          content_tag(:dl, class: 'py-4 min-w-full divide-y divide-gray-300 overflow-hidden') do
             @summary_list.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
               rows_buffer.concat(render_row(row))
             end
@@ -29,33 +29,43 @@ module DesignSystem
         end
 
         def render_key(row)
-          content_tag(:dt, row[:key][:content], class: 'text-sm font-semibold text-gray-900')
+          content_tag(:dt, row[:key][:content], class: 'text-sm font-semibold text-gray-900 flex items-center')
         end
 
         def render_value(row)
           content_tag(:dd, row[:value][:content],
-                      class: 'whitespace-nowrap px-3 text-sm text-gray-500 sm:mt-0')
+                      class: 'whitespace-nowrap px-3 text-sm text-gray-500 sm:mt-0 flex items-center')
         end
 
         def render_actions(row)
-          content_tag(:dd, class: 'flex flex-wrap items-center gap-4 flex-none') do
-            row[:actions].map do |action|
-              content_tag(:a, action[:content], href: action[:options][:path] || '#',
-                                                class: 'text-sm font-semibold text-hdi-violet hover:underline whitespace-nowrap')
-            end.join.html_safe
+          content_tag(:dd, class: 'flex flex-wrap items-center') do
+            content_tag(:ul, class: 'flex flex-wrap items-center gap-2 sm:gap-1') do
+              row[:actions].map.with_index do |action, index|
+                content_tag(:li,
+                            render_action(action),
+                            class: "inline-block #{action_item_spacing(index, row[:actions].length)}")
+              end.join.html_safe
+            end
           end
         end
 
-        # def render_action(action)
-        #   content_tag(:a, href: action[:options][:path] || '#') do
-        #     safe_buffer = ActiveSupport::SafeBuffer.new
-        #     safe_buffer.concat(action[:content])
+        def render_action(action)
+          content_tag(:a, action[:content],
+                      href: action[:options][:path] || '#',
+                      class: 'flex items-center text-sm font-semibold text-hdi-violet underline hover:text-indigo-600')
+        end
 
-        #     safe_buffer.concat(content_tag(:span, action[:options][:hidden_text])) if action[:options][:hidden_text]
-
-        #     safe_buffer
-        #   end
-        # end
+        def action_item_spacing(index, total)
+          if total == 1
+            ''
+          elsif index.zero?
+            'pr-2 border-r border-gray-300'
+          elsif index == total - 1
+            'pl-2'
+          else
+            'px-2 border-r border-gray-300'
+          end
+        end
       end
     end
   end
