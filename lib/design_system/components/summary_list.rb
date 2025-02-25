@@ -9,63 +9,43 @@ module DesignSystem
         @rows = []
       end
 
-      def add_row(key: nil, values: nil, &)
+      # Add a new row to the summary list.
+      # Use this method to add rows containing single key-value pair
+      def add_row(key: nil, value: nil, options: {}, &block)
         row_builder = SummaryListRowBuilder.new
 
-        row_builder.set_key(key) if key
-        row_builder.set_value(values) if values
+        row_builder.add_key(key) if key
+        row_builder.add_value(value) if value
 
         yield(row_builder) if block_given?
-
-        @rows << row_builder.to_h
+        @rows << row_builder.row
       end
     end
 
     class SummaryListRowBuilder
-      attr_reader :key, :values, :actions
+      attr_reader :row
 
       def initialize
-        @key = { content: nil, options: {} }
-        @values = []
-        @actions = []
-      end
-
-      def set_key(content, options = {})
-        @key = {
-          content: content.to_s,
-          options:
+        @row = {
+          key: {},
+          values: [],
+          actions: []
         }
       end
 
-      def set_value(values, options = {})
-        Array(values).each do |v|
-          @values << {
-            content: v.to_s,
-            options: options.dup
-          }
-        end
+      # Required element for a row in the summary list
+      def add_key(content, options = {})
+        @row[:key] = { content: content.to_s, options: }
       end
 
+      # Use this method to add multiple values in a single row
       def add_value(content, options = {})
-        @values << {
-          content: content.to_s,
-          options: options.dup
-        }
+        @row[:values] << { content: content.to_s, options: }
       end
 
+      # Use this method to add an action to a row and add link via options hash
       def add_action(content, options = {})
-        @actions << {
-          content: content.to_s,
-          options: options.dup
-        }
-      end
-
-      def to_h
-        {
-          key: @key,
-          values: @values,
-          actions: @actions
-        }
+        @row[:actions] << { content: content.to_s, options: }
       end
     end
   end

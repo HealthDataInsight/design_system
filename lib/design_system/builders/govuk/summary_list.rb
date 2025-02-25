@@ -33,9 +33,9 @@ module DesignSystem
 
         def wrap_value(value)
           if value[:options]&.dig(:path)
-            link_to(value[:content], value[:options][:path] || '#', class: "#{brand}-link")
+            link_to(value[:content], value[:options][:path] || '#', class: 'govuk-link')
           else
-            content_tag(:p, value[:content], class: "#{brand}-body")
+            content_tag(:p, value[:content], class: 'govuk-body')
           end
         end
       end
