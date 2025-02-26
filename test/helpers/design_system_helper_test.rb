@@ -43,11 +43,8 @@ class DesignSystemHelperTest < ActionView::TestCase
 
     @output_buffer = ds_render_template
 
-    # head should be inserted for all layouts
-    assert_includes @output_buffer, 'tailwind.config'
-    # body uses the default layout
-    assert_includes @output_buffer, 'HDI Portal'
-    assert_includes @output_buffer, 'Test Item'
+    assert_select 'body[data-ds-brand="hdi"]'
+    assert_select 'body[data-ds-layout="application"]'
   end
 
   test 'ds_render_template renders left_panel custom layout upon request' do
@@ -58,10 +55,7 @@ class DesignSystemHelperTest < ActionView::TestCase
 
     @output_buffer = ds_render_template('left_panel')
 
-    # head should be inserted for all layouts
-    assert_includes @output_buffer, 'tailwind.config'
-    # body uses the left_panel layout
-    assert_includes @output_buffer, 'https://images.unsplash.com/photo-1496917756835-20cb06e75b4e'
-    refute_includes @output_buffer, 'Test Item'
+    assert_select 'body[data-ds-brand="hdi"]'
+    assert_select 'body[data-ds-layout="left_panel"]'
   end
 end

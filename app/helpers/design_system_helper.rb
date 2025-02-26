@@ -24,6 +24,7 @@ module DesignSystemHelper
   end
 
   def ds_render_template(design_system_layout = 'application')
+    @design_system_layout = design_system_layout
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 

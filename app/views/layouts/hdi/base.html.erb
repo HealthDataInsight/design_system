@@ -29,7 +29,7 @@
 
     <%= yield :head %>
   </head>
-  <body class="h-full">
+  <body class="h-full" data-ds-brand="<%= brand %>" data-ds-layout="<%= @design_system_layout %>">
     <%= yield :body %>
   </body>
 </html>
