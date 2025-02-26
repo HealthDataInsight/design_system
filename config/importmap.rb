@@ -1,2 +1,3 @@
-pin 'stimulus-timeago', to: 'https://cdn.jsdelivr.net/npm/@stimulus-components/timeago@5.0.2/+esm'
+pin '@stimulus-components/timeago', to: '/design_system/static/stimulus/@stimulus-components--timeago.js'
+pin 'date-fns', to: '/design_system/static/date-fns-4.1.0/index.js'
 pin 'design_system/controllers', to: 'design_system/controllers/index.js'

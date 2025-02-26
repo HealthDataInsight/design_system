@@ -26,7 +26,9 @@ module DesignSystem
           '/design_system/static/govuk-frontend-5.3.1',
           '/design_system/static/ndrsuk-frontend-8.1.1',
           '/design_system/static/nhsuk-frontend-9.1.0',
-          '/design_system/static/tailwind-4.0.7'
+          '/design_system/static/tailwind-4.0.7',
+          '/design_system/static/stimulus',
+          '/design_system/static/date-fns-4.1.0'
         ],
         root: DesignSystem::Engine.root.join('public')
       )

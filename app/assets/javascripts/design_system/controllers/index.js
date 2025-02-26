@@ -1,5 +1,6 @@
 // Import and register all your controllers
-import Timeago from "stimulus-timeago";
+import Timeago from "@stimulus-components/timeago";
+
 import HelloWorldController from "./hello_world_controller"
 // import OtherController from "./other_controller"
 
