@@ -11,9 +11,10 @@ module DesignSystem
 
       # Add a new row to the summary list.
       # Use this method to add rows containing single key-value pair
-      def add_row(key: nil, value: nil, options: {}, &block)
-        row_builder = SummaryListRowBuilder.new
+      def add_row(*args, key: nil, value: nil, &block)
+        key, value = args if args.any?
 
+        row_builder = SummaryListRowBuilder.new
         row_builder.add_key(key) if key
         row_builder.add_value(value) if value
 

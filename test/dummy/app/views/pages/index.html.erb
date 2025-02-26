@@ -12,18 +12,18 @@ end
 
 <%=
 ds_summary_list do |list|
-  list.add_row(key: 'Name', value: 'John Doe') do |row|
-    row.add_action('Root', { path: root_path, hidden_text: 'name' })
-    row.add_action('Change', { hidden_text: 'name' })
+  list.add_row('Name', 'John Doe') do |row|
+    row.add_action('Root', path: root_path, hidden_text: 'name')
+    row.add_action('Change', hidden_text: 'name')
   end
-  list.add_row(key: 'Age', value: 30) do |row|
+  list.add_row('Age', 30) do |row|
     row.add_action('View')
   end
-  list.add_row(key: 'Email') do |row|
-    row.add_value('Enter email information', { path: root_path })
+  list.add_row('Email') do |row|
+    row.add_value('Enter email information', path: root_path)
     row.add_action('View')
   end
-  list.add_row(key: 'Contact') do |row|
+  list.add_row('Contact') do |row|
     row.add_value('0123456789')
     row.add_value('john.doe@email.com')
     row.add_action('View')
