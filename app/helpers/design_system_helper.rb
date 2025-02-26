@@ -29,6 +29,12 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
   end
 
+  def ds_summary_list(&)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'summary_list', self).render_summary_list(&)
+  end
+
   def ds_tab(&)
     raise ArgumentError unless block_given?
 

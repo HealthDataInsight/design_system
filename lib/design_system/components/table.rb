@@ -22,7 +22,7 @@ module DesignSystem
 
       def add_row(*cells, &block)
         if block_given?
-          row_builder = RowBuilder.new(@columns)
+          row_builder = TableRowBuilder.new(@columns)
           block.call(row_builder)
           @rows << row_builder.cells
         else
@@ -36,7 +36,7 @@ module DesignSystem
     end
 
     # This class helps in building the row for the table <tr>
-    class RowBuilder
+    class TableRowBuilder
       attr_reader :cells
 
       def initialize(columns)
