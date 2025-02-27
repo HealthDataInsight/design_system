@@ -25,7 +25,7 @@
 
     <%= yield :head %>
   </head>
-<body class="">
+<body class="" data-ds-brand="<%= brand %>" data-ds-layout="<%= @design_system_layout %>">
   <%= javascript_tag nonce: true do %>
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
   <% end %>

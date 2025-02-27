@@ -23,10 +23,21 @@ module DesignSystemHelper
     end
   end
 
+  def ds_render_template(design_system_layout = 'application')
+    @design_system_layout = design_system_layout
+    render(template: "layouts/#{brand}/#{design_system_layout}")
+  end
+
   def ds_table(&)
     raise ArgumentError unless block_given?
 
     DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
+  end
+
+  def ds_summary_list(&)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'summary_list', self).render_summary_list(&)
   end
 
   def ds_tab(&)
