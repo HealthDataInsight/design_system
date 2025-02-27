@@ -15,7 +15,7 @@
 
     <%= yield :head %>
   </head>
-<body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
+<body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details" data-ds-brand="<%= brand %>" data-ds-layout="<%= @design_system_layout %>">
   <script>
     document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
   </script>
