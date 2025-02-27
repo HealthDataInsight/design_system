@@ -58,4 +58,18 @@ class DesignSystemHelperTest < ActionView::TestCase
     assert_select 'body[data-ds-brand="hdi"]'
     assert_select 'body[data-ds-layout="left_panel"]'
   end
+
+  test 'ds_timeago generates correct HTML' do
+    date = Time.now
+
+    result = ds_timeago(date)
+    content = I18n.l(date, format: :long)
+
+    assert_includes result, '<time'
+    assert_includes result, 'data-controller="timeago"'
+    assert_includes result, "data-timeago-datetime-value=\"#{date.iso8601}\""
+    assert_includes result, 'data-timeago-refresh-interval-value="60000"'
+    assert_includes result, 'data-timeago-add-suffix-value="true"'
+    assert_includes result, "title=\"#{content}\""
+  end
 end

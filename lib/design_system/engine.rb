@@ -1,5 +1,5 @@
 require 'action_dispatch/middleware/remote_ip'
-
+require 'stimulus-rails'
 module DesignSystem
   # This is the main engine class for the design system.
   class Engine < ::Rails::Engine
@@ -26,7 +26,9 @@ module DesignSystem
           '/design_system/static/heroicons-2.1.5',
           '/design_system/static/ndrsuk-frontend-8.1.1',
           '/design_system/static/nhsuk-frontend-9.1.0',
-          '/design_system/static/tailwind-3.4.16'
+          '/design_system/static/tailwind-3.4.16',
+          '/design_system/static/stimulus-3.2.2',
+          '/design_system/static/date-fns-4.1.0'
         ],
         root: DesignSystem::Engine.root.join('public')
       )
