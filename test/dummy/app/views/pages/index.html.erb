@@ -88,9 +88,11 @@ end
   <input type="text">
   <button>Greet</button>
 </div>
+
 </br>
+
 <div>
-	<p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
+  <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
 </div>
 
 <%= ds_pagination(@assistants) %>
