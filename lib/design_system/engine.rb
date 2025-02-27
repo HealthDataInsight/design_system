@@ -27,7 +27,7 @@ module DesignSystem
           '/design_system/static/ndrsuk-frontend-8.1.1',
           '/design_system/static/nhsuk-frontend-9.1.0',
           '/design_system/static/tailwind-3.4.16',
-          '/design_system/static/stimulus',
+          '/design_system/static/stimulus-3.2.2',
           '/design_system/static/date-fns-4.1.0'
         ],
         root: DesignSystem::Engine.root.join('public')
