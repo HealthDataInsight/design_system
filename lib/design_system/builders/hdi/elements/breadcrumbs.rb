@@ -24,9 +24,9 @@ module DesignSystem
 
           def content_for_breadcrumbs
             content_for(:breadcrumbs) do
-              content_tag(:div, class: 'max-w-lg mb-4') do
-                content_tag(:nav, 'aria-label': 'Breadcrumb', class: 'flex') do
-                  content_tag(:ol, class: 'flex items-center space-x-4', role: 'list') do
+              content_tag(:div, class: 'max-w-lg mb-4 overflow-x-auto') do
+                content_tag(:nav, 'aria-label': 'Breadcrumb', class: 'flex flex-wrap') do
+                  content_tag(:ol, class: 'flex flex-wrap items-center space-x-4', role: 'list') do
                     @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
                       safe_buffer.concat(render_breadcrumb(breadcrumb))
                     end
@@ -44,10 +44,10 @@ module DesignSystem
               if is_home_path
                 root_path_breadcrumb(breadcrumb)
               else
-                content_tag :div, class: 'flex items-center' do
+                content_tag :div, class: 'flex flex-wrap items-center' do
                   BREADCRUMB_DIVIDER_SVG + link_to(breadcrumb[:label], breadcrumb[:path],
-                                                   class: 'ml-4 text-sm font-medium text-gray-500 hover:text-gray-700',
-                                                   style: 'margin-left: 1rem', # ml-4 should work, but doesn't
+                                                   class: 'ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 break-words truncate',
+                                                   style: 'max-width: 200px; white-space: ellipsis; margin-left: 1rem', # ml-4 should work, but doesn't
                                                    'aria-current': is_current_page ? 'page' : nil)
                 end
               end
