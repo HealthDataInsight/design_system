@@ -1,4 +1,4 @@
-describe('Breadcrumbs Layout', () => {
+describe('HDI Breadcrumbs Layout', () => {
   beforeEach(() => {
     cy.visit('/?brand=hdi');
   });
