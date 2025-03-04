@@ -9,6 +9,10 @@ module DesignSystem
           def render_main_heading
             content_tag(:h1, @main_heading, class: "#{brand}-heading-xl")
           end
+
+          def render_subheading
+            content_tag(:h2, @subheading, class: "#{brand}-heading-l")
+          end
         end
       end
     end

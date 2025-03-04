@@ -21,6 +21,7 @@ module DesignSystem
             safe_buffer = ActiveSupport::SafeBuffer.new
 
             safe_buffer.concat(render_main_heading) if @main_heading
+            safe_buffer.concat(render_subheading) if @subheading
             safe_buffer.concat(render_form) if @form_object
 
             safe_buffer
