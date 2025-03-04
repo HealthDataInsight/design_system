@@ -27,6 +27,14 @@ module DesignSystem
 
           assert_select("h2.#{@brand}-heading-l", text: 'Subheading!')
         end
+
+        test 'rendering nhs caption' do
+          @output_buffer = ds_fixed_elements do |ds|
+            ds.caption('Caption!')
+          end
+
+          assert_select("span.#{@brand}-caption-m", text: 'Caption!')
+        end
       end
     end
   end

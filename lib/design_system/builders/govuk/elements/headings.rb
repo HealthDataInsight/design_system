@@ -13,6 +13,10 @@ module DesignSystem
           def render_subheading
             content_tag(:h2, @subheading, class: "#{brand}-heading-l")
           end
+
+          def render_caption
+            content_tag(:span, @caption, class: "#{brand}-caption-m")
+          end
         end
       end
     end

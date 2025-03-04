@@ -12,6 +12,10 @@ module DesignSystem
             @subheading = text
           end
 
+          def caption(text)
+            @caption = text
+          end
+
           private
 
           def render_main_heading
@@ -20,6 +24,10 @@ module DesignSystem
 
           def render_subheading
             content_tag(:h2, @subheading)
+          end
+
+          def render_caption
+            content_tag(:span, @caption)
           end
         end
       end

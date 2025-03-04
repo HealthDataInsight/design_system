@@ -26,6 +26,14 @@ module DesignSystem
           end
           assert_select('h2', text: 'Subheading!')
         end
+
+        test 'rendering hdi caption' do
+          @output_buffer = ds_fixed_elements do |ds|
+            ds.caption('Caption!')
+          end
+
+          assert_select('span', text: 'Caption!')
+        end
       end
     end
   end

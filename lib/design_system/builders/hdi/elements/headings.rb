@@ -13,6 +13,10 @@ module DesignSystem
           def render_subheading
             content_tag(:h2, @subheading, class: 'text-2xl font-semibold leading-6 text-gray-900')
           end
+
+          def render_caption
+            content_tag(:span, @caption, class: 'mt-2 text-sm hdi-text-700')
+          end
         end
       end
     end
