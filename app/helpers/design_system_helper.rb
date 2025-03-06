@@ -28,6 +28,10 @@ module DesignSystemHelper
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 
+  def ds_heading(text, level: 2, caption: nil)
+    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level: level, caption: caption)
+  end
+
   def ds_table(&)
     raise ArgumentError unless block_given?
 

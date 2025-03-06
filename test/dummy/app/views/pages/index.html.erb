@@ -5,15 +5,12 @@ ds_fixed_elements do |ds|
   ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
 
   ds.main_heading 'Page#index heading'
-  ds.subheading 'Page#index subtitle'
-  ds.caption 'This is a test page.'
 
   # ds.form @assistant
 end
 %>
 
-<br>
-
+<%= ds_heading 'Summary List', caption: 'Use it for key-pair data.' %>
 <%=
 ds_summary_list do |list|
   list.add_row('Name', 'John Doe') do |row|
@@ -35,6 +32,7 @@ ds_summary_list do |list|
 end
 %>
 
+<%= ds_heading 'Table', caption: 'Use it for tabular data.' %>
 <%=
 ds_table do |table|
   table.caption = 'Name and Age'
@@ -50,6 +48,7 @@ ds_table do |table|
 end
 %>
 
+<%= ds_heading 'Tab', caption: 'Use it to separate your data into labelled sections.' %>
 <%=	
 ds_tab do |tab|
   tab.title = 'Contents'
@@ -71,6 +70,7 @@ end
   
 %>
 
+<%= ds_heading 'Buttons' %>
 <!--style=[secondary warning reverse] default is primary-->
 <%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
 
@@ -78,6 +78,7 @@ end
 
 <%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
 
+<%= ds_heading 'Assitants table', level: 3 %>
 <%=
 ds_table do |table|
   table.caption = 'Assistants'
