@@ -28,8 +28,8 @@ module DesignSystemHelper
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 
-  def ds_heading(text, level: 2, caption: nil)
-    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level: level, caption: caption)
+  def ds_heading(text, level: 2)
+    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level:)
   end
 
   def ds_table(&)
