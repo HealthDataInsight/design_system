@@ -10,12 +10,12 @@ module DesignSystem
         private
 
         def table_content
-          content_tag(:table, nil, class: "#{brand}-table") do
+          content_tag(:table, nil, class: "#{brand}-table #{brand}-table--small-text-until-tablet") do
             safe_buffer = ActiveSupport::SafeBuffer.new
 
             if @table.caption
               safe_buffer.concat(content_tag(:caption, @table.caption,
-                                             class: "#{brand}-table__caption"))
+                                             class: "#{brand}-table__caption #{brand}-table__caption--m"))
             end
             safe_buffer.concat(render_headers)
             safe_buffer.concat(render_rows)
