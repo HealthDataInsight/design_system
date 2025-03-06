@@ -28,6 +28,15 @@ module DesignSystem
           assert_select('span', text: 'Caption!')
         end
 
+        test 'rendering hdi caption after main_heading' do
+          @output_buffer = ds_fixed_elements do |ds|
+            ds.main_heading('Welcome!')
+            ds.caption('Caption!')
+          end
+
+          assert_match(%r{<h1[^>]*>Welcome!</h1>.*<span[^>]*>Caption!</span>}m, @output_buffer)
+        end
+
         test 'rendering hdi default paragraph heading' do
           @output_buffer = ds_heading('Paragraph heading!')
 
