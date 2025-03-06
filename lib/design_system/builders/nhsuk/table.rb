@@ -53,9 +53,12 @@ module DesignSystem
 
           content_tag(:td, cell[:options].merge(class: classes), role: 'cell') do
             buffer = ActiveSupport::SafeBuffer.new
-            buffer.concat(content_tag(:span, @table.columns[index][:content], class: "#{brand}-table-responsive__heading",
-                                                                              aria: { hidden: true }))
+            buffer.concat(content_tag(:span,
+                                      @table.columns[index][:content],
+                                      class: "#{brand}-table-responsive__heading",
+                                      aria: { hidden: true }))
             buffer.concat(cell[:content].to_s)
+
             buffer
           end
         end
