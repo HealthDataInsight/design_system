@@ -20,19 +20,30 @@ module DesignSystem
           assert_select('h1', text: 'Welcome!')
         end
 
-        test 'rendering hdi subheading' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.subheading('Subheading!')
-          end
-          assert_select('h2', text: 'Subheading!')
-        end
-
         test 'rendering hdi caption' do
           @output_buffer = ds_fixed_elements do |ds|
             ds.caption('Caption!')
           end
 
           assert_select('span', text: 'Caption!')
+        end
+
+        test 'rendering hdi default paragraph heading' do
+          @output_buffer = ds_heading('Paragraph heading!')
+
+          assert_select('h2', text: 'Paragraph heading!')
+        end
+
+        test 'rendering hdi paragraph heading with specified level' do
+          @output_buffer = ds_heading('Paragraph heading!', level: 3)
+
+          assert_select('h3', text: 'Paragraph heading!')
+        end
+
+        test 'rendering paragraph heading with invalid level' do
+          assert_raises ArgumentError do
+            @output_buffer = ds_heading('Paragraph heading!', level: 7)
+          end
         end
       end
     end
