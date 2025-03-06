@@ -9,6 +9,10 @@ module DesignSystem
           def render_main_heading
             content_tag(:h1, @main_heading, class: "#{brand}-heading-xl")
           end
+
+          def render_caption
+            content_tag(:span, @caption, class: "#{brand}-caption-m")
+          end
         end
       end
     end

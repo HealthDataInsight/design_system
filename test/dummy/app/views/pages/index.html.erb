@@ -5,12 +5,13 @@ ds_fixed_elements do |ds|
   ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
 
   ds.main_heading 'Page#index heading'
+  ds.caption 'Test page'
 
   # ds.form @assistant
 end
 %>
 
-<%= ds_heading 'Summary List', caption: 'Use it for key-pair data.' %>
+<%= ds_heading 'Summary List' %>
 <%=
 ds_summary_list do |list|
   list.add_row('Name', 'John Doe') do |row|
@@ -32,7 +33,7 @@ ds_summary_list do |list|
 end
 %>
 
-<%= ds_heading 'Table', caption: 'Use it for tabular data.' %>
+<%= ds_heading 'Table' %>
 <%=
 ds_table do |table|
   table.caption = 'Name and Age'
@@ -48,7 +49,7 @@ ds_table do |table|
 end
 %>
 
-<%= ds_heading 'Tab', caption: 'Use it to separate your data into labelled sections.' %>
+<%= ds_heading 'Tab' %>
 <%=	
 ds_tab do |tab|
   tab.title = 'Contents'
@@ -89,6 +90,7 @@ ds_table do |table|
 end
 %>
 
+<%= ds_heading 'Stimulus controllers' %>
 <div data-controller="ds--hello-world">
   <input type="text">
   <button>Greet</button>
@@ -100,4 +102,5 @@ end
   <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
 </div>
 
+<%= ds_heading 'Pagination' %>
 <%= ds_pagination(@assistants) %>

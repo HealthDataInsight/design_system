@@ -8,10 +8,18 @@ module DesignSystem
             @main_heading = text
           end
 
+          def caption(text)
+            @caption = text
+          end
+
           private
 
           def render_main_heading
             content_tag(:h1, @main_heading)
+          end
+
+          def render_caption
+            content_tag(:span, @caption)
           end
         end
       end
