@@ -30,6 +30,6 @@
     <%= yield :head %>
   </head>
   <body class="h-full" data-ds-brand="<%= brand %>" data-ds-layout="<%= @design_system_layout %>">
-    <%= yield :body %>
+    <%= content_for?(:body) ? yield(:body) : yield %>
   </body>
 </html>
