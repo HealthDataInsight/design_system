@@ -20,7 +20,6 @@ module DesignSystem
           render_main_container do
             safe_buffer = ActiveSupport::SafeBuffer.new
 
-            safe_buffer.concat(render_caption) if @caption
             safe_buffer.concat(render_main_heading) if @main_heading
             safe_buffer.concat(render_form) if @form_object
 

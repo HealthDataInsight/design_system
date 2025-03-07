@@ -14,27 +14,13 @@ module DesignSystem
 
         test 'rendering govuk main heading' do
           @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
+            ds.main_heading('Welcome!', caption: 'Caption!')
           end
 
-          assert_select("h1.#{@brand}-heading-xl", text: 'Welcome!')
-        end
-
-        test 'rendering govuk caption' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.caption('Caption!')
+          assert_select('div') do
+            assert_select("span.#{@brand}-caption-m", text: 'Caption!')
+            assert_select("h1.#{@brand}-heading-xl", text: 'Welcome!')
           end
-
-          assert_select("span.#{@brand}-caption-m", text: 'Caption!')
-        end
-
-        test 'rendering govuk caption before main_heading' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
-            ds.caption('Caption!')
-          end
-
-          assert_match(%r{<span[^>]*>Caption!</span>.*<h1[^>]*>Welcome!</h1>}m, @output_buffer)
         end
 
         test 'rendering govuk default paragraph heading' do

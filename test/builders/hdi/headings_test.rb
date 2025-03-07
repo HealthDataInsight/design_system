@@ -14,27 +14,14 @@ module DesignSystem
 
         test 'rendering hdi main heading' do
           @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
+            ds.main_heading('Welcome!', caption: 'Caption!')
           end
           # TODO: decide on class-matching: class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
-          assert_select('h1', text: 'Welcome!')
-        end
 
-        test 'rendering hdi caption' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.caption('Caption!')
+          assert_select('div') do
+            assert_select('h1', text: 'Welcome!')
+            assert_select('span', text: 'Caption!')
           end
-
-          assert_select('span', text: 'Caption!')
-        end
-
-        test 'rendering hdi caption after main_heading' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
-            ds.caption('Caption!')
-          end
-
-          assert_match(%r{<h1[^>]*>Welcome!</h1>.*<span[^>]*>Caption!</span>}m, @output_buffer)
         end
 
         test 'rendering hdi default paragraph heading' do
