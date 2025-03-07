@@ -8,7 +8,7 @@ module DesignSystem
         private
 
         def classes(level)
-          base_classes = 'leading-6 tracking-tight text-gray-900 mb-2 break-words'
+          base_classes = 'leading-6 tracking-tight text-gray-900 mb-2 break-words '
 
           case level
           when 1 then base_classes + 'text-3xl sm:text-4xl font-bold'
