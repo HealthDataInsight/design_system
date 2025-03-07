@@ -30,7 +30,7 @@ module DesignSystem
         test 'rendering nhs paragraph heading with specified level' do
           @output_buffer = ds_heading('Paragraph heading!', level: 3)
 
-          assert_select("h3.#{brand}-heading-l", text: 'Paragraph heading!')
+          assert_select("h3.#{brand}-heading-m", text: 'Paragraph heading!')
         end
       end
     end

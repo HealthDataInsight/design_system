@@ -14,8 +14,9 @@ module DesignSystem
           def render_main_heading
             safe_buffer = ActiveSupport::SafeBuffer.new
 
-            safe_buffer.concat(content_tag(:h1, @main_heading))
             safe_buffer.concat(render_caption) if @caption
+            safe_buffer.concat(DesignSystem::Registry.builder(brand, 'heading', self).render_heading(@main_heading, level: 1))
+
 
             safe_buffer
           end

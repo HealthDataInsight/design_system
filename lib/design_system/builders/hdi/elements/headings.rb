@@ -11,8 +11,7 @@ module DesignSystem
 
             # HDI renders caption below the main heading.
             # Longer captions up to one or two sentences are accepted.
-            safe_buffer.concat(content_tag(:h1, @main_heading,
-                                           class: 'text-3xl font-bold tracking-tight sm:text-4xl text-gray-900 mb-2 break-words'))
+            safe_buffer.concat(DesignSystem::Registry.builder(brand, 'heading', self).render_heading(@main_heading, level: 1))
             safe_buffer.concat(render_caption) if @caption
 
             safe_buffer

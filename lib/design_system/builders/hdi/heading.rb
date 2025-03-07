@@ -5,11 +5,21 @@ module DesignSystem
     module Hdi
       # This class provides Hdi methods to display headings in page content.
       class Heading < ::DesignSystem::Builders::Generic::Heading
-        def render_heading(text, level: 2)
-          validate_level(level)
+        private
 
-          content_tag("h#{level}", text,
-                      class: 'text-lg sm:text-2xl font-semibold leading-6 text-gray-900 mt-2 mb-2 break-words')
+        def classes(level)
+          base_classes = 'leading-6 tracking-tight text-gray-900 mb-2 break-words'
+
+          case level
+          when 1 then base_classes + 'text-3xl sm:text-4xl font-bold'
+          when 2 then base_classes + 'text-xl sm:text-2xl font-semibold'
+          when 3 then base_classes + 'text-lg sm:text-xl font-semibold'
+          when 4 then base_classes + 'text-base sm:text-lg font-semibold'
+          when 5 then base_classes + 'text-sm sm:text-base font-semibold'
+          when 6 then base_classes + 'text-xs sm:text-sm font-semibold'
+          else raise ArgumentError,
+            "Invalid heading level #{level}. Must be an integer between 1 and 6."
+          end
         end
       end
     end
