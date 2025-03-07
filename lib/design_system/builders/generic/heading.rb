@@ -18,7 +18,7 @@ module DesignSystem
           return if level in (1..6)
 
           raise ArgumentError,
-                "Invalid heading levle #{level}. Must be an integer between 1 and 6."
+                "Invalid heading level #{level}. Must be an integer between 1 and 6."
         end
       end
     end
