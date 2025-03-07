@@ -27,7 +27,7 @@ module DesignSystem
         end
 
         def render_value(row)
-          return if row[:values].blank?
+          return if row[:values].nil? || row[:values].empty?
 
           content_tag(:dd, class: 'whitespace-nowrap text-sm text-gray-500 sm:mt-0') do
             if row[:values].length == 1
@@ -39,7 +39,7 @@ module DesignSystem
         end
 
         def render_actions(row)
-          return if row[:actions].blank?
+          return if row[:actions].nil? || row[:actions].empty?
 
           content_tag(:dd, class: 'flex flex-wrap justify-between items-center sm:justify-end') do
             content_tag(:ul, class: 'flex flex-wrap items-center gap-2 sm:gap-1') do

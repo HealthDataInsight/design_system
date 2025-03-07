@@ -40,7 +40,7 @@ module DesignSystem
         end
 
         def render_value(row)
-          return if row[:values].blank?
+          return if row[:values].nil || row[:values].empty?
 
           content_tag(:dd, class: "#{brand}-summary-list__value") do
             if row[:values].length == 1
@@ -52,7 +52,7 @@ module DesignSystem
         end
 
         def render_actions(row)
-          return if row[:actions].blank?
+          return if row[:actions].nil || row[:actions].empty?
 
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
             if row[:actions].length == 1
