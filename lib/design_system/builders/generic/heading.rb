@@ -12,15 +12,24 @@ module DesignSystem
         private
 
         def classes(level)
+          validate_level(level)
+
           case level
           when 1 then "#{brand}-heading-xl"
           when 2 then "#{brand}-heading-l"
           when 3 then "#{brand}-heading-m"
           when 4 then "#{brand}-heading-s"
-          when 5 then "#{brand}-heading-xs"
-          when 6 then "#{brand}-heading-xxs"
-          else raise ArgumentError,
-            "Invalid heading level #{level}. Must be an integer between 1 and 6."
+          else
+            "#{brand}-heading-xs"
+          end
+        end
+
+        def validate_level(level)
+          unless level.to_i.between?(
+            1, 6
+          )
+            raise ArgumentError,
+                  "Invalid heading level #{level}. Must be an integer between 1 and 6."
           end
         end
       end

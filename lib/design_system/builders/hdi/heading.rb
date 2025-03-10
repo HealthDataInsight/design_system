@@ -8,6 +8,8 @@ module DesignSystem
         private
 
         def classes(level)
+          validate_level(level)
+
           base_classes = 'leading-6 tracking-tight text-gray-900 mb-2 break-words '
 
           case level
@@ -15,10 +17,8 @@ module DesignSystem
           when 2 then base_classes + 'text-xl sm:text-2xl font-semibold'
           when 3 then base_classes + 'text-lg sm:text-xl font-semibold'
           when 4 then base_classes + 'text-base sm:text-lg font-semibold'
-          when 5 then base_classes + 'text-sm sm:text-base font-semibold'
-          when 6 then base_classes + 'text-xs sm:text-sm font-semibold'
-          else raise ArgumentError,
-            "Invalid heading level #{level}. Must be an integer between 1 and 6."
+          else
+            base_classes + 'text-sm sm:text-base font-semibold'
           end
         end
       end
