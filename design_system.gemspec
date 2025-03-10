@@ -3,7 +3,7 @@ require_relative 'lib/design_system/version'
 Gem::Specification.new do |spec|
   spec.name        = 'design_system'
   spec.version     = DesignSystem::VERSION
-  spec.authors     = ['Tim Gentry']
+  spec.authors     = ['Filis Liu', 'Nick Robinson', 'Shilpi Goel', 'Tim Gentry']
   spec.email       = ['52189+timgentry@users.noreply.github.com']
   spec.homepage    = 'https://github.com/HealthDataInsight/design_system'
   spec.summary     = 'Design System Engine for GOV.UK, NHS, NDRS and HDI'
@@ -21,11 +21,12 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri'] = 'https://github.com/HealthDataInsight/design_system/CHANGELOG.md'
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+    Dir['{app,config,db,lib,public}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   end
 
   spec.add_dependency 'govuk_design_system_formbuilder', '~> 5.6.0'
   spec.add_dependency 'rails', '>= 7.0.8.1'
+  spec.add_dependency 'stimulus-rails', '~> 1.3'
   spec.add_dependency 'will_paginate', '~> 3.3'
 
   spec.metadata['rubygems_mfa_required'] = 'true'

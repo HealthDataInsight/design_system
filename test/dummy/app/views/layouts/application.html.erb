@@ -9,6 +9,7 @@
   <%= csp_meta_tag %>
 
   <%#= stylesheet_link_tag "application" %>
+  <%= javascript_importmap_tags %>
 <% end %>
 
-<%= render template: "layouts/#{brand}" %>
+<%= ds_render_template(local_assigns.fetch(:ds_layout, 'application')) %>

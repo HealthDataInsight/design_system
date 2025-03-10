@@ -33,10 +33,21 @@ module DesignSystemHelper
   alias ds_form_without_branding form_with
   alias form_with ds_form_with_branding
 
+  def ds_render_template(design_system_layout = 'application')
+    @design_system_layout = design_system_layout
+    render(template: "layouts/#{brand}/#{design_system_layout}")
+  end
+
   def ds_table(&)
     raise ArgumentError unless block_given?
 
     DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
+  end
+
+  def ds_summary_list(&)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'summary_list', self).render_summary_list(&)
   end
 
   def ds_tab(&)
@@ -69,5 +80,20 @@ module DesignSystemHelper
 
   def ds_notice(message)
     DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
+  end
+
+  def ds_timeago(date, refresh_interval: 60_000, format: :long)
+    return if date.blank?
+
+    content = I18n.l(date, format:)
+
+    tag.time(content,
+             title: content,
+             data: {
+               controller: 'timeago',
+               timeago_datetime_value: date.iso8601,
+               timeago_refresh_interval_value: refresh_interval,
+               timeago_add_suffix_value: true
+             })
   end
 end

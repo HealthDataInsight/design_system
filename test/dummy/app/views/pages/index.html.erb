@@ -1,12 +1,33 @@
 <%=
 ds_fixed_elements do |ds|
   ds.breadcrumb 'One', root_path
-  ds.breadcrumb 'Two', root_path
-  ds.breadcrumb 'Three', root_path
+  ds.breadcrumb 'A Super Long Breadcrumb Name That Should Be Truncated', assistants_path
+  ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
 
   ds.main_heading 'Page#index heading'
 
   # ds.form @assistant
+end
+%>
+
+<%=
+ds_summary_list do |list|
+  list.add_row('Name', 'John Doe') do |row|
+    row.add_action('Root', path: root_path, hidden_text: 'name')
+    row.add_action('Change', hidden_text: 'name')
+  end
+  list.add_row('Age', 30) do |row|
+    row.add_action('View')
+  end
+  list.add_row('Email') do |row|
+    row.add_value('Enter email information', path: root_path)
+    row.add_action('View')
+  end
+  list.add_row('Contact') do |row|
+    row.add_value('0123456789')
+    row.add_value('john.doe@email.com')
+    row.add_action('View')
+  end
 end
 %>
 
@@ -62,5 +83,16 @@ ds_table do |table|
   end
 end
 %>
+
+<div data-controller="ds--hello-world">
+  <input type="text">
+  <button>Greet</button>
+</div>
+
+</br>
+
+<div>
+  <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
+</div>
 
 <%= ds_pagination(@assistants) %>

@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
   private
 
   def add_navigation
-    add_navigation_item('Manage Assistants', assistants_path)
+    add_navigation_item('Manage Assistants', assistants_path, icon: 'users')
 
-    add_navigation_item('GOV.UK', url_for(brand: 'govuk'))
-    add_navigation_item('HDI', url_for(brand: 'hdi'))
-    add_navigation_item('NDRS', url_for(brand: 'ndrsuk'))
-    add_navigation_item('NHS', url_for(brand: 'nhsuk'))
+    add_navigation_item('GOV.UK', url_for(brand: 'govuk'), icon: 'ellipsis-horizontal-circle')
+    add_navigation_item('HDI', url_for(brand: 'hdi'), icon: 'ellipsis-horizontal-circle')
+    add_navigation_item('NDRS', url_for(brand: 'ndrsuk'), icon: 'ellipsis-horizontal-circle')
+    add_navigation_item('NHS', url_for(brand: 'nhsuk'), icon: 'ellipsis-horizontal-circle')
   end
 
   def brand
