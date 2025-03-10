@@ -34,14 +34,19 @@ describe('HDI Table Responsive Display', () => {
       // Each <td> should contain the column label + value
       cy.get('tbody tr').each(($row) => {
         cy.wrap($row).find('td').each(($cell, index) => {
-          cy.wrap($cell).invoke('text').then((text) => {
-            const columnLabel = ['Name', 'Age', 'Medication', 'How much'];
-            const expectedLabels = ['Name', 'Age', 'Medication', 'How much'];
-            const hasLabel = expectedLabels.some(label => text.includes(label));
+          const expectedLabels = ['Name', 'Age', 'Medication', 'How much'];
 
-            expect(hasLabel).to.be.true; // Ensures the label is present in the cell
-            expect(text.replace(/Name|Age|Medication|How much/g, '').trim().length).to.be.greaterThan(0); // Ensures there's also a value
-          });
+          cy.wrap($cell)
+            .find('span')
+            .first()
+            .should('have.text', expectedLabels[index]);
+
+          cy.wrap($cell)
+            .invoke('text')
+            .then((text) => {
+              const labelRemoved = text.replace(expectedLabels[index], '').trim();
+              expect(labelRemoved.length).to.be.greaterThan(0);
+            });
         });
       });
     });
