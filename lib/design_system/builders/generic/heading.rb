@@ -11,26 +11,26 @@ module DesignSystem
 
         private
 
+        SIZE_MAAPING = {
+          1 => 'xl',
+          2 => 'l',
+          3 => 'm',
+          4 => 's',
+          5 => 'xs',
+          6 => 'xs'
+        }.freeze
+
         def classes(level)
+          level = level.to_i
           validate_level(level)
 
-          case level
-          when 1 then "#{brand}-heading-xl"
-          when 2 then "#{brand}-heading-l"
-          when 3 then "#{brand}-heading-m"
-          when 4 then "#{brand}-heading-s"
-          else
-            "#{brand}-heading-xs"
-          end
+          "#{brand}-heading-#{SIZE_MAAPING[level]}"
         end
 
         def validate_level(level)
-          unless level.to_i.between?(
-            1, 6
-          )
-            raise ArgumentError,
-                  "Invalid heading level #{level}. Must be an integer between 1 and 6."
-          end
+          return if level.between?(1, 6)
+
+          raise ArgumentError, "Invalid heading level #{level}. Must be an integer between 1 and 6."
         end
       end
     end
