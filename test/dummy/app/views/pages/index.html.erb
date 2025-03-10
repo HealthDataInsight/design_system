@@ -32,8 +32,8 @@ end
 %>
 
 <%=
-ds_table do |table|
-  table.caption = 'Name and Age'
+ds_table(data: { test: 'table' }) do |table|
+  table.caption = 'Table Caption'
 
   table.add_column('Name', data: {'toggle': "table" , 'sort-name': "name" , 'sort-order': "desc", 'pagination':"false"} )
   table.add_numeric_column('Age', data: { sortable: false })
