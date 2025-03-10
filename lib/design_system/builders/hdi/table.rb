@@ -19,18 +19,14 @@ module DesignSystem
         private
 
         def table_content
-          safe_buffer = ActiveSupport::SafeBuffer.new
+          content_tag(:table, class: 'min-w-full divide-y divide-gray-300') do
+            safe_buffer = ActiveSupport::SafeBuffer.new
+            safe_buffer.concat(content_tag(:caption, @table.caption, class: 'caption_top')) if @table.caption
+            safe_buffer.concat(render_headers)
+            safe_buffer.concat(render_rows)
 
-          safe_buffer.concat(content_tag(:table, class: 'min-w-full divide-y divide-gray-300') do
-            table_buffer = ActiveSupport::SafeBuffer.new
-            table_buffer.concat(content_tag(:caption, @table.caption, class: 'caption_top')) if @table.caption
-            table_buffer.concat(render_headers)
-            table_buffer.concat(render_rows)
-
-            table_buffer
-          end)
-
-          safe_buffer
+            safe_buffer
+          end
         end
 
         def render_headers
@@ -48,8 +44,8 @@ module DesignSystem
 
         def render_rows
           content_tag(:tbody, class: 'divide-y divide-gray-200') do
-            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, buffer|
-              buffer.concat(render_row(row))
+            @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, safe_buffer|
+              safe_buffer.concat(render_row(row))
             end
           end
         end
@@ -64,13 +60,13 @@ module DesignSystem
 
         def render_data_cell(cell, index)
           content_tag(:td, class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell') do
-            buffer = ActiveSupport::SafeBuffer.new
+            safe_buffer = ActiveSupport::SafeBuffer.new
             header_text = @table.columns[index][:content]
 
-            buffer.concat(content_tag(:span, header_text, class: 'font-semibold text-gray-700 sm:hidden'))
-            buffer.concat(cell[:content].to_s)
+            safe_buffer.concat(content_tag(:span, header_text, class: 'font-semibold text-gray-700 sm:hidden'))
+            safe_buffer.concat(cell[:content].to_s)
 
-            buffer
+            safe_buffer
           end
         end
       end
