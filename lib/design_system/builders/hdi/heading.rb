@@ -5,8 +5,6 @@ module DesignSystem
     module Hdi
       # This class provides Hdi methods to display headings in page content.
       class Heading < ::DesignSystem::Builders::Generic::Heading
-        private
-
         SIZE_MAPPING = {
           1 => 'text-3xl sm:text-4xl font-bold',
           2 => 'text-xl sm:text-2xl font-semibold',
@@ -15,6 +13,8 @@ module DesignSystem
           5 => 'text-sm sm:text-base font-semibold',
           6 => 'text-sm sm:text-s font-semibold'
         }.freeze
+
+        private
 
         def classes(level)
           level = level.to_i
