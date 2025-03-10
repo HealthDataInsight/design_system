@@ -51,7 +51,7 @@ module DesignSystem
         end
 
         def render_row(row)
-          content_tag(:tr, class: 'whitespace-nowarp border-b border-gray-300 py-2') do
+          content_tag(:tr, class: 'border-b border-gray-300 py-2') do
             row.each_with_object(ActiveSupport::SafeBuffer.new).with_index do |(cell, buffer), index|
               buffer.concat(render_data_cell(cell, index))
             end
@@ -64,7 +64,7 @@ module DesignSystem
             header_text = @table.columns[index][:content]
 
             safe_buffer.concat(content_tag(:span, header_text, class: 'font-semibold text-gray-700 sm:hidden'))
-            safe_buffer.concat(cell[:content].to_s)
+            safe_buffer.concat(content_tag(:span, cell[:content], class: 'sm:text-left text-right'))
 
             safe_buffer
           end
