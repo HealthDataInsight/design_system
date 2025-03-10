@@ -32,17 +32,23 @@ end
 %>
 
 <%=
-ds_table do |table|
-  table.caption = 'Name and Age'
+ds_table(data: { test: 'table' }) do |table|
+  table.caption = 'Table Caption'
 
   table.add_column('Name', data: {'toggle': "table" , 'sort-name': "name" , 'sort-order': "desc", 'pagination':"false"} )
   table.add_numeric_column('Age', data: { sortable: false })
+  table.add_column('Medication')
+  table.add_column('How much')
 
   table.add_row do |row|
     row.add_cell('John Doe', data: { id: 1 })
     row.add_cell(30, data: { id: 2 })
+    row.add_cell('Ibuprofen')
+    row.add_cell('2 pills')
   end
-  table.add_row 'John Doe', 30
+  table.add_row 'John Doe', 25, 'Ibuprofen', '2 pills'
+  table.add_row 'John Doe', 40, 'Ibuprofen', '2 pills'
+  table.add_row 'John Doe', 6, 'Ibuprofen', '1 pill'
 end
 %>
 

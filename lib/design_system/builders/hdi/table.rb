@@ -5,14 +5,13 @@ module DesignSystem
     module Hdi
       # This class is used to provide HDI Table.
       class Table < ::DesignSystem::Builders::Generic::Table
-        def render_table
+        def render_table(options = {})
           @table = ::DesignSystem::Components::Table.new
           yield @table
 
-          content_tag(:div) do
+          content_tag(:div, **options) do
             safe_buffer = ActiveSupport::SafeBuffer.new
             safe_buffer.concat(table_content)
-
             safe_buffer
           end
         end
@@ -31,7 +30,7 @@ module DesignSystem
         end
 
         def render_headers
-          content_tag(:thead) do
+          content_tag(:thead, class: 'hidden sm:table-row-group') do
             content_tag(:tr) do
               @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, header_buffer|
                 header_buffer <<
@@ -52,13 +51,22 @@ module DesignSystem
         end
 
         def render_row(row)
-          content_tag(:tr) do
-            row.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, cell_buffer|
-              cell_buffer.concat(
-                content_tag(:td, cell[:content],
-                            cell[:options].merge(class: 'whitespace-nowrap px-3 py-4 text-sm text-gray-500'))
-              )
+          content_tag(:tr, class: 'whitespace-nowarp border-b border-gray-300 py-2') do
+            row.each_with_object(ActiveSupport::SafeBuffer.new).with_index do |(cell, buffer), index|
+              buffer.concat(render_data_cell(cell, index))
             end
+          end
+        end
+
+        def render_data_cell(cell, index)
+          content_tag(:td, class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell') do
+            safe_buffer = ActiveSupport::SafeBuffer.new
+            header_text = @table.columns[index][:content]
+
+            safe_buffer.concat(content_tag(:span, header_text, class: 'font-semibold text-gray-700 sm:hidden'))
+            safe_buffer.concat(cell[:content].to_s)
+
+            safe_buffer
           end
         end
       end
