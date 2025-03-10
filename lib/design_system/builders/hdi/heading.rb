@@ -21,7 +21,7 @@ module DesignSystem
           validate_level(level)
 
           base_classes = 'leading-6 tracking-tight text-gray-900 mb-2 break-words '
-          base_classes + SIZE_MAAPING[level]
+          base_classes + SIZE_MAPPING[level]
         end
       end
     end
