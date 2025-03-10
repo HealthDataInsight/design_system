@@ -7,7 +7,7 @@ module DesignSystem
       class Heading < ::DesignSystem::Builders::Generic::Heading
         private
 
-        SIZE_MAAPING = {
+        SIZE_MAPPING = {
           1 => 'text-3xl sm:text-4xl font-bold',
           2 => 'text-xl sm:text-2xl font-semibold',
           3 => 'text-lg sm:text-xl font-semibold',

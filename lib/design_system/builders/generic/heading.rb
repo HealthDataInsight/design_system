@@ -11,7 +11,7 @@ module DesignSystem
 
         private
 
-        SIZE_MAAPING = {
+        SIZE_MAPPING = {
           1 => 'xl',
           2 => 'l',
           3 => 'm',
@@ -24,7 +24,7 @@ module DesignSystem
           level = level.to_i
           validate_level(level)
 
-          "#{brand}-heading-#{SIZE_MAAPING[level]}"
+          "#{brand}-heading-#{SIZE_MAPPING[level]}"
         end
 
         def validate_level(level)
