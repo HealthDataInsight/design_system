@@ -38,14 +38,14 @@ registerControllers(application)
 
 If you are self-hosting Tailwind in your host app, you need to import the styles and utilities via design system.
 
-Craete an input CSS file (`input.css`) to include Tailwind's core styles and any custom utilities used by your host app:
+Create an input CSS file (`input.css`) to include Tailwind's core styles and any custom utilities used by your host app:
 
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Styles */
+/* Example Custom Styles */
 @layer utilities {
   .hdi-border {
     border-color: #473191;
