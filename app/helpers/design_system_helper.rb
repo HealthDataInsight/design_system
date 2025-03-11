@@ -38,10 +38,10 @@ module DesignSystemHelper
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 
-  def ds_table(&)
+  def ds_table(options = {}, &)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'table', self).render_table(&)
+    DesignSystem::Registry.builder(brand, 'table', self).render_table(options, &)
   end
 
   def ds_summary_list(&)

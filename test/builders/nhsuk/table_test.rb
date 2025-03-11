@@ -18,7 +18,7 @@ module DesignSystem
             table.add_column('X')
           end
 
-          assert_select("table.#{@brand}-table")
+          assert_select("table.#{@brand}-table-responsive")
           assert_select("caption.#{@brand}-table__caption", text: 'X and Y')
           assert_select 'th:nth-child(1)', 'X'
         end
