@@ -34,7 +34,7 @@ module DesignSystem
             content_tag(:tr) do
               @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, header_buffer|
                 header_buffer <<
-                  content_tag(:th, cell[:content],
+                  content_tag(:th, cell_content(cell),
                               cell[:options].merge(scope: 'col',
                                                    class: 'px-3 py-3.5 text-left text-sm font-semibold text-gray-900'))
               end
@@ -59,12 +59,12 @@ module DesignSystem
         end
 
         def render_data_cell(cell, index)
-          content_tag(:td, class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell') do
+          content_tag(:td, cell[:options].merge(class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell')) do
             safe_buffer = ActiveSupport::SafeBuffer.new
             header_text = @table.columns[index][:content]
 
             safe_buffer.concat(content_tag(:span, header_text, class: 'font-semibold text-gray-700 sm:hidden'))
-            safe_buffer.concat(content_tag(:span, cell[:content], class: 'sm:text-left text-right'))
+            safe_buffer.concat(content_tag(:span, cell_content(cell), class: 'sm:text-left text-right'))
 
             safe_buffer
           end
