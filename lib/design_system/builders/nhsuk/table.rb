@@ -36,7 +36,7 @@ module DesignSystem
           classes = "#{brand}-table__header"
           classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
 
-          content_tag(:th, cell[:content], cell[:options].merge(scope: 'col', class: classes, role: 'columnheader'))
+          content_tag(:th, cell_content(cell), cell[:options].merge(scope: 'col', class: classes, role: 'columnheader'))
         end
 
         def render_row(row)
@@ -57,7 +57,7 @@ module DesignSystem
                                            @table.columns[index][:content],
                                            class: "#{brand}-table-responsive__heading",
                                            aria: { hidden: true }))
-            safe_buffer.concat(cell[:content].to_s)
+            safe_buffer.concat(cell_content(cell))
 
             safe_buffer
           end
