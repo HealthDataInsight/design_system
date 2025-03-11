@@ -52,7 +52,10 @@ module DesignSystem
 
         index = @cells.size
 
-        raise ArgumentError, "Too many cells in row (expected at most #{@columns.size}, got #{index + 1})" if index >= @columns.size
+        if index >= @columns.size
+          raise ArgumentError,
+                "Too many cells in row (expected at most #{@columns.size}, got #{index + 1})"
+        end
 
         if @columns[index][:options][:type] == 'numeric'
           default_options = { type: 'numeric' }

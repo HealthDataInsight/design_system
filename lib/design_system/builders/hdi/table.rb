@@ -59,7 +59,8 @@ module DesignSystem
         end
 
         def render_data_cell(cell, index)
-          content_tag(:td, cell[:options].merge(class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell')) do
+          content_tag(:td,
+                      cell[:options].merge(class: 'flex justify-between px-3 py-4 text-sm text-gray-500 sm:table-cell')) do
             safe_buffer = ActiveSupport::SafeBuffer.new
             header_text = @table.columns[index][:content]
 
