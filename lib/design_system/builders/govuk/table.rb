@@ -39,7 +39,7 @@ module DesignSystem
           classes = "#{brand}-table__header"
           classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
 
-          content_tag(:th, cell[:content], cell[:options].merge(scope:, class: classes))
+          content_tag(:th, cell_content(cell), cell[:options].merge(scope:, class: classes))
         end
 
         # brand specific <tr>
@@ -71,7 +71,7 @@ module DesignSystem
           classes = "#{brand}-table__cell"
           classes += " #{brand}-table__cell--numeric" if cell_numeric?(cell)
 
-          content_tag(:td, cell[:content], cell[:options].merge(class: classes))
+          content_tag(:td, cell_content(cell), cell[:options].merge(class: classes))
         end
       end
     end

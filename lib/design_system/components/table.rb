@@ -44,7 +44,12 @@ module DesignSystem
         @columns = columns
       end
 
-      def add_cell(content, options = {})
+      def add_cell(content = nil, options = {}, &block)
+        if block_given?
+          options = content || {}
+          content = block
+        end
+
         index = @cells.size
         if @columns[index][:options][:type] == 'numeric'
           default_options = { type: 'numeric' }
