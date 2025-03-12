@@ -18,9 +18,66 @@ module DesignSystem
             table.add_column('X')
           end
 
-          assert_select("table.#{@brand}-table")
+          assert_select("table.#{@brand}-table-responsive")
           assert_select("caption.#{@brand}-table__caption", text: 'X and Y')
           assert_select 'th:nth-child(1)', 'X'
+        end
+
+        test 'rendering nhsuk header cell with block and options' do
+          @output_buffer = ds_table do |table|
+            table.add_column('X')
+            table.add_column('Y')
+            table.add_row do |row|
+              row.add_cell do
+                content_tag(:span, 'Bold Text', class: 'bold')
+              end
+              row.add_cell({ type: 'numeric' }) do
+                content_tag(:p, 5, class: 'foo')
+              end
+            end
+          end
+
+          assert_select 'table' do
+            assert_select 'tbody' do
+              assert_select 'tr' do
+                assert_select 'td' do
+                  assert_select 'span.bold', text: 'Bold Text'
+                end
+                assert_select 'td[type="numeric"]' do
+                  assert_select 'p.foo', text: '5'
+                end
+              end
+            end
+          end
+        end
+
+        test 'rendering nhsuk header cell with content' do
+          @output_buffer = ds_table do |table|
+            table.add_column('X')
+            table.add_column('Y')
+            table.add_row do |row|
+              row.add_cell(
+                content_tag(:span, 'Bold Text', class: 'bold')
+              )
+              row.add_cell(
+                content_tag(:p, 5, class: 'foo'),
+                { type: 'numeric' }
+              )
+            end
+          end
+
+          assert_select 'table' do
+            assert_select 'tbody' do
+              assert_select 'tr' do
+                assert_select 'td' do
+                  assert_select 'span.bold', text: 'Bold Text'
+                end
+                assert_select 'td[type="numeric"]' do
+                  assert_select 'p.foo', text: '5'
+                end
+              end
+            end
+          end
         end
       end
     end

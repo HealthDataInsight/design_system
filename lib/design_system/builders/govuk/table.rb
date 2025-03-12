@@ -10,12 +10,12 @@ module DesignSystem
         private
 
         def table_content
-          content_tag(:table, nil, class: "#{brand}-table") do
+          content_tag(:table, nil, class: "#{brand}-table #{brand}-table--small-text-until-tablet") do
             safe_buffer = ActiveSupport::SafeBuffer.new
 
             if @table.caption
               safe_buffer.concat(content_tag(:caption, @table.caption,
-                                             class: "#{brand}-table__caption"))
+                                             class: "#{brand}-table__caption #{brand}-table__caption--m"))
             end
             safe_buffer.concat(render_headers)
             safe_buffer.concat(render_rows)
@@ -39,7 +39,7 @@ module DesignSystem
           classes = "#{brand}-table__header"
           classes += " #{brand}-table__header--numeric" if cell_numeric?(cell)
 
-          content_tag(:th, cell[:content], cell[:options].merge(scope:, class: classes))
+          content_tag(:th, cell_content(cell), cell[:options].merge(scope:, class: classes))
         end
 
         # brand specific <tr>
@@ -71,7 +71,7 @@ module DesignSystem
           classes = "#{brand}-table__cell"
           classes += " #{brand}-table__cell--numeric" if cell_numeric?(cell)
 
-          content_tag(:td, cell[:content], cell[:options].merge(class: classes))
+          content_tag(:td, cell_content(cell), cell[:options].merge(class: classes))
         end
       end
     end

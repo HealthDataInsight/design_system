@@ -8,11 +8,11 @@ module DesignSystem
     module Generic
       # This class is used to provide table builder.
       class Table < Base
-        def render_table
+        def render_table(options = {})
           @table = ::DesignSystem::Components::Table.new
           yield @table
 
-          content_tag(:div) do
+          content_tag(:div, **options) do
             safe_buffer = ActiveSupport::SafeBuffer.new
             safe_buffer.concat(table_content)
 
@@ -54,6 +54,12 @@ module DesignSystem
               end)
             end
           end
+        end
+
+        def cell_content(cell)
+          return cell[:content] unless cell[:content].is_a?(Proc)
+
+          capture(&cell[:content])
         end
 
         # This method is for table component to identify if cell is numeric type
