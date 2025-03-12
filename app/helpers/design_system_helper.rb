@@ -72,6 +72,10 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
   end
 
+  def ds_heading(text, level: 2, **options)
+    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level:, **options)
+  end
+
   def ds_timeago(date, refresh_interval: 60_000, format: :long)
     return if date.blank?
 
