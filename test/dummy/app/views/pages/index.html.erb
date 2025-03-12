@@ -4,12 +4,19 @@ ds_fixed_elements do |ds|
   ds.breadcrumb 'A Super Long Breadcrumb Name That Should Be Truncated', assistants_path
   ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
 
-  ds.main_heading 'Page#index heading'
+  ds.main_heading 'Page#index heading', caption: 'Test page'
 
   # ds.form @assistant
 end
 %>
 
+<%= ds_heading 'h1', level: 1 %>
+<%= ds_heading 'h2' %>
+<%= ds_heading 'h3', level: 3 %>
+<%= ds_heading 'h4', level: 4 %>
+<%= ds_heading 'h5', level: 5 %>
+
+<%= ds_heading 'Summary List' %>
 <%=
 ds_summary_list do |list|
   list.add_row('Name', 'John Doe') do |row|
@@ -31,6 +38,7 @@ ds_summary_list do |list|
 end
 %>
 
+<%= ds_heading 'Table' %>
 <%=
 ds_table(data: { test: 'table' }) do |table|
   table.caption = 'Table Caption'
@@ -52,6 +60,7 @@ ds_table(data: { test: 'table' }) do |table|
 end
 %>
 
+<%= ds_heading 'Tab' %>
 <%=	
 ds_tab do |tab|
   tab.title = 'Contents'
@@ -73,6 +82,7 @@ end
   
 %>
 
+<%= ds_heading 'Buttons' %>
 <!--style=[secondary warning reverse] default is primary-->
 <%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
 
@@ -80,6 +90,7 @@ end
 
 <%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
 
+<%= ds_heading 'Assitants table', level: 3 %>
 <%=
 ds_table do |table|
   table.caption = 'Assistants'
@@ -90,6 +101,7 @@ ds_table do |table|
 end
 %>
 
+<%= ds_heading 'Stimulus controllers' %>
 <div data-controller="ds--hello-world">
   <input type="text">
   <button>Greet</button>
@@ -101,4 +113,5 @@ end
   <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
 </div>
 
+<%= ds_heading 'Pagination' %>
 <%= ds_pagination(@assistants) %>

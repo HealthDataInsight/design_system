@@ -14,10 +14,32 @@ module DesignSystem
 
         test 'rendering hdi main heading' do
           @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
+            ds.main_heading('Welcome!', caption: 'Caption!')
           end
           # TODO: decide on class-matching: class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
-          assert_select('h1', text: 'Welcome!')
+
+          assert_select('div') do
+            assert_select('h1', text: 'Welcome!')
+            assert_select('span', text: 'Caption!')
+          end
+        end
+
+        test 'rendering hdi default paragraph heading' do
+          @output_buffer = ds_heading('Paragraph heading!')
+
+          assert_select('h2', text: 'Paragraph heading!')
+        end
+
+        test 'rendering hdi paragraph heading with specified level' do
+          @output_buffer = ds_heading('Paragraph heading!', level: 3)
+
+          assert_select('h3', text: 'Paragraph heading!')
+        end
+
+        test 'rendering paragraph heading with invalid level' do
+          assert_raises ArgumentError do
+            @output_buffer = ds_heading('Paragraph heading!', level: 7)
+          end
         end
       end
     end

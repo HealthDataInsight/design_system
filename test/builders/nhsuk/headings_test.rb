@@ -14,10 +14,23 @@ module DesignSystem
 
         test 'rendering nhs main heading' do
           @output_buffer = ds_fixed_elements do |ds|
-            ds.main_heading('Welcome!')
+            ds.main_heading('Welcome!', caption: 'Caption!')
           end
 
+          assert_select("span.#{@brand}-caption-m", text: 'Caption!')
           assert_select("h1.#{@brand}-heading-xl", text: 'Welcome!')
+        end
+
+        test 'rendering nhs default paragraph heading' do
+          @output_buffer = ds_heading('Paragraph heading!')
+
+          assert_select("h2.#{brand}-heading-l", text: 'Paragraph heading!')
+        end
+
+        test 'rendering nhs paragraph heading with specified level' do
+          @output_buffer = ds_heading('Paragraph heading!', level: 3)
+
+          assert_select("h3.#{brand}-heading-m", text: 'Paragraph heading!')
         end
       end
     end
