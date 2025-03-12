@@ -581,9 +581,9 @@ pre code {
   border-color: rgb(79 70 229 / var(--tw-border-opacity, 1));
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity, 1));
-  padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   line-height: 1rem;
+  padding: 0.25rem 0.5rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
   --tw-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -596,10 +596,10 @@ pre code {
   background-color: rgb(99 102 241 / var(--tw-bg-opacity, 1));
 }
 .clipboard-button:focus-visible {
+  outline-color: #4f46e5;
+  outline-offset: 2px;
   outline-style: solid;
   outline-width: 2px;
-  outline-offset: 2px;
-  outline-color: #4f46e5;
 }
 .bodylike,
 body {
