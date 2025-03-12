@@ -13,9 +13,9 @@ module DesignSystem
           5 => 'xs',
           6 => 'xs'
         }.freeze
-        
-        def render_heading(text, level: 2)
-          content_tag("h#{level}", text, class: classes(level))
+
+        def render_heading(text, level: 2, **options)
+          content_tag("h#{level}", text, class: classes(level), **options)
         end
 
         private

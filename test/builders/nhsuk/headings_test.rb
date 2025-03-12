@@ -22,9 +22,9 @@ module DesignSystem
         end
 
         test 'rendering nhs default paragraph heading' do
-          @output_buffer = ds_heading('Paragraph heading!')
+          @output_buffer = ds_heading('Paragraph heading!', id: 'test-heading')
 
-          assert_select("h2.#{brand}-heading-l", text: 'Paragraph heading!')
+          assert_select("h2.#{brand}-heading-l[id='test-heading']", text: 'Paragraph heading!')
         end
 
         test 'rendering nhs paragraph heading with specified level' do
