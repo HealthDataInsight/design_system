@@ -25,9 +25,9 @@ module DesignSystem
         end
 
         test 'rendering hdi default paragraph heading' do
-          @output_buffer = ds_heading('Paragraph heading!')
+          @output_buffer = ds_heading('Paragraph heading!', id: 'test-heading')
 
-          assert_select('h2', text: 'Paragraph heading!')
+          assert_select("h2[id='test-heading']", text: 'Paragraph heading!')
         end
 
         test 'rendering hdi paragraph heading with specified level' do
