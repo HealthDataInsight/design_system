@@ -11,9 +11,6 @@
   display: block;
 }
 
-@import "../../../../public/design_system/static/highlightjs/github.css";
-@import "../../../../public/design_system/static/highlightjs/github-dark.css";
-
 /* code container styling */
 @media (prefers-color-scheme: dark) {
   .code-container {
