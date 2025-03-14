@@ -23,7 +23,7 @@ module DesignSystem
           assert_select("th.#{@brand}-table__header", text: 'X')
         end
 
-        test 'rendering govuk header cell with block and options' do
+        test 'rendering govuk cells with block and options' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
@@ -58,7 +58,7 @@ module DesignSystem
           end
         end
 
-        test 'rendering govuk header cell with content' do
+        test 'rendering govuk cells with content' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')

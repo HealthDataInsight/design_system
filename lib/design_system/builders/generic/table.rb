@@ -49,7 +49,7 @@ module DesignSystem
               rows_buffer.concat(content_tag(:tr) do
                 row.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, cell_buffer|
                   options = cell_numeric?(cell) ? cell[:options].merge(align: 'right') : cell[:options]
-                  cell_buffer.concat(content_tag(:td, cell[:content], options))
+                  cell_buffer.concat(content_tag(:td, cell_content(cell), options))
                 end
               end)
             end
@@ -57,9 +57,13 @@ module DesignSystem
         end
 
         def cell_content(cell)
-          return cell[:content] unless cell[:content].is_a?(Proc)
-
-          capture(&cell[:content])
+          if cell[:content].is_a?(Numeric)
+            cell[:content].to_s
+          elsif cell[:content].is_a?(Proc)
+            capture(&cell[:content])
+          else
+            cell[:content]
+          end
         end
 
         # This method is for table component to identify if cell is numeric type
