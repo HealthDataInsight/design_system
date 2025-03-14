@@ -6,8 +6,10 @@ module DesignSystem
         module Headings
           private
 
-          def render_main_heading
-            content_tag(:h1, @main_heading, class: "#{brand}-heading-xl")
+          # GOVUK renders caption before main heading.
+          # Keep the caption brief, preferably a single word or a short phrase
+          def render_caption
+            content_tag(:span, @caption, class: "#{brand}-caption-m")
           end
         end
       end
