@@ -23,7 +23,7 @@ module DesignSystem
           assert_select 'th:nth-child(1)', 'X'
         end
 
-        test 'rendering nhsuk header cell with block and options' do
+        test 'rendering nhsuk cells with block and options' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
@@ -51,11 +51,10 @@ module DesignSystem
           end
         end
 
-        test 'rendering nhsuk header cell with content' do
+        test 'rendering nhsuk cells with content' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
-            table.add_numeric_column('Z')
             table.add_row do |row|
               row.add_cell(
                 content_tag(:span, 'Bold Text', class: 'bold')
@@ -64,7 +63,6 @@ module DesignSystem
                 content_tag(:p, 5, class: 'foo'),
                 { id: 'foo' }
               )
-              row.add_cell(100, { id: 'bar' })
             end
           end
 
@@ -77,7 +75,23 @@ module DesignSystem
                 assert_select 'td[id="foo"]' do
                   assert_select 'p.foo', text: '5'
                 end
-                assert_select 'td[id="bar"]', text: 'Z100'
+              end
+            end
+          end
+        end
+
+        test 'rendering nhsuk cells with numbers' do
+          @output_buffer = ds_table do |table|
+            table.add_numeric_column('X')
+            table.add_numeric_column('Y')
+            table.add_row(100, (5.0 / 3).round(2))
+          end
+
+          assert_select 'table' do
+            assert_select 'tbody' do
+              assert_select 'tr' do
+                assert_select 'td:nth-child(1)', text: 'X100'
+                assert_select 'td:nth-child(2)', text: 'Y1.67'
               end
             end
           end

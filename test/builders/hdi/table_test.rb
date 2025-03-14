@@ -30,7 +30,7 @@ module DesignSystem
           assert_select('caption.caption_top', text: 'X and Y')
         end
 
-        test 'rendering hdi header cell with block and options' do
+        test 'rendering hdi cells with block and options' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
@@ -58,7 +58,7 @@ module DesignSystem
           end
         end
 
-        test 'rendering hdi header cell with content' do
+        test 'rendering hdi cells with content' do
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
