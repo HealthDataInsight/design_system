@@ -55,14 +55,16 @@ module DesignSystem
           @output_buffer = ds_table do |table|
             table.add_column('X')
             table.add_column('Y')
+            table.add_numeric_column('Z')
             table.add_row do |row|
               row.add_cell(
                 content_tag(:span, 'Bold Text', class: 'bold')
               )
               row.add_cell(
                 content_tag(:p, 5, class: 'foo'),
-                { type: 'numeric' }
+                { id: 'foo' }
               )
+              row.add_cell(100, { id: 'bar' })
             end
           end
 
@@ -72,9 +74,10 @@ module DesignSystem
                 assert_select 'td' do
                   assert_select 'span.bold', text: 'Bold Text'
                 end
-                assert_select 'td[type="numeric"]' do
+                assert_select 'td[id="foo"]' do
                   assert_select 'p.foo', text: '5'
                 end
+                assert_select 'td[id="bar"]', text: 'Z100'
               end
             end
           end
