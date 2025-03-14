@@ -56,6 +56,12 @@ module DesignSystem
           end
         end
 
+        def cell_content(cell)
+          return cell[:content] unless cell[:content].is_a?(Proc)
+
+          capture(&cell[:content])
+        end
+
         # This method is for table component to identify if cell is numeric type
         def cell_numeric?(cell)
           cell[:options][:type] == 'numeric'
