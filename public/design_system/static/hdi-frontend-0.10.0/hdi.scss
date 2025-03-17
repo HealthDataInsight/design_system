@@ -1636,6 +1636,16 @@
       padding-block: calc(var(--spacing) * 20);
     }
   }
+  .lg\:pr-8 {
+    @media (width >= 64rem) {
+      padding-right: calc(var(--spacing) * 8);
+    }
+  }
+  .lg\:pl-8 {
+    @media (width >= 64rem) {
+      padding-left: calc(var(--spacing) * 8);
+    }
+  }
   .lg\:pl-72 {
     @media (width >= 64rem) {
       padding-left: calc(var(--spacing) * 72);
@@ -1646,14 +1656,34 @@
       display: block;
     }
   }
+  .xl\:w-64 {
+    @media (width >= 80rem) {
+      width: calc(var(--spacing) * 64);
+    }
+  }
+  .xl\:px-2 {
+    @media (width >= 80rem) {
+      padding-inline: calc(var(--spacing) * 2);
+    }
+  }
   .xl\:px-24 {
     @media (width >= 80rem) {
       padding-inline: calc(var(--spacing) * 24);
     }
   }
+  .xl\:pr-6 {
+    @media (width >= 80rem) {
+      padding-right: calc(var(--spacing) * 6);
+    }
+  }
   .xl\:pr-96 {
     @media (width >= 80rem) {
       padding-right: calc(var(--spacing) * 96);
+    }
+  }
+  .xl\:pl-6 {
+    @media (width >= 80rem) {
+      padding-left: calc(var(--spacing) * 6);
     }
   }
   .dark\:bg-blue-900 {
@@ -1809,7 +1839,7 @@
   }
 }
 [data-theme="light"] {
-  --color-primary: #473191;
+  --color-primary: rgb(99 102 241);
   --color-primary-content: #ffffff;
   .hdi-sidebar-border {
     border-color: var(--color-gray-200);
@@ -1861,6 +1891,87 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
   line-height: var(--tw-leading, var(--text-base--line-height));
   --tw-font-weight: var(--font-weight-semibold);
   font-weight: var(--font-weight-semibold);
+}
+.three-columns {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+.three-columns-wrapper {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-7xl);
+  align-items: flex-start;
+  @media (width >= 64rem) {
+    display: flex;
+  }
+}
+.three-columns-first-second-wrapper {
+  flex: 0;
+  @media (width >= 80rem) {
+    display: flex;
+  }
+}
+.three-columns-first {
+  border-color: var(--color-gray-200);
+  @media (width >= 64rem) {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 1px;
+  }
+  @media (width >= 80rem) {
+    position: fixed;
+  }
+  @media (width >= 80rem) {
+    top: calc(var(--spacing) * 0);
+  }
+  @media (width >= 80rem) {
+    flex-shrink: 0;
+  }
+  @media (width >= 80rem) {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 0px;
+  }
+}
+.three-columns-first-padding {
+  width: calc(var(--spacing) * 0);
+  @media (width >= 80rem) {
+    width: calc(var(--spacing) * 64);
+  }
+  @media (width >= 80rem) {
+    flex-shrink: 0;
+  }
+}
+.three-columns-second {
+  border-block-style: var(--tw-border-style);
+  border-block-width: 1px;
+  border-color: var(--color-gray-200);
+  @media (width >= 64rem) {
+    width: calc(var(--spacing) * 96);
+  }
+  @media (width >= 64rem) {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 1px;
+  }
+  @media (width >= 80rem) {
+    border-inline-style: var(--tw-border-style);
+    border-inline-width: 1px;
+  }
+  @media (width >= 80rem) {
+    border-block-style: var(--tw-border-style);
+    border-block-width: 0px;
+  }
+  @media (width >= 80rem) {
+    border-left-style: var(--tw-border-style);
+    border-left-width: 1px;
+  }
+}
+.three-columns-third {
+  position: sticky;
+  top: calc(var(--spacing) * 0);
+  flex-shrink: 0;
+  @media (width >= 64rem) {
+    flex: 1;
+  }
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {
