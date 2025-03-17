@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    design_system (0.2.0)
+    design_system (0.3.0)
       rails (>= 7.0.8.1)
       stimulus-rails (~> 1.3)
       will_paginate (~> 3.3)
