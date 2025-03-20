@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    design_system (0.2.0)
+    design_system (0.3.0)
       govuk_design_system_formbuilder (~> 5.6.0)
       rails (>= 7.0.8.1)
       stimulus-rails (~> 1.3)
@@ -356,6 +356,7 @@ PLATFORMS
   x86_64-darwin-23
 
 DEPENDENCIES
+  charlock_holmes (>= 0.7.9)
   cypress-rails
   dartsass-rails (~> 0.5)
   design_system!
