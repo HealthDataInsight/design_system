@@ -22,3 +22,5 @@ end
 group :test do
   gem 'mocha', '~> 2.2.0'
 end
+
+gem 'charlock_holmes', '>= 0.7.9'
