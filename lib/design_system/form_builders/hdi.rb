@@ -56,6 +56,30 @@ module DesignSystem
         end
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
+      def ds_text_field(method, options = {})
+        options[:class] = Array(options[:class]) + ['hdi-input']
+
+        hint = options.delete(:hint)
+        options['aria-describedby'] = field_id("#{method}-hint") if hint
+
+        # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
+        # TODO: support width by ratio of screen width
+        width = options.delete(:width)
+        if width
+          allowed = [2, 3, 4, 5, 10, 20]
+          raise ArgumentError, 'Invalid width, must be one of 2, 3, 4, 5, 10, or 20.' unless allowed.include?(width.to_i)
+
+          options[:class] += ["hdi-input--width-#{width}"]
+        end
+
+        content_tag(:div, class: 'hdi-form-group') do
+          ds_label(method) +
+          optional_hint(method, hint) +
+          text_field(method, options)
+        end
+      end
+
       def ds_collection_select(method, collection, value_method, text_method, options = {})
         html_options = options.extract!(:class, :id, :style, :data, :aria)
         html_options = html_options.merge(class: 'hdi-select')
@@ -92,27 +116,32 @@ module DesignSystem
         end
       end
 
-      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
-      def ds_text_field(method, options = {})
-        options[:class] = Array(options[:class]) + ['hdi-input']
+      def ds_check_boxes_fieldset(method, options = {}, &block)
+        options = options.merge(class: 'hdi-checkboxes')
 
+        legend = options.delete(:legend)
         hint = options.delete(:hint)
-        options['aria-describedby'] = field_id("#{method}-hint") if hint
-
-        # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
-        # TODO: support width by ratio of screen width
-        width = options.delete(:width)
-        if width
-          allowed = [2, 3, 4, 5, 10, 20]
-          raise ArgumentError, 'Invalid width, must be one of 2, 3, 4, 5, 10, or 20.' unless allowed.include?(width.to_i)
-
-          options[:class] += ["hdi-input--width-#{width}"]
-        end
 
         content_tag(:div, class: 'hdi-form-group') do
-          ds_label(method) +
-          optional_hint(method, hint) +
-          text_field(method, options)
+          content_tag(:fieldset, class: 'hdi-fieldset', 'aria-describedby': hint ? field_id("#{method}-hint") : nil) do
+            optional_fieldset_legend(method, legend) +
+            optional_hint(method, hint) +
+            content_tag(:div, options) do
+              block ? capture(&block) : nil
+            end
+          end
+        end
+      end
+
+      def ds_check_box(method, value, options = {})
+        options = options.merge(class: 'hdi-checkboxes__input')
+        options = options.merge(include_hidden: false)
+
+        label = options.delete(:label) || translated_label(value)
+        
+        content_tag(:div, class: 'hdi-checkboxes__item') do
+          check_box(method, options) +
+          label(label, class: 'hdi-checkboxes__label')
         end
       end
 
