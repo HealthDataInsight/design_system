@@ -16,10 +16,16 @@
 
     <%= form.ds_collection_select :select, @assistants, :id, :title, prompt: "Please select" %>
 
-    <%= form.ds_collection_check_boxes :features, @features, :id, :name, legend: "Checkboxes with optional legend", hint: "Checkboxes with hint text." %>
+    <%= form.ds_collection_check_boxes :features, @features, :id, :name, legend: "Checkboxes with optional legend", hint: "collection_check_boxes" %>
 
-    <%= form.ds_check_boxes_fieldset :is_active, legend: "Is this assistant active?", hint: "Checkboxes with hint text." do %>
+    <%= form.ds_check_boxes_fieldset :is_active, legend: "Is this assistant active?", hint: "check_box_fieldset with boolean values" do %>
       <%= form.ds_check_box :is_active, true, label: "Yes", link_errors: true %>
+    <% end %>
+
+    <%= form.ds_check_boxes_fieldset :feature, legend: "Which feature is ready?", hint: "check_boxes_fieldset with custom checked values" do %>
+      <%= form.ds_check_box :feature, :feature_1, link_errors: true %>
+      <%= form.ds_check_box :feature, :feature_2 %>
+      <%= form.ds_check_box :feature, :feature_3 %>
     <% end %>
 
   <% end %>
