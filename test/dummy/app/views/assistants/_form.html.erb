@@ -12,6 +12,8 @@
   <% else %>
     <%= form.ds_text_field :label, width: 20, hint: "Label with hint text. Field with character width." %>
 
+    <%= form.ds_date_field :date_of_birth, hint: "For example, 15 3 1984", legend: "What is your date of birth?" %>
+
     <%= form.ds_text_area :textarea, hint: "Textarea with hint text.", id: "test" %>
 
     <%= form.ds_collection_select :select, @assistants, :id, :title, prompt: "Please select" %>

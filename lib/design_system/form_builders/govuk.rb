@@ -66,6 +66,16 @@ module DesignSystem
                                      password_hidden_announcement_text: nil, **options)
       end
 
+      def ds_date_field(method, options = {})
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false, maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
+      end
+
       # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
       def ds_text_area(method, options = {})
         label = { size: nil, text: translated_label(method) }
@@ -98,6 +108,8 @@ module DesignSystem
                                  form_group: {}, prefix_text: nil, suffix_text: nil, **options)
       end
 
+      # Select
+      # TODO: add single select
       def ds_collection_select(method, collection, value_method, text_method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -106,6 +118,7 @@ module DesignSystem
         govuk_collection_select(method, collection, value_method, text_method, hint:, label:, caption: {}, form_group: {}, include_hidden: false, **options)
       end
 
+      # Checkboxes
       def ds_collection_check_boxes(method, collection, value_method, text_method, options = {})
         hint = options.delete(:hint)
         hint = { text: hint } if hint
@@ -131,6 +144,8 @@ module DesignSystem
 
         govuk_check_box(method, value, hint:, label:, **options)
       end
+
+      # 
 
       private
 
