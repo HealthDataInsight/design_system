@@ -21,6 +21,13 @@ module DesignSystem
       # ds_text_area
       # ds_text_field
 
+      def ds_fieldset(options = {}, &)
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
+      end
+
       # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
       # def ds_file_field(method, options = {})
       # end
