@@ -13,6 +13,8 @@ class AssistantsController < ApplicationController
   # GET /assistants/new
   def new
     @assistant = Assistant.new
+    @assistants = Assistant.all
+    @features = Feature.all
   end
 
   # GET /assistants/1/edit
