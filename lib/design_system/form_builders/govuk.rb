@@ -67,8 +67,13 @@ module DesignSystem
       end
 
       # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
-      # def ds_text_area(method, options = {})
-      # end
+      def ds_text_area(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+  
+        govuk_text_area(method, hint:, label:, caption: {}, max_words: nil, max_chars: nil, rows: 5, threshold: nil, form_group: {}, **options)
+      end
 
       # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
       def ds_text_field(method, options = {})
@@ -91,6 +96,26 @@ module DesignSystem
         # block [Block] arbitrary HTML that will be rendered between the hint and the input
         govuk_text_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false,
                                  form_group: {}, prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_collection_select(method, collection, value_method, text_method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_collection_select(method, collection, value_method, text_method, hint:, label:, caption: {}, form_group: {}, **options)
+      end
+
+      def ds_collection_check_boxes(method, collection, value_method, text_method, options = {})
+        label = { size: nil, text: translated_label(method) }
+
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint:, legend:, caption: {}, form_group: {}, **options)
       end
 
       private

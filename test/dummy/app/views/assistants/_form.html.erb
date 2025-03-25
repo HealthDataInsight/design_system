@@ -9,5 +9,13 @@
         <% end %>
       </ul>
     </div>
+  <% else %>
+    <%= form.ds_text_field :label, width: 20, hint: "Label with hint text. Field with character width." %>
+
+    <%= form.ds_text_area :textarea, hint: "Textarea with hint text.", id: "test" %>
+
+    <%= form.ds_collection_select :select, @assistants, :id, :title, prompt: "Please select" %>
+
+    <%= form.ds_collection_check_boxes :features, @features, :id, :name, legend: "Checkboxes with optional legend", hint: "Checkboxes with hint text." %>
   <% end %>
 <% end %>
