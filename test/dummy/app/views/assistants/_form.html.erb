@@ -17,5 +17,10 @@
     <%= form.ds_collection_select :select, @assistants, :id, :title, prompt: "Please select" %>
 
     <%= form.ds_collection_check_boxes :features, @features, :id, :name, legend: "Checkboxes with optional legend", hint: "Checkboxes with hint text." %>
+
+    <%= form.ds_check_boxes_fieldset :is_active, legend: "Is this assistant active?", hint: "Checkboxes with hint text." do %>
+      <%= form.ds_check_box :is_active, true, label: "Yes", link_errors: true %>
+    <% end %>
+
   <% end %>
 <% end %>

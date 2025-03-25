@@ -103,12 +103,10 @@ module DesignSystem
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_collection_select(method, collection, value_method, text_method, hint:, label:, caption: {}, form_group: {}, **options)
+        govuk_collection_select(method, collection, value_method, text_method, hint:, label:, caption: {}, form_group: {}, include_hidden: false, **options)
       end
 
       def ds_collection_check_boxes(method, collection, value_method, text_method, options = {})
-        label = { size: nil, text: translated_label(method) }
-
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -116,6 +114,22 @@ module DesignSystem
         legend = { text: legend } if legend
 
         govuk_collection_check_boxes(method, collection, value_method, text_method, hint:, legend:, caption: {}, form_group: {}, **options)
+      end
+
+      def ds_check_boxes_fieldset(method, options = {}, &)
+        legend = { text: options.delete(:legend) ||translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_check_boxes_fieldset(method, legend:, hint:, **options, &)
+      end
+
+      def ds_check_box(method, value, options = {})
+        label = { size: nil, text: translated_label(options.delete(:label) || value) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_check_box(method, value, hint:, label:, **options)
       end
 
       private
