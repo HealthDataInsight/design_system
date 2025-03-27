@@ -2,7 +2,7 @@
     <%= form.ds_error_summary %>
 
     <%= form.ds_fieldset legend: 'Input fields' do %>
-      <%= form.ds_text_field :label, width: 20, hint: "Label with hint text. Field with character width." %>
+      <%= form.ds_text_field :title, width: 20, hint: "Label with hint text. Field with character width." %>
 
       <%= form.ds_date_field :date_of_birth, hint: "For example, 15 3 1994", legend: "What is your date of birth?", hint: "Enter an arbitrary date" %>
 
@@ -17,7 +17,7 @@
       ['Finance', Department.find_by(title: 'Finance').id]
     ]), label: "Department (ds_select)", prompt: "Please select", include_blank: false %>
 
-    <%= form.ds_collection_check_boxes :task, @tasks, :id, :title, legend: "What tasks do you want to do?", hint: "Checkboxes with optional legend (collection_check_boxes)" %>
+    <%= form.ds_collection_check_boxes :tasks, @tasks, :id, :title, legend: "What tasks do you want to do?", hint: "Checkboxes with optional legend (collection_check_boxes)" %>
 
     <%= form.ds_check_boxes_fieldset :terms_agreed, multiple: false, legend: "Do you agree to the terms?", hint: "Add checkbox(es) individually with fieldset" do %>
       <%= form.ds_check_box :terms_agreed, true, multiple: false, label: "Yes, I agree", link_errors: true %>
