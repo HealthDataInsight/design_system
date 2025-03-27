@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_27_161941) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_27_165653) do
   create_table "assistants", force: :cascade do |t|
-    t.boolean "is_active", default: false
+    t.boolean "terms_agreed", default: false
     t.date "date_of_birth"
     t.integer "department_id", null: false
-    t.string "device"
     t.string "role", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lunch_option"
     t.index ["department_id"], name: "index_assistants_on_department_id"
   end
 
