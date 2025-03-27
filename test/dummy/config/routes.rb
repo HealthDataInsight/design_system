@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   resources :assistants do
     resources :features
+    resources :tasks
   end
 end
