@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_25_140718) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_27_161941) do
   create_table "assistants", force: :cascade do |t|
     t.boolean "is_active", default: false
     t.date "date_of_birth"
@@ -38,6 +38,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_25_140718) do
     t.index ["assistant_id"], name: "index_features_on_assistant_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "assistant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistant_id"], name: "index_tasks_on_assistant_id"
+  end
+
   add_foreign_key "assistants", "departments"
   add_foreign_key "features", "assistants"
+  add_foreign_key "tasks", "assistants"
 end

@@ -5,6 +5,7 @@ class Assistant < ApplicationRecord
   # You can suppress this behaviour by adding optional: true to the relationship and manually adding the presence validation to the foreign key field yourself.
   belongs_to :department, optional: true
   has_many :features
+  has_many :tasks
 
   validates :title, presence: true
   validates :department_id, presence: true
