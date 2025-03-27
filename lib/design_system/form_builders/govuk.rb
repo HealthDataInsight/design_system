@@ -83,6 +83,10 @@ module DesignSystem
         govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false, maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
       end
 
+      def ds_error_summary(options = {})
+        govuk_error_summary(title = config.default_error_summary_title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil, order: nil, **options)
+      end
+
       # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
       def ds_text_area(method, options = {})
         label = { size: nil, text: translated_label(method) }
@@ -116,13 +120,26 @@ module DesignSystem
       end
 
       # Select
-      # TODO: add single select
       def ds_collection_select(method, collection, value_method, text_method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        rails_options = options.extract!(:prompt, :include_blank)
+
+        label = options.delete(:label)
+        label = { size: nil, text: label } if label
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_collection_select(method, collection, value_method, text_method, hint:, label:, caption: {}, form_group: {}, include_hidden: false, **options)
+        govuk_collection_select(method, collection, value_method, text_method, options: rails_options, hint:, label:, caption: {}, form_group: {}, **options)
+      end
+
+      def ds_select(method, choices, options = {})
+        rails_options = options.extract!(:prompt, :include_blank)
+
+        label = options.delete(:label)
+        label = { size: nil, text: label } if label
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_select(method, choices, options: rails_options, label:, hint:, form_group: {}, caption: {}, **options)
       end
 
       # Checkboxes
@@ -141,7 +158,7 @@ module DesignSystem
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_check_boxes_fieldset(method, legend:, hint:, **options, &)
+        govuk_check_boxes_fieldset(method, legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
       end
 
       def ds_check_box(method, value, options = {})
@@ -149,10 +166,32 @@ module DesignSystem
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_check_box(method, value, hint:, label:, **options)
+        govuk_check_box(method, value, unchecked_value = false, hint:, label:, link_errors: false, multiple: true, exclusive: true, **options)
       end
 
-      # 
+      # Radio buttons
+      def ds_radio_buttons_fieldset(method, options = {}, &)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_radio_buttons_fieldset(method, hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
+      end
+
+      def ds_radio_button(method, value, options = {})
+        label = { size: nil, text: translated_label(options.delete(:label) || value) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_radio_button(method, value, hint:, label:, link_errors: false, **options)
+      end
+
+      # Buttons
+      def ds_submit(options = {}, &)
+        govuk_submit(text = config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true, validate: config.default_submit_validate, disabled: false, **options, &)
+      end
 
       private
 
