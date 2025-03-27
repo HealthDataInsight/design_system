@@ -68,6 +68,6 @@ class AssistantsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def assistant_params
-    params.require(:assistant).permit(:title, :department_id, :role, :terms_agreed, :date_of_birth, :lunch_option)
+    params.require(:assistant).permit(:title, :department_id, :role, :terms_agreed, :date_of_birth, :lunch_option, :cv)
   end
 end

@@ -6,11 +6,13 @@ class Assistant < ApplicationRecord
   belongs_to :department, optional: true
   has_many :features
   has_many :tasks
+  has_one_attached :cv
 
   validates :title, presence: true
   validates :department_id, presence: true
   validates :role, presence: true
   validates :terms_agreed, presence: true
-  validates :task, presence: true
   validates :lunch_option, presence: true
+  validates :tasks, presence: true
+  # validates :cv, attached: true, content_type: ['application/pdf'], size: { less_than: 5.megabytes }
 end

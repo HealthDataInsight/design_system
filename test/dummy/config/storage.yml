@@ -1,0 +1,25 @@
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+# Use Amazon S3 for production
+# amazon:
+#   service: S3
+#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+#   region: your-region
+#   bucket: your-bucket-name
+
+# Use Google Cloud Storage for production
+# google:
+#   service: GCS
+#   project: your-project
+#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
+#   bucket: your-bucket-name
+
+# Use Azure Storage for production
+# azure:
+#   service: AzureStorage
+#   storage_account_name: your-storage-account-name
+#   storage_access_key: your-storage-access-key
+#   container-name: your-container-name 

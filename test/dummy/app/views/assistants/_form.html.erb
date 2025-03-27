@@ -7,6 +7,8 @@
       <%= form.ds_date_field :date_of_birth, hint: "For example, 15 3 1994", legend: "What is your date of birth?", hint: "Enter an arbitrary date" %>
 
       <%= form.ds_text_area :description, hint: "A textarea with hint text." %>
+
+      <%= form.ds_file_field :cv %>
     <% end %>
 
     <%= form.ds_collection_select :feature, @features, :id, :name, label: "Features (ds_collection_select)", prompt: "Please select", include_blank: false %>

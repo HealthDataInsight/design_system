@@ -29,8 +29,15 @@ module DesignSystem
       end
 
       # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
-      # def ds_file_field(method, options = {})
-      # end
+      def ds_file_field(method, options = {})
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        label = options.delete(:label)
+        label = { size: nil, text: label || 'Please upload' }
+
+        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+      end
 
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
