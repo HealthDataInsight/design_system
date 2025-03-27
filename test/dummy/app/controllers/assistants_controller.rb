@@ -1,6 +1,8 @@
 class AssistantsController < ApplicationController
   before_action :set_assistant, only: %i[show edit update destroy]
   before_action :all_departments, only: %i[new edit create update]
+  before_action :all_features, only: %i[new edit create update]
+  before_action :all_tasks, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -14,7 +16,6 @@ class AssistantsController < ApplicationController
   def new
     @assistant = Assistant.new
     @assistants = Assistant.all
-    @features = Feature.all
   end
 
   # GET /assistants/1/edit
@@ -57,8 +58,16 @@ class AssistantsController < ApplicationController
     @departments = Department.all
   end
 
+  def all_features
+    @features = Feature.all
+  end
+
+  def all_tasks
+    @tasks = Task.all
+  end
+
   # Only allow a list of trusted parameters through.
   def assistant_params
-    params.require(:assistant).permit(:title, :department_id)
+    params.require(:assistant).permit(:title, :department_id, :role, :terms_agreed, :date_of_birth, :lunch_option)
   end
 end

@@ -10,4 +10,7 @@ class Assistant < ApplicationRecord
   validates :title, presence: true
   validates :department_id, presence: true
   validates :role, presence: true
+  validates :terms_agreed, presence: true
+  validates :task, presence: true
+  validates :lunch_option, presence: true
 end
