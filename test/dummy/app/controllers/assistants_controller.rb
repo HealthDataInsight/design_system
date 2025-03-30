@@ -3,7 +3,6 @@ class AssistantsController < ApplicationController
   before_action :set_assistant, only: %i[show edit update destroy]
   before_action :all_departments, only: %i[new edit create update]
   before_action :all_roles, only: %i[new edit create update]
-  before_action :all_offices, only: %i[new edit create update]
   before_action :set_fillings, only: %i[new edit create update]
   before_action :set_colours, only: %i[new edit create update]
 
@@ -65,10 +64,6 @@ class AssistantsController < ApplicationController
     @roles = Role.all
   end
 
-  def all_offices
-    @offices = Office.all
-  end
-
   def set_fillings
     @fillings = fillings
   end
@@ -79,6 +74,6 @@ class AssistantsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def assistant_params
-    params.require(:assistant).permit(:title, :date_of_birth, :description, :cv, :terms_agreed, :lunch_option, :department_id, :role_id, :office_id, :desired_filling)
+    params.require(:assistant).permit(:title, :date_of_birth, :description, :cv, :terms_agreed, :lunch_option, :department_id, :role_id, :desired_filling)
   end
 end

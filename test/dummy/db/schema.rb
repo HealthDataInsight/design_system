@@ -54,22 +54,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "department_id", null: false
-    t.integer "office_id", null: false
-    t.integer "role_id", null: false
+    t.integer "department_id"
+    t.integer "role_id"
     t.index ["department_id"], name: "index_assistants_on_department_id"
-    t.index ["office_id"], name: "index_assistants_on_office_id"
     t.index ["role_id"], name: "index_assistants_on_role_id"
   end
 
   create_table "departments", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "offices", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
@@ -86,6 +77,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assistants", "departments"
-  add_foreign_key "assistants", "offices"
   add_foreign_key "assistants", "roles"
 end
