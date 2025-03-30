@@ -1,6 +1,6 @@
-class CreateDepartments < ActiveRecord::Migration[7.1]
+class CreateOffices < ActiveRecord::Migration[7.1]
   def change
-    create_table :departments do |t|
+    create_table :offices do |t|
       t.string :title
       t.text :description
 
