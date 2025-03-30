@@ -150,14 +150,14 @@ module DesignSystem
       end
 
       # Checkboxes
-      def ds_collection_check_boxes(method, collection, value_method, text_method, options = {})
+      def ds_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, options = {})
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
         legend = options.delete(:legend)
         legend = { text: legend } if legend
 
-        govuk_collection_check_boxes(method, collection, value_method, text_method, hint:, legend:, caption: {}, form_group: {}, **options)
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method:, hint:, legend:, caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **options)
       end
 
       def ds_check_boxes_fieldset(method, options = {}, &)
@@ -177,6 +177,16 @@ module DesignSystem
       end
 
       # Radio buttons
+      def ds_collection_radio_buttons(method, collection, value_method, text_method = nil, hint_method = nil, **options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_collection_radio_buttons(method, collection, value_method, text_method:, hint_method:, hint:, legend:, caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
+      end
+
       def ds_radio_buttons_fieldset(method, options = {}, &)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
