@@ -5,6 +5,7 @@ class AssistantsController < ApplicationController
   before_action :all_roles, only: %i[new edit create update]
   before_action :all_offices, only: %i[new edit create update]
   before_action :set_fillings, only: %i[new edit create update]
+  before_action :set_colours, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -70,6 +71,10 @@ class AssistantsController < ApplicationController
 
   def set_fillings
     @fillings = fillings
+  end
+
+  def set_colours
+    @colours = colours
   end
 
   # Only allow a list of trusted parameters through.

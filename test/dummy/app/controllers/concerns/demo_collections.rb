@@ -9,4 +9,11 @@ module DemoCollections
       OpenStruct.new(id: 'cheddar', name: 'Cheddar', description: 'A sharp, off-white natural cheese')
     ]
   end
-end 
+
+  def colours
+    [
+      OpenStruct.new(id: 'red', title: 'Red', description: 'Roses are red'),
+      OpenStruct.new(id: 'blue', title: 'Blue', description: 'Violets are.. purple?')
+    ]
+  end
+end

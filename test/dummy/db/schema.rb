@@ -42,9 +42,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
   create_table "assistants", force: :cascade do |t|
     t.boolean "terms_agreed", default: false
     t.date "date_of_birth"
+    t.integer "age"
+    t.string "colour"
     t.string "desired_filling"
+    t.string "email"
     t.string "lunch_option"
+    t.string "password"
+    t.string "phone"
     t.string "title"
+    t.string "website"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -21,24 +21,6 @@ module DesignSystem
       # ds_text_area
       # ds_text_field
 
-      def ds_fieldset(options = {}, &)
-        legend = options.delete(:legend)
-        legend = { text: legend } if legend
-
-        govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
-      end
-
-      # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
-      def ds_file_field(method, options = {})
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-
-        label = options.delete(:label)
-        label = { size: nil, text: label || 'Please upload' }
-
-        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
-      end
-
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
         content, options = separate_content_or_options(content_or_options, options)
@@ -51,9 +33,72 @@ module DesignSystem
         govuk_label(method, text:, size: nil, hidden: false, tag: nil, caption: nil, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
+      def ds_text_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
+        #   or +one-quarter+, +one-third+, +one-half+, +two-thirds+ or +full+ width of the container
+        # extra_letter_spacing [Boolean] when true adds space between characters to increase the readability of
+        #   sequences of letters and numbers. Defaults to +false+.
+        # caption [Hash] configures or sets the caption content which is inserted above the label
+        # caption text [String] the caption text
+        # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
+        # caption kwargs [Hash] additional arguments are applied as attributes on the caption +span+ element
+        # form_group [Hash] configures the form group
+        # form_group kwargs [Hash] additional attributes added to the form group
+        # prefix_text [String] the text placed before the input. No prefix will be added if left +nil+
+        # suffix_text [String] the text placed after the input. No suffix will be added if left +nil+
+        # block [Block] arbitrary HTML that will be rendered between the hint and the input
+        govuk_text_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false,
+                                 form_group: {}, prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_phone_field(method, options = {})
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_phone_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                  prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_email_field(method, options = {})
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+        govuk_email_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                  prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_url_field(method, options = {})
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_url_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_number_field(method, options = {})
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_number_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                   prefix_text: nil, suffix_text: nil, **options)
+      end
+
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
       def ds_password_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -80,50 +125,15 @@ module DesignSystem
                                      password_hidden_announcement_text: nil, **options)
       end
 
-      def ds_date_field(method, options = {})
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-
-        legend = options.delete(:legend)
-        legend = { text: legend } if legend
-
-        govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false, maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
-      end
-
-      def ds_error_summary(options = {})
-        govuk_error_summary(title = config.default_error_summary_title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil, order: nil, **options)
-      end
-
-      # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
+      # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
       def ds_text_area(method, options = {})
-        label = { size: nil, text: translated_label(method) }
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-  
-        govuk_text_area(method, hint:, label:, caption: {}, max_words: nil, max_chars: nil, rows: 5, threshold: nil, form_group: {}, **options)
-      end
-
-      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
-      def ds_text_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = options.delete(:label)
+        label = { size: nil, text: label || translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
-        #   or +one-quarter+, +one-third+, +one-half+, +two-thirds+ or +full+ width of the container
-        # extra_letter_spacing [Boolean] when true adds space between characters to increase the readability of
-        #   sequences of letters and numbers. Defaults to +false+.
-        # caption [Hash] configures or sets the caption content which is inserted above the label
-        # caption text [String] the caption text
-        # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
-        # caption kwargs [Hash] additional arguments are applied as attributes on the caption +span+ element
-        # form_group [Hash] configures the form group
-        # form_group kwargs [Hash] additional attributes added to the form group
-        # prefix_text [String] the text placed before the input. No prefix will be added if left +nil+
-        # suffix_text [String] the text placed after the input. No suffix will be added if left +nil+
-        # block [Block] arbitrary HTML that will be rendered between the hint and the input
-        govuk_text_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false,
-                                 form_group: {}, prefix_text: nil, suffix_text: nil, **options)
+        govuk_text_area(method, hint:, label:, caption: {}, max_words: nil, max_chars: nil, rows: 5, threshold: nil,
+                                form_group: {}, **options)
       end
 
       # Select
@@ -135,10 +145,14 @@ module DesignSystem
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_collection_select(method, collection, value_method, text_method, options: rails_options, hint:, label:, caption: {}, form_group: {}, **options)
+        govuk_collection_select(method, collection, value_method, text_method, options: rails_options, hint:, label:,
+                                                                               caption: {}, form_group: {}, **options)
       end
 
-      def ds_select(method, choices, options = {})
+      def ds_select(method, content_or_options = nil, options = nil)
+        content, options = separate_content_or_options(content_or_options, options)
+        choices = content
+
         rails_options = options.extract!(:prompt, :include_blank)
 
         label = options.delete(:label)
@@ -149,33 +163,6 @@ module DesignSystem
         govuk_select(method, choices, options: rails_options, label:, hint:, form_group: {}, caption: {}, **options)
       end
 
-      # Checkboxes
-      def ds_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, options = {})
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-
-        legend = options.delete(:legend)
-        legend = { text: legend } if legend
-
-        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method:, hint:, legend:, caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **options)
-      end
-
-      def ds_check_boxes_fieldset(method, options = {}, &)
-        legend = { text: options.delete(:legend) ||translated_label(method) }
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-
-        govuk_check_boxes_fieldset(method, legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
-      end
-
-      def ds_check_box(method, value, options = {})
-        label = { size: nil, text: translated_label(options.delete(:label) || value) }
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-
-        govuk_check_box(method, value, unchecked_value = false, hint:, label:, link_errors: false, multiple: true, exclusive: true, **options)
-      end
-
       # Radio buttons
       def ds_collection_radio_buttons(method, collection, value_method, text_method = nil, hint_method = nil, **options)
         hint = options.delete(:hint)
@@ -184,7 +171,8 @@ module DesignSystem
         legend = options.delete(:legend)
         legend = { text: legend } if legend
 
-        govuk_collection_radio_buttons(method, collection, value_method, text_method:, hint_method:, hint:, legend:, caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
+        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method, hint:, legend:,
+                                                                                                   caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
       end
 
       def ds_radio_buttons_fieldset(method, options = {}, &)
@@ -194,7 +182,8 @@ module DesignSystem
         legend = options.delete(:legend)
         legend = { text: legend } if legend
 
-        govuk_radio_buttons_fieldset(method, hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
+        govuk_radio_buttons_fieldset(method,
+                                     hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
       end
 
       def ds_radio_button(method, value, options = {})
@@ -205,9 +194,77 @@ module DesignSystem
         govuk_radio_button(method, value, hint:, label:, link_errors: false, **options)
       end
 
-      # Buttons
-      def ds_submit(options = {}, &)
-        govuk_submit(text = config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true, validate: config.default_submit_validate, disabled: false, **options, &)
+      # Checkboxes
+      def ds_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, **options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method, hint:, legend:,
+                                                                                                 caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **options)
+      end
+
+      def ds_check_boxes_fieldset(method, options = {}, &)
+        legend = { text: options.delete(:legend) || translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_check_boxes_fieldset(method,
+                                   legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
+      end
+
+      def ds_check_box(method, value, unchecked_value = false, **options)
+        label = { size: nil, text: translated_label(options.delete(:label) || value) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_check_box(method, value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
+                                                        exclusive: true, **options)
+      end
+
+      # Submit buttons
+      def ds_submit(text = config.default_submit_button_text, **options)
+        govuk_submit(text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
+                           validate: config.default_submit_validate, disabled: false, **options)
+      end
+
+      # Date field
+      def ds_date_field(method, options = {})
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false,
+                                 maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
+      end
+
+      # Error summary
+      def ds_error_summary(title = config.default_error_summary_title, options = {})
+        govuk_error_summary(title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil,
+                                   order: nil, **options)
+      end
+
+      # Fieldset
+      def ds_fieldset(options = {}, &)
+        legend = options.delete(:legend)
+        legend = { text: legend || 'Fieldset heading' }
+
+        govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
+      end
+
+      # File field
+      # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
+      def ds_file_field(method, options = {})
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        label = options.delete(:label)
+        label = { size: nil, text: label || 'Upload file' }
+
+        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
       end
 
       private
