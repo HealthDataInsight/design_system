@@ -9,8 +9,5 @@ Rails.application.routes.draw do
   root 'pages#index'
   post 'form-handler', to: 'pages#form_handler'
 
-  resources :assistants do
-    resources :features
-    resources :tasks
-  end
+  resources :assistants
 end
