@@ -21,7 +21,8 @@ assistant1 = Assistant.find_or_create_by!(
   date_of_birth: Date.new(1990, 1, 1), 
   description: 'AB is a user', 
   terms_agreed: true, 
-  lunch_option: 'Salad'
+  lunch_option: 'Salad',
+  desired_filling: 'Pastrami'
 )
 assistant2 = Assistant.find_or_create_by!(
   title: 'CD', 
@@ -31,7 +32,8 @@ assistant2 = Assistant.find_or_create_by!(
   date_of_birth: Date.new(1990, 1, 1), 
   description: 'CD is an admin', 
   terms_agreed: true, 
-  lunch_option: 'Salad'
+  lunch_option: 'Salad',
+  desired_filling: 'Pastrami'
 )
 assistant3 = Assistant.find_or_create_by!(
   title: 'EF', 
@@ -41,5 +43,6 @@ assistant3 = Assistant.find_or_create_by!(
   date_of_birth: Date.new(1990, 1, 1), 
   description: 'EF is a super admin', 
   terms_agreed: true, 
-  lunch_option: 'Jacket potato'
+  lunch_option: 'Jacket potato',
+  desired_filling: 'Cheddar'
 )

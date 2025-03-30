@@ -1,8 +1,10 @@
 class AssistantsController < ApplicationController
+  include DemoCollections
   before_action :set_assistant, only: %i[show edit update destroy]
   before_action :all_departments, only: %i[new edit create update]
   before_action :all_roles, only: %i[new edit create update]
   before_action :all_offices, only: %i[new edit create update]
+  before_action :set_fillings, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -66,8 +68,12 @@ class AssistantsController < ApplicationController
     @offices = Office.all
   end
 
+  def set_fillings
+    @fillings = fillings
+  end
+
   # Only allow a list of trusted parameters through.
   def assistant_params
-    params.require(:assistant).permit(:title, :date_of_birth, :description, :cv, :terms_agreed, :lunch_option, :department_id, :role_id, :office_id)
+    params.require(:assistant).permit(:title, :date_of_birth, :description, :cv, :terms_agreed, :lunch_option, :department_id, :role_id, :office_id, :desired_filling)
   end
 end

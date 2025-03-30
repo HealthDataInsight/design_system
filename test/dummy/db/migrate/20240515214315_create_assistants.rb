@@ -3,6 +3,7 @@ class CreateAssistants < ActiveRecord::Migration[7.1]
     create_table :assistants do |t|
       t.boolean :terms_agreed, default: false
       t.date :date_of_birth
+      t.string :desired_filling
       t.string :lunch_option
       t.string :title
       t.text :description
