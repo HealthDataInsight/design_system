@@ -227,6 +227,65 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_url_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_url_field(:website)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+
+          input = assert_select("input.#{@brand}-input[type=url][id='assistant-website-field']").first
+          assert_equal 'https://www.ab.com', input['value']
+        end
+      end
+    end
+
+    test 'ds_url_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_url_field(:website, hint: 'This is a hint')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-website-hint', hint['id']
+        end
+      end
+    end
+
+    test 'ds_url_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_url_field(:website, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+
+          input = assert_select("input.#{@brand}-input.geoff[type=url][placeholder=bar][id='assistant-website-field']").first
+          assert_equal 'https://www.ab.com', input['value']
+        end
+      end
+    end
+
+    test 'ds_url_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_url_field(:website)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website, yarr')
+          end
+        end
+      end
+    end
+
     # test 'ds_password_field' do
     #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
     #     f.ds_password_field(:title)

@@ -6,3 +6,4 @@ pirate:
         department_id: Department, yarr
         phone: Phone, yarr
         email: Email, yarr
+        website: Website, yarr

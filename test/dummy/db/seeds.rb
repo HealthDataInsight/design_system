@@ -21,7 +21,8 @@ assistant1 = Assistant.find_or_create_by!(
   terms_agreed: true,
   title: 'AB',
   phone: '07700900001',
-  email: 'ab@example.com'
+  email: 'ab@example.com',
+  website: 'https://www.ab.com'
 )
 assistant2 = Assistant.find_or_create_by!(
   colour: 'red',
@@ -35,7 +36,8 @@ assistant2 = Assistant.find_or_create_by!(
   terms_agreed: true,
   title: 'CD',
   phone: '07700900002',
-  email: 'cd@example.com'
+  email: 'cd@example.com',
+  website: 'https://www.cd.com'
 )
 assistant3 = Assistant.find_or_create_by!(
   colour: 'blue',
@@ -49,5 +51,6 @@ assistant3 = Assistant.find_or_create_by!(
   terms_agreed: true,
   title: 'EF',
   phone: '07700900003',
-  email: 'ef@example.com'
+  email: 'ef@example.com',
+  website: 'https://www.ef.com'
 )

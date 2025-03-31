@@ -12,6 +12,7 @@ one:
   terms_agreed: true
   phone: '07700900001'
   email: 'ab@example.com'
+  website: 'https://www.ab.com'
 
 two:
   title: CD
@@ -26,6 +27,7 @@ two:
   terms_agreed: true
   phone: '07700900002'
   email: 'cd@example.com'
+  website: 'https://www.cd.com'
 
 three:
   title: EF
@@ -40,3 +42,4 @@ three:
   terms_agreed: true
   phone: '07700900003'
   email: 'ef@example.com'
+  website: 'https://www.ef.com'
