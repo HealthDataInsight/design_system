@@ -10,7 +10,7 @@
 
       <%= form.ds_url_field :website, hint: "ds_url_field" %>
 
-      <%= form.ds_file_field :cv, label: "Please upload your CV" %>
+      <%= form.ds_file_field :cv %>
 
       <%= form.ds_password_field :password, hint: "ds_password_field" %>
 
@@ -22,9 +22,9 @@
     <% end %>
 
     <%= form.ds_fieldset legend: "Select" do %>
-      <%= form.ds_collection_select :role_id, @roles, :id, :title, label: "Role", hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
+      <%= form.ds_collection_select :role_id, @roles, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
 
-      <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), label: "Department", hint: "ds_select", prompt: "Please select", include_blank: false %>
+      <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), hint: "ds_select", prompt: "Please select", include_blank: false %>
     <% end %>
 
     <%= form.ds_fieldset legend: "Radio buttons" do %>
