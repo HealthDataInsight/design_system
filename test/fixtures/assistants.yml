@@ -13,7 +13,7 @@ one:
   phone: '07700900001'
   email: 'ab@example.com'
   website: 'https://www.ab.com'
-
+  age: 30
 two:
   title: CD
   department_id: 2
@@ -28,6 +28,7 @@ two:
   phone: '07700900002'
   email: 'cd@example.com'
   website: 'https://www.cd.com'
+  age: 40
 
 three:
   title: EF
@@ -43,3 +44,4 @@ three:
   phone: '07700900003'
   email: 'ef@example.com'
   website: 'https://www.ef.com'
+  age: 50

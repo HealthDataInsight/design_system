@@ -22,7 +22,8 @@ assistant1 = Assistant.find_or_create_by!(
   title: 'AB',
   phone: '07700900001',
   email: 'ab@example.com',
-  website: 'https://www.ab.com'
+  website: 'https://www.ab.com',
+  age: 30
 )
 assistant2 = Assistant.find_or_create_by!(
   colour: 'red',
@@ -37,7 +38,8 @@ assistant2 = Assistant.find_or_create_by!(
   title: 'CD',
   phone: '07700900002',
   email: 'cd@example.com',
-  website: 'https://www.cd.com'
+  website: 'https://www.cd.com',
+  age: 40
 )
 assistant3 = Assistant.find_or_create_by!(
   colour: 'blue',
@@ -52,5 +54,6 @@ assistant3 = Assistant.find_or_create_by!(
   title: 'EF',
   phone: '07700900003',
   email: 'ef@example.com',
-  website: 'https://www.ef.com'
+  website: 'https://www.ef.com',
+  age: 50
 )

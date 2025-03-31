@@ -286,6 +286,65 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_number_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_number_field(:age)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+
+          input = assert_select("input.#{@brand}-input[type=number][id='assistant-age-field']").first
+          assert_equal 30, input['value'].to_i
+        end
+      end
+    end
+
+    test 'ds_number_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_number_field(:age, hint: 'This is a hint')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-age-hint', hint['id']
+        end
+      end
+    end
+
+    test 'ds_number_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_number_field(:age, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+
+          input = assert_select("input.#{@brand}-input.geoff[type=number][placeholder=bar][id='assistant-age-field']").first
+          assert_equal 30, input['value'].to_i
+        end
+      end
+    end
+
+    test 'ds_number_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_number_field(:age)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age, yarr')
+          end
+        end
+      end
+    end
+
     # test 'ds_password_field' do
     #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
     #     f.ds_password_field(:title)
