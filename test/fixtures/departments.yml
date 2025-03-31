@@ -2,19 +2,14 @@
 sales:
   id: 1
   title: Sales
+  description: This is the sales department
 
 marketing:
   id: 2
   title: Marketing
+  description: This is the marketing department
 
 finance:
   id: 3
   title: Finance
-
-operations:
-  id: 4
-  title: Operations
-
-personnel:
-  id: 5
-  title: Personnel
+  description: This is the finance department

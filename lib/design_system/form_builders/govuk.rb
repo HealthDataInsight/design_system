@@ -57,8 +57,7 @@ module DesignSystem
       end
 
       def ds_phone_field(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -67,8 +66,7 @@ module DesignSystem
       end
 
       def ds_email_field(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
         govuk_email_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
@@ -76,8 +74,7 @@ module DesignSystem
       end
 
       def ds_url_field(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -86,8 +83,7 @@ module DesignSystem
       end
 
       def ds_number_field(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -97,8 +93,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
       def ds_password_field(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -127,8 +122,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
       def ds_text_area(method, options = {})
-        label = options.delete(:label)
-        label = { size: nil, text: label || translated_label(method) }
+        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 

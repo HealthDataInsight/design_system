@@ -1,12 +1,42 @@
 ---
 one:
-  title: Lorem ipsum dolor sit amet
+  title: AB
   department_id: 1
+  role_id: 1
+  colour: 'red'
+  date_of_birth: 1990-01-01
+  description: 'AB is a user'
+  desired_filling: 'Pastrami'
+  lunch_option: 'Salad'
+  password: 'password'
+  terms_agreed: true
+  phone: '07700900001'
+  email: 'ab@example.com'
 
 two:
-  title: consectetur adipisicing elit
+  title: CD
   department_id: 2
+  role_id: 2
+  colour: 'red'
+  date_of_birth: 1990-01-01
+  description: 'CD is an admin'
+  desired_filling: 'Pastrami'
+  lunch_option: 'Salad'
+  password: 'password'
+  terms_agreed: true
+  phone: '07700900002'
+  email: 'cd@example.com'
 
 three:
-  title: sed do eiusmod tempor incididunt
+  title: EF
   department_id: 3
+  role_id: 3
+  colour: 'blue'
+  date_of_birth: 1990-01-01
+  description: 'EF is a super admin'
+  desired_filling: 'Cheddar'
+  lunch_option: 'Jacket potato'
+  password: 'password'
+  terms_agreed: true
+  phone: '07700900003'
+  email: 'ef@example.com'
