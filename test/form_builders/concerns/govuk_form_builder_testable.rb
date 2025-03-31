@@ -43,6 +43,72 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_text_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          input = assert_select("input.#{@brand}-input[type=text]").first
+          assert_equal 'Lorem ipsum dolor sit amet', input['value']
+        end
+      end
+    end
+
+    test 'ds_text_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title, hint: 'This is a hint')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-title-hint', hint['id']
+
+          input = assert_select("input.#{@brand}-input[type=text]").first
+          assert_equal 'Lorem ipsum dolor sit amet', input['value']
+          assert_equal 'assistant-title-hint', input['aria-describedby']
+        end
+      end
+    end
+
+    test 'ds_text_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          input = assert_select("input.#{@brand}-input.geoff[type=text][placeholder=bar]").first
+          assert_equal 'Lorem ipsum dolor sit amet', input['value']
+        end
+      end
+    end
+
+    test 'ds_text_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_text_field(:title)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label", 'Title, yarr')
+
+            input = assert_select("input.#{@brand}-input[type=text]").first
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
+          end
+        end
+      end
+    end
+
     test 'ds_password_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
@@ -166,71 +232,5 @@ module GovukFormBuilderTestable
     end
 
     # TODO: Test ds_text_area
-
-    test 'ds_text_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title)
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label", 'Title')
-
-          input = assert_select("input.#{@brand}-input[type=text]").first
-          assert_equal 'Lorem ipsum dolor sit amet', input['value']
-        end
-      end
-    end
-
-    test 'ds_text_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title, hint: 'This is a hint')
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label", 'Title')
-
-          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-          assert_equal 'assistant-title-hint', hint['id']
-
-          input = assert_select("input.#{@brand}-input[type=text]").first
-          assert_equal 'Lorem ipsum dolor sit amet', input['value']
-          assert_equal 'assistant-title-hint', input['aria-describedby']
-        end
-      end
-    end
-
-    test 'ds_text_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label", 'Title')
-
-          input = assert_select("input.#{@brand}-input.geoff[type=text][placeholder=bar]").first
-          assert_equal 'Lorem ipsum dolor sit amet', input['value']
-        end
-      end
-    end
-
-    test 'ds_text_field with pirate locale' do
-      I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-          f.ds_text_field(:title)
-        end
-
-        assert_select('form') do
-          assert_select("div.#{@brand}-form-group") do
-            assert_select("label.#{@brand}-label", 'Title, yarr')
-
-            input = assert_select("input.#{@brand}-input[type=text]").first
-            assert_equal 'Lorem ipsum dolor sit amet', input['value']
-          end
-        end
-      end
-    end
   end
 end

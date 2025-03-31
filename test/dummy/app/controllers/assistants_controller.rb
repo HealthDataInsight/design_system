@@ -17,7 +17,6 @@ class AssistantsController < ApplicationController
   # GET /assistants/new
   def new
     @assistant = Assistant.new
-    @assistants = Assistant.all
   end
 
   # GET /assistants/1/edit
@@ -74,6 +73,22 @@ class AssistantsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def assistant_params
-    params.require(:assistant).permit(:title, :date_of_birth, :description, :cv, :terms_agreed, :lunch_option, :department_id, :role_id, :desired_filling)
+    params.require(:assistant).permit(
+      :age,
+      :colour,
+      :cv,
+      :date_of_birth,
+      :department_id,
+      :description,
+      :desired_filling,
+      :email,
+      :lunch_option,
+      :password,
+      :phone,
+      :role_id,
+      :terms_agreed,
+      :title,
+      :website
+    )
   end
 end

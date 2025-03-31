@@ -1,5 +1,5 @@
 <%= form_with(model: assistant) do |form| %>
-    <%= form.ds_error_summary %>
+    <%= form.ds_error_summary link_base_errors_to: :phone %>
 
     <%= form.ds_fieldset legend: "Input fields" do %>
       <%= form.ds_text_field :title, width: 20, hint: "ds_text_field" %>
@@ -18,7 +18,7 @@
 
       <%= form.ds_text_area :description, hint: "ds_text_area" %>
 
-      <%= form.ds_date_field :date_of_birth, hint: "For example, 15 3 1994", legend: "What is your date of birth?", hint: "ds_date_field" %>
+      <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>
     <% end %>
 
     <%= form.ds_fieldset legend: "Select" do %>
@@ -28,7 +28,7 @@
     <% end %>
 
     <%= form.ds_fieldset legend: "Radio buttons" do %>
-      <%= form.ds_collection_radio_buttons :colours, @colours, :id, :title, :description, legend: "What is your favourite colour?", hint: "ds_collection_radio_buttons" %>
+      <%= form.ds_collection_radio_buttons :colour, @colours, :id, :title, :description, legend: "What is your favourite colour?", hint: "ds_collection_radio_buttons" %>
 
       <%= form.ds_radio_buttons_fieldset :lunch_option, legend: "What do you want to have for lunch?", hint: "ds_radio_buttons_fieldset" do %>
         <%= form.ds_radio_button :lunch_option, "Salad", link_errors: true %>

@@ -242,7 +242,10 @@ module DesignSystem
       end
 
       # Error summary
-      def ds_error_summary(title = config.default_error_summary_title, options = {})
+      def ds_error_summary(content_or_options = nil, options = nil)
+        content, options = separate_content_or_options(content_or_options, options)
+        title = content || config.default_error_summary_title
+
         govuk_error_summary(title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil,
                                    order: nil, **options)
       end
