@@ -5,3 +5,4 @@ pirate:
         title: Title, yarr
         department_id: Department, yarr
         phone: Phone, yarr
+        email: Email, yarr

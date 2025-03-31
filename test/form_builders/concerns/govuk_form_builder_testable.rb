@@ -124,21 +124,6 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_phone_field with custom label' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_phone_field(:phone, label: 'Phone number')
-      end
-
-      assert_select('form') do
-        assert_select("div.#{@brand}-form-group") do
-          assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone number')
-
-          input = assert_select("input.#{@brand}-input[type=tel][id='assistant-phone-field']").first
-          assert_equal '07700900001', input['value']
-        end
-      end
-    end
-
     test 'ds_phone_field with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_phone_field(:phone, hint: 'This is a hint')
@@ -172,12 +157,71 @@ module GovukFormBuilderTestable
     test 'ds_phone_field with pirate locale' do
       I18n.with_locale :pirate do
         @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-          f.ds_phone_field(:phone, label: 'test')
+          f.ds_phone_field(:phone)
         end
 
         assert_select('form') do
           assert_select("div.#{@brand}-form-group") do
-            assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'test, yarr')
+            assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone, yarr')
+          end
+        end
+      end
+    end
+
+    test 'ds_email_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_email_field(:email)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+
+          input = assert_select("input.#{@brand}-input[type=email][id='assistant-email-field']").first
+          assert_equal 'ab@example.com', input['value']
+        end
+      end
+    end
+
+    test 'ds_email_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_email_field(:email, hint: 'This is a hint')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-email-hint', hint['id']
+        end
+      end
+    end
+
+    test 'ds_email_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_email_field(:email, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+
+          input = assert_select("input.#{@brand}-input.geoff[type=email][placeholder=bar][id='assistant-email-field']").first
+          assert_equal 'ab@example.com', input['value']
+        end
+      end
+    end
+
+    test 'ds_email_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_email_field(:email)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email, yarr')
           end
         end
       end
