@@ -8,3 +8,4 @@ pirate:
         email: Email, yarr
         website: Website, yarr
         age: Age, yarr
+        description: Description, yarr

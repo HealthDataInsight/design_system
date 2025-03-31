@@ -345,128 +345,193 @@ module GovukFormBuilderTestable
       end
     end
 
-    # test 'ds_password_field' do
-    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #     f.ds_password_field(:title)
-    #   end
+    test 'ds_password_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_password_field(:title)
+      end
 
-    #   assert_select('form') do
-    #     assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
-    #       assert_select("label.#{@brand}-label", 'Title')
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
+          assert_select("label.#{@brand}-label", 'Title')
 
-    #       assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-    #         input = assert_select('input[type=password]').first
-    #         assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-    #         assert_equal 'false', input['spellcheck']
-    #         assert_equal 'current-password', input['autocomplete']
-    #         assert_equal 'none', input['autocapitalize']
-    #         assert_nil input['value']
+          assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
+            input = assert_select('input[type=password]').first
+            assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
+            assert_equal 'false', input['spellcheck']
+            assert_equal 'current-password', input['autocomplete']
+            assert_equal 'none', input['autocapitalize']
+            assert_nil input['value']
 
-    #         button = assert_select('button[type=button]').first
-    #         assert_equal "#{@brand}-button", button['data-module']
-    #         assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-    #                      button['class']
-    #         assert_equal 'assistant-title-field', button['aria-controls']
-    #         assert_equal 'Show password', button['aria-label']
-    #         assert_equal 'hidden', button['hidden']
-    #       end
-    #     end
-    #   end
-    # end
+            button = assert_select('button[type=button]').first
+            assert_equal "#{@brand}-button", button['data-module']
+            assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
+                         button['class']
+            assert_equal 'assistant-title-field', button['aria-controls']
+            assert_equal 'Show password', button['aria-label']
+            assert_equal 'hidden', button['hidden']
+          end
+        end
+      end
+    end
 
-    # test 'ds_password_field with hint' do
-    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #     f.ds_password_field(:title, hint: 'This is a hint')
-    #   end
+    test 'ds_password_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_password_field(:title, hint: 'This is a hint')
+      end
 
-    #   assert_select('form') do
-    #     assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
-    #       assert_select("label.#{@brand}-label", 'Title')
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
+          assert_select("label.#{@brand}-label", 'Title')
 
-    #       hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-    #       assert_equal 'assistant-title-hint', hint['id']
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-title-hint', hint['id']
 
-    #       assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-    #         input = assert_select('input[type=password]').first
-    #         assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-    #         assert_equal 'false', input['spellcheck']
-    #         assert_equal 'current-password', input['autocomplete']
-    #         assert_equal 'none', input['autocapitalize']
-    #         assert_nil input['value']
-    #         assert_equal 'assistant-title-hint', input['aria-describedby']
+          assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
+            input = assert_select('input[type=password]').first
+            assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
+            assert_equal 'false', input['spellcheck']
+            assert_equal 'current-password', input['autocomplete']
+            assert_equal 'none', input['autocapitalize']
+            assert_nil input['value']
+            assert_equal 'assistant-title-hint', input['aria-describedby']
 
-    #         button = assert_select('button[type=button]').first
-    #         assert_equal "#{@brand}-button", button['data-module']
-    #         assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-    #                      button['class']
-    #         assert_equal 'assistant-title-field', button['aria-controls']
-    #         assert_equal 'Show password', button['aria-label']
-    #         assert_equal 'hidden', button['hidden']
-    #       end
-    #     end
-    #   end
-    # end
+            button = assert_select('button[type=button]').first
+            assert_equal "#{@brand}-button", button['data-module']
+            assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
+                         button['class']
+            assert_equal 'assistant-title-field', button['aria-controls']
+            assert_equal 'Show password', button['aria-label']
+            assert_equal 'hidden', button['hidden']
+          end
+        end
+      end
+    end
 
-    # test 'ds_password_field with options' do
-    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #     f.ds_password_field(:title, class: 'geoff', placeholder: 'bar')
-    #   end
+    test 'ds_password_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_password_field(:title, class: 'geoff', placeholder: 'bar')
+      end
 
-    #   assert_select('form') do
-    #     assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
-    #       assert_select("label.#{@brand}-label", 'Title')
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
+          assert_select("label.#{@brand}-label", 'Title')
 
-    #       assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-    #         input = assert_select('input[type=password][placeholder=bar]').first
-    #         assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input geoff", input['class']
-    #         assert_equal 'false', input['spellcheck']
-    #         assert_equal 'current-password', input['autocomplete']
-    #         assert_equal 'none', input['autocapitalize']
-    #         assert_nil input['value']
+          assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
+            input = assert_select('input[type=password][placeholder=bar]').first
+            assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input geoff", input['class']
+            assert_equal 'false', input['spellcheck']
+            assert_equal 'current-password', input['autocomplete']
+            assert_equal 'none', input['autocapitalize']
+            assert_nil input['value']
 
-    #         button = assert_select('button[type=button]').first
-    #         assert_equal "#{@brand}-button", button['data-module']
-    #         assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-    #                      button['class']
-    #         assert_equal 'assistant-title-field', button['aria-controls']
-    #         assert_equal 'Show password', button['aria-label']
-    #         assert_equal 'hidden', button['hidden']
-    #       end
-    #     end
-    #   end
-    # end
+            button = assert_select('button[type=button]').first
+            assert_equal "#{@brand}-button", button['data-module']
+            assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
+                         button['class']
+            assert_equal 'assistant-title-field', button['aria-controls']
+            assert_equal 'Show password', button['aria-label']
+            assert_equal 'hidden', button['hidden']
+          end
+        end
+      end
+    end
 
-    # test 'ds_password_field with pirate locale' do
-    #   I18n.with_locale :pirate do
-    #     @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #       f.ds_password_field(:title)
-    #     end
+    test 'ds_password_field with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_password_field(:title)
+        end
 
-    #     assert_select('form') do
-    #       assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
-    #         assert_select("label.#{@brand}-label", 'Title, yarr')
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group.#{@brand}-password-input") do
+            assert_select("label.#{@brand}-label", 'Title, yarr')
 
-    #         assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-    #           input = assert_select('input[type=password]').first
-    #           assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-    #           assert_equal 'false', input['spellcheck']
-    #           assert_equal 'current-password', input['autocomplete']
-    #           assert_equal 'none', input['autocapitalize']
-    #           assert_nil input['value']
+            assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
+              input = assert_select('input[type=password]').first
+              assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
+              assert_equal 'false', input['spellcheck']
+              assert_equal 'current-password', input['autocomplete']
+              assert_equal 'none', input['autocapitalize']
+              assert_nil input['value']
 
-    #           button = assert_select('button[type=button]').first
-    #           assert_equal "#{@brand}-button", button['data-module']
-    #           assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-    #                        button['class']
-    #           assert_equal 'assistant-title-field', button['aria-controls']
-    #           assert_equal 'Show password', button['aria-label']
-    #           assert_equal 'hidden', button['hidden']
-    #         end
-    #       end
-    #     end
-    #   end
-    # end
+              button = assert_select('button[type=button]').first
+              assert_equal "#{@brand}-button", button['data-module']
+              assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
+                           button['class']
+              assert_equal 'assistant-title-field', button['aria-controls']
+              assert_equal 'Show password', button['aria-label']
+              assert_equal 'hidden', button['hidden']
+            end
+          end
+        end
+      end
+    end
 
-    # TODO: Test ds_text_area
+    test 'ds_text_area' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_area(:description)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+
+          input = assert_select('textarea[id="assistant-description-field"]').first
+          assert_equal "#{@brand}-textarea", input['class']
+          assert_equal "5", input['rows']
+          assert_equal "assistant[description]", input["name"]
+        end
+      end
+    end
+
+    test 'ds_text_area with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_area(:description, hint: 'This is a hint')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+
+          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
+          assert_equal 'assistant-description-hint', hint['id']
+        end
+      end
+    end
+
+    test 'ds_text_area with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_text_area(:description, class: 'geoff', placeholder: 'bar', rows: 2, max_words: 20)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group.#{@brand}-character-count[data-module='govuk-character-count'][data-maxwords='20']") do
+          assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+
+          input = assert_select("textarea.#{@brand}-textarea.#{@brand}-js-character-count.geoff[placeholder=bar][rows=2]").first
+          assert_equal "2", input['rows']
+          assert_equal 'assistant-description-field-info', input['aria-describedby']
+          assert_equal "assistant[description]", input["name"]
+
+          info = assert_select("span.#{@brand}-hint.#{@brand}-character-count__message").first
+          assert_includes info.text.strip, '20 words'
+          assert_equal 'assistant-description-field-info', info['id']
+        end
+      end
+    end
+
+    test 'ds_text_area with pirate locale' do
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+          f.ds_text_area(:description)
+        end
+
+        assert_select('form') do
+          assert_select("div.#{@brand}-form-group") do
+            assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description, yarr')
+          end
+        end
+      end
+    end
   end
 end
