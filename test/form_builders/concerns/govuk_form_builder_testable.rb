@@ -13,6 +13,12 @@ module GovukFormBuilderTestable
       end
     end
 
+    def assert_label(field = nil, text = nil, form_group = nil)
+      field = field.to_s.gsub('_', '-')
+      selector = "label.#{@brand}-label[for='assistant-#{field}-field']"
+      assert_select(selector, text)
+    end
+
     test 'self.brand' do
       assert_equal @brand, @builder.brand
     end
@@ -23,7 +29,7 @@ module GovukFormBuilderTestable
       end
 
       assert_select('form') do
-        assert_select("label.#{@brand}-label", 'Title')
+        assert_label :title, 'Title'
       end
     end
 
@@ -44,7 +50,7 @@ module GovukFormBuilderTestable
         end
 
         assert_select('form') do
-          assert_select("label.#{@brand}-label", 'Title, yarr')
+          assert_label :title, 'Title, yarr'
         end
       end
     end
@@ -54,8 +60,8 @@ module GovukFormBuilderTestable
         f.ds_text_field(:title)
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-title-field']", 'Title')
+      assert_form_group do
+        assert_label :title, 'Title'
 
         input = assert_select("input.#{@brand}-input[type=text]").first
         assert_equal 'assistant-title-field', input['id']
@@ -68,8 +74,8 @@ module GovukFormBuilderTestable
         f.ds_text_field(:title, hint: 'This is a hint')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-title-field']", 'Title')
+      assert_form_group do 
+        assert_label :title, 'Title'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-title-hint', hint['id']
@@ -86,8 +92,8 @@ module GovukFormBuilderTestable
         f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-title-field']", 'Title')
+      assert_form_group do
+        assert_label :title, 'Title'
 
         input = assert_select("input.#{@brand}-input.geoff[type=text][placeholder=bar]").first
         assert_equal 'assistant-title-field', input['id']
@@ -101,8 +107,8 @@ module GovukFormBuilderTestable
           f.ds_text_field(:title)
         end
 
-        assert_form_group do |form_group|
-          assert_select("label.#{@brand}-label[for='assistant-title-field']", 'Title, yarr')
+        assert_form_group do
+          assert_label :title, 'Title, yarr'
         end
       end
     end
@@ -112,8 +118,8 @@ module GovukFormBuilderTestable
         f.ds_phone_field(:phone)
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone')
+      assert_form_group do
+        assert_label :phone, 'Phone'
 
         input = assert_select("input.#{@brand}-input[type=tel]").first
         assert_equal 'assistant-phone-field', input['id']
@@ -126,8 +132,8 @@ module GovukFormBuilderTestable
         f.ds_phone_field(:phone, hint: 'This is a hint')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone')
+      assert_form_group do
+        assert_label :phone, 'Phone'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-phone-hint', hint['id']
@@ -142,8 +148,8 @@ module GovukFormBuilderTestable
         f.ds_phone_field(:phone, class: 'geoff', placeholder: 'bar', width: 20)
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone')
+      assert_form_group do
+        assert_label :phone, 'Phone'
 
         input = assert_select("input.#{@brand}-input.#{@brand}-input--width-20.geoff[type=tel][placeholder=bar]").first
         assert_equal 'assistant-phone-field', input['id']
@@ -157,8 +163,8 @@ module GovukFormBuilderTestable
           f.ds_phone_field(:phone)
         end
 
-        assert_form_group do |form_group|
-          assert_select("label.#{@brand}-label[for='assistant-phone-field']", 'Phone, yarr')
+        assert_form_group do
+          assert_label :phone, 'Phone, yarr'
         end
       end
     end
@@ -168,8 +174,8 @@ module GovukFormBuilderTestable
         f.ds_email_field(:email)
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+      assert_form_group do
+        assert_label :email, 'Email'
 
         input = assert_select("input.#{@brand}-input[type=email]").first
         assert_equal 'ab@example.com', input['value']
@@ -182,8 +188,8 @@ module GovukFormBuilderTestable
         f.ds_email_field(:email, hint: 'This is a hint')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+      assert_form_group do
+        assert_label :email, 'Email'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-email-hint', hint['id']
@@ -198,8 +204,8 @@ module GovukFormBuilderTestable
         f.ds_email_field(:email, class: 'geoff', placeholder: 'bar')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email')
+      assert_form_group do
+        assert_label :email, 'Email'
 
         input = assert_select("input.#{@brand}-input.geoff[type=email][placeholder=bar]").first
         assert_equal 'assistant-email-field', input['id']
@@ -213,8 +219,8 @@ module GovukFormBuilderTestable
           f.ds_email_field(:email)
         end
 
-        assert_form_group do |form_group|
-          assert_select("label.#{@brand}-label[for='assistant-email-field']", 'Email, yarr')
+        assert_form_group do
+          assert_label :email, 'Email, yarr'
         end
       end
     end
@@ -224,8 +230,8 @@ module GovukFormBuilderTestable
         f.ds_url_field(:website)
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+      assert_form_group do
+        assert_label :website, 'Website'
 
         input = assert_select("input.#{@brand}-input[type=url]").first
         assert_equal 'https://www.ab.com', input['value']
@@ -238,8 +244,8 @@ module GovukFormBuilderTestable
         f.ds_url_field(:website, hint: 'This is a hint')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+      assert_form_group do
+        assert_label :website, 'Website'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-website-hint', hint['id']
@@ -254,8 +260,8 @@ module GovukFormBuilderTestable
         f.ds_url_field(:website, class: 'geoff', placeholder: 'bar')
       end
 
-      assert_form_group do |form_group|
-        assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website')
+      assert_form_group do
+        assert_label :website, 'Website'
 
           input = assert_select("input.#{@brand}-input.geoff[type=url][placeholder=bar]").first
           assert_equal 'https://www.ab.com', input['value']
@@ -270,7 +276,7 @@ module GovukFormBuilderTestable
         end
 
         assert_form_group do
-          assert_select("label.#{@brand}-label[for='assistant-website-field']", 'Website, yarr')
+          assert_label :website, 'Website, yarr'
         end
       end
     end
@@ -281,10 +287,10 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+        assert_label :age, 'Age'
 
-          input = assert_select("input.#{@brand}-input[type=number]").first
-          assert_equal 30, input['value'].to_i
+        input = assert_select("input.#{@brand}-input[type=number]").first
+        assert_equal 30, input['value'].to_i
         assert_equal 'assistant-age-field', input['id']
       end
     end
@@ -295,7 +301,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+        assert_label :age, 'Age'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-age-hint', hint['id']
@@ -311,7 +317,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age')
+        assert_label :age, 'Age'
 
         input = assert_select("input.#{@brand}-input.geoff[type=number][placeholder=bar]").first
         assert_equal 'assistant-age-field', input['id']
@@ -326,7 +332,7 @@ module GovukFormBuilderTestable
         end
 
         assert_form_group do
-          assert_select("label.#{@brand}-label[for='assistant-age-field']", 'Age, yarr')
+          assert_label :age, 'Age, yarr'
         end
       end
     end
@@ -337,7 +343,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-password-input"]) do
-        assert_select("label.#{@brand}-label", 'Title')
+        assert_label :title, 'Title'
         assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
           input = assert_select('input[type=password]').first
           assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
@@ -363,7 +369,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-password-input"]) do
-        assert_select("label.#{@brand}-label", 'Title')
+        assert_label :title, 'Title'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-title-hint', hint['id']
@@ -394,7 +400,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-password-input"]) do
-        assert_select("label.#{@brand}-label", 'Title')
+        assert_label :title, 'Title'
 
         assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
           input = assert_select('input[type=password][placeholder=bar]').first
@@ -422,7 +428,7 @@ module GovukFormBuilderTestable
         end
 
         assert_form_group(["#{@brand}-password-input"]) do
-          assert_select("label.#{@brand}-label", 'Title, yarr')
+          assert_label :title, 'Title, yarr'
 
           assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
             input = assert_select('input[type=password]').first
@@ -450,7 +456,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+        assert_label :description, 'Description'
 
         input = assert_select("textarea.#{@brand}-textarea").first
         assert_equal 'assistant-description-field', input['id']
@@ -465,7 +471,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+        assert_label :description, 'Description'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-description-hint', hint['id']
@@ -481,7 +487,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-character-count[data-module='govuk-character-count'][data-maxwords='20']"]) do
-        assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description')
+        assert_label :description, 'Description'
 
         input = assert_select("textarea.#{@brand}-textarea.#{@brand}-js-character-count.geoff[placeholder=bar][rows=2]").first
         assert_equal "2", input['rows']
@@ -501,7 +507,7 @@ module GovukFormBuilderTestable
         end
 
         assert_form_group do
-          assert_select("label.#{@brand}-label[for='assistant-description-field']", 'Description, yarr')
+          assert_label :description, 'Description, yarr'
         end
       end
     end
@@ -512,7 +518,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department')
+        assert_label :department_id, 'Department'
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -534,7 +540,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department')
+        assert_label :department_id, 'Department'
 
         hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
         assert_equal 'assistant-department-id-hint', hint['id']
@@ -573,7 +579,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department')
+        assert_label :department_id, 'Department'
 
         select = assert_select("select.#{@brand}-select.geoff[placeholder=bar]").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -593,7 +599,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department')
+        assert_label :department_id, 'Department'
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -615,7 +621,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department label')
+        assert_label :department_id, 'Department label'
 
           hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
           assert_equal 'assistant-department-id-hint', hint['id']
@@ -649,7 +655,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("label.#{@brand}-label[for='assistant-department-id-field']", 'Department, yarr')
+        assert_label :department_id, 'Department, yarr'
       end
     end
   end
