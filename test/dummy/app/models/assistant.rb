@@ -3,4 +3,6 @@ class Assistant < ApplicationRecord
   belongs_to :department
 
   validates :title, presence: true
+  validates :email, presence: true
+  validates :password, presence: true
 end

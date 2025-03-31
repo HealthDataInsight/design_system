@@ -1,12 +1,18 @@
 ---
 one:
   title: Lorem ipsum dolor sit amet
+  email: one@ex.com
+  password: password
   department_id: 1
 
 two:
   title: consectetur adipisicing elit
+  email: two@ex.com
+  password: password
   department_id: 2
 
 three:
   title: sed do eiusmod tempor incididunt
+  email: three@ex.com
+  password: password
   department_id: 3

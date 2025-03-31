@@ -7,7 +7,6 @@ module DesignSystem
       attr_reader :navigation_items
 
       helper DesignSystemHelper
-      helper_method :brand
 
       # TODO: Work out how to use a hook to include this
       helper HdiHelper

@@ -10,4 +10,7 @@
       </ul>
     </div>
   <% end %>
+  <%#= form.ds_label(:title, text: 'What is your title?' )%>
+  <%= form.ds_text_field(:email , {class: "#{brand}-input--width-30"})%>
+  <%= form.ds_password_field(:password, {class: "#{brand}-input--width-30"}) %>
 <% end %>
