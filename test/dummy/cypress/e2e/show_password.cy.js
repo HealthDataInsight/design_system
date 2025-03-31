@@ -3,8 +3,8 @@ describe('Show Password', () => {
   it('should toggle password visibility and button text', () => {
     cy.visit('/assistants/new')
 
-	cy.contains('password')
-	  
+    cy.contains('password')
+    
     cy.get('[data-ds--show-password-target="password"]')
       .should('have.attr', 'type', 'password')
     
