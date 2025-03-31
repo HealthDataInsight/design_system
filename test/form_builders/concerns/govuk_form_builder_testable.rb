@@ -13,9 +13,15 @@ module GovukFormBuilderTestable
       end
     end
 
-    def assert_label(field = nil, text = nil, form_group = nil)
+    def assert_label(field = nil, text = nil, model: 'assistant')
       field = field.to_s.gsub('_', '-')
-      selector = "label.#{@brand}-label[for='assistant-#{field}-field']"
+      selector = "label.#{@brand}-label[for='#{model}-#{field}-field']"
+      assert_select(selector, text)
+    end
+
+    def assert_hint(field = nil, text = nil, model: 'assistant')
+      field = field.to_s.gsub('_', '-')
+      selector = "div.#{@brand}-hint[id='#{model}-#{field}-hint']"
       assert_select(selector, text)
     end
 
@@ -76,9 +82,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do 
         assert_label :title, 'Title'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-title-hint', hint['id']
+        assert_hint :title, 'This is a hint'
 
         input = assert_select("input.#{@brand}-input[type=text]").first
         assert_equal 'assistant-title-field', input['id']
@@ -134,9 +138,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :phone, 'Phone'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-phone-hint', hint['id']
+        assert_hint :phone, 'This is a hint'
 
         input = assert_select("input.#{@brand}-input[type=tel]").first
         assert_equal 'assistant-phone-hint', input['aria-describedby']
@@ -190,9 +192,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :email, 'Email'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-email-hint', hint['id']
+        assert_hint :email, 'This is a hint'
 
         input = assert_select("input.#{@brand}-input[type=email]").first
         assert_equal 'assistant-email-hint', input['aria-describedby']
@@ -246,9 +246,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :website, 'Website'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-website-hint', hint['id']
+        assert_hint :website, 'This is a hint'
 
         input = assert_select("input.#{@brand}-input[type=url]").first
         assert_equal 'assistant-website-hint', input['aria-describedby']
@@ -302,9 +300,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :age, 'Age'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-age-hint', hint['id']
+        assert_hint :age, 'This is a hint'
 
         input = assert_select("input.#{@brand}-input[type=number]").first
         assert_equal 'assistant-age-hint', input['aria-describedby']
@@ -370,9 +366,7 @@ module GovukFormBuilderTestable
 
       assert_form_group(["#{@brand}-password-input"]) do
         assert_label :title, 'Title'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-title-hint', hint['id']
+        assert_hint :title, 'This is a hint'
 
         assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
           input = assert_select('input[type=password]').first
@@ -472,9 +466,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :description, 'Description'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-description-hint', hint['id']
+        assert_hint :description, 'This is a hint'
 
         input = assert_select("textarea.#{@brand}-textarea").first
         assert_equal 'assistant-description-hint', input['aria-describedby']
@@ -541,9 +533,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :department_id, 'Department'
-
-        hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-        assert_equal 'assistant-department-id-hint', hint['id']
+        assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant-department-id-hint', select['aria-describedby']
@@ -622,12 +612,10 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :department_id, 'Department label'
+        assert_hint :department_id, 'This is a hint'
 
-          hint = assert_select("div.#{@brand}-hint", 'This is a hint').first
-          assert_equal 'assistant-department-id-hint', hint['id']
-
-          select = assert_select("select.#{@brand}-select").first
-          assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        select = assert_select("select.#{@brand}-select").first
+        assert_equal 'assistant-department-id-hint', select['aria-describedby']
       end
     end
 
