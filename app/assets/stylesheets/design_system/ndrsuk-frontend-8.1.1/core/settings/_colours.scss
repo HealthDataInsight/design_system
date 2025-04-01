@@ -16,10 +16,11 @@
 
 /* stylelint-disable color-no-hex */
 
-$color_ndrsuk-blue: #218183;
+$color_ndrsuk-blue: #4AB0E5;
+$color_ndrsuk-turquoise: #218183;
 $color_ndrsuk-white: #ffffff;
-$color_ndrsuk-black: #212b32;
-$color_ndrsuk-green: #007f3b;
+$color_ndrsuk-black: #1B1B1B;
+$color_ndrsuk-green: #55B687;
 $color_ndrsuk-purple: #330072;
 $color_ndrsuk-dark-pink: #7c2855;
 $color_ndrsuk-red: #d5281b;
@@ -151,5 +152,5 @@ $ndrsuk-reverse-button-hover-color: shade($ndrsuk-reverse-button-color, 20%);
 $ndrsuk-reverse-button-active-color: $color-ndrsuk-black;
 $ndrsuk-reverse-button-shadow-color: $color-ndrsuk-black;
 
-$ndrsuk-button-text-color: $color_ndrsuk-white;
+$ndrsuk-button-text-color: $color_ndrsuk-black;
 $ndrsuk-reverse-button-text-color: $color_ndrsuk-black;

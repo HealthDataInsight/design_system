@@ -1,12 +1,11 @@
 <%=
 ds_fixed_elements do |ds|
   ds.main_heading 'New assistant'
+
+  ds.form @assistant
 end
 %>
-
-<%= render "form", assistant: @assistant %>
-
-<br>
+<%#= render "form", assistant: @assistant %>
 
 <div>
   <%= link_to "Back to assistants", assistants_path %>
