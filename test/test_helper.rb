@@ -48,48 +48,38 @@ module GovukFormBuilderTestableHelper
   end
 
   def assert_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    input_classes = ["#{@brand}-input"]
-    input_classes << classes
-    input_classes = input_classes.flatten.compact
-
-    input_attributes = {
-      type:,
-      id: "#{model}-#{field_for_id}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
-
-    # Build the selector with each class as a separate class attribute
-    class_selector = input_classes.map { |c| ".#{c}" }.join
-    input = assert_select("input#{class_selector}").first
-    assert input, "Input not found with type: #{type} and classes: #{input_classes.join(', ')}"
-
-    input_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, input[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{input[key.to_s]}'"
-    end
-
-    assert_equal value, input['value'] if value
+    assert_form_element('input', 'input', field, type:, value:, classes:, attributes:, model:)
   end
 
   def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('textarea', 'textarea', field, value:, classes:, attributes:, model:)
+  end
+
+  def assert_file_upload(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('input', 'file-upload', field, type:, value:, classes:, attributes:, model:)
+  end
+
+  private
+
+  def assert_form_element(element_type, base_class, field, options = {})
     field_for_id = field.to_s.gsub('_', '-')
-    textarea_classes = ["#{@brand}-textarea"]
-    textarea_classes << classes
-    textarea_classes = textarea_classes.flatten.compact
+    base_classes = ["#{@brand}-#{base_class}"]
+    classes = (base_classes + Array(options[:classes])).flatten.compact
 
-    textarea_attributes = {
-      id: "#{model}-#{field_for_id}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
+    attributes = {
+      id: "#{options[:model] || 'assistant'}-#{field_for_id}-field",
+      name: "#{options[:model] || 'assistant'}[#{field}]"
+    }.merge(options[:attributes] || {})
 
-    class_selector = textarea_classes.map { |c| ".#{c}" }.join
-    textarea = assert_select("textarea#{class_selector}").first
-    assert textarea, "Textarea not found with classes: #{textarea_classes.join(', ')}"
+    # Build the selector with each class as a separate class attribute
+    class_selector = classes.map { |c| ".#{c}" }.join
+    element = assert_select("#{element_type}#{class_selector}").first
+    assert element, "#{element_type.capitalize} not found with type: #{options[:type]} and classes: #{classes.join(', ')}"
 
-    textarea_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, textarea[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{textarea[key.to_s]}'"
+    attributes.each do |key, expected_value|
+      assert_equal expected_value.to_s, element[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{element[key.to_s]}'"
     end
 
-    assert_equal value, textarea['value'] if value
+    assert_equal options[:value], element['value'] if options[:value]
   end
 end

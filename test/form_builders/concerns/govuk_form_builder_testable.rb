@@ -503,5 +503,28 @@ module GovukFormBuilderTestable
         assert_equal 'Continue', button.text.strip
       end
     end
+
+    test 'ds_file_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_file_field(:cv)
+      end
+      
+      assert_form_group do
+        assert_label :cv, "Upload a file"
+        assert_file_upload :cv, type: :file
+      end
+    end
+
+    test 'ds_file_field with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_file_field(:cv, hint: 'This is a hint')
+      end
+      
+      assert_form_group do
+        assert_label :cv, "Upload a file"
+        assert_hint :cv, 'This is a hint'
+        assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant-cv-hint' }
+      end
+    end
   end
 end

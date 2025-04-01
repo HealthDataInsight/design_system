@@ -42,6 +42,7 @@ en:
         age: What's your age?
         role_id: What's your role?
         department_id: What's your department?
+        cv: Upload a file
   notices:
     create:
       success: "%{model} was successfully created."

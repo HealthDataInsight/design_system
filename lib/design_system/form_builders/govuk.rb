@@ -203,6 +203,16 @@ module DesignSystem
                            validate: config.default_submit_validate, disabled: false, **options, &)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
+      def ds_file_field(method, options = {})
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+        label = { size: nil, text: translated_label(method) }
+
+        # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
+        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+      end
+
       def ds_date_field(method, options = {})
         legend = options.delete(:legend)
         legend = { text: legend } if legend
@@ -216,17 +226,7 @@ module DesignSystem
         # date_of_birth [Boolean] if +true+ {https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#Values birth date auto completion attributes}
         #   will be added to the inputs
         govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false,
-                                 maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
-      end
-
-      # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
-      def ds_file_field(method, options = {})
-        hint = options.delete(:hint)
-        hint = { text: hint } if hint
-        label = { size: nil, text: translated_label(method) }
-
-        # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
-        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+                                maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
       end
 
       private
