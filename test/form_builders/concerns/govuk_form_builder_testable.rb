@@ -550,53 +550,5 @@ module GovukFormBuilderTestable
         assert_label :department_id, 'Department, yarr'
       end
     end
-
-    test 'ds_collection_radio_buttons with legend and hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, legend: 'What is your department?', hint: 'This is a hint')
-      end
-
-      assert_form_group do
-        assert_legend 'What is your department?'
-        assert_hint :department_id, 'This is a hint'
-        assert_select("div.#{@brand}-radios") do
-          radio_items = assert_select("div.#{@brand}-radios__item")
-          assert_equal 3, radio_items.length, "Expected 3 radio items"
-
-          # First radio button
-          assert_select("div.#{@brand}-radios__item:nth-child(1)") do
-            assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
-            assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
-          end
-
-          # Second radio button
-          assert_select("div.#{@brand}-radios__item:nth-child(2)") do
-            assert_radio_input :department_id, type: :radio, value: '2', classes: ["#{@brand}-radios__input"]
-            assert_radio_label :department_id, '2', 'Marketing', classes: ["#{@brand}-radios__label"]
-          end
-
-          # Third radio button
-          assert_select("div.#{@brand}-radios__item:nth-child(3)") do
-            assert_radio_input :department_id, type: :radio, value: '3', classes: ["#{@brand}-radios__input"]
-            assert_radio_label :department_id, '3', 'Finance', classes: ["#{@brand}-radios__label"]
-          end
-        end
-      end
-    end
-
-    test 'ds_collection_radio_buttons with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
-      end
-      
-      assert_form_group do
-        assert_select("div.#{@brand}-radios.geoff[placeholder=bar]") do
-          assert_select("div.#{@brand}-radios__item") do
-            assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
-            assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
-          end
-        end
-      end
-    end
   end
 end

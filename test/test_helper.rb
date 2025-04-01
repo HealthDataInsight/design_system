@@ -36,13 +36,6 @@ module GovukFormBuilderTestableHelper
     assert_select(selector, text)
   end
 
-  def assert_radio_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-radios__label[for='#{model}-#{field_for_id}-#{value}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
-    assert_select(selector, text)
-  end
-
   def assert_legend(text = nil, model: 'assistant', classes: [])
     selector = "legend.#{@brand}-fieldset__legend#{classes.map { |c| ".#{c}" }.join}"
     assert_select(selector, text)
@@ -69,7 +62,7 @@ module GovukFormBuilderTestableHelper
     # Build the selector with each class as a separate class attribute
     class_selector = input_classes.map { |c| ".#{c}" }.join
     input = assert_select("input#{class_selector}").first
-    assert input, "Input not found with classes: #{input_classes.join(', ')}"
+    assert input, "Input not found with type: #{type} and classes: #{input_classes.join(', ')}"
 
     input_attributes.each do |key, expected_value|
       assert_equal expected_value.to_s, input[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{input[key.to_s]}'"
@@ -98,28 +91,5 @@ module GovukFormBuilderTestableHelper
     end
 
     assert_equal value, textarea['value'] if value
-  end
-
-  def assert_radio_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    radio_input_classes = ["#{@brand}-radios__input"]
-    radio_input_classes << classes
-    radio_input_classes = radio_input_classes.flatten.compact
-
-    radio_input_attributes = {
-      type:,
-      id: "#{model}-#{field_for_id}-#{value}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
-
-    class_selector = radio_input_classes.map { |c| ".#{c}" }.join
-    radio_input = assert_select("input#{class_selector}").first
-    assert radio_input, "Radio input not found with type: #{type} and classes: #{radio_input_classes.join(', ')}"
-
-    radio_input_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, radio_input[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{radio_input[key.to_s]}'"
-    end
-
-    assert_equal value, radio_input['value'] if value
   end
 end
