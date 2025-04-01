@@ -1,8 +1,6 @@
 class AssistantsController < ApplicationController
   include DemoCollections
   before_action :set_assistant, only: %i[show edit update destroy]
-  # before_action :set_fillings, only: %i[new edit create update]
-  # before_action :set_colours, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -52,14 +50,6 @@ class AssistantsController < ApplicationController
   def set_assistant
     @assistant = Assistant.find(params[:id])
   end
-
-  # def set_fillings
-  #   @fillings = fillings
-  # end
-
-  # def set_colours
-  #   @colours = colours
-  # end
 
   # Only allow a list of trusted parameters through.
   def assistant_params
