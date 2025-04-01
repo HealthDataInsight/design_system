@@ -29,7 +29,7 @@ module DesignSystem
       # ds_file_field
       # ds_date_field
 
-      # TODO:
+      # TODO: will be supported in next PR
       # ds_error_summary
       # ds_fieldset
       # ds_collection_radio_buttons
