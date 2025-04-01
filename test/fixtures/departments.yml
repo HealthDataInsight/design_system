@@ -1,0 +1,15 @@
+---
+sales:
+  id: 1
+  title: Sales
+  description: This is the sales department
+
+marketing:
+  id: 2
+  title: Marketing
+  description: This is the marketing department
+
+finance:
+  id: 3
+  title: Finance
+  description: This is the finance department

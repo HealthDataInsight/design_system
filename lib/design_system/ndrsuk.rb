@@ -11,4 +11,6 @@ require_relative 'builders/ndrsuk/summary_list'
 require_relative 'builders/ndrsuk/tab'
 require_relative 'builders/ndrsuk/table'
 
+require_relative 'form_builders/ndrsuk'
+
 DesignSystem::Registry.register('ndrsuk')

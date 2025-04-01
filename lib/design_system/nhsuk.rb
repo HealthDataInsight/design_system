@@ -9,5 +9,7 @@ require_relative 'builders/nhsuk/summary_list'
 require_relative 'builders/nhsuk/tab'
 require_relative 'builders/nhsuk/table'
 
+require_relative 'form_builders/nhsuk'
+
 # This is the NHSUK adapter for the design system
 DesignSystem::Registry.register('nhsuk')
