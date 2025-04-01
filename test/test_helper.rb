@@ -36,11 +36,6 @@ module GovukFormBuilderTestableHelper
     assert_select(selector, text)
   end
 
-  def assert_legend(text = nil, model: 'assistant', classes: [])
-    selector = "legend.#{@brand}-fieldset__legend#{classes.map { |c| ".#{c}" }.join}"
-    assert_select(selector, text)
-  end
-
   def assert_hint(field = nil, text = nil, model: 'assistant')
     field_for_id = field.to_s.gsub('_', '-')
     selector = "div.#{@brand}-hint[id='#{model}-#{field_for_id}-hint']"

@@ -526,5 +526,62 @@ module GovukFormBuilderTestable
         assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant-cv-hint' }
       end
     end
+
+    test 'ds_date_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_date_field(:date_of_birth, hint: 'This is a hint', legend: 'Date of birth')
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant-date-of-birth-hint]") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'Date of birth', legend.text.strip
+
+          assert_hint :date_of_birth, 'This is a hint'
+
+          date_input = assert_select("div.#{@brand}-date-input").first
+          assert date_input, "Date input container not found"
+
+          # Test day input
+          day_item = assert_select("div.#{@brand}-date-input__item:nth-child(1)")
+          assert_select("div.#{@brand}-form-group") do
+            day_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_3i']").first
+            assert_equal 'Day', day_label.text.strip
+
+            day_input = assert_select("input.#{@brand}-input.#{@brand}-date-input__input.#{@brand}-input--width-2").first
+            assert_equal 'assistant_date_of_birth_3i', day_input['id']
+            assert_equal 'assistant[date_of_birth(3i)]', day_input['name']
+            assert_equal 'text', day_input['type']
+            assert_equal 'numeric', day_input['inputmode']
+          end
+
+          # Test month input
+          month_item = assert_select("div.#{@brand}-date-input__item:nth-child(2)")
+          assert_select("div.#{@brand}-form-group") do
+            month_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_2i']").first
+            assert_equal 'Month', month_label.text.strip
+
+            month_input = assert_select("input.#{@brand}-input.#{@brand}-date-input__input.#{@brand}-input--width-2").last
+            assert_equal 'assistant_date_of_birth_2i', month_input['id']
+            assert_equal 'assistant[date_of_birth(2i)]', month_input['name']
+            assert_equal 'text', month_input['type']
+            assert_equal 'numeric', month_input['inputmode']
+          end
+
+          # Test year input
+          year_item = assert_select("div.#{@brand}-date-input__item:nth-child(3)")
+          assert_select("div.#{@brand}-form-group") do
+            year_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_1i']").first
+            assert_equal 'Year', year_label.text.strip
+
+            year_input = assert_select("input.#{@brand}-input.#{@brand}-date-input__input.#{@brand}-input--width-4").first
+            assert_equal 'assistant_date_of_birth_1i', year_input['id']
+            assert_equal 'assistant[date_of_birth(1i)]', year_input['name']
+            assert_equal 'text', year_input['type']
+            assert_equal 'numeric', year_input['inputmode']
+          end
+        end
+      end
+    end
   end
 end
