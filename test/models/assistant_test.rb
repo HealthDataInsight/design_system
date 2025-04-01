@@ -28,4 +28,20 @@ class AssistantTest < ActiveSupport::TestCase
     assistant.valid?
     assert_empty assistant.errors.details[:department]
   end
+
+  test 'validates password' do
+    assistant = Assistant.new
+
+    assistant.password = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:password], error: :blank
+
+    assistant.password = ''
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:password], error: :blank
+
+    assistant.password = 'foo'
+    assistant.valid?
+    assert_empty assistant.errors.details[:password]
+  end
 end
