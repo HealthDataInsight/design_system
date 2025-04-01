@@ -456,7 +456,7 @@ module GovukFormBuilderTestable
 
     test 'ds_submit with secondary' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit('Cancel', secondary: true)
+        f.ds_submit('Draft', secondary: true)
       end
 
       assert_select('form') do
@@ -464,7 +464,7 @@ module GovukFormBuilderTestable
         assert_equal 'formnovalidate', button['formnovalidate']
         assert_equal "#{@brand}-button", button['data-module']
         assert_equal 'true', button['data-prevent-double-click']
-        assert_equal 'Cancel', button.text.strip
+        assert_equal 'Draft', button.text.strip
       end
     end
 
@@ -494,13 +494,14 @@ module GovukFormBuilderTestable
     test 'ds_submit with block' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_submit do
-          'Continue'
+          link_to 'Cancel', '#assistants'
         end
       end
 
       assert_select('form') do
         button = assert_select("button.#{@brand}-button[type=submit]").first
         assert_equal 'Continue', button.text.strip
+        assert_select("a[href='#assistants']")
       end
     end
 
