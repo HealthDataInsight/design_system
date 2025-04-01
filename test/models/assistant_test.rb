@@ -22,10 +22,10 @@ class AssistantTest < ActiveSupport::TestCase
 
     assistant.department = nil
     refute assistant.valid?
-    assert_includes assistant.errors.details[:department], error: :blank
+    assert_includes assistant.errors.details[:department_id], error: :blank
 
     assistant.department = departments(:marketing)
     assistant.valid?
-    assert_empty assistant.errors.details[:department]
+    assert_empty assistant.errors.details[:department_id]
   end
 end

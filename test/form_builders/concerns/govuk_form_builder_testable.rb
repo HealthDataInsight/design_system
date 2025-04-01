@@ -423,7 +423,7 @@ module GovukFormBuilderTestable
         f.ds_text_area(:description, class: 'geoff', placeholder: 'bar', rows: 2, max_words: 20)
       end
 
-      assert_form_group(["#{@brand}-character-count[data-module='govuk-character-count'][data-maxwords='20']"]) do
+      assert_form_group(["#{@brand}-character-count[data-module='#{@brand}-character-count'][data-maxwords='20']"]) do
         assert_label :description, 'Description'
         assert_text_area :description, 
           classes: ['geoff'], 

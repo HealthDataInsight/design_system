@@ -7,25 +7,25 @@ class Assistant < ApplicationRecord
   belongs_to :role, optional: true
   has_one_attached :cv
 
-  validates :date_of_birth, presence: { message: 'Enter a valid date of birth' }
-  validates :description, presence: { message: 'Enter a description' }
-  validates :desired_filling, presence: { message: 'Select a desired filling' }
-  validates :lunch_option, presence: { message: 'Select a lunch option' }
-  validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
   validates :title,
             presence: { message: 'Enter a title' },
             length: { minimum: 2, message: 'Title should be longer than 1' }
-  validates :colour, presence: { message: 'Choose a favourite colour' }
   validates :password,
             length: { minimum: 8, message: 'Password must be longer than 8 characters' }
 
   validates :department_id, presence: { message: 'Select a department' }
   validates :role_id, presence: { message: 'Select at least one role' }
-  # validates :cv, length: { maximum: 30 }, presence: true
 
   validate :dob_must_be_in_the_past, if: -> { date_of_birth.present? }
-  # validate :year_of_birth_must_be_1900_or_later, if: -> { date_of_birth.present? }
   validate :phone_or_email_exists
+
+  # TODO: add these back in later
+  # validates :cv, length: { maximum: 30 }, presence: true
+  # validates :desired_filling, presence: { message: 'Select a desired filling' }
+  # validates :lunch_option, presence: { message: 'Select a lunch option' }
+  # validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
+  # validates :colour, presence: { message: 'Choose a favourite colour' }
+  # validate :year_of_birth_must_be_1900_or_later, if: -> { date_of_birth.present? }
 
   private
 
@@ -39,7 +39,7 @@ class Assistant < ApplicationRecord
     errors.add(:date_of_birth, 'Your date of birth must be in the past') unless date_of_birth < Date.today
   end
 
-  # TODO: single field error highlighting issue
+  # TODO: support highlighting single segment error later
   # def year_of_birth_must_be_1900_or_later
   #   errors.add(:date_of_birth_year, 'Year of birth must be 1900 or later') unless date_of_birth.year > 1900
   # end
