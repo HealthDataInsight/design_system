@@ -169,19 +169,16 @@ module DesignSystem
                                                                                caption: {}, form_group: {}, **options)
       end
 
-      def ds_select(method, content_or_options = nil, options = nil, &)
-        content, options = separate_content_or_options(content_or_options, options)
-        choices = content
-
-        rails_options = options.extract!(:prompt, :include_blank)
+      def ds_select(method, choices = nil, options = nil, html_options = nil, &)
+        choices, options, html_options = separate_choices_rails_or_html_options(choices, options, html_options)
 
         label = { size: nil, text: translated_label(method) }
-        hint = options.delete(:hint)
+        hint = html_options.delete(:hint)
         hint = { text: hint } if hint
 
         # choices [Array,Hash] The +option+ values, usually provided via
         #   the +options_for_select+ or +grouped_options_for_select+ helpers.
-        govuk_select(method, choices, options: rails_options, label:, hint:, form_group: {}, caption: {}, **options, &)
+        govuk_select(method, choices, options:, label:, hint:, form_group: {}, caption: {}, **html_options, &)
       end
 
       def ds_submit(text = config.default_submit_button_text, **options, &)

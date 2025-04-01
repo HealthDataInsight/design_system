@@ -38,6 +38,22 @@ module DesignSystem
 
         [content, options]
       end
+
+      # This method separates the choices and options from the html_options
+      def separate_choices_rails_or_html_options(choices, options, html_options)
+        if choices.is_a?(Hash) && options.nil? && html_options.nil?
+          html_options = choices
+          choices = nil
+        elsif options.is_a?(Hash) && html_options.nil?
+          html_options = options
+          options = {}
+        end
+
+        options ||= {}
+        html_options ||= {}
+
+        [choices, options, html_options]
+      end
     end
   end
 end
