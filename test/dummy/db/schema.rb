@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_01_134939) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,29 +40,28 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
   end
 
   create_table "assistants", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "department_id", null: false
+    t.string "email"
+    t.string "password"
     t.boolean "terms_agreed", default: false
     t.date "date_of_birth"
     t.integer "age"
     t.string "colour"
     t.string "desired_filling"
-    t.string "email"
     t.string "lunch_option"
-    t.string "password"
     t.string "phone"
-    t.string "title"
     t.string "website"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "department_id"
-    t.integer "role_id"
+    t.integer "role_id", null: false
     t.index ["department_id"], name: "index_assistants_on_department_id"
     t.index ["role_id"], name: "index_assistants_on_role_id"
   end
 
   create_table "departments", force: :cascade do |t|
     t.string "title"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

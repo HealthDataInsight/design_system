@@ -1,7 +1,7 @@
 # Adding a first group of departments
-department1 = Department.find_or_create_by!(id: 1, title: 'Sales', description: 'This is the sales department')
-department2 = Department.find_or_create_by!(id: 2, title: 'Marketing', description: 'This is the marketing department')
-department3 = Department.find_or_create_by!(id: 3, title: 'Finance', description: 'This is the finance department')
+department1 = Department.find_or_create_by!(id: 1, title: 'Sales')
+department2 = Department.find_or_create_by!(id: 2, title: 'Marketing')
+department3 = Department.find_or_create_by!(id: 3, title: 'Finance')
 
 # Adding a first group of roles
 role1 = Role.find_or_create_by!(title: 'User', description: 'This is a user role')
