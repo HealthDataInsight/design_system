@@ -1,17 +1,28 @@
 <%= form_with(model: assistant) do |form| %>
-    <%= form.ds_text_field :title, width: 20, hint: "ds_text_field" %>
-    <%= form.ds_phone_field :phone, width: 20, hint: "ds_phone_field" %>
-    <%= form.ds_email_field :email, width: 20, hint: "ds_email_field" %>
-    <%= form.ds_url_field :website, hint: "ds_url_field" %>
-    <%= form.ds_file_field :cv %>
-    <%= form.ds_password_field :password, hint: "ds_password_field" %>
-    <%= form.ds_number_field :age, width: 3, hint: "ds_number_field" %>
-    <%= form.ds_text_area :description, hint: "ds_text_area" %>
-    <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>
+  <% if false || assistant.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(assistant.errors.count, "error") %> prohibited this assistant from being saved:</h2>
 
-    <%= form.ds_collection_select :role_id, @roles, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
-    <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), hint: "ds_select", prompt: "Please select", include_blank: false %>
+      <ul>
+        <% assistant.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.ds_text_field :title, width: 20, hint: "ds_text_field" %>
+  <%= form.ds_phone_field :phone, width: 20, hint: "ds_phone_field" %>
+  <%= form.ds_email_field :email, width: 20, hint: "ds_email_field" %>
+  <%= form.ds_url_field :website, hint: "ds_url_field" %>
+  <%= form.ds_file_field :cv %>
+  <%= form.ds_password_field :password, hint: "ds_password_field" %>
+  <%= form.ds_number_field :age, width: 3, hint: "ds_number_field" %>
+  <%= form.ds_text_area :description, hint: "ds_text_area" %>
+  <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>
 
-    <%= form.ds_submit %>
-    <%= form.ds_submit "Cancel", secondary: true %>
+  <%= form.ds_collection_select :role_id, @roles, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
+  <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), hint: "ds_select", prompt: "Please select", include_blank: false %>
+
+  <%= form.ds_submit %>
+  <%= form.ds_submit "Cancel", secondary: true %>
 <% end %>

@@ -75,20 +75,20 @@ class AssistantsController < ApplicationController
   def assistant_params
     params.require(:assistant).permit(
       :age,
-      :colour,
       :cv,
       :date_of_birth,
       :department_id,
       :description,
-      :desired_filling,
       :email,
-      :lunch_option,
       :password,
       :phone,
       :role_id,
-      :terms_agreed,
       :title,
       :website
+      # :colour,
+      # :desired_filling,
+      # :lunch_option,
+      # :terms_agreed,
     )
   end
 end
