@@ -41,6 +41,10 @@ class AssistantTest < ActiveSupport::TestCase
     assert_includes assistant.errors.details[:password], error: :blank
 
     assistant.password = 'foo'
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:password], error: :too_short, count: 8
+
+    assistant.password = 'password'
     assistant.valid?
     assert_empty assistant.errors.details[:password]
   end

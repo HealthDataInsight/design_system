@@ -55,7 +55,8 @@ module DesignSystem
       # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
       def ds_text_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # width [Integer,String] sets the width of the input, can be +2+, +3+ +4+, +5+, +10+ or +20+ characters
         #   or +one-quarter+, +one-third+, +one-half+, +two-thirds+ or +full+ width of the container
@@ -76,7 +77,8 @@ module DesignSystem
 
       def ds_phone_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         govuk_phone_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                   prefix_text: nil, suffix_text: nil, **options)
@@ -84,7 +86,8 @@ module DesignSystem
 
       def ds_email_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         govuk_email_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                   prefix_text: nil, suffix_text: nil, **options)
@@ -92,7 +95,8 @@ module DesignSystem
 
       def ds_url_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         govuk_url_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                 prefix_text: nil, suffix_text: nil, **options)
@@ -100,7 +104,8 @@ module DesignSystem
 
       def ds_number_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         govuk_number_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                    prefix_text: nil, suffix_text: nil, **options)
@@ -108,8 +113,9 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
       def ds_password_field(method, options = {})
-        label = { size: nil, text: label || translated_label(method) }
-        hint = format_hint(options)
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # show_password_text [String] button text when the password is hidden. Defaults to "Show"
         # hide_password_text [String] button text when the password is shown. Defaults to "Hide"
@@ -129,7 +135,8 @@ module DesignSystem
 
       def ds_text_area(method, options = {})
         label = { size: nil, text: translated_label(method) }
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # max_words [Integer] adds the GOV.UK max word count
         # max_chars [Integer] adds the GOV.UK max characters count
@@ -142,8 +149,9 @@ module DesignSystem
       def ds_collection_select(method, collection, value_method, text_method, options = {})
         rails_options = options.extract!(:prompt, :include_blank)
 
-        label = { size: nil, text: options.delete(:label) || translated_label(method) }
-        hint = format_hint(options)
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # attribute_name [Symbol] The name of the attribute
         # collection [Enumerable<Object>] Options to be added to the +select+ element
@@ -160,8 +168,9 @@ module DesignSystem
 
         rails_options = options.extract!(:prompt, :include_blank)
 
-        label = { size: nil, text: options.delete(:label) || translated_label(method) }
-        hint = format_hint(options)
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # choices [Array,Hash] The +option+ values, usually provided via
         #   the +options_for_select+ or +grouped_options_for_select+ helpers.
@@ -188,8 +197,10 @@ module DesignSystem
       end
 
       def ds_date_field(method, options = {})
-        legend = format_legend(options)
-        hint = format_hint(options)
+        legend = options.delete(:legend)
+        legend = { text: legend } if legend
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
 
         # omit_day [Boolean] do not render a day input, only capture month and year
         # maxlength_enabled [Boolean] adds maxlength attribute to day, month and year inputs (2, 2, and 4, respectively)
@@ -203,7 +214,8 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
       def ds_file_field(method, options = {})
-        hint = format_hint(options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
         label = { size: nil, text: translated_label(method) }
 
         # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
@@ -218,21 +230,6 @@ module DesignSystem
                     new(object, object_name, method, scope: 'helpers.label').
                     translate
         content || method.humanize
-      end
-
-      def format_hint(options)
-        hint = options.delete(:hint)
-        return { text: hint } if hint
-
-        nil
-      end
-
-      def format_legend(options, default: nil)
-        legend = options.delete(:legend)
-        return { text: legend || default } if default
-        return { text: legend } if legend
-
-        nil
       end
     end
   end

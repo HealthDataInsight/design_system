@@ -11,6 +11,7 @@ class Assistant < ApplicationRecord
             presence: { message: 'Enter a title' },
             length: { minimum: 2, message: 'Title should be longer than 1' }
   validates :password,
+            presence: { message: 'Enter a password' },
             length: { minimum: 8, message: 'Password must be longer than 8 characters' }
 
   validates :department_id, presence: { message: 'Select a department' }

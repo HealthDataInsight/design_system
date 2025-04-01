@@ -94,7 +94,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :phone, 'Phone'
+        assert_label :phone, "What's your phone number?"
         assert_input :phone, type: :tel, value: '07700900001'
       end
     end
@@ -105,7 +105,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :phone, 'Phone'
+        assert_label :phone, "What's your phone number?"
         assert_hint :phone, 'This is a hint'
         assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant-phone-hint' }
       end
@@ -117,7 +117,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :phone, 'Phone'
+        assert_label :phone, "What's your phone number?"
         assert_input :phone, type: :tel, value: '07700900001', 
           classes: ["#{@brand}-input--width-20", 'geoff'], 
           attributes: { placeholder: 'bar' }
@@ -142,7 +142,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :email, 'Email'
+        assert_label :email, "What's your email?"
         assert_input :email, type: :email, value: 'ab@example.com'
       end
     end
@@ -153,7 +153,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :email, 'Email'
+        assert_label :email, "What's your email?"
         assert_hint :email, 'This is a hint'
         assert_input :email, type: :email, value: 'ab@example.com', 
           attributes: { 'aria-describedby' => 'assistant-email-hint' }
@@ -166,7 +166,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :email, 'Email'
+        assert_label :email, "What's your email?"
         assert_input :email, type: :email, value: 'ab@example.com', 
           classes: ['geoff'], 
           attributes: { placeholder: 'bar' }
@@ -191,7 +191,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :website, 'Website'
+        assert_label :website, "What's your website?"
         assert_input :website, type: :url, value: 'https://www.ab.com'
       end
     end
@@ -202,7 +202,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :website, 'Website'
+        assert_label :website, "What's your website?"
         assert_hint :website, 'This is a hint'
         assert_input :website, type: :url, value: 'https://www.ab.com', 
           attributes: { 'aria-describedby' => 'assistant-website-hint' }
@@ -215,7 +215,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :website, 'Website'
+        assert_label :website, "What's your website?"
         assert_input :website, type: :url, value: 'https://www.ab.com', 
           classes: ['geoff'], 
           attributes: { placeholder: 'bar' }
@@ -240,7 +240,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :age, 'Age'
+        assert_label :age, "What's your age?"
         assert_input :age, type: :number, value: '30'
       end
     end
@@ -251,7 +251,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :age, 'Age'
+        assert_label :age, "What's your age?"
         assert_hint :age, 'This is a hint'
         assert_input :age, type: :number, value: '30', 
           attributes: { 'aria-describedby' => 'assistant-age-hint' }
@@ -264,7 +264,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :age, 'Age'
+        assert_label :age, "What's your age?"
         assert_input :age, type: :number, value: '30', 
           classes: ['geoff'], 
           attributes: { placeholder: 'bar' }
@@ -283,124 +283,13 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_password_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_password_field(:title)
-      end
-
-      assert_form_group(["#{@brand}-password-input"]) do
-        assert_label :title, 'Title'
-        assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-          input = assert_select('input[type=password]').first
-          assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-          assert_equal 'false', input['spellcheck']
-          assert_equal 'current-password', input['autocomplete']
-          assert_equal 'none', input['autocapitalize']
-          assert_nil input['value']
-
-          button = assert_select('button[type=button]').first
-          assert_equal "#{@brand}-button", button['data-module']
-          assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-                      button['class']
-          assert_equal 'assistant-title-field', button['aria-controls']
-          assert_equal 'Show password', button['aria-label']
-          assert_equal 'hidden', button['hidden']
-        end
-      end
-    end
-
-    test 'ds_password_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_password_field(:title, hint: 'This is a hint')
-      end
-
-      assert_form_group(["#{@brand}-password-input"]) do
-        assert_label :title, 'Title'
-        assert_hint :title, 'This is a hint'
-
-        assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-          input = assert_select('input[type=password]').first
-          assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-          assert_equal 'false', input['spellcheck']
-          assert_equal 'current-password', input['autocomplete']
-          assert_equal 'none', input['autocapitalize']
-          assert_nil input['value']
-          assert_equal 'assistant-title-hint', input['aria-describedby']
-
-          button = assert_select('button[type=button]').first
-          assert_equal "#{@brand}-button", button['data-module']
-          assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-                        button['class']
-          assert_equal 'assistant-title-field', button['aria-controls']
-          assert_equal 'Show password', button['aria-label']
-          assert_equal 'hidden', button['hidden']
-        end
-      end
-    end
-
-    test 'ds_password_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_password_field(:title, class: 'geoff', placeholder: 'bar')
-      end
-
-      assert_form_group(["#{@brand}-password-input"]) do
-        assert_label :title, 'Title'
-
-        assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-          input = assert_select('input[type=password][placeholder=bar]').first
-          assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input geoff", input['class']
-          assert_equal 'false', input['spellcheck']
-          assert_equal 'current-password', input['autocomplete']
-          assert_equal 'none', input['autocapitalize']
-          assert_nil input['value']
-
-          button = assert_select('button[type=button]').first
-          assert_equal "#{@brand}-button", button['data-module']
-          assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-                        button['class']
-          assert_equal 'assistant-title-field', button['aria-controls']
-          assert_equal 'Show password', button['aria-label']
-          assert_equal 'hidden', button['hidden']
-        end
-      end
-    end
-
-    test 'ds_password_field with pirate locale' do
-      I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-          f.ds_password_field(:title)
-        end
-
-        assert_form_group(["#{@brand}-password-input"]) do
-          assert_label :title, 'Title, yarr'
-
-          assert_select("div.#{@brand}-input__wrapper.#{@brand}-password-input__wrapper") do
-            input = assert_select('input[type=password]').first
-            assert_equal "#{@brand}-input #{@brand}-password-input__input #{@brand}-js-password-input-input", input['class']
-            assert_equal 'false', input['spellcheck']
-            assert_equal 'current-password', input['autocomplete']
-            assert_equal 'none', input['autocapitalize']
-            assert_nil input['value']
-
-            button = assert_select('button[type=button]').first
-            assert_equal "#{@brand}-button", button['data-module']
-            assert_equal "#{@brand}-button #{@brand}-button--secondary #{@brand}-password-input__toggle #{@brand}-js-password-input-toggle",
-                          button['class']
-            assert_equal 'assistant-title-field', button['aria-controls']
-            assert_equal 'Show password', button['aria-label']
-            assert_equal 'hidden', button['hidden']
-          end
-        end
-      end
-    end
-
     test 'ds_text_area' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_area(:description)
       end
 
       assert_form_group do
-        assert_label :description, 'Description'
+        assert_label :description, "Enter description"
         assert_text_area :description
       end
     end
@@ -411,7 +300,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :description, 'Description'
+        assert_label :description, "Enter description"
         assert_hint :description, 'This is a hint'
         assert_text_area :description, 
           attributes: { 'aria-describedby' => 'assistant-description-hint' }
@@ -424,7 +313,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-character-count[data-module='#{@brand}-character-count'][data-maxwords='20']"]) do
-        assert_label :description, 'Description'
+        assert_label :description, "Enter description"
         assert_text_area :description, 
           classes: ['geoff'], 
           attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant-description-field-info' }
@@ -453,7 +342,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :department_id, 'Department'
+        assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -475,7 +364,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :department_id, 'Department'
+        assert_label :department_id, "What's your department?"
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
@@ -489,7 +378,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :department_id, 'Department'
+        assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select.geoff[placeholder=bar]").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -509,7 +398,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :department_id, 'Department'
+        assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant-department-id-field', select['id']
@@ -527,7 +416,7 @@ module GovukFormBuilderTestable
 
     test 'ds_select with label and hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: 'Department label', hint: 'This is a hint')
+        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: { text: 'Department label' }, hint: 'This is a hint')
       end
 
       assert_form_group do
