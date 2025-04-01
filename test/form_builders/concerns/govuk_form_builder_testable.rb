@@ -58,7 +58,7 @@ module GovukFormBuilderTestable
         f.ds_text_field(:title, hint: 'This is a hint')
       end
 
-      assert_form_group do 
+      assert_form_group do
         assert_label :title, 'Title'
         assert_hint :title, 'This is a hint'
         assert_input :title, type: :text, value: 'AB', attributes: { 'aria-describedby' => 'assistant-title-hint' }
@@ -118,9 +118,9 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :phone, "What's your phone number?"
-        assert_input :phone, type: :tel, value: '07700900001', 
-          classes: ["#{@brand}-input--width-20", 'geoff'], 
-          attributes: { placeholder: 'bar' }
+        assert_input :phone, type: :tel, value: '07700900001',
+                             classes: ["#{@brand}-input--width-20", 'geoff'],
+                             attributes: { placeholder: 'bar' }
       end
     end
 
@@ -155,8 +155,8 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :email, "What's your email?"
         assert_hint :email, 'This is a hint'
-        assert_input :email, type: :email, value: 'ab@example.com', 
-          attributes: { 'aria-describedby' => 'assistant-email-hint' }
+        assert_input :email, type: :email, value: 'ab@example.com',
+                             attributes: { 'aria-describedby' => 'assistant-email-hint' }
       end
     end
 
@@ -167,9 +167,9 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :email, "What's your email?"
-        assert_input :email, type: :email, value: 'ab@example.com', 
-          classes: ['geoff'], 
-          attributes: { placeholder: 'bar' }
+        assert_input :email, type: :email, value: 'ab@example.com',
+                             classes: ['geoff'],
+                             attributes: { placeholder: 'bar' }
       end
     end
 
@@ -204,8 +204,8 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :website, "What's your website?"
         assert_hint :website, 'This is a hint'
-        assert_input :website, type: :url, value: 'https://www.ab.com', 
-          attributes: { 'aria-describedby' => 'assistant-website-hint' }
+        assert_input :website, type: :url, value: 'https://www.ab.com',
+                               attributes: { 'aria-describedby' => 'assistant-website-hint' }
       end
     end
 
@@ -216,9 +216,9 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :website, "What's your website?"
-        assert_input :website, type: :url, value: 'https://www.ab.com', 
-          classes: ['geoff'], 
-          attributes: { placeholder: 'bar' }
+        assert_input :website, type: :url, value: 'https://www.ab.com',
+                               classes: ['geoff'],
+                               attributes: { placeholder: 'bar' }
       end
     end
 
@@ -253,8 +253,8 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :age, "What's your age?"
         assert_hint :age, 'This is a hint'
-        assert_input :age, type: :number, value: '30', 
-          attributes: { 'aria-describedby' => 'assistant-age-hint' }
+        assert_input :age, type: :number, value: '30',
+                           attributes: { 'aria-describedby' => 'assistant-age-hint' }
       end
     end
 
@@ -265,9 +265,9 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :age, "What's your age?"
-        assert_input :age, type: :number, value: '30', 
-          classes: ['geoff'], 
-          attributes: { placeholder: 'bar' }
+        assert_input :age, type: :number, value: '30',
+                           classes: ['geoff'],
+                           attributes: { placeholder: 'bar' }
       end
     end
 
@@ -289,7 +289,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :description, "Enter description"
+        assert_label :description, 'Enter description'
         assert_text_area :description
       end
     end
@@ -300,10 +300,10 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_label :description, "Enter description"
+        assert_label :description, 'Enter description'
         assert_hint :description, 'This is a hint'
-        assert_text_area :description, 
-          attributes: { 'aria-describedby' => 'assistant-description-hint' }
+        assert_text_area :description,
+                         attributes: { 'aria-describedby' => 'assistant-description-hint' }
       end
     end
 
@@ -313,10 +313,10 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group(["#{@brand}-character-count[data-module='#{@brand}-character-count'][data-maxwords='20']"]) do
-        assert_label :description, "Enter description"
-        assert_text_area :description, 
-          classes: ['geoff'], 
-          attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant-description-field-info' }
+        assert_label :description, 'Enter description'
+        assert_text_area :description,
+                         classes: ['geoff'],
+                         attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant-description-field-info' }
 
         info = assert_select("span.#{@brand}-hint.#{@brand}-character-count__message").first
         assert_includes info.text.strip, '20 words'
@@ -348,7 +348,7 @@ module GovukFormBuilderTestable
         assert_equal 'assistant-department-id-field', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
-        options = assert_select("option")
+        options = assert_select('option')
         assert_equal '1', options[0]['value']
         assert_equal 'Sales', options[0].text.strip
         assert_equal '2', options[1]['value']
@@ -384,7 +384,7 @@ module GovukFormBuilderTestable
         assert_equal 'assistant-department-id-field', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
-        options = assert_select("option")
+        options = assert_select('option')
         assert_equal '1', options[0]['value']
         assert_equal 'Sales', options[0].text.strip
       end
@@ -404,7 +404,7 @@ module GovukFormBuilderTestable
         assert_equal 'assistant-department-id-field', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
-        options = assert_select("option")
+        options = assert_select('option')
         assert_equal '1', options[0]['value']
         assert_equal 'Sales', options[0].text.strip
         assert_equal '2', options[1]['value']
@@ -449,7 +449,7 @@ module GovukFormBuilderTestable
         button = assert_select("button.#{@brand}-button[type=submit]").first
         assert_equal 'formnovalidate', button['formnovalidate']
         assert_equal "#{@brand}-button", button['data-module']
-        assert_equal 'true', button["data-prevent-double-click"]
+        assert_equal 'true', button['data-prevent-double-click']
         assert_equal 'Continue', button.text.strip
       end
     end
@@ -463,7 +463,7 @@ module GovukFormBuilderTestable
         button = assert_select("button.#{@brand}-button.#{@brand}-button--secondary[type=submit]").first
         assert_equal 'formnovalidate', button['formnovalidate']
         assert_equal "#{@brand}-button", button['data-module']
-        assert_equal 'true', button["data-prevent-double-click"]
+        assert_equal 'true', button['data-prevent-double-click']
         assert_equal 'Cancel', button.text.strip
       end
     end
@@ -508,9 +508,9 @@ module GovukFormBuilderTestable
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_file_field(:cv)
       end
-      
+
       assert_form_group do
-        assert_label :cv, "Upload a file"
+        assert_label :cv, 'Upload a file'
         assert_file_upload :cv, type: :file
       end
     end
@@ -519,9 +519,9 @@ module GovukFormBuilderTestable
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_file_field(:cv, hint: 'This is a hint')
       end
-      
+
       assert_form_group do
-        assert_label :cv, "Upload a file"
+        assert_label :cv, 'Upload a file'
         assert_hint :cv, 'This is a hint'
         assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant-cv-hint' }
       end
@@ -540,7 +540,7 @@ module GovukFormBuilderTestable
           assert_hint :date_of_birth, 'This is a hint'
 
           date_input = assert_select("div.#{@brand}-date-input").first
-          assert date_input, "Date input container not found"
+          assert date_input, 'Date input container not found'
 
           # Test day input
           day_item = assert_select("div.#{@brand}-date-input__item:nth-child(1)")

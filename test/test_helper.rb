@@ -21,6 +21,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
 end
 
 module GovukFormBuilderTestableHelper
+  # Assert the presence of a form group
   def assert_form_group(classes = [])
     assert_select('form') do
       form_group = assert_select("div.#{@brand}-form-group#{classes.map { |c| ".#{c}" }.join}").first
@@ -29,6 +30,8 @@ module GovukFormBuilderTestableHelper
     end
   end
 
+  # Asserts the presence and attributes of a label
+  # TODO: support special labels like checkbox_label?
   def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
     field_for_id = field.to_s.gsub('_', '-')
     selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
@@ -36,26 +39,46 @@ module GovukFormBuilderTestableHelper
     assert_select(selector, text)
   end
 
+  # Asserts the presence and attributes of a hint
   def assert_hint(field = nil, text = nil, model: 'assistant')
     field_for_id = field.to_s.gsub('_', '-')
     selector = "div.#{@brand}-hint[id='#{model}-#{field_for_id}-hint']"
     assert_select(selector, text)
   end
 
+  # Asserts the presence and attributes of an input field
   def assert_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
     assert_form_element('input', 'input', field, type:, value:, classes:, attributes:, model:)
   end
 
+  # Asserts the presence and attributes of a text area
   def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
     assert_form_element('textarea', 'textarea', field, value:, classes:, attributes:, model:)
   end
 
+  # Asserts the presence and attributes of a file upload input
   def assert_file_upload(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
     assert_form_element('input', 'file-upload', field, type:, value:, classes:, attributes:, model:)
   end
 
   private
 
+  # Asserts the presence and attributes of a form element
+  #
+  # @param element_type [Symbol] The type of HTML element to assert (:input, :textarea, :file_upload)
+  # @param base_class [String] The class name of the element in the design system, prefixed by the brand name (e.g., 'input', 'textarea', 'file-upload')
+  # @param field [Symbol] The form field name (e.g., :title, :description)
+  # @param options [Hash] Additional options for the element
+  # @option options [String] :type The HTML input type (e.g., 'text', 'email', 'tel')
+  # @option options [String] :value The expected value of the field
+  # @option options [Array<String>] :classes Additional CSS classes to check for
+  # @option options [Hash] :attributes Additional HTML attributes to verify
+  # @option options [String] :model The model name for the field (defaults to 'assistant')
+  #
+  # @example
+  #   assert_form_element(:input, :title, type: :text, value: 'AB')
+  #   assert_form_element(:textarea, :description, classes: ['custom-class'])
+  #   assert_form_element(:file_upload, :cv, type: :file, attributes: { accept: 'application/pdf' })
   def assert_form_element(element_type, base_class, field, options = {})
     field_for_id = field.to_s.gsub('_', '-')
     base_classes = ["#{@brand}-#{base_class}"]

@@ -226,7 +226,7 @@ module DesignSystem
         # date_of_birth [Boolean] if +true+ {https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#Values birth date auto completion attributes}
         #   will be added to the inputs
         govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false,
-                                maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
+                                 maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
       end
 
       private
