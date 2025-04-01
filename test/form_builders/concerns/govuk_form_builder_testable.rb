@@ -439,5 +439,69 @@ module GovukFormBuilderTestable
         assert_label :department_id, 'Department, yarr'
       end
     end
+
+    test 'ds_submit' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_submit
+      end
+
+      assert_select('form') do
+        button = assert_select("button.#{@brand}-button[type=submit]").first
+        assert_equal 'formnovalidate', button['formnovalidate']
+        assert_equal "#{@brand}-button", button['data-module']
+        assert_equal 'true', button["data-prevent-double-click"]
+        assert_equal 'Continue', button.text.strip
+      end
+    end
+
+    test 'ds_submit with secondary' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_submit('Cancel', secondary: true)
+      end
+
+      assert_select('form') do
+        button = assert_select("button.#{@brand}-button.#{@brand}-button--secondary[type=submit]").first
+        assert_equal 'formnovalidate', button['formnovalidate']
+        assert_equal "#{@brand}-button", button['data-module']
+        assert_equal 'true', button["data-prevent-double-click"]
+        assert_equal 'Cancel', button.text.strip
+      end
+    end
+
+    test 'ds_submit with warning' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_submit('Warning', warning: true)
+      end
+
+      assert_select('form') do
+        button = assert_select("button.#{@brand}-button.#{@brand}-button--warning[type=submit]").first
+        assert_equal 'formnovalidate', button['formnovalidate']
+        assert_equal "#{@brand}-button", button['data-module']
+      end
+    end
+
+    test 'ds_submit with disabled' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_submit('Disabled', disabled: true)
+      end
+
+      assert_select('form') do
+        button = assert_select("button.#{@brand}-button[type=submit]").first
+        assert_equal 'disabled', button['disabled']
+      end
+    end
+
+    test 'ds_submit with block' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_submit do
+          'Continue'
+        end
+      end
+
+      assert_select('form') do
+        button = assert_select("button.#{@brand}-button[type=submit]").first
+        assert_equal 'Continue', button.text.strip
+      end
+    end
   end
 end

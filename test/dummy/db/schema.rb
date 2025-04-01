@@ -65,16 +65,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_30_163949) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "department_id", null: false
-    t.string "email"
-    t.string "password"
-    t.index ["department_id"], name: "index_assistants_on_department_id"
-  end
-
-  create_table "departments", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
