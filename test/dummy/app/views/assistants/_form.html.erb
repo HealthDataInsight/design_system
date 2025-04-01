@@ -21,8 +21,8 @@
   <%= form.ds_text_area :description, hint: "ds_text_area" %>
   <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>
 
-  <%= form.ds_collection_select :role_id, @roles, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
-  <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), hint: "ds_select", prompt: "Please select", include_blank: false %>
+  <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
+  <%= form.ds_select :department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), hint: "ds_select", prompt: "Please select", include_blank: false %>
 
   <%= form.ds_submit do %>
     <a class="govuk-button govuk-button--secondary" href="/assistants">
