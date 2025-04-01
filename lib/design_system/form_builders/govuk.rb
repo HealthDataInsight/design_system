@@ -181,7 +181,7 @@ module DesignSystem
         govuk_select(method, choices, options:, label:, hint:, form_group: {}, caption: {}, **html_options, &)
       end
 
-      def ds_submit(text = config.default_submit_button_text, **options, &)
+      def ds_submit(value = nil, **options, &)
         # text [String,Proc] the button text. When a +Proc+ is provided its contents will be rendered within the button element
         # warning [Boolean] makes the button red ({https://design-system.service.gov.uk/components/button/#warning-buttons warning}) when true
         # secondary [Boolean] makes the button grey ({https://design-system.service.gov.uk/components/button/#secondary-buttons secondary}) when true
@@ -196,7 +196,7 @@ module DesignSystem
         # block [Block] When content is passed in via a block the submit element and the block content will
         #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
         #   evenly.
-        govuk_submit(text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
+        govuk_submit(text = value || config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
                            validate: config.default_submit_validate, disabled: false, **options, &)
       end
 
