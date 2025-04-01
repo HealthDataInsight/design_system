@@ -10,12 +10,13 @@
       </ul>
     </div>
   <% end %>
-  <%= form.ds_text_field :title, width: 20, hint: "ds_text_field" %>
+  <%#= form.ds_label(:title, text: 'What is your title?' )%>
+  <%= form.ds_text_field :title, width: 20, hint: "ds_text_field", class: "#{brand}-input--width-30" %>
   <%= form.ds_phone_field :phone, width: 20, hint: "ds_phone_field" %>
   <%= form.ds_email_field :email, width: 20, hint: "ds_email_field" %>
   <%= form.ds_url_field :website, hint: "ds_url_field" %>
   <%= form.ds_file_field :cv %>
-  <%= form.ds_password_field :password, hint: "ds_password_field" %>
+  <%= form.ds_password_field :password, hint: "ds_password_field", class: "#{brand}-input--width-30" %>
   <%= form.ds_number_field :age, width: 3, hint: "ds_number_field" %>
   <%= form.ds_text_area :description, hint: "ds_text_area" %>
   <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>

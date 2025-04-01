@@ -117,6 +117,13 @@ module DesignSystem
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
+        # caption [Hash] configures or sets the caption content which is inserted above the label
+        # caption text [String] the caption text
+        # caption size [String] the size of the caption, can be +xl+, +l+ or +m+. Defaults to +m+
+        # caption kwargs [Hash] additional arguments are applied as attributes on the caption +span+ element
+        # kwargs [Hash] kwargs additional arguments are applied as attributes to the +input+ element
+        # form_group [Hash] configures the form group
+        # form_group kwargs [Hash] additional attributes added to the form group
         # show_password_text [String] button text when the password is hidden. Defaults to "Show"
         # hide_password_text [String] button text when the password is shown. Defaults to "Hide"
         # show_password_aria_label_text [String] button text exposed to assistive technologies, like screen readers,
