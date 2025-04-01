@@ -29,6 +29,12 @@
 #       enabled: "ON"
 
 en:
+  activerecord:
+    attributes:
+      assistant:
+        title: Title
+        email: What's your email?
+        password: What's your password?
   notices:
     create:
       success: "%{model} was successfully created."

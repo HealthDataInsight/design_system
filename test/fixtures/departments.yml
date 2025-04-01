@@ -1,0 +1,20 @@
+---
+sales:
+  id: 1
+  title: Sales
+
+marketing:
+  id: 2
+  title: Marketing
+
+finance:
+  id: 3
+  title: Finance
+
+operations:
+  id: 4
+  title: Operations
+
+personnel:
+  id: 5
+  title: Personnel

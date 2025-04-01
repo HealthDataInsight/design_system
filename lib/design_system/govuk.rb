@@ -11,4 +11,6 @@ require_relative 'builders/govuk/summary_list'
 require_relative 'builders/govuk/tab'
 require_relative 'builders/govuk/table'
 
+require_relative 'form_builders/govuk'
+
 DesignSystem::Registry.register('govuk')
