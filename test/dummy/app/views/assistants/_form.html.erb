@@ -19,7 +19,7 @@
   <%= form.ds_password_field :password, hint: "ds_password_field", class: "#{brand}-input--width-30" %>
   <%= form.ds_number_field :age, width: 3, hint: "ds_number_field" %>
   <%= form.ds_text_area :description, hint: "ds_text_area" %>
-  <%= form.ds_date_field :date_of_birth, legend: "What is your date of birth?", hint: "ds_date_field", date_of_birth: true %>
+  <%= form.ds_date_field :date_of_birth, hint: "ds_date_field", date_of_birth: true %>
 
   <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
   <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "ds_select" %>
