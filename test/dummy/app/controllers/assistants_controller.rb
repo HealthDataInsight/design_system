@@ -7,12 +7,12 @@ class AssistantsController < ApplicationController
     @assistants = Assistant.all
   end
 
+  # GET /assistants/1
+  def show; end
+
   def all_departments
     @departments = Department.all
   end
-
-  # GET /assistants/1
-  def show; end
 
   # GET /assistants/new
   def new
