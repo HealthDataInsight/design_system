@@ -374,7 +374,7 @@ module GovukFormBuilderTestable
 
     test 'ds_collection_select with html options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:department_id, Department.all, :id, :title, hint: 'This is a hint', class: 'geoff', placeholder: 'bar')
+        f.ds_collection_select(:department_id, Department.all, :id, :title, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
       end
 
       assert_form_group do

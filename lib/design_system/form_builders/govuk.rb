@@ -153,8 +153,8 @@ module DesignSystem
                                 form_group: {}, **options)
       end
 
-      def ds_collection_select(method, collection, value_method, text_method, options = {})
-        rails_options = options.extract!(:prompt, :include_blank)
+      def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+        options, html_options = separate_rails_or_html_options(options, html_options)
 
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -165,8 +165,8 @@ module DesignSystem
         # value_method [Symbol] The method called against each member of the collection to provide the value
         # text_method [Symbol] The method called against each member of the collection to provide the text
         # options (rails_options) [Hash] Options hash passed through to Rails' +collection_select+ helper
-        govuk_collection_select(method, collection, value_method, text_method, options: rails_options, hint:, label:,
-                                                                               caption: {}, form_group: {}, **options)
+        govuk_collection_select(method, collection, value_method, text_method, options:, hint:, label:,
+                                                                               caption: {}, form_group: {}, **html_options)
       end
 
       def ds_select(method, choices = nil, options = nil, html_options = nil, &)
