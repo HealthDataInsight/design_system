@@ -29,6 +29,10 @@
 #       enabled: "ON"
 
 en:
+  helpers:
+    label:
+      assistant:
+        true: "Yes, I agree"
   activerecord:
     attributes:
       assistant:
