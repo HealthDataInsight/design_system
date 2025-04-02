@@ -358,53 +358,75 @@ module GovukFormBuilderTestable
       end
     end
 
-    # test 'ds_collection_radio_buttons with legend and hint' do
-    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #     f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, legend: 'What is your department?', hint: 'This is a hint')
-    #   end
+    test 'ds_collection_radio_buttons with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, hint: 'This is a hint')
+      end
 
-    #   assert_form_group do
-    #     assert_legend 'What is your department?'
-    #     assert_hint :department_id, 'This is a hint'
-    #     assert_select("div.#{@brand}-radios") do
-    #       radio_items = assert_select("div.#{@brand}-radios__item")
-    #       assert_equal 3, radio_items.length, "Expected 3 radio items"
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal "What's your department?", legend.text.strip
 
-    #       # First radio button
-    #       assert_select("div.#{@brand}-radios__item:nth-child(1)") do
-    #         assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
-    #         assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
-    #       end
+          assert_hint :department_id, 'This is a hint'
 
-    #       # Second radio button
-    #       assert_select("div.#{@brand}-radios__item:nth-child(2)") do
-    #         assert_radio_input :department_id, type: :radio, value: '2', classes: ["#{@brand}-radios__input"]
-    #         assert_radio_label :department_id, '2', 'Marketing', classes: ["#{@brand}-radios__label"]
-    #       end
+          assert_select("div.#{@brand}-radios") do
+            radio_items = assert_select("div.#{@brand}-radios__item")
+            assert_equal 3, radio_items.length, "Expected 3 radio items"
+          end
 
-    #       # Third radio button
-    #       assert_select("div.#{@brand}-radios__item:nth-child(3)") do
-    #         assert_radio_input :department_id, type: :radio, value: '3', classes: ["#{@brand}-radios__input"]
-    #         assert_radio_label :department_id, '3', 'Finance', classes: ["#{@brand}-radios__label"]
-    #       end
-    #     end
-    #   end
-    # end
+          assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+            radio_1 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-1-field', radio_1['id']
+            assert_equal 'assistant[department_id]', radio_1['name']
+            assert_equal 'radio', radio_1['type']
+            assert_equal '1', radio_1['value']
 
-    # test 'ds_collection_radio_buttons with options' do
-    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-    #     f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
-    #   end
+            assert_label :department_id, 'Sales', value: '1', classes: ["#{@brand}-radios__label"]
+          end
 
-    #   assert_form_group do
-    #     assert_select("div.#{@brand}-radios.geoff[placeholder=bar]") do
-    #       assert_select("div.#{@brand}-radios__item") do
-    #         assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
-    #         assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
-    #       end
-    #     end
-    #   end
-    # end
+          assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+            radio_2 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-2-field', radio_2['id']
+            assert_equal 'assistant[department_id]', radio_2['name']
+            assert_equal 'radio', radio_2['type']
+            assert_equal '2', radio_2['value']
+
+            assert_label :department_id, 'Marketing', value: '2', classes: ["#{@brand}-radios__label"]
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(3)") do
+            radio_3 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-3-field', radio_3['id']
+            assert_equal 'assistant[department_id]', radio_3['name']
+            assert_equal 'radio', radio_3['type']
+            assert_equal '3', radio_3['value']
+
+            assert_label :department_id, 'Finance', value: '3', classes: ["#{@brand}-radios__label"]
+          end
+        end
+      end
+    end
+
+    test 'ds_collection_radio_buttons with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_form_group do
+        assert_select("div.#{@brand}-radios.geoff[placeholder=bar]") do
+          assert_select("div.#{@brand}-radios__item") do
+            radio_1 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-1-field', radio_1['id']
+            assert_equal 'assistant[department_id]', radio_1['name']
+            assert_equal 'radio', radio_1['type']
+            assert_equal '1', radio_1['value']
+
+            assert_label :department_id, 'Sales', value: '1', classes: ["#{@brand}-radios__label"]
+          end
+        end
+      end
+    end
 
     test 'ds_select with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|

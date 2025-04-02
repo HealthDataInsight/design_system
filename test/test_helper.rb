@@ -49,21 +49,14 @@ module GovukFormBuilderTestableHelper
 
   # Asserts the presence and attributes of a label
   # TODO: support special labels like checkbox_label?
-  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
+  def assert_label(field = nil, text = nil, value: nil, model: 'assistant', classes: [])
     field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
-    assert_select(selector, text)
-  end
-
-  def assert_radio_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    assert_form_element('input', 'radio', field, value:, classes:, attributes:, model:)
-  end
-
-  def assert_radio_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-label.#{@brand}-radios__label[for='#{model}-#{field_for_id}-#{value}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
+    value_for_id = value.to_s.gsub('_', '-')
+    if value
+      selector = "label.#{@brand}-label#{classes.map { |c| ".#{c}" }.join}[for='#{model}-#{field_for_id}-#{value_for_id}-field']"
+    else
+      selector = "label.#{@brand}-label#{classes.map { |c| ".#{c}" }.join}[for='#{model}-#{field_for_id}-field']"
+    end
     assert_select(selector, text)
   end
 
