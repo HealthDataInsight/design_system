@@ -21,6 +21,11 @@ if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
 end
 
 module GovukFormBuilderTestableHelper
+  # Asserts the presence and attributes of a file upload input
+  def assert_file_upload(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('input', 'file-upload', field, type:, value:, classes:, attributes:, model:)
+  end
+
   # Assert the presence of a form group
   def assert_form_group(classes = [])
     assert_select('form') do
@@ -28,15 +33,6 @@ module GovukFormBuilderTestableHelper
       assert form_group, "Form group not found with classes: #{classes.join(', ')}"
       yield(form_group) if block_given?
     end
-  end
-
-  # Asserts the presence and attributes of a label
-  # TODO: support special labels like checkbox_label?
-  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
-    assert_select(selector, text)
   end
 
   # Asserts the presence and attributes of a hint
@@ -51,14 +47,18 @@ module GovukFormBuilderTestableHelper
     assert_form_element('input', 'input', field, type:, value:, classes:, attributes:, model:)
   end
 
+  # Asserts the presence and attributes of a label
+  # TODO: support special labels like checkbox_label?
+  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
+    field_for_id = field.to_s.gsub('_', '-')
+    selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
+    selector << classes.map { |c| ".#{c}" }.join
+    assert_select(selector, text)
+  end
+
   # Asserts the presence and attributes of a text area
   def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
     assert_form_element('textarea', 'textarea', field, value:, classes:, attributes:, model:)
-  end
-
-  # Asserts the presence and attributes of a file upload input
-  def assert_file_upload(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    assert_form_element('input', 'file-upload', field, type:, value:, classes:, attributes:, model:)
   end
 
   private
