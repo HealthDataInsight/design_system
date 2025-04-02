@@ -49,6 +49,6 @@ module FormBuilders
 
       assert_equal options, result_options
       assert_equal html_options, result_html_options
-    end 
+    end
   end
 end

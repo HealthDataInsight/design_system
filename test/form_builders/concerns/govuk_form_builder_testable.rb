@@ -416,9 +416,9 @@ module GovukFormBuilderTestable
 
     test 'ds_select with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_select(:department_id, 
-                   options_for_select(Department.all.map { |department| [department.title, department.id] }),
-                   { hint: 'This is a hint' })
+        f.ds_select(:department_id,
+                    options_for_select(Department.all.map { |department| [department.title, department.id] }),
+                    { hint: 'This is a hint' })
       end
 
       assert_form_group do

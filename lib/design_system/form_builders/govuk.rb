@@ -197,7 +197,7 @@ module DesignSystem
         #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
         #   evenly.
         govuk_submit(text = value || config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
-                           validate: config.default_submit_validate, disabled: false, **options, &)
+                                                                        validate: config.default_submit_validate, disabled: false, **options, &)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
