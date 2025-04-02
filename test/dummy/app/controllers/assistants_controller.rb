@@ -10,10 +10,6 @@ class AssistantsController < ApplicationController
   # GET /assistants/1
   def show; end
 
-  def all_departments
-    @departments = Department.all
-  end
-
   # GET /assistants/new
   def new
     @assistant = Assistant.new
@@ -53,6 +49,10 @@ class AssistantsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_assistant
     @assistant = Assistant.find(params[:id])
+  end
+
+  def all_departments
+    @departments = Department.all
   end
 
   # Only allow a list of trusted parameters through.
