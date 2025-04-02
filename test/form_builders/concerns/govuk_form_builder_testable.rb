@@ -10,6 +10,40 @@ module GovukFormBuilderTestable
       assert_equal @brand, @builder.brand
     end
 
+    test 'ds_check_box with single checkbox' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_check_boxes_fieldset(:desired_filling, { multiple: true }) do
+          f.ds_check_box(:desired_filling, { multiple: true }, :pastrami)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-fieldset__legend--m", 'What do you want in your sandwich?')
+
+          input = assert_select('input').first
+          assert_equal 'assistant_desired_filling', input['id']
+          assert_equal 'assistant[desired_filling][]', input['name']
+          assert_equal '', input['value']
+          assert_equal 'hidden', input['type']
+          assert_equal 'off', input['autocomplete']
+
+          assert_select("div.#{@brand}-checkboxes[data-module='#{@brand}-checkboxes']") do
+            assert_select("div.#{@brand}-checkboxes__item") do
+              input = assert_select("input.#{@brand}-checkboxes__input").first
+              assert_equal 'assistant-desired-filling-pastrami-field', input['id']
+              assert_equal 'assistant[desired_filling][]', input['name']
+              assert_equal 'pastrami', input['value']
+              assert_equal 'checkbox', input['type']
+
+              label = assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label[for='assistant-desired-filling-pastrami-field']").first
+              assert_equal 'Pastrami', label.text.strip
+            end
+          end
+        end
+      end
+    end
+
     test 'ds_collection_select' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title)
@@ -323,6 +357,54 @@ module GovukFormBuilderTestable
         end
       end
     end
+
+    # test 'ds_collection_radio_buttons with legend and hint' do
+    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+    #     f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, legend: 'What is your department?', hint: 'This is a hint')
+    #   end
+
+    #   assert_form_group do
+    #     assert_legend 'What is your department?'
+    #     assert_hint :department_id, 'This is a hint'
+    #     assert_select("div.#{@brand}-radios") do
+    #       radio_items = assert_select("div.#{@brand}-radios__item")
+    #       assert_equal 3, radio_items.length, "Expected 3 radio items"
+
+    #       # First radio button
+    #       assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+    #         assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
+    #         assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
+    #       end
+
+    #       # Second radio button
+    #       assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+    #         assert_radio_input :department_id, type: :radio, value: '2', classes: ["#{@brand}-radios__input"]
+    #         assert_radio_label :department_id, '2', 'Marketing', classes: ["#{@brand}-radios__label"]
+    #       end
+
+    #       # Third radio button
+    #       assert_select("div.#{@brand}-radios__item:nth-child(3)") do
+    #         assert_radio_input :department_id, type: :radio, value: '3', classes: ["#{@brand}-radios__input"]
+    #         assert_radio_label :department_id, '3', 'Finance', classes: ["#{@brand}-radios__label"]
+    #       end
+    #     end
+    #   end
+    # end
+
+    # test 'ds_collection_radio_buttons with options' do
+    #   @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+    #     f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
+    #   end
+
+    #   assert_form_group do
+    #     assert_select("div.#{@brand}-radios.geoff[placeholder=bar]") do
+    #       assert_select("div.#{@brand}-radios__item") do
+    #         assert_radio_input :department_id, type: :radio, value: '1', classes: ["#{@brand}-radios__input"]
+    #         assert_radio_label :department_id, '1', 'Sales', classes: ["#{@brand}-radios__label"]
+    #       end
+    #     end
+    #   end
+    # end
 
     test 'ds_select with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|

@@ -39,18 +39,17 @@ module DesignSystem
 
       # TODO: dividers
 
-      def ds_check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-        label = { size: nil, text: translated_label(checked_value) }
+      def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
+        options, value, unchecked_value = separate_options_and_value(options, checked_value, unchecked_value)
+
+        label = { size: nil, text: translated_label(value) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
-
-        checked_value = true if checked_value == "1"
-        unchecked_value = false if unchecked_value == "0"
 
         # link_errors [Boolean] controls whether this radio button should be linked to from {#govuk_error_summary}
         # exclusive [Boolean] sets the checkbox so that when checked none of its siblings can be too. Usually
         #   used for the 'None of these apply to me' option found beneath a {#govuk_check_box_divider}.
-        govuk_check_box(method, checked_value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
+        govuk_check_box(method, value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
                                                         exclusive: false, **options)
       end
 

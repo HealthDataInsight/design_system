@@ -18,6 +18,11 @@
   <%= form.ds_fieldset legend: "Checkboxes" do %>
     <%= form.ds_collection_check_boxes :desired_filling, @fillings, :id, :name, :description, hint: "ds_collection_check_boxes" %>
 
+    <%#= form.ds_check_boxes_fieldset :desired_filling, multiple: true, hint: "ds_check_boxes_fieldset" do %>
+      <%= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :pastrami %>
+      <%= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :cheddar %>
+    <%# end %>
+
     <%= form.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: "ds_check_boxes_fieldset" do %>
       <%= form.ds_check_box :terms_agreed, { multiple: false, link_errors: true }, true, false %>
     <% end %>

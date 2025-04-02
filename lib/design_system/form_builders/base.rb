@@ -39,6 +39,24 @@ module DesignSystem
         [content, options]
       end
 
+      # This method separates the options and values and distinguishes between checked and unchecked values
+      # It's a helper for checkboxes
+      def separate_options_and_value(options, checked_value, unchecked_value)
+        if options.is_a?(Hash)
+          value = checked_value
+        else
+          value = options
+          unchecked_value = (checked_value == '1' ? false : checked_value)
+          options = {}
+        end
+
+        value = true if value == '1'
+        unchecked_value = false if unchecked_value == '0'
+        options ||= {}
+
+        [options, value, unchecked_value]
+      end
+
       # This method separates the choices and options from the html_options
       def separate_choices_or_options(choices = nil, options = nil, html_options = nil)
         if choices.is_a?(Hash) && html_options.nil?

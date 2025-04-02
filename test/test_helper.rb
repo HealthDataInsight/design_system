@@ -56,6 +56,17 @@ module GovukFormBuilderTestableHelper
     assert_select(selector, text)
   end
 
+  def assert_radio_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('input', 'radio', field, value:, classes:, attributes:, model:)
+  end
+
+  def assert_radio_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
+    field_for_id = field.to_s.gsub('_', '-')
+    selector = "label.#{@brand}-label.#{@brand}-radios__label[for='#{model}-#{field_for_id}-#{value}-field']"
+    selector << classes.map { |c| ".#{c}" }.join
+    assert_select(selector, text)
+  end
+
   # Asserts the presence and attributes of a text area
   def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
     assert_form_element('textarea', 'textarea', field, value:, classes:, attributes:, model:)
