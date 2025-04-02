@@ -506,6 +506,8 @@ module GovukFormBuilderTestable
       end
     end
 
+    # NOTE: We test the file field without ActiveStorage to keep the design system lightweight.
+    # We only test the HTML structure and attributes, not the actual file handling functionality.
     test 'ds_file_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_file_field(:cv)

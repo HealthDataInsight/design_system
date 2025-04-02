@@ -15,7 +15,6 @@ class Assistant < ApplicationRecord
   # You can suppress this behaviour by adding optional: true to the relationship and manually adding the presence validation to the foreign key field yourself.
   belongs_to :department, optional: true
   belongs_to :role, optional: true
-  has_one_attached :cv
 
   validates :title,
             presence: { message: 'Enter a title' },
@@ -31,7 +30,6 @@ class Assistant < ApplicationRecord
   validate :phone_or_email_exists
 
   # TODO: add these back in later
-  # validates :cv, length: { maximum: 30 }, presence: true
   # validates :desired_filling, presence: { message: 'Select a desired filling' }
   # validates :lunch_option, presence: { message: 'Select a lunch option' }
   # validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
