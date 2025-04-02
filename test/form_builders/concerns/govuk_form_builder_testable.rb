@@ -358,6 +358,88 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_radio_button' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling) do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+          f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal "What do you want in your sandwich?", legend.text.strip
+
+          assert_select("div.#{@brand}-radios[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-pastrami-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'pastrami', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'pastrami', classes: ["#{@brand}-radios__label"]
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-cheddar-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'cheddar', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'cheddar', classes: ["#{@brand}-radios__label"]
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_radio_button with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, hint: 'This is a hint') do
+          f.ds_radio_button(:desired_filling, :pastrami, hint: 'Brined, smoked, steamed and seasoned') +
+          f.ds_radio_button(:desired_filling, :cheddar, hint: 'A sharp, off-white natural cheese')
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal "What do you want in your sandwich?", legend.text.strip
+
+          assert_hint :desired_filling, 'This is a hint'
+
+          assert_select("div.#{@brand}-radios[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-pastrami-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'pastrami', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'pastrami', classes: ["#{@brand}-radios__label"]
+
+              assert_hint :desired_filling, 'Brined, smoked, steamed and seasoned', value: 'pastrami', classes: ["#{@brand}-radios__hint"]
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-cheddar-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'cheddar', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'cheddar', classes: ["#{@brand}-radios__label"]
+
+              assert_hint :desired_filling, 'A sharp, off-white natural cheese', value: 'cheddar', classes: ["#{@brand}-radios__hint"]
+            end
+          end
+        end
+      end
+    end
+
     test 'ds_collection_radio_buttons with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, hint: 'This is a hint')

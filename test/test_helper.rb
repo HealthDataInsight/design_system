@@ -36,9 +36,14 @@ module GovukFormBuilderTestableHelper
   end
 
   # Asserts the presence and attributes of a hint
-  def assert_hint(field = nil, text = nil, model: 'assistant')
+  def assert_hint(field = nil, text = nil, value: nil, model: 'assistant', classes: [])
     field_for_id = field.to_s.gsub('_', '-')
-    selector = "div.#{@brand}-hint[id='#{model}-#{field_for_id}-hint']"
+    value_for_id = value.to_s.gsub('_', '-')
+    if value
+      selector = "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-#{value_for_id}-hint']"
+    else
+      selector = "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-hint']"
+    end
     assert_select(selector, text)
   end
 
