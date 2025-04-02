@@ -414,16 +414,14 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_select with label and hint' do
+    test 'ds_select with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id, 
                    options_for_select(Department.all.map { |department| [department.title, department.id] }),
-                   { label: { text: 'Department label' },
-                   hint: 'This is a hint' })
+                   { hint: 'This is a hint' })
       end
 
       assert_form_group do
-        assert_label :department_id, 'Department label'
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first

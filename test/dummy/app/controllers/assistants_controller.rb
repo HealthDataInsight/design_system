@@ -1,5 +1,4 @@
 class AssistantsController < ApplicationController
-  include DemoCollections
   before_action :set_assistant, only: %i[show edit update destroy]
 
   # GET /assistants

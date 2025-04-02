@@ -170,10 +170,10 @@ module DesignSystem
       end
 
       def ds_select(method, choices = nil, options = nil, html_options = nil, &)
-        choices, options, html_options = separate_choices_rails_or_html_options(choices, options, html_options)
+        choices, options, html_options = separate_choices_or_options(choices, options, html_options)
 
         label = { size: nil, text: translated_label(method) }
-        hint = html_options.delete(:hint)
+        hint = options.delete(:hint)
         hint = { text: hint } if hint
 
         # choices [Array,Hash] The +option+ values, usually provided via
