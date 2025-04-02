@@ -43,6 +43,10 @@ en:
         role_id: What's your role?
         department_id: What's your department?
         cv: Upload a file
+        desired_filling: What do you want in your sandwich?
+        terms_agreed: Do you agree to the terms?
+        colour: What is your favourite colour?
+        lunch_option: What do you want to have for lunch?
   notices:
     create:
       success: "%{model} was successfully created."

@@ -15,30 +15,87 @@ module DesignSystem
       end
 
       # This builder provider the following helper methods:
+      # ds_check_box
+      # ds_check_boxes_fieldset
+      # ds_collection_check_boxes
+      # ds_collection_radio_buttons
       # ds_collection_select
       # ds_date_field
       # ds_email_field
+      # ds_error_summary
+      # ds_fieldset
       # ds_file_field
       # ds_label
       # ds_number_field
       # ds_password_field
       # ds_phone_field
+      # ds_radio_button
+      # ds_radio_buttons_fieldset
       # ds_select
       # ds_submit
       # ds_text_area
       # ds_text_field
       # ds_url_field
 
-      # TODO: will be supported in next PR
-      # dividers
-      # ds_check_box
-      # ds_check_boxes_fieldset
-      # ds_collection_check_boxes
-      # ds_collection_radio_buttons
-      # ds_error_summary
-      # ds_fieldset
-      # ds_radio_button
-      # ds_radio_buttons_fieldset
+      # TODO: dividers
+
+      def ds_check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+        label = { size: nil, text: translated_label(checked_value) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # link_errors [Boolean] controls whether this radio button should be linked to from {#govuk_error_summary}
+        # exclusive [Boolean] sets the checkbox so that when checked none of its siblings can be too. Usually
+        #   used for the 'None of these apply to me' option found beneath a {#govuk_check_box_divider}.
+        govuk_check_box(method, checked_value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
+                                                        exclusive: true, **options)
+      end
+
+      def ds_check_boxes_fieldset(method, options = {}, &)
+        legend = { text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # multiple [Boolean] controls whether the check box is part of a collection or represents a single attribute
+        govuk_check_boxes_fieldset(method,
+                                   legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
+      end
+
+      def ds_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, **options)
+        legend = { text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method, hint:, legend:,
+                                                                                                 caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **options)
+      end
+
+      def ds_collection_radio_buttons(method, collection, value_method, text_method = nil, hint_method = nil, **options)
+        legend = { text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # value_method [Symbol, Proc] The method called against each member of the collection to provide the value.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection
+        # text_method [Symbol, Proc, nil] The method called against each member of the collection to provide the label text.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection.
+        #   When a +nil+ value is provided the label text will be retrieved from the locale.
+        # hint_method [Symbol, Proc, nil] The method called against each member of the collection to provide the hint text.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection.
+        #   When a +nil+ value is provided the hint text will be retrieved from the locale. This is the default and param can be omitted.
+        # legend [NilClass,Hash,Proc] options for configuring the legend. Legend will be omitted if +nil+.
+        # inline [Boolean] controls whether the radio buttons are displayed inline or not
+        # small [Boolean] controls whether small radio buttons are used instead of regular-sized ones
+        # bold_labels [Boolean] controls whether the radio button labels are bold
+        # include_hidden [Boolean] controls whether a hidden field is inserted to allow for empty submissions
+        # legend text [String] the fieldset legend's text content
+        # legend size [String] the size of the fieldset legend font, can be +xl+, +l+, +m+ or +s+
+        # legend tag [Symbol,String] the tag used for the fieldset's header, defaults to +h1+.
+        # legend hidden [Boolean] control the visibility of the legend. Hidden legends will still be read by screenreaders
+        # legend kwargs [Hash] additional arguments are applied as attributes on the +legend+ element
+        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method, hint:, legend:,
+                                                                                                   caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
+      end
 
       def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
         options, html_options = separate_rails_or_html_options(options, html_options)
@@ -79,6 +136,30 @@ module DesignSystem
 
         govuk_email_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                   prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_error_summary(content_or_options = nil, options = nil)
+        content, options = separate_content_or_options(content_or_options, options)
+        title = content || config.default_error_summary_title
+
+        # title [String] the error summary heading
+        # link_base_errors_to [Symbol,String] set the field that errors on +:base+ are linked
+        #   to, as there won't be a field representing the object base.
+        # order [Array<Symbol>] the attribute order in which error messages are displayed. Ordered
+        #   attributes will appear first and unordered ones will be last, sorted in the default manner (in
+        #   which they were defined on the model).
+        # kwargs [Hash] kwargs additional arguments are applied as attributes to the error summary +div+ element
+        # block [Block] arbitrary HTML that will be rendered between title and error message list
+        # presenter [Class,Object] the class or object that is responsible for formatting a list of error
+        #   messages that will be rendered in the summary.
+        govuk_error_summary(title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil,
+                                   order: nil, **options)
+      end
+
+      def ds_fieldset(options = {}, &)
+        legend = { text: options.delete(:legend) || 'Fieldset heading' }
+
+        govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
@@ -148,6 +229,23 @@ module DesignSystem
 
         govuk_phone_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                   prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      def ds_radio_button(method, value, options = {})
+        label = { size: nil, text: translated_label(value) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_radio_button(method, value, hint:, label:, link_errors: false, **options)
+      end
+
+      def ds_radio_buttons_fieldset(method, options = {}, &)
+        legend = { text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_radio_buttons_fieldset(method,
+                                     hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
       end
 
       def ds_select(method, choices = nil, options = nil, html_options = nil, &)
