@@ -42,9 +42,8 @@
     <% end %>
   <% end %>
 
-  <%= form.ds_submit do %>
-    <a class="govuk-button govuk-button--secondary" href="/assistants">
-      Cancel
-    </a>
-  <% end %>
+  <%= form.ds_submit %>
+  <%= form.ds_submit "Draft", secondary: true %>
+  <%= form.ds_submit "Warning", warning: true %>
+  <%= form.ds_submit "Disabled", disabled: true %>
 <% end %>

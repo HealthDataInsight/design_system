@@ -268,7 +268,7 @@ module DesignSystem
       end
 
       # Same interface as ActionView::Helpers::FormBuiler.submit, but with label automatically added.
-      def ds_submit(value = nil, **options, &)
+      def ds_submit(value = nil, **options)
         # text [String,Proc] the button text. When a +Proc+ is provided its contents will be rendered within the button element
         # warning [Boolean] makes the button red ({https://design-system.service.gov.uk/components/button/#warning-buttons warning}) when true
         # secondary [Boolean] makes the button grey ({https://design-system.service.gov.uk/components/button/#secondary-buttons secondary}) when true
@@ -284,7 +284,7 @@ module DesignSystem
         #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
         #   evenly.
         govuk_submit(text = value || config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
-                                                                        validate: config.default_submit_validate, disabled: false, **options, &)
+                                                                        validate: config.default_submit_validate, disabled: false, **options)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added.
