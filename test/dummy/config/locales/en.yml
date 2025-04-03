@@ -32,17 +32,17 @@ en:
   activerecord:
     attributes:
       assistant:
-        title: Title
+        age: What's your age?
+        cv: Upload a file
+        date_of_birth: What's your date of birth?
+        department_id: What's your department?
+        description: Enter description
         email: What's your email?
         password: What's your password?
         phone: What's your phone number?
-        website: What's your website?
-        description: Enter description
-        date_of_birth: What's your date of birth?
-        age: What's your age?
         role_id: What's your role?
-        department_id: What's your department?
-        cv: Upload a file
+        title: Title
+        website: What's your website?
   notices:
     create:
       success: "%{model} was successfully created."
