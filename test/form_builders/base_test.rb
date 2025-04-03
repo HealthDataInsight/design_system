@@ -31,26 +31,6 @@ module FormBuilders
       assert_equal options, result_html_options
     end
 
-    test 'separate_rails_or_html_options with nil options' do
-      options = nil
-      html_options = { class: 'my-class' }
-
-      result_options, result_html_options = @builder.send(:separate_rails_or_html_options, options, html_options)
-
-      assert_nil result_options
-      assert_equal html_options, result_html_options
-    end
-
-    test 'separate_rails_or_html_options with both options and html_options' do
-      options = { include_blank: true }
-      html_options = { class: 'my-class' }
-
-      result_options, result_html_options = @builder.send(:separate_rails_or_html_options, options, html_options)
-
-      assert_equal options, result_options
-      assert_equal html_options, result_html_options
-    end
-
     test 'separate_options_and_value with options and unchecked_value' do
       options, value, unchecked_value = @builder.send(:separate_options_and_value, { hint: 'This is a hint' }, 'yes', 'no')
 

@@ -72,7 +72,7 @@ module DesignSystem
 
       # This method separates the rails select options and html_options
       def separate_rails_or_html_options(options = nil, html_options = nil)
-        if html_options.nil? && !rails_select_options?(options)
+        if html_options.nil? && !rails_options?(options)
           html_options = options
           options = nil
         end
@@ -80,20 +80,20 @@ module DesignSystem
         [options, html_options]
       end
 
-      # Helper to check if a hash contains Rails select options
+      # Helper to check if a hash contains Rails form options
       # If it doesn't, it means that the options are html options
       # TODO: Support mixed options?
-      def rails_select_options?(hash)
-        rails_select_options = %i[
-          include_blank
-          prompt
-          label
-          hint
+      def rails_options?(hash)
+        rails_options = %i[
           form_group
-          caption
+          hint
+          include_blank
+          label
+          legend
+          prompt
         ]
 
-        hash.is_a?(Hash) && hash.keys.any? { |key| rails_select_options.include?(key) }
+        hash.is_a?(Hash) && hash.keys.any? { |key| rails_options.include?(key) }
       end
     end
   end

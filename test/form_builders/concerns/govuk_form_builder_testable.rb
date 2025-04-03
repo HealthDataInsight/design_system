@@ -100,13 +100,13 @@ module GovukFormBuilderTestable
 
     test 'ds_date_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_date_field(:date_of_birth, hint: 'This is a hint', legend: 'Date of birth')
+        f.ds_date_field(:date_of_birth, hint: 'This is a hint')
       end
 
       assert_form_group do
         assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant-date-of-birth-hint]") do
           legend = assert_select("legend.#{@brand}-fieldset__legend").first
-          assert_equal 'Date of birth', legend.text.strip
+          assert_equal "What's your date of birth?", legend.text.strip
 
           assert_hint :date_of_birth, 'This is a hint'
 
@@ -114,7 +114,7 @@ module GovukFormBuilderTestable
           assert date_input, 'Date input container not found'
 
           # Test day input
-          day_item = assert_select("div.#{@brand}-date-input__item:nth-child(1)")
+          assert_select("div.#{@brand}-date-input__item:nth-child(1)")
           assert_select("div.#{@brand}-form-group") do
             day_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_3i']").first
             assert_equal 'Day', day_label.text.strip
@@ -127,7 +127,7 @@ module GovukFormBuilderTestable
           end
 
           # Test month input
-          month_item = assert_select("div.#{@brand}-date-input__item:nth-child(2)")
+          assert_select("div.#{@brand}-date-input__item:nth-child(2)")
           assert_select("div.#{@brand}-form-group") do
             month_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_2i']").first
             assert_equal 'Month', month_label.text.strip
@@ -140,7 +140,7 @@ module GovukFormBuilderTestable
           end
 
           # Test year input
-          year_item = assert_select("div.#{@brand}-date-input__item:nth-child(3)")
+          assert_select("div.#{@brand}-date-input__item:nth-child(3)")
           assert_select("div.#{@brand}-form-group") do
             year_label = assert_select("label.#{@brand}-label[for='assistant_date_of_birth_1i']").first
             assert_equal 'Year', year_label.text.strip

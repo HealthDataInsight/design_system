@@ -116,8 +116,7 @@ module DesignSystem
       end
 
       def ds_date_field(method, options = {})
-        legend = options.delete(:legend)
-        legend = { text: legend } if legend
+        legend = { text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
