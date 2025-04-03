@@ -9,3 +9,6 @@ pirate:
         phone: Phone, yarr
         title: Title, yarr
         website: Website, yarr
+  helpers:
+    error_summary:
+      title: There is a problem, yarr

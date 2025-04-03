@@ -156,7 +156,7 @@ module DesignSystem
 
       def ds_error_summary(content_or_options = nil, options = nil)
         content, options = separate_content_or_options(content_or_options, options)
-        title = content || config.default_error_summary_title
+        title = content || I18n.t('helpers.error_summary.title')
 
         # title [String] the error summary heading
         # link_base_errors_to [Symbol,String] set the field that errors on +:base+ are linked

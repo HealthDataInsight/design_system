@@ -32,12 +32,6 @@ class Assistant < ApplicationRecord
   validate :dob_must_be_in_the_past, if: -> { date_of_birth.present? }
   validate :phone_or_email_exists
 
-  validates :desired_filling, presence: { message: 'Select a desired filling' }
-  validates :lunch_option, presence: { message: 'Select a lunch option' }
-  validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
-  validates :colour, presence: { message: 'Choose a favourite colour' }
-  validate :year_of_birth_must_be_1900_or_later, if: -> { date_of_birth.present? }
-
   private
 
   def phone_or_email_exists
