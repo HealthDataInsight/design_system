@@ -39,11 +39,11 @@ module GovukFormBuilderTestableHelper
   def assert_hint(field = nil, text = nil, value: nil, model: 'assistant', classes: [])
     field_for_id = field.to_s.gsub('_', '-')
     value_for_id = value.to_s.gsub('_', '-')
-    if value
-      selector = "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-#{value_for_id}-hint']"
-    else
-      selector = "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-hint']"
-    end
+    selector = if value
+                 "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-#{value_for_id}-hint']"
+               else
+                 "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-hint']"
+               end
     assert_select(selector, text)
   end
 
