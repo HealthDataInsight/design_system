@@ -1,47 +1,47 @@
 ---
 one:
-  title: AB
+  title: Lorem ipsum dolor sit amet
   department_id: 1
   role_id: 1
-  colour: 'red'
+  colour: red
   date_of_birth: 1990-01-01
-  description: 'AB is a user'
-  desired_filling: 'Pastrami'
-  lunch_option: 'Salad'
-  password: 'password'
+  description: This is a user
+  desired_filling: Pastrami
+  lunch_option: Salad
+  password: password1
   terms_agreed: true
-  phone: '07700900001'
-  email: 'ab@example.com'
-  website: 'https://www.ab.com'
+  phone: 07700900001
+  email: one@ex.com
+  website: https://www.ab.com
   age: 30
 two:
-  title: CD
+  title: consectetur adipisicing elit
   department_id: 2
   role_id: 2
-  colour: 'red'
+  colour: red
   date_of_birth: 1990-01-01
-  description: 'CD is an admin'
-  desired_filling: 'Pastrami'
-  lunch_option: 'Salad'
-  password: 'password'
+  description: This is an admin
+  desired_filling: Pastrami
+  lunch_option: Salad
+  password: password2
   terms_agreed: true
-  phone: '07700900002'
-  email: 'cd@example.com'
-  website: 'https://www.cd.com'
+  phone: 07700900002
+  email: two@ex.com
+  website: https://www.cd.com
   age: 40
 
 three:
-  title: EF
+  title: sed do eiusmod tempor incididunt
   department_id: 3
   role_id: 3
-  colour: 'blue'
+  colour: blue
   date_of_birth: 1990-01-01
-  description: 'EF is a super admin'
-  desired_filling: 'Cheddar'
-  lunch_option: 'Jacket potato'
-  password: 'password'
+  description: This is a super admin
+  desired_filling: Cheddar
+  lunch_option: Jacket potato
+  password: password3
   terms_agreed: true
-  phone: '07700900003'
-  email: 'ef@example.com'
+  phone: 07700900003
+  email: three@ex.com
   website: 'https://www.ef.com'
   age: 50

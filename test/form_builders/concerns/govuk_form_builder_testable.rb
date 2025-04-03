@@ -128,7 +128,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :email, "What's your email?"
-        assert_input :email, type: :email, value: 'ab@example.com'
+        assert_input :email, type: :email, value: 'one@ex.com'
       end
     end
 
@@ -140,7 +140,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :email, "What's your email?"
         assert_hint :email, 'This is a hint'
-        assert_input :email, type: :email, value: 'ab@example.com',
+        assert_input :email, type: :email, value: 'one@ex.com',
                              attributes: { 'aria-describedby' => 'assistant-email-hint' }
       end
     end
@@ -152,7 +152,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :email, "What's your email?"
-        assert_input :email, type: :email, value: 'ab@example.com',
+        assert_input :email, type: :email, value: 'one@ex.com',
                              classes: ['geoff'],
                              attributes: { placeholder: 'bar' }
       end
@@ -500,7 +500,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :title, 'Title'
-        assert_input :title, type: :text, value: 'AB'
+        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet'
       end
     end
 
@@ -512,7 +512,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :title, 'Title'
         assert_hint :title, 'This is a hint'
-        assert_input :title, type: :text, value: 'AB', attributes: { 'aria-describedby' => 'assistant-title-hint' }
+        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant-title-hint' }
       end
     end
 
@@ -523,7 +523,7 @@ module GovukFormBuilderTestable
 
       assert_form_group do
         assert_label :title, 'Title'
-        assert_input :title, type: :text, value: 'AB', classes: ['geoff'], attributes: { placeholder: 'bar' }
+        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', classes: ['geoff'], attributes: { placeholder: 'bar' }
       end
     end
 
