@@ -1,13 +1,13 @@
 # This is a demonstration class for testing the design system.
 class Assistant < ApplicationRecord
   COLOURS = [
-    OpenStruct.new(id: 'red', title: 'Red', description: 'Roses are red'),
-    OpenStruct.new(id: 'blue', title: 'Blue', description: 'Violets are.. purple?')
+    { id: 'red', title: 'Red', description: 'Roses are red' },
+    { id: 'blue', title: 'Blue', description: 'Violets are.. purple?' }
   ].freeze
 
   FILLINGS = [
-    OpenStruct.new(id: 'pastrami', name: 'Pastrami', description: 'Brined, smoked, steamed and seasoned'),
-    OpenStruct.new(id: 'cheddar', name: 'Cheddar', description: 'A sharp, off-white natural cheese')
+    { id: 'pastrami', name: 'Pastrami', description: 'Brined, smoked, steamed and seasoned' },
+    { id: 'cheddar', name: 'Cheddar', description: 'A sharp, off-white natural cheese' }
   ].freeze
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.
@@ -29,12 +29,11 @@ class Assistant < ApplicationRecord
   validate :dob_must_be_in_the_past, if: -> { date_of_birth.present? }
   validate :phone_or_email_exists
 
-  # TODO: add these back in later
-  # validates :desired_filling, presence: { message: 'Select a desired filling' }
-  # validates :lunch_option, presence: { message: 'Select a lunch option' }
-  # validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
-  # validates :colour, presence: { message: 'Choose a favourite colour' }
-  # validate :year_of_birth_must_be_1900_or_later, if: -> { date_of_birth.present? }
+  validates :desired_filling, presence: { message: 'Select a desired filling' }
+  validates :lunch_option, presence: { message: 'Select a lunch option' }
+  validates :terms_agreed, presence: { message: 'Read and agree to the terms' }
+  validates :colour, presence: { message: 'Choose a favourite colour' }
+  validate :year_of_birth_must_be_1900_or_later, if: -> { date_of_birth.present? }
 
   private
 
@@ -47,9 +46,4 @@ class Assistant < ApplicationRecord
   def dob_must_be_in_the_past
     errors.add(:date_of_birth, 'Your date of birth must be in the past') unless date_of_birth < Date.today
   end
-
-  # TODO: support highlighting single segment error later
-  # def year_of_birth_must_be_1900_or_later
-  #   errors.add(:date_of_birth_year, 'Year of birth must be 1900 or later') unless date_of_birth.year > 1900
-  # end
 end

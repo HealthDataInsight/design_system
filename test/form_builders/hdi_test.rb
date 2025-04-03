@@ -158,7 +158,7 @@ module FormBuilders
             input = assert_select('input[type=text]').first
             assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
                          input['class']
-            assert_equal 'AB', input['value']
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
           end
         end
       end
@@ -181,7 +181,7 @@ module FormBuilders
             input = assert_select('input[type=text]').first
             assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
                          input['class']
-            assert_equal 'AB', input['value']
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
             assert_equal 'assistant_title-hint', input['aria-describedby']
           end
         end
@@ -200,7 +200,7 @@ module FormBuilders
             input = assert_select('input[type=text][placeholder=bar]').first
             assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 geoff',
                          input['class']
-            assert_equal 'AB', input['value']
+            assert_equal 'Lorem ipsum dolor sit amet', input['value']
           end
         end
       end
@@ -219,7 +219,7 @@ module FormBuilders
               input = assert_select('input[type=text]').first
               assert_equal 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
                            input['class']
-              assert_equal 'AB', input['value']
+              assert_equal 'Lorem ipsum dolor sit amet', input['value']
             end
           end
         end

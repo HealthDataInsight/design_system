@@ -9,51 +9,51 @@ role2 = Role.find_or_create_by!(title: 'Admin', description: 'This is an admin r
 role3 = Role.find_or_create_by!(title: 'Super Admin', description: 'This is a super admin role')
 
 # Adding a first group of assistants
-assistant1 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
+  age: 30,
   colour: 'red',
   date_of_birth: Date.new(1990, 1, 1),
   department: department1,
   description: 'AB is a user',
   desired_filling: 'Pastrami',
+  email: 'ab@example.com',
   lunch_option: 'Salad',
   password: 'password',
+  phone: '07700900001',
   role: role1,
   terms_agreed: true,
-  title: 'AB',
-  phone: '07700900001',
-  email: 'ab@example.com',
-  website: 'https://www.ab.com',
-  age: 30
+  title: 'Lorem ipsum dolor sit amet',
+  website: 'https://www.ab.com'
 )
-assistant2 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
+  age: 40,
   colour: 'red',
   date_of_birth: Date.new(1990, 1, 1),
   department: department2,
   description: 'CD is an admin',
   desired_filling: 'Pastrami',
+  email: 'cd@example.com',
   lunch_option: 'Salad',
   password: 'password',
+  phone: '07700900002',
   role: role2,
   terms_agreed: true,
-  title: 'CD',
-  phone: '07700900002',
-  email: 'cd@example.com',
-  website: 'https://www.cd.com',
-  age: 40
+  title: 'consectetur adipisicing elit',
+  website: 'https://www.cd.com'
 )
-assistant3 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
+  age: 50,
   colour: 'blue',
   date_of_birth: Date.new(1990, 1, 1),
   department: department3,
   description: 'EF is a super admin',
   desired_filling: 'Cheddar',
+  email: 'three@ex.com',
   lunch_option: 'Jacket potato',
   password: 'password',
+  phone: '07700900003',
   role: role3,
   terms_agreed: true,
-  title: 'EF',
-  phone: '07700900003',
-  email: 'ef@example.com',
-  website: 'https://www.ef.com',
-  age: 50
+  title: 'sed do eiusmod tempor incididunt',
+  website: 'https://www.ef.com'
 )

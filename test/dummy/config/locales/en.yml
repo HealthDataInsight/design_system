@@ -36,21 +36,21 @@ en:
   activerecord:
     attributes:
       assistant:
-        title: Title
+        age: What's your age?
+        colour: What is your favourite colour?
+        cv: Upload a file
+        date_of_birth: What's your date of birth?
+        department_id: What's your department?
+        description: Enter description
+        desired_filling: What do you want in your sandwich?
         email: What's your email?
+        lunch_option: What do you want to have for lunch?
         password: What's your password?
         phone: What's your phone number?
-        website: What's your website?
-        description: Enter description
-        date_of_birth: What's your date of birth?
-        age: What's your age?
         role_id: What's your role?
-        department_id: What's your department?
-        cv: Upload a file
-        desired_filling: What do you want in your sandwich?
         terms_agreed: Do you agree to the terms?
-        colour: What is your favourite colour?
-        lunch_option: What do you want to have for lunch?
+        title: Title
+        website: What's your website?
   notices:
     create:
       success: "%{model} was successfully created."

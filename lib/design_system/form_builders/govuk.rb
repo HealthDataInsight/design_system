@@ -99,6 +99,7 @@ module DesignSystem
                                                                                                    caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
       end
 
+      # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
       def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
         options, html_options = separate_rails_or_html_options(options, html_options)
 
@@ -115,6 +116,7 @@ module DesignSystem
                                                                                caption: {}, form_group: {}, **html_options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.date_field, but with label automatically added.
       def ds_date_field(method, options = {})
         legend = { text: translated_label(method) }
         hint = options.delete(:hint)
@@ -130,6 +132,7 @@ module DesignSystem
                                  maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.email_field, but with label automatically added.
       def ds_email_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -185,6 +188,7 @@ module DesignSystem
         govuk_label(method, text:, size: nil, hidden: false, tag: nil, caption: nil, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.number_field, but with label automatically added.
       def ds_number_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -223,6 +227,7 @@ module DesignSystem
                                      password_hidden_announcement_text: nil, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.phone_field, but with label automatically added.
       def ds_phone_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -249,7 +254,8 @@ module DesignSystem
                                      hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
       end
 
-      def ds_select(method, choices = nil, options = nil, html_options = nil, &)
+      # Same interface as ActionView::Helpers::FormOptionsHelper.select, but with label automatically added.
+      def ds_select(method, choices = nil, options = {}, html_options = {}, &)
         choices, options, html_options = separate_choices_or_options(choices, options, html_options)
 
         label = { size: nil, text: translated_label(method) }
@@ -261,6 +267,7 @@ module DesignSystem
         govuk_select(method, choices, options:, label:, hint:, form_group: {}, caption: {}, **html_options, &)
       end
 
+      # Same interface as ActionView::Helpers::FormBuiler.submit, but with label automatically added.
       def ds_submit(value = nil, **options, &)
         # text [String,Proc] the button text. When a +Proc+ is provided its contents will be rendered within the button element
         # warning [Boolean] makes the button red ({https://design-system.service.gov.uk/components/button/#warning-buttons warning}) when true
@@ -280,6 +287,7 @@ module DesignSystem
                                                                         validate: config.default_submit_validate, disabled: false, **options, &)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added.
       def ds_text_area(method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
@@ -316,6 +324,7 @@ module DesignSystem
                                  form_group: {}, prefix_text: nil, suffix_text: nil, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.url_field, but with label automatically added.
       def ds_url_field(method, options = {})
         label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
