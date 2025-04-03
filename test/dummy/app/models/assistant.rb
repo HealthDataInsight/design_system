@@ -37,7 +37,7 @@ class Assistant < ApplicationRecord
   def phone_or_email_exists
     return unless phone.blank? && email.blank?
 
-    errors.add(:base, 'Enter a telephone number or email address')
+    errors.add(:email, 'Enter a telephone number or email address')
   end
 
   def dob_must_be_in_the_past
