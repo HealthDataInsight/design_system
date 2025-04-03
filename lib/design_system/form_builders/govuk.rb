@@ -23,7 +23,7 @@ module DesignSystem
       # ds_date_field
       # ds_email_field
       # ds_error_summary
-      # ds_fieldset
+      # ds_field_set_tag
       # ds_file_field
       # ds_label
       # ds_number_field
@@ -84,6 +84,10 @@ module DesignSystem
         legend = { text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
+        hint_method = options.delete(:hint_method)
+        bold_labels = options.delete(:bold_labels)
+        include_hidden = options.delete(:include_hidden) || true
+        form_group = options.delete(:form_group) || {}
 
         # value_method [Symbol, Proc] The method called against each member of the collection to provide the value.
         #   When a +Proc+ is provided it must take a single argument that is a single member of the collection
@@ -103,8 +107,8 @@ module DesignSystem
         # legend tag [Symbol,String] the tag used for the fieldset's header, defaults to +h1+.
         # legend hidden [Boolean] control the visibility of the legend. Hidden legends will still be read by screenreaders
         # legend kwargs [Hash] additional arguments are applied as attributes on the +legend+ element
-        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method = nil, hint:, legend:,
-                                                                                                         caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **html_options, &)
+        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method:, hint:, legend:,
+                                                                                      caption: {}, inline: false, small: false, bold_labels:, include_hidden:, form_group:, **html_options, &)
       end
 
       # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
@@ -170,7 +174,8 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.fieldset, but with legend and fieldset tags automatically added.
       def ds_field_set_tag(legend = nil, options = nil, &)
-        legend = { text: options.delete(:legend) || 'Fieldset heading' }
+        legend = { text: legend || 'Fieldset heading' }
+        options ||= {}
 
         govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
       end
