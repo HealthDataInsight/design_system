@@ -69,10 +69,6 @@ class AssistantsController < ApplicationController
       :role_id,
       :title,
       :website
-      # :colour,
-      # :desired_filling,
-      # :lunch_option,
-      # :terms_agreed,
     )
   end
 end
