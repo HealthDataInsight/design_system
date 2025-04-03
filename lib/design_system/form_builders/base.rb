@@ -85,11 +85,16 @@ module DesignSystem
       # TODO: Support mixed options?
       def rails_options?(hash)
         rails_options = %i[
+          bold_labels
+          exclusive
           form_group
           hint
+          hint_method
           include_blank
+          include_hidden
           label
           legend
+          link_errors
           prompt
         ]
 

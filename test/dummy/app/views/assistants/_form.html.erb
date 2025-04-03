@@ -16,7 +16,7 @@
   <% end %>
 
   <%= form.ds_fieldset legend: "Checkboxes" do %>
-    <%= form.ds_collection_check_boxes :desired_filling, @fillings, :id, :name, :description, hint: "ds_collection_check_boxes" %>
+    <%= form.ds_collection_check_boxes :desired_filling, @fillings, :id, :name, hint_method: :description, hint: "ds_collection_check_boxes" %>
 
     <%#= form.ds_check_boxes_fieldset :desired_filling, multiple: true, hint: "ds_check_boxes_fieldset" do %>
       <%#= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :pastrami %>
@@ -30,7 +30,7 @@
 
   <%= form.ds_fieldset legend: "Selects" do %>
     <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "ds_collection_select", prompt: "Please select", include_blank: false %>
-    <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "ds_select" %>
+    <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), { prompt: "Please select", include_blank: false, hint: "ds_select" }, { caption: { text: "Test caption" } } %>
   <% end %>
 
   <%= form.ds_fieldset legend: "Radio buttons" do %>

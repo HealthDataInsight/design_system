@@ -39,6 +39,7 @@ module DesignSystem
 
       # TODO: dividers
 
+      # Same interface as ActionView::Helpers::FormHelper.check_box, but with label automatically added.
       def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
         options, value, unchecked_value = separate_options_and_value(options, checked_value, unchecked_value)
 
@@ -63,16 +64,23 @@ module DesignSystem
                                    legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
       end
 
-      def ds_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, **options)
+      # Same interface as ActionView::Helpers::FormOptionsHelper.collection_check_boxes, but with legend automatically added.
+      def ds_collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {},
+                                    &)
+        options, html_options = separate_rails_or_html_options(options, html_options)
+
         legend = { text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method, hint:, legend:,
-                                                                                                 caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **options)
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method = nil, hint:, legend:,
+                                                                                                       caption: {}, small: false, form_group: {}, include_hidden: config.default_collection_check_boxes_include_hidden, **html_options, &)
       end
 
-      def ds_collection_radio_buttons(method, collection, value_method, text_method = nil, hint_method = nil, **options)
+      # Same interface as ActionView::Helpers::FormOptionsHelper.collection_radio_buttons, but with legend automatically added.
+      def ds_collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &)
+        options, html_options = separate_rails_or_html_options(options, html_options)
+
         legend = { text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
@@ -95,8 +103,8 @@ module DesignSystem
         # legend tag [Symbol,String] the tag used for the fieldset's header, defaults to +h1+.
         # legend hidden [Boolean] control the visibility of the legend. Hidden legends will still be read by screenreaders
         # legend kwargs [Hash] additional arguments are applied as attributes on the +legend+ element
-        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method, hint:, legend:,
-                                                                                                   caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **options)
+        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method = nil, hint:, legend:,
+                                                                                                         caption: {}, inline: false, small: false, bold_labels: nil, include_hidden: config.default_collection_radio_buttons_include_hidden, form_group: {}, **html_options, &)
       end
 
       # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
@@ -160,7 +168,8 @@ module DesignSystem
                                    order: nil, **options)
       end
 
-      def ds_fieldset(options = {}, &)
+      # Same interface as ActionView::Helpers::FormHelper.fieldset, but with legend and fieldset tags automatically added.
+      def ds_field_set_tag(legend = nil, options = nil, &)
         legend = { text: options.delete(:legend) || 'Fieldset heading' }
 
         govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
@@ -237,12 +246,13 @@ module DesignSystem
                                   prefix_text: nil, suffix_text: nil, **options)
       end
 
-      def ds_radio_button(method, value, options = {})
-        label = { size: nil, text: translated_label(value) }
+      # Same interface as ActionView::Helpers::FormHelper.radio_button, but with label automatically added.
+      def ds_radio_button(method, tag_value, options = {})
+        label = { size: nil, text: translated_label(tag_value) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
-        govuk_radio_button(method, value, hint:, label:, link_errors: false, **options)
+        govuk_radio_button(method, tag_value, hint:, label:, link_errors: false, **options)
       end
 
       def ds_radio_buttons_fieldset(method, options = {}, &)
