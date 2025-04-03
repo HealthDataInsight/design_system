@@ -10,3 +10,11 @@ marketing:
 finance:
   id: 3
   title: Finance
+
+operations:
+  id: 4
+  title: Operations
+
+personnel:
+  id: 5
+  title: Personnel

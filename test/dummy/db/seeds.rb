@@ -9,7 +9,7 @@ role2 = Role.find_or_create_by!(title: 'Admin', description: 'This is an admin r
 role3 = Role.find_or_create_by!(title: 'Super Admin', description: 'This is a super admin role')
 
 # Adding a first group of assistants
-assistant1 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
   colour: 'red',
   date_of_birth: Date.new(1990, 1, 1),
   department: department1,
@@ -25,7 +25,7 @@ assistant1 = Assistant.find_or_create_by!(
   website: 'https://www.ab.com',
   age: 30
 )
-assistant2 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
   colour: 'red',
   date_of_birth: Date.new(1990, 1, 1),
   department: department2,
@@ -41,7 +41,7 @@ assistant2 = Assistant.find_or_create_by!(
   website: 'https://www.cd.com',
   age: 40
 )
-assistant3 = Assistant.find_or_create_by!(
+Assistant.find_or_create_by!(
   colour: 'blue',
   date_of_birth: Date.new(1990, 1, 1),
   department: department3,
