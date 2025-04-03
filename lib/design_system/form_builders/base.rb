@@ -40,24 +40,24 @@ module DesignSystem
       end
 
       # This method separates the choices and options from the html_options
-      def separate_choices_or_options(choices = nil, options = nil, html_options = nil)
+      def separate_choices_or_options(choices = nil, options = {}, html_options = {})
         if choices.is_a?(Hash) && html_options.nil?
           options, html_options = separate_rails_or_html_options(choices, options)
           choices = nil
         end
 
-        options ||= {}
-        html_options ||= {}
-
         [choices, options, html_options]
       end
 
       # This method separates the rails select options and html_options
-      def separate_rails_or_html_options(options = nil, html_options = nil)
-        if html_options.nil? && !rails_options?(options)
+      def separate_rails_or_html_options(options = {}, html_options = {})
+        if html_options.empty? && !rails_options?(options)
           html_options = options
           options = nil
         end
+
+        options ||= {}
+        html_options ||= {}
 
         [options, html_options]
       end

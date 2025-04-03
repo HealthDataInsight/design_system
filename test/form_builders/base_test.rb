@@ -23,11 +23,11 @@ module FormBuilders
 
     test 'separate_rails_or_html_options with HTML options as options' do
       options = { class: 'my-class', data: { foo: 'bar' } }
-      html_options = nil
+      html_options = {}
 
       result_options, result_html_options = @builder.send(:separate_rails_or_html_options, options, html_options)
 
-      assert_nil result_options
+      assert_empty result_options
       assert_equal options, result_html_options
     end
   end
