@@ -85,7 +85,7 @@ module GovukFormBuilderTestableHelper
   # @option options [String] :model The model name for the field (defaults to 'assistant')
   #
   # @example
-  #   assert_form_element(:input, :title, type: :text, value: 'AB')
+  #   assert_form_element(:input, :title, type: :text, value: 'Lorem ipsum dolor sit amet')
   #   assert_form_element(:textarea, :description, classes: ['custom-class'])
   #   assert_form_element(:file_upload, :cv, type: :file, attributes: { accept: 'application/pdf' })
   def assert_form_element(element_type, base_class, field, options = {})
