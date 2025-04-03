@@ -1,8 +1,7 @@
 class AssistantsController < ApplicationController
   before_action :all_departments, only: %i[new edit create update]
   before_action :set_assistant, only: %i[show edit update destroy]
-  before_action :set_colours, only: %i[new edit create update]
-  before_action :set_fillings, only: %i[new edit create update]
+  before_action :set_options, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -53,11 +52,8 @@ class AssistantsController < ApplicationController
     @assistant = Assistant.find(params[:id])
   end
 
-  def set_colours
+  def set_options
     @colours = Assistant::COLOURS
-  end
-
-  def set_fillings
     @fillings = Assistant::FILLINGS
   end
 
@@ -69,20 +65,20 @@ class AssistantsController < ApplicationController
   def assistant_params
     params.require(:assistant).permit(
       :age,
+      :colour,
       :cv,
       :date_of_birth,
       :department_id,
       :description,
+      :desired_filling,
       :email,
+      :lunch_option,
       :password,
       :phone,
       :role_id,
+      :terms_agreed,
       :title,
       :website
-      # :colour,
-      # :desired_filling,
-      # :lunch_option,
-      # :terms_agreed,
     )
   end
 end

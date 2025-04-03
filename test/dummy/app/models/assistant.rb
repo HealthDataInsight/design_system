@@ -1,13 +1,16 @@
 # This is a demonstration class for testing the design system.
 class Assistant < ApplicationRecord
-  COLOURS = [
-    { id: 'red', title: 'Red', description: 'Roses are red' },
-    { id: 'blue', title: 'Blue', description: 'Violets are.. purple?' }
-  ].freeze
+  Filling = Struct.new(:id, :name, :description)
+  Colour = Struct.new(:id, :title, :description)
 
   FILLINGS = [
-    { id: 'pastrami', name: 'Pastrami', description: 'Brined, smoked, steamed and seasoned' },
-    { id: 'cheddar', name: 'Cheddar', description: 'A sharp, off-white natural cheese' }
+    Filling.new('pastrami', 'Pastrami', 'Brined, smoked, steamed and seasoned'),
+    Filling.new('cheddar', 'Cheddar', 'A sharp, off-white natural cheese')
+  ].freeze
+
+  COLOURS = [
+    Colour.new('red', 'Red', 'Roses are red'),
+    Colour.new('blue', 'Blue', 'Violets are... purple?')
   ].freeze
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.
