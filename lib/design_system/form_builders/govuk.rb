@@ -37,7 +37,10 @@ module DesignSystem
       # ds_text_field
       # ds_url_field
 
-      # TODO: dividers
+      # TODO:
+      # ds_button (not in the govuk-design-system-formbuilder gem)
+      # ds_check_box_divider (not in rails?)
+      # ds_radio_divider (not in rails?)
 
       # Same interface as ActionView::Helpers::FormHelper.check_box, but with label automatically added.
       def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
