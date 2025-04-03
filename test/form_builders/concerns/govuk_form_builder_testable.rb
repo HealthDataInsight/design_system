@@ -575,6 +575,57 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_radio_buttons_fieldset with option inline' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, inline: true) do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+            f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_select("div.#{@brand}-radios.#{@brand}-radios--inline[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Pastrami')
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Cheddar')
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_radio_buttons_fieldset with html options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, class: 'geoff', 'data-foo': 'bar') do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+            f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_select("div.#{@brand}-radios.geoff[data-foo=bar][data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Pastrami')
+            end
+          end
+        end
+      end
+    end
+
     test 'ds_collection_radio_buttons with hint' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, hint: 'This is a hint')
@@ -645,7 +696,7 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_collection_radio_buttons with options' do
+    test 'ds_collection_radio_buttons with html options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
       end
@@ -661,6 +712,20 @@ module GovukFormBuilderTestable
 
             assert_label :department_id, 'Sales', value: '1', classes: ["#{@brand}-radios__label"]
           end
+        end
+      end
+    end
+
+    test 'ds_collection_radio_buttons with block' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title) do
+          content_tag(:p, 'Hello')
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          assert_select('p', 'Hello')
         end
       end
     end
