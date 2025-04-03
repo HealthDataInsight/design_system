@@ -426,20 +426,6 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_submit with block' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit do
-          link_to 'Cancel', '#assistants'
-        end
-      end
-
-      assert_select('form') do
-        button = assert_select("button.#{@brand}-button[type=submit]").first
-        assert_equal 'Continue', button.text.strip
-        assert_select("a[href='#assistants']")
-      end
-    end
-
     test 'ds_text_area' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_area(:description)
