@@ -68,6 +68,24 @@ module DesignSystem
                                   prefix_text: nil, suffix_text: nil, **options)
       end
 
+      def ds_error_summary(title = nil, options = nil)
+        title, options = separate_content_or_options(title, options)
+        title ||= I18n.t('activerecord.errors.title')
+
+        # title [String] the error summary heading
+        # link_base_errors_to [Symbol,String] set the field that errors on +:base+ are linked
+        #   to, as there won't be a field representing the object base.
+        # order [Array<Symbol>] the attribute order in which error messages are displayed. Ordered
+        #   attributes will appear first and unordered ones will be last, sorted in the default manner (in
+        #   which they were defined on the model).
+        # kwargs [Hash] kwargs additional arguments are applied as attributes to the error summary +div+ element
+        # block [Block] arbitrary HTML that will be rendered between title and error message list
+        # presenter [Class,Object] the class or object that is responsible for formatting a list of error
+        #   messages that will be rendered in the summary.
+        govuk_error_summary(title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil,
+                                   order: nil, **options)
+      end
+
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
       def ds_file_field(method, options = {})
         hint = options.delete(:hint)

@@ -170,6 +170,141 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_error_summary' do
+      assistant = Assistant.new(
+        title: '',
+        department_id: nil,
+        password: assistants(:one).password,
+        date_of_birth: assistants(:one).date_of_birth,
+        phone: assistants(:one).phone
+      )
+      assistant.valid?
+
+      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        f.ds_error_summary
+      end
+
+      assert_select("div.#{@brand}-error-summary[data-module='#{@brand}-error-summary']") do
+        assert_select("div[role='alert']") do
+          assert_select("h2.#{@brand}-error-summary__title", 'There is a problem')
+          assert_select("div.#{@brand}-error-summary__body") do
+            assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
+              assert_select('li') do
+                assert_select("a[href='#assistant_title_error']", 'Enter a title')
+              end
+              assert_select('li') do
+                assert_select("a[href='#assistant_department_id_error']", 'Select a department')
+              end
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_error_summary with title' do
+      assistant = Assistant.new(
+        title: '',
+        department_id: nil,
+        password: assistants(:one).password,
+        date_of_birth: assistants(:one).date_of_birth,
+        phone: assistants(:one).phone
+      )
+      assistant.valid?
+
+      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        f.ds_error_summary('Oops')
+      end
+
+      assert_select("div.#{@brand}-error-summary") do
+        assert_select("h2.#{@brand}-error-summary__title", 'Oops')
+        assert_select("div.#{@brand}-error-summary__body") do
+          assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
+            assert_select('li') do
+              assert_select("a[href='#assistant_title_error']", 'Enter a title')
+            end
+            assert_select('li') do
+              assert_select("a[href='#assistant_department_id_error']", 'Select a department')
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_error_summary with options' do
+      assistant = Assistant.new(
+        title: assistants(:one).title,
+        department_id: assistants(:one).department_id,
+        password: assistants(:one).password,
+        date_of_birth: assistants(:one).date_of_birth,
+        phone: nil,
+        email: nil
+      )
+      assistant.valid?
+
+      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        f.ds_error_summary(link_base_errors_to: :email)
+      end
+
+      assert_select("div.#{@brand}-error-summary") do
+        assert_select("div[role='alert']") do
+          assert_select("h2.#{@brand}-error-summary__title", 'There is a problem')
+          assert_select("div.#{@brand}-error-summary__body") do
+            assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
+              assert_select('li') do
+                assert_select("a[href='#assistant_email']", 'Enter a telephone number or email address')
+              end
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_error_summary with html options' do
+      assistant = Assistant.new(
+        title: assistants(:one).title,
+        department_id: assistants(:one).department_id,
+        password: assistants(:one).password,
+        date_of_birth: assistants(:one).date_of_birth,
+        phone: nil,
+        email: nil
+      )
+      assistant.valid?
+
+      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        f.ds_error_summary(class: 'geoff', 'data-foo': 'bar')
+      end
+
+      assert_select("div.#{@brand}-error-summary.geoff[data-foo=bar]") do
+        assert_select("div[role='alert']") do
+          assert_select("h2.#{@brand}-error-summary__title", 'There is a problem')
+        end
+      end
+    end
+
+    test 'ds_error_summary with pirate locale' do
+      assistant = Assistant.new(
+        title: assistants(:one).title,
+        department_id: assistants(:one).department_id,
+        password: assistants(:one).password,
+        date_of_birth: assistants(:one).date_of_birth,
+        phone: nil,
+        email: nil
+      )
+      assistant.valid?
+
+      I18n.with_locale :pirate do
+        @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+          f.ds_error_summary
+        end
+
+        assert_select("div.#{@brand}-error-summary") do
+          assert_select("div[role='alert']") do
+            assert_select("h2.#{@brand}-error-summary__title", 'There is a problem, yarr')
+          end
+        end
+      end
+    end
+
     # NOTE: We test the file field without ActiveStorage to keep the design system lightweight.
     # We only test the HTML structure and attributes, not the actual file handling functionality.
     test 'ds_file_field' do
