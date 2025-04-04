@@ -14,21 +14,6 @@ module DesignSystem
         config.brand = self.class.brand
       end
 
-      # This builder provider the following helper methods:
-      # ds_collection_select
-      # ds_date_field
-      # ds_email_field
-      # ds_file_field
-      # ds_label
-      # ds_number_field
-      # ds_password_field
-      # ds_phone_field
-      # ds_select
-      # ds_submit
-      # ds_text_area
-      # ds_text_field
-      # ds_url_field
-
       # TODO: will be supported in next PR
       # dividers
       # ds_check_box
