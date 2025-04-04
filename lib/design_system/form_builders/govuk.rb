@@ -168,14 +168,11 @@ module DesignSystem
         #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
         #   evenly.
         type = options.delete(:type)
-        case type
-          when :secondary
-            options[:secondary] = true
-          when :warning
-            options[:warning] = true
-        end
+        warning = type == :warning
+        secondary = type == :secondary
 
-        govuk_submit(text = value || config.default_submit_button_text, **options)
+        govuk_submit(text = value || config.default_submit_button_text, warning:, secondary:, inverse: false, prevent_double_click: true,
+                                                                        validate: config.default_submit_validate, disabled: false, **options)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added.
