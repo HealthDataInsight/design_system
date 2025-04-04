@@ -42,8 +42,10 @@
     <% end %>
   <% end %>
 
-  <%= form.ds_submit %>
-  <%= form.ds_submit "Draft", type: :secondary %>
-  <%= form.ds_submit "Warning", type: :warning %>
-  <%= form.ds_submit "Disabled", type: :secondary, disabled: true %>
+  <%= form.ds_field_set_tag "Submit buttons" do %>
+    <%= form.ds_submit %>
+    <%= form.ds_submit "Draft", type: :secondary %>
+    <%= form.ds_submit "Warning", type: :warning %>
+    <%= form.ds_submit "Disabled", type: :secondary, disabled: true %>
+  <% end %>
 <% end %>
