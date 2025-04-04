@@ -14,16 +14,69 @@ module DesignSystem
         config.brand = self.class.brand
       end
 
-      # This builder provider the following helper methods:
-      # ds_file_field
-      # ds_label
-      # ds_password_field
-      # ds_text_area
-      # ds_text_field
+      # TODO: will be supported in next PR
+      # dividers
+      # ds_check_box
+      # ds_check_boxes_fieldset
+      # ds_collection_check_boxes
+      # ds_collection_radio_buttons
+      # ds_error_summary
+      # ds_fieldset
+      # ds_radio_button
+      # ds_radio_buttons_fieldset
 
-      # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
-      # def ds_file_field(method, options = {})
-      # end
+      # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
+      def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+        options, html_options = separate_rails_or_html_options(options, html_options)
+
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # attribute_name [Symbol] The name of the attribute
+        # collection [Enumerable<Object>] Options to be added to the +select+ element
+        # value_method [Symbol] The method called against each member of the collection to provide the value
+        # text_method [Symbol] The method called against each member of the collection to provide the text
+        # options (rails_options) [Hash] Options hash passed through to Rails' +collection_select+ helper
+        govuk_collection_select(method, collection, value_method, text_method, options:, hint:, label:,
+                                                                               caption: {}, form_group: {}, **html_options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.date_field, but with label automatically added.
+      def ds_date_field(method, options = {})
+        legend = { text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # omit_day [Boolean] do not render a day input, only capture month and year
+        # maxlength_enabled [Boolean] adds maxlength attribute to day, month and year inputs (2, 2, and 4, respectively)
+        # segments [Hash] allows Rails' multiparameter attributes to be overridden on a field-by-field basis. Hash must
+        #   contain +day:+, +month:+ and +year:+ keys. Defaults to the default value set in the +default_date_segments+ setting in {GOVUKDesignSystemFormBuilder.DEFAULTS}
+        # date_of_birth [Boolean] if +true+ {https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#Values birth date auto completion attributes}
+        #   will be added to the inputs
+        govuk_date_field(method, hint:, legend:, caption: {}, date_of_birth: false, omit_day: false,
+                                 maxlength_enabled: false, segments: config.default_date_segments, form_group: {}, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.email_field, but with label automatically added.
+      def ds_email_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_email_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                  prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
+      def ds_file_field(method, options = {})
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+        label = { size: nil, text: translated_label(method) }
+
+        # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
+        govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+      end
 
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
@@ -35,6 +88,16 @@ module DesignSystem
         # hidden [Boolean] control the visability of the label. Hidden labels will stil be read by screenreaders
         # kwargs [Hash] additional arguments are applied as attributes on the +label+ element
         govuk_label(method, text:, size: nil, hidden: false, tag: nil, caption: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.number_field, but with label automatically added.
+      def ds_number_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_number_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                   prefix_text: nil, suffix_text: nil, **options)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
@@ -66,9 +129,65 @@ module DesignSystem
                                      password_hidden_announcement_text: nil, **options)
       end
 
-      # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
-      # def ds_text_area(method, options = {})
-      # end
+      # Same interface as ActionView::Helpers::FormHelper.phone_field, but with label automatically added.
+      def ds_phone_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_phone_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                  prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormOptionsHelper.select, but with label automatically added.
+      def ds_select(method, choices = nil, options = {}, html_options = {}, &)
+        choices, options, html_options = separate_choices_or_options(choices, options, html_options)
+
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # choices [Array,Hash] The +option+ values, usually provided via
+        #   the +options_for_select+ or +grouped_options_for_select+ helpers.
+        govuk_select(method, choices, options:, label:, hint:, form_group: {}, caption: {}, **html_options, &)
+      end
+
+      # Same interface as ActionView::Helpers::FormBuiler.submit, but with label automatically added.
+      def ds_submit(value = nil, **options)
+        # text [String,Proc] the button text. When a +Proc+ is provided its contents will be rendered within the button element
+        # type [Symbol] the type of submit button, can be :secondary, :warning. The button is a primary button if unspecified
+        # inverse [Boolean] inverts the colours of the button. Note this isn't yet part of the design system.
+        # prevent_double_click [Boolean] adds JavaScript to safeguard the
+        #   form from being submitted more than once
+        # validate [Boolean] adds the formnovalidate to the submit button when true, this disables all
+        #   client-side validation provided by the browser. This is to provide a more consistent and accessible user
+        #   experience
+        # disabled [Boolean] makes the button disabled when true
+        # kwargs [Hash] kwargs additional arguments are applied as attributes to the +button+ element
+        # block [Block] When content is passed in via a block the submit element and the block content will
+        #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
+        #   evenly.
+        type = options.delete(:type)
+        warning = type == :warning
+        secondary = type == :secondary
+
+        govuk_submit(text = value || config.default_submit_button_text, warning:, secondary:, inverse: false, prevent_double_click: true,
+                                                                        validate: config.default_submit_validate, disabled: false, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added.
+      def ds_text_area(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # max_words [Integer] adds the GOV.UK max word count
+        # max_chars [Integer] adds the GOV.UK max characters count
+        # threshold [Integer] only show the +max_words+ and +max_chars+ warnings once a threshold (percentage) is reached
+        # rows [Integer] sets the initial number of rows
+        govuk_text_area(method, hint:, label:, caption: {}, max_words: nil, max_chars: nil, rows: 5, threshold: nil,
+                                form_group: {}, **options)
+      end
 
       # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
       def ds_text_field(method, options = {})
@@ -91,6 +210,16 @@ module DesignSystem
         # block [Block] arbitrary HTML that will be rendered between the hint and the input
         govuk_text_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false,
                                  form_group: {}, prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.url_field, but with label automatically added.
+      def ds_url_field(method, options = {})
+        label = { size: nil, text: translated_label(method) }
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_url_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
+                                prefix_text: nil, suffix_text: nil, **options)
       end
 
       private

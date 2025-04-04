@@ -2,5 +2,10 @@ pirate:
   activerecord:
     attributes:
       assistant:
-        title: Title, yarr
+        age: Age, yarr
         department_id: Department, yarr
+        description: Description, yarr
+        email: Email, yarr
+        phone: Phone, yarr
+        title: Title, yarr
+        website: Website, yarr

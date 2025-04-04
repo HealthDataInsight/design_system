@@ -22,3 +22,7 @@ end
 group :test do
   gem 'mocha', '~> 2.2.0'
 end
+
+# charlock_holmes: Version 0.7.7 has known issues with dependency resolution on Apple Silicon (M3) Macs.
+# Upgrading to 0.7.9 or higher resolves these compatibility issues.
+gem 'charlock_holmes', '>= 0.7.9'
