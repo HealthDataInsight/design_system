@@ -14,33 +14,8 @@ module DesignSystem
         config.brand = self.class.brand
       end
 
-      # This builder provider the following helper methods:
-      # ds_check_box
-      # ds_check_boxes_fieldset
-      # ds_collection_check_boxes
-      # ds_collection_radio_buttons
-      # ds_collection_select
-      # ds_date_field
-      # ds_email_field
-      # ds_error_summary
-      # ds_field_set_tag
-      # ds_file_field
-      # ds_label
-      # ds_number_field
-      # ds_password_field
-      # ds_phone_field
-      # ds_radio_button
-      # ds_radio_buttons_fieldset
-      # ds_select
-      # ds_submit
-      # ds_text_area
-      # ds_text_field
-      # ds_url_field
-
-      # TODO:
-      # ds_button (not in the govuk-design-system-formbuilder gem)
-      # ds_check_box_divider (not in rails?)
-      # ds_radio_divider (not in rails?)
+      # TODO: will be supported in next PR
+      # dividers
 
       # Same interface as ActionView::Helpers::FormHelper.check_box, but with label automatically added.
       def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
@@ -293,8 +268,7 @@ module DesignSystem
       # Same interface as ActionView::Helpers::FormBuiler.submit, but with label automatically added.
       def ds_submit(value = nil, **options)
         # text [String,Proc] the button text. When a +Proc+ is provided its contents will be rendered within the button element
-        # warning [Boolean] makes the button red ({https://design-system.service.gov.uk/components/button/#warning-buttons warning}) when true
-        # secondary [Boolean] makes the button grey ({https://design-system.service.gov.uk/components/button/#secondary-buttons secondary}) when true
+        # type [Symbol] the type of submit button, can be :secondary, :warning. The button is a primary button if unspecified
         # inverse [Boolean] inverts the colours of the button. Note this isn't yet part of the design system.
         # prevent_double_click [Boolean] adds JavaScript to safeguard the
         #   form from being submitted more than once
@@ -306,7 +280,11 @@ module DesignSystem
         # block [Block] When content is passed in via a block the submit element and the block content will
         #   be wrapped in a +<div class="govuk-button-group">+ which will space the buttons and links within
         #   evenly.
-        govuk_submit(text = value || config.default_submit_button_text, warning: false, secondary: false, inverse: false, prevent_double_click: true,
+        type = options.delete(:type)
+        warning = type == :warning
+        secondary = type == :secondary
+
+        govuk_submit(text = value || config.default_submit_button_text, warning:, secondary:, inverse: false, prevent_double_click: true,
                                                                         validate: config.default_submit_validate, disabled: false, **options)
       end
 

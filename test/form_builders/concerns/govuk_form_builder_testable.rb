@@ -797,7 +797,7 @@ module GovukFormBuilderTestable
 
     test 'ds_submit with secondary' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit('Draft', secondary: true)
+        f.ds_submit('Draft', type: :secondary)
       end
 
       assert_select('form') do
@@ -811,7 +811,7 @@ module GovukFormBuilderTestable
 
     test 'ds_submit with warning' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit('Warning', warning: true)
+        f.ds_submit('Warning', type: :warning)
       end
 
       assert_select('form') do
@@ -823,7 +823,7 @@ module GovukFormBuilderTestable
 
     test 'ds_submit with disabled' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit('Disabled', disabled: true)
+        f.ds_submit('Disabled', type: :secondary, disabled: true)
       end
 
       assert_select('form') do
