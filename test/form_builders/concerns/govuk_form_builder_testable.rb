@@ -19,7 +19,7 @@ module GovukFormBuilderTestable
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
@@ -42,7 +42,7 @@ module GovukFormBuilderTestable
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        assert_equal 'assistant_department_id_hint', select['aria-describedby']
       end
     end
 
@@ -55,7 +55,7 @@ module GovukFormBuilderTestable
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select.geoff[placeholder=bar]").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
@@ -70,7 +70,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant-date-of-birth-hint]") do
+        assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant_date_of_birth_hint]") do
           legend = assert_select("legend.#{@brand}-fieldset__legend").first
           assert_equal "What's your date of birth?", legend.text.strip
 
@@ -141,7 +141,7 @@ module GovukFormBuilderTestable
         assert_label :email, "What's your email?"
         assert_hint :email, 'This is a hint'
         assert_input :email, type: :email, value: 'one@ex.com',
-                             attributes: { 'aria-describedby' => 'assistant-email-hint' }
+                             attributes: { 'aria-describedby' => 'assistant_email_hint' }
       end
     end
 
@@ -191,7 +191,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :cv, 'Upload a file'
         assert_hint :cv, 'This is a hint'
-        assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant-cv-hint' }
+        assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant_cv_hint' }
       end
     end
 
@@ -247,7 +247,7 @@ module GovukFormBuilderTestable
         assert_label :age, "What's your age?"
         assert_hint :age, 'This is a hint'
         assert_input :age, type: :number, value: '30',
-                           attributes: { 'aria-describedby' => 'assistant-age-hint' }
+                           attributes: { 'aria-describedby' => 'assistant_age_hint' }
       end
     end
 
@@ -295,7 +295,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :phone, "What's your phone number?"
         assert_hint :phone, 'This is a hint'
-        assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant-phone-hint' }
+        assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant_phone_hint' }
       end
     end
 
@@ -335,7 +335,7 @@ module GovukFormBuilderTestable
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        assert_equal 'assistant_department_id_hint', select['aria-describedby']
       end
     end
 
@@ -362,7 +362,7 @@ module GovukFormBuilderTestable
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
@@ -446,7 +446,7 @@ module GovukFormBuilderTestable
         assert_label :description, 'Enter description'
         assert_hint :description, 'This is a hint'
         assert_text_area :description,
-                         attributes: { 'aria-describedby' => 'assistant-description-hint' }
+                         attributes: { 'aria-describedby' => 'assistant_description_hint' }
       end
     end
 
@@ -459,11 +459,11 @@ module GovukFormBuilderTestable
         assert_label :description, 'Enter description'
         assert_text_area :description,
                          classes: ['geoff'],
-                         attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant-description-field-info' }
+                         attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant_description-info' }
 
         info = assert_select("span.#{@brand}-hint.#{@brand}-character-count__message").first
         assert_includes info.text.strip, '20 words'
-        assert_equal 'assistant-description-field-info', info['id']
+        assert_equal 'assistant_description-info', info['id']
       end
     end
 
@@ -498,7 +498,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :title, 'Title'
         assert_hint :title, 'This is a hint'
-        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant-title-hint' }
+        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant_title_hint' }
       end
     end
 
@@ -545,7 +545,7 @@ module GovukFormBuilderTestable
         assert_label :website, "What's your website?"
         assert_hint :website, 'This is a hint'
         assert_input :website, type: :url, value: 'https://www.ab.com',
-                               attributes: { 'aria-describedby' => 'assistant-website-hint' }
+                               attributes: { 'aria-describedby' => 'assistant_website_hint' }
       end
     end
 

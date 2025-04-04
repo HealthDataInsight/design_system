@@ -37,8 +37,7 @@ module GovukFormBuilderTestableHelper
 
   # Asserts the presence and attributes of a hint
   def assert_hint(field = nil, text = nil, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "div.#{@brand}-hint[id='#{model}-#{field_for_id}-hint']"
+    selector = "div.#{@brand}-hint[id='#{model}_#{field}_hint']"
     assert_select(selector, text)
   end
 
@@ -50,8 +49,7 @@ module GovukFormBuilderTestableHelper
   # Asserts the presence and attributes of a label
   # TODO: support special labels like checkbox_label?
   def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
+    selector = "label.#{@brand}-label[for='#{model}_#{field}']"
     selector << classes.map { |c| ".#{c}" }.join
     assert_select(selector, text)
   end
@@ -80,12 +78,11 @@ module GovukFormBuilderTestableHelper
   #   assert_form_element(:textarea, :description, classes: ['custom-class'])
   #   assert_form_element(:file_upload, :cv, type: :file, attributes: { accept: 'application/pdf' })
   def assert_form_element(element_type, base_class, field, options = {})
-    field_for_id = field.to_s.gsub('_', '-')
     base_classes = ["#{@brand}-#{base_class}"]
     classes = (base_classes + Array(options[:classes])).flatten.compact
 
     attributes = {
-      id: "#{options[:model] || 'assistant'}-#{field_for_id}-field",
+      id: "#{options[:model] || 'assistant'}_#{field}",
       name: "#{options[:model] || 'assistant'}[#{field}]"
     }.merge(options[:attributes] || {})
 
