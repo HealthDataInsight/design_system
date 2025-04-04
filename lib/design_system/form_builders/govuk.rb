@@ -46,7 +46,12 @@ module DesignSystem
       def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
         options, value, unchecked_value = separate_options_and_value(options, checked_value, unchecked_value)
 
-        label = { size: nil, text: translated_label(value) }
+        # First try to find a custom translation for this specific value
+        # If no custom translation provided, fall back to the default humanised value
+        custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
+        label = { size: nil,
+                  text: custom_translation.include?('Translation missing') ? translated_label(value) : custom_translation }
+
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -159,7 +164,7 @@ module DesignSystem
 
       def ds_error_summary(title = nil, options = nil)
         title, options = separate_content_or_options(title, options)
-        title ||= I18n.t('helpers.error_summary.title')
+        title ||= I18n.t('activerecord.errors.title')
 
         # title [String] the error summary heading
         # link_base_errors_to [Symbol,String] set the field that errors on +:base+ are linked
@@ -175,7 +180,7 @@ module DesignSystem
                                    order: nil, **options)
       end
 
-      # Same interface as ActionView::Helpers::FormHelper.fieldset, but with legend and fieldset tags automatically added.
+      # Same interface as ActionView::Helpers::FormHelper.field_set_tag, but with legend and fieldset tags automatically added.
       def ds_field_set_tag(legend = nil, options = nil, &)
         legend = { text: legend || 'Fieldset heading' }
         options ||= {}
