@@ -373,7 +373,7 @@ module GovukFormBuilderTestable
 
     test 'ds_select without choices' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_select(:department_id, {}, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
+        f.ds_select(:department_id, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
       end
 
       assert_form_group do
