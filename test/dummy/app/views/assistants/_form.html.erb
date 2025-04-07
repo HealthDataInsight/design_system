@@ -1,15 +1,6 @@
 <%= form_with(model: assistant) do |form| %>
-  <% if false || assistant.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(assistant.errors.count, "error") %> prohibited this assistant from being saved:</h2>
+  <%= form.ds_error_summary link_base_errors_to: :email %>
 
-      <ul>
-        <% assistant.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <%#= form.ds_label(:title, text: 'What is your title?' )%>
   <%= form.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30" %>
   <%= form.ds_phone_field :phone, width: 20, hint: "Demo for ds_phone_field" %>
