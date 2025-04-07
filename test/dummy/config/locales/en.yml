@@ -43,6 +43,8 @@ en:
         role_id: What's your role?
         title: Title
         website: What's your website?
+    errors:
+      title: There is a problem
   notices:
     create:
       success: "%{model} was successfully created."
