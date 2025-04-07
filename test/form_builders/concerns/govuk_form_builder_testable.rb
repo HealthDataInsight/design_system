@@ -490,7 +490,7 @@ module GovukFormBuilderTestable
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        assert_equal 'assistant_department_id_hint', select['aria-describedby']
         assert_select("label.#{@brand}-label.#{@brand}-label--l", text: "What's your department?")
       end
     end

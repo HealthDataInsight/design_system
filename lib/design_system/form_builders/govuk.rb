@@ -247,17 +247,17 @@ module DesignSystem
 
       def optional_label(method, options)
         # We want to fallback to the default label text if no custom text is provided
-        default_text = { size: nil, text: translated_label(method) }
-        custom_text = options.delete(:label) || {}
-        text = default_text.merge(custom_text)
-        text[:text] ||= default_text[:text]
-        text
+        default_text_for(method, options, :label)
       end
 
       def optional_legend(method, options)
         # We want to fallback to the default legend text if no custom text is provided
+        default_text_for(method, options, :legend)
+      end
+
+      def default_text_for(method, options, key)
         default_text = { size: nil, text: translated_label(method) }
-        custom_text = options.delete(:legend) || {}
+        custom_text = options.delete(key) || {}
         text = default_text.merge(custom_text)
         text[:text] ||= default_text[:text]
         text
