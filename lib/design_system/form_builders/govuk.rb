@@ -27,9 +27,8 @@ module DesignSystem
 
       # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
       def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
-        options, html_options = separate_rails_or_html_options(options, html_options)
+        label = optional_label(method, options)
 
-        label = { size: nil, text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -44,7 +43,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.date_field, but with label automatically added.
       def ds_date_field(method, options = {})
-        legend = { text: translated_label(method) }
+        legend = optional_legend(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -60,7 +59,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.email_field, but with label automatically added.
       def ds_email_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -70,9 +69,9 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
       def ds_file_field(method, options = {})
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
-        label = { size: nil, text: translated_label(method) }
 
         # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
         govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
@@ -92,7 +91,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.number_field, but with label automatically added.
       def ds_number_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -102,7 +101,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
       def ds_password_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -131,7 +130,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.phone_field, but with label automatically added.
       def ds_phone_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -143,7 +142,7 @@ module DesignSystem
       def ds_select(method, choices = nil, options = {}, html_options = {}, &)
         choices, options, html_options = separate_choices_or_options(choices, options, html_options)
 
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -177,7 +176,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added.
       def ds_text_area(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -191,7 +190,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
       def ds_text_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -214,7 +213,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.url_field, but with label automatically added.
       def ds_url_field(method, options = {})
-        label = { size: nil, text: translated_label(method) }
+        label = optional_label(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -223,6 +222,24 @@ module DesignSystem
       end
 
       private
+
+      def optional_label(method, options)
+        # We want to fallback to the default label text if no custom text is provided
+        default_text = { size: nil, text: translated_label(method) }
+        custom_text = options.delete(:label) || {}
+        text = default_text.merge(custom_text)
+        text[:text] ||= default_text[:text]
+        text
+      end
+
+      def optional_legend(method, options)
+        # We want to fallback to the default legend text if no custom text is provided
+        default_text = { size: nil, text: translated_label(method) }
+        custom_text = options.delete(:legend) || {}
+        text = default_text.merge(custom_text)
+        text[:text] ||= default_text[:text]
+        text
+      end
 
       def translated_label(method)
         # We need to retrieve the label translation in the same way as Tags::Label
