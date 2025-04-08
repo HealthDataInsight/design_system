@@ -1,7 +1,6 @@
 class AssistantsController < ApplicationController
   before_action :all_departments, only: %i[new edit create update]
   before_action :set_assistant, only: %i[show edit update destroy]
-  before_action :set_options, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -50,11 +49,6 @@ class AssistantsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_assistant
     @assistant = Assistant.find(params[:id])
-  end
-
-  def set_options
-    @colours = Assistant::COLOURS
-    @fillings = Assistant::FILLINGS
   end
 
   def all_departments
