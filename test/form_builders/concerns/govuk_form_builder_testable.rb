@@ -53,7 +53,7 @@ module GovukFormBuilderTestable
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
@@ -76,25 +76,35 @@ module GovukFormBuilderTestable
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        assert_equal 'assistant_department_id_hint', select['aria-describedby']
       end
     end
 
     test 'ds_collection_select with html options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:department_id, Department.all, :id, :title, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
+        f.ds_collection_select(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
       end
 
       assert_form_group do
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select.geoff[placeholder=bar]").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
         assert_equal '1', options[0]['value']
         assert_equal 'Sales', options[0].text.strip
+      end
+    end
+
+    test 'ds_collection_select with custom label size' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_select(:department_id, Department.all, :id, :title, label: { size: 'l' })
+      end
+
+      assert_form_group do
+        assert_select("label.#{@brand}-label.#{@brand}-label--l", text: "What's your department?")
       end
     end
 
@@ -104,7 +114,7 @@ module GovukFormBuilderTestable
       end
 
       assert_form_group do
-        assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant-date-of-birth-hint]") do
+        assert_select("fieldset.#{@brand}-fieldset[aria-describedby=assistant_date_of_birth_hint]") do
           legend = assert_select("legend.#{@brand}-fieldset__legend").first
           assert_equal "What's your date of birth?", legend.text.strip
 
@@ -155,6 +165,16 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_date_field with custom legend size' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_date_field(:date_of_birth, legend: { size: nil })
+      end
+
+      assert_form_group do
+        assert_select("legend.#{@brand}-fieldset__legend", text: "What's your date of birth?")
+      end
+    end
+
     test 'ds_email_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_email_field(:email)
@@ -175,7 +195,7 @@ module GovukFormBuilderTestable
         assert_label :email, "What's your email?"
         assert_hint :email, 'This is a hint'
         assert_input :email, type: :email, value: 'one@ex.com',
-                             attributes: { 'aria-describedby' => 'assistant-email-hint' }
+                             attributes: { 'aria-describedby' => 'assistant_email_hint' }
       end
     end
 
@@ -224,10 +244,10 @@ module GovukFormBuilderTestable
           assert_select("div.#{@brand}-error-summary__body") do
             assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
               assert_select('li') do
-                assert_select("a[href='#assistant-title-field-error']", 'Enter a title')
+                assert_select("a[href='#assistant_title_error']", 'Enter a title')
               end
               assert_select('li') do
-                assert_select("a[href='#assistant-department-id-field-error']", 'Select a department')
+                assert_select("a[href='#assistant_department_id_error']", 'Select a department')
               end
             end
           end
@@ -254,10 +274,10 @@ module GovukFormBuilderTestable
         assert_select("div.#{@brand}-error-summary__body") do
           assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
             assert_select('li') do
-              assert_select("a[href='#assistant-title-field-error']", 'Enter a title')
+              assert_select("a[href='#assistant_title_error']", 'Enter a title')
             end
             assert_select('li') do
-              assert_select("a[href='#assistant-department-id-field-error']", 'Select a department')
+              assert_select("a[href='#assistant_department_id_error']", 'Select a department')
             end
           end
         end
@@ -285,7 +305,7 @@ module GovukFormBuilderTestable
           assert_select("div.#{@brand}-error-summary__body") do
             assert_select("ul.#{@brand}-list.#{@brand}-error-summary__list") do
               assert_select('li') do
-                assert_select("a[href='#assistant-email-field']", 'Enter a telephone number or email address')
+                assert_select("a[href='#assistant_email']", 'Enter a telephone number or email address')
               end
             end
           end
@@ -360,7 +380,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :cv, 'Upload a file'
         assert_hint :cv, 'This is a hint'
-        assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant-cv-hint' }
+        assert_file_upload :cv, type: :file, attributes: { 'aria-describedby' => 'assistant_cv_hint' }
       end
     end
 
@@ -416,7 +436,7 @@ module GovukFormBuilderTestable
         assert_label :age, "What's your age?"
         assert_hint :age, 'This is a hint'
         assert_input :age, type: :number, value: '30',
-                           attributes: { 'aria-describedby' => 'assistant-age-hint' }
+                           attributes: { 'aria-describedby' => 'assistant_age_hint' }
       end
     end
 
@@ -464,7 +484,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :phone, "What's your phone number?"
         assert_hint :phone, 'This is a hint'
-        assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant-phone-hint' }
+        assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant_phone_hint' }
       end
     end
 
@@ -730,18 +750,280 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_select with hint' do
+    test 'ds_radio_button' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling) do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+            f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_select("div.#{@brand}-radios[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-pastrami-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'pastrami', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'pastrami', classes: ["#{@brand}-radios__label"]
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-cheddar-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'cheddar', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'cheddar', classes: ["#{@brand}-radios__label"]
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_radio_button with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, hint: 'This is a hint') do
+          f.ds_radio_button(:desired_filling, :pastrami, hint: 'Brined, smoked, steamed and seasoned') +
+            f.ds_radio_button(:desired_filling, :cheddar, hint: 'A sharp, off-white natural cheese')
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_hint :desired_filling, 'This is a hint'
+
+          assert_select("div.#{@brand}-radios[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-pastrami-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'pastrami', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'pastrami', classes: ["#{@brand}-radios__label"]
+
+              assert_hint :desired_filling, 'Brined, smoked, steamed and seasoned', value: 'pastrami', classes: ["#{@brand}-radios__hint"]
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              input = assert_select("input.#{@brand}-radios__input").first
+              assert_equal 'assistant-desired-filling-cheddar-field', input['id']
+              assert_equal 'assistant[desired_filling]', input['name']
+              assert_equal 'cheddar', input['value']
+              assert_equal 'radio', input['type']
+
+              assert_label :desired_filling, value: 'cheddar', classes: ["#{@brand}-radios__label"]
+
+              assert_hint :desired_filling, 'A sharp, off-white natural cheese', value: 'cheddar', classes: ["#{@brand}-radios__hint"]
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_radio_buttons_fieldset with option inline' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, inline: true) do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+            f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_select("div.#{@brand}-radios.#{@brand}-radios--inline[data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Pastrami')
+            end
+
+            assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Cheddar')
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_radio_buttons_fieldset with html options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling, class: 'geoff', 'data-foo': 'bar') do
+          f.ds_radio_button(:desired_filling, :pastrami) +
+            f.ds_radio_button(:desired_filling, :cheddar)
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal 'What do you want in your sandwich?', legend.text.strip
+
+          assert_select("div.#{@brand}-radios.geoff[data-foo=bar][data-module='#{@brand}-radios']") do
+            assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+              assert_select("input.#{@brand}-radios__input")
+              assert_select("label.#{@brand}-label.#{@brand}-radios__label", 'Pastrami')
+            end
+          end
+        end
+      end
+    end
+
+    test 'ds_collection_radio_buttons with hint' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, hint: 'This is a hint')
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          legend = assert_select("legend.#{@brand}-fieldset__legend").first
+          assert_equal "What's your department?", legend.text.strip
+
+          assert_hint :department_id, 'This is a hint'
+
+          assert_select("div.#{@brand}-radios") do
+            radio_items = assert_select("div.#{@brand}-radios__item")
+            assert_equal 5, radio_items.length, 'Expected 3 radio items'
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(1)") do
+            radio_1 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-1-field', radio_1['id']
+            assert_equal 'assistant[department_id]', radio_1['name']
+            assert_equal 'radio', radio_1['type']
+            assert_equal '1', radio_1['value']
+
+            assert_label :department_id, 'Sales', value: '1', classes: ["#{@brand}-radios__label"]
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(2)") do
+            radio_2 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-2-field', radio_2['id']
+            assert_equal 'assistant[department_id]', radio_2['name']
+            assert_equal 'radio', radio_2['type']
+            assert_equal '2', radio_2['value']
+
+            assert_label :department_id, 'Marketing', value: '2', classes: ["#{@brand}-radios__label"]
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(3)") do
+            radio_3 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-3-field', radio_3['id']
+            assert_equal 'assistant[department_id]', radio_3['name']
+            assert_equal 'radio', radio_3['type']
+            assert_equal '3', radio_3['value']
+
+            assert_label :department_id, 'Finance', value: '3', classes: ["#{@brand}-radios__label"]
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(4)") do
+            radio_4 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-4-field', radio_4['id']
+            assert_equal 'assistant[department_id]', radio_4['name']
+            assert_equal 'radio', radio_4['type']
+            assert_equal '4', radio_4['value']
+
+            assert_label :department_id, 'Operations', value: '4', classes: ["#{@brand}-radios__label"]
+          end
+
+          assert_select("div.#{@brand}-radios__item:nth-child(5)") do
+            radio_5 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-5-field', radio_5['id']
+            assert_equal 'assistant[department_id]', radio_5['name']
+            assert_equal 'radio', radio_5['type']
+            assert_equal '5', radio_5['value']
+
+            assert_label :department_id, 'Personnel', value: '5', classes: ["#{@brand}-radios__label"]
+          end
+        end
+      end
+    end
+
+    test 'ds_collection_radio_buttons with html options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, class: 'geoff', placeholder: 'bar')
+      end
+
+      assert_form_group do
+        assert_select("div.#{@brand}-radios.geoff[placeholder=bar]") do
+          assert_select("div.#{@brand}-radios__item") do
+            radio_1 = assert_select("input.#{@brand}-radios__input").first
+            assert_equal 'assistant-department-id-1-field', radio_1['id']
+            assert_equal 'assistant[department_id]', radio_1['name']
+            assert_equal 'radio', radio_1['type']
+            assert_equal '1', radio_1['value']
+
+            assert_label :department_id, 'Sales', value: '1', classes: ["#{@brand}-radios__label"]
+          end
+        end
+      end
+    end
+
+    test 'ds_collection_radio_buttons with block' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title) do
+          content_tag(:p, 'Hello')
+        end
+      end
+
+      assert_form_group do
+        assert_select("fieldset.#{@brand}-fieldset") do
+          assert_select('p', 'Hello')
+        end
+      end
+    end
+
+    test 'ds_select with options (hint and label)' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id,
                     options_for_select(Department.all.map { |department| [department.title, department.id] }),
-                    { hint: 'This is a hint' })
+                    hint: 'This is a hint', label: { size: 'l' })
       end
 
       assert_form_group do
         assert_hint :department_id, 'This is a hint'
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-hint', select['aria-describedby']
+        assert_equal 'assistant_department_id_hint', select['aria-describedby']
+        assert_select("label.#{@brand}-label.#{@brand}-label--l", text: "What's your department?")
+      end
+    end
+
+    test 'ds_select with html options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), {}, { class: 'geoff', placeholder: 'bar' })
+      end
+
+      assert_form_group do
+        assert_label :department_id, "What's your department?"
+        assert_select("select.#{@brand}-select.geoff[placeholder=bar]")
+      end
+    end
+
+    test 'ds_select without choices' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
+      end
+
+      assert_form_group do
+        assert_hint :department_id, 'This is a hint'
+        assert_select("select.#{@brand}-select.geoff[placeholder='bar']") do
+          assert_select 'option', count: 0
+        end
       end
     end
 
@@ -768,7 +1050,7 @@ module GovukFormBuilderTestable
         assert_label :department_id, "What's your department?"
 
         select = assert_select("select.#{@brand}-select").first
-        assert_equal 'assistant-department-id-field', select['id']
+        assert_equal 'assistant_department_id', select['id']
         assert_equal 'assistant[department_id]', select['name']
 
         options = assert_select('option')
@@ -852,7 +1134,7 @@ module GovukFormBuilderTestable
         assert_label :description, 'Enter description'
         assert_hint :description, 'This is a hint'
         assert_text_area :description,
-                         attributes: { 'aria-describedby' => 'assistant-description-hint' }
+                         attributes: { 'aria-describedby' => 'assistant_description_hint' }
       end
     end
 
@@ -865,11 +1147,11 @@ module GovukFormBuilderTestable
         assert_label :description, 'Enter description'
         assert_text_area :description,
                          classes: ['geoff'],
-                         attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant-description-field-info' }
+                         attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant_description-info' }
 
         info = assert_select("span.#{@brand}-hint.#{@brand}-character-count__message").first
         assert_includes info.text.strip, '20 words'
-        assert_equal 'assistant-description-field-info', info['id']
+        assert_equal 'assistant_description-info', info['id']
       end
     end
 
@@ -904,7 +1186,7 @@ module GovukFormBuilderTestable
       assert_form_group do
         assert_label :title, 'Title'
         assert_hint :title, 'This is a hint'
-        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant-title-hint' }
+        assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant_title_hint' }
       end
     end
 
@@ -951,7 +1233,7 @@ module GovukFormBuilderTestable
         assert_label :website, "What's your website?"
         assert_hint :website, 'This is a hint'
         assert_input :website, type: :url, value: 'https://www.ab.com',
-                               attributes: { 'aria-describedby' => 'assistant-website-hint' }
+                               attributes: { 'aria-describedby' => 'assistant_website_hint' }
       end
     end
 

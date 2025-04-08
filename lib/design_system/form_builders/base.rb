@@ -41,64 +41,34 @@ module DesignSystem
 
       # This method separates the options and values and distinguishes between checked and unchecked values
       # It's a helper for checkboxes
-      def separate_options_and_value(options, checked_value, unchecked_value)
-        if options.is_a?(Hash)
-          value = checked_value
-        else
-          value = options
-          unchecked_value = (checked_value == '1' ? false : checked_value)
-          options = {}
-        end
+      # TODO: Remove this method once we've confirmed that it's not used
+      # def separate_options_and_value(options, checked_value, unchecked_value)
+      #   if options.is_a?(Hash)
+      #     value = checked_value
+      #   else
+      #     value = options
+      #     unchecked_value = (checked_value == '1' ? false : checked_value)
+      #     options = {}
+      #   end
 
-        value = true if value == '1'
-        unchecked_value = false if unchecked_value == '0'
-        options ||= {}
+      #   value = true if value == '1'
+      #   unchecked_value = false if unchecked_value == '0'
+      #   options ||= {}
 
-        [options, value, unchecked_value]
-      end
+      #   [options, value, unchecked_value]
+      # end
 
       # This method separates the choices and options from the html_options
       def separate_choices_or_options(choices = nil, options = {}, html_options = {})
-        if choices.is_a?(Hash) && html_options.nil?
-          options, html_options = separate_rails_or_html_options(choices, options)
-          choices = nil
+        if choices.is_a?(Hash) && html_options.empty?
+          html_options = options
+          options = choices
+          choices = []
         end
+
+        choices ||= []
 
         [choices, options, html_options]
-      end
-
-      # This method separates the rails select options and html_options
-      def separate_rails_or_html_options(options = {}, html_options = {})
-        if html_options.empty? && !rails_options?(options)
-          html_options = options
-          options = nil
-        end
-
-        options ||= {}
-        html_options ||= {}
-
-        [options, html_options]
-      end
-
-      # Helper to check if a hash contains Rails form options
-      # If it doesn't, it means that the options are html options
-      # TODO: Support mixed options?
-      def rails_options?(hash)
-        rails_options = %i[
-          bold_labels
-          exclusive
-          form_group
-          hint
-          hint_method
-          include_blank
-          include_hidden
-          label
-          legend
-          link_errors
-          prompt
-        ]
-
-        hash.is_a?(Hash) && hash.keys.any? { |key| rails_options.include?(key) }
       end
     end
   end

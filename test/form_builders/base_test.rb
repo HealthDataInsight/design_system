@@ -11,24 +11,12 @@ module FormBuilders
       @builder = Base.new('test', 'test', self, {})
     end
 
-    test 'separate_rails_or_html_options with Rails options' do
-      options = { include_blank: true, prompt: 'Select a department' }
-      html_options = { class: 'my-class' }
+    test 'separate_choices_or_options without choices' do
+      choices, options, html_options = @builder.send(:separate_choices_or_options, { hint: 'This is a hint' }, { class: 'geoff' })
 
-      result_options, result_html_options = @builder.send(:separate_rails_or_html_options, options, html_options)
-
-      assert_equal options, result_options
-      assert_equal html_options, result_html_options
-    end
-
-    test 'separate_rails_or_html_options with HTML options as options' do
-      options = { class: 'my-class', data: { foo: 'bar' } }
-      html_options = {}
-
-      result_options, result_html_options = @builder.send(:separate_rails_or_html_options, options, html_options)
-
-      assert_empty result_options
-      assert_equal options, result_html_options
+      assert_equal [], choices
+      assert_equal({ hint: 'This is a hint' }, options)
+      assert_equal({ class: 'geoff' }, html_options)
     end
 
     test 'separate_options_and_value with options and unchecked_value' do

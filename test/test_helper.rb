@@ -36,14 +36,8 @@ module GovukFormBuilderTestableHelper
   end
 
   # Asserts the presence and attributes of a hint
-  def assert_hint(field = nil, text = nil, value: nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    value_for_id = value.to_s.gsub('_', '-')
-    selector = if value
-                 "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-#{value_for_id}-hint']"
-               else
-                 "div.#{@brand}-hint#{classes.map { |c| ".#{c}" }.join}[id='#{model}-#{field_for_id}-hint']"
-               end
+  def assert_hint(field = nil, text = nil, model: 'assistant')
+    selector = "div.#{@brand}-hint[id='#{model}_#{field}_hint']"
     assert_select(selector, text)
   end
 
@@ -54,14 +48,9 @@ module GovukFormBuilderTestableHelper
 
   # Asserts the presence and attributes of a label
   # TODO: support special labels like checkbox_label?
-  def assert_label(field = nil, text = nil, value: nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    value_for_id = value.to_s.gsub('_', '-')
-    if value
-      selector = "label.#{@brand}-label#{classes.map { |c| ".#{c}" }.join}[for='#{model}-#{field_for_id}-#{value_for_id}-field']"
-    else
-      selector = "label.#{@brand}-label#{classes.map { |c| ".#{c}" }.join}[for='#{model}-#{field_for_id}-field']"
-    end
+  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
+    selector = "label.#{@brand}-label[for='#{model}_#{field}']"
+    selector << classes.map { |c| ".#{c}" }.join
     assert_select(selector, text)
   end
 
@@ -89,12 +78,11 @@ module GovukFormBuilderTestableHelper
   #   assert_form_element(:textarea, :description, classes: ['custom-class'])
   #   assert_form_element(:file_upload, :cv, type: :file, attributes: { accept: 'application/pdf' })
   def assert_form_element(element_type, base_class, field, options = {})
-    field_for_id = field.to_s.gsub('_', '-')
     base_classes = ["#{@brand}-#{base_class}"]
     classes = (base_classes + Array(options[:classes])).flatten.compact
 
     attributes = {
-      id: "#{options[:model] || 'assistant'}-#{field_for_id}-field",
+      id: "#{options[:model] || 'assistant'}_#{field}",
       name: "#{options[:model] || 'assistant'}[#{field}]"
     }.merge(options[:attributes] || {})
 
