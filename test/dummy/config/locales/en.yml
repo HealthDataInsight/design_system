@@ -47,6 +47,10 @@ en:
         terms_agreed: Do you agree to the terms?
         title: Title
         website: What's your website?
+    options:
+      assistant:
+        terms_agreed:
+          true: Yes, I agree
     errors:
       title: There is a problem
   notices:
