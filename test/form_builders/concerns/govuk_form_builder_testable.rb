@@ -48,7 +48,7 @@ module GovukFormBuilderTestable
 
     test 'ds_collection_select with html options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:department_id, Department.all, :id, :title, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
+        f.ds_collection_select(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
       end
 
       assert_form_group do
@@ -61,6 +61,16 @@ module GovukFormBuilderTestable
         options = assert_select('option')
         assert_equal '1', options[0]['value']
         assert_equal 'Sales', options[0].text.strip
+      end
+    end
+
+    test 'ds_collection_select with custom label size' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_select(:department_id, Department.all, :id, :title, label: { size: 'l' })
+      end
+
+      assert_form_group do
+        assert_select("label.#{@brand}-label.#{@brand}-label--l", text: "What's your department?")
       end
     end
 
@@ -118,6 +128,16 @@ module GovukFormBuilderTestable
             assert_equal 'numeric', year_input['inputmode']
           end
         end
+      end
+    end
+
+    test 'ds_date_field with custom legend size' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_date_field(:date_of_birth, legend: { size: nil })
+      end
+
+      assert_form_group do
+        assert_select("legend.#{@brand}-fieldset__legend", text: "What's your date of birth?")
       end
     end
 
@@ -459,11 +479,11 @@ module GovukFormBuilderTestable
       end
     end
 
-    test 'ds_select with hint' do
+    test 'ds_select with options (hint and label)' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id,
                     options_for_select(Department.all.map { |department| [department.title, department.id] }),
-                    { hint: 'This is a hint' })
+                    hint: 'This is a hint', label: { size: 'l' })
       end
 
       assert_form_group do
@@ -471,6 +491,31 @@ module GovukFormBuilderTestable
 
         select = assert_select("select.#{@brand}-select").first
         assert_equal 'assistant_department_id_hint', select['aria-describedby']
+        assert_select("label.#{@brand}-label.#{@brand}-label--l", text: "What's your department?")
+      end
+    end
+
+    test 'ds_select with html options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), {}, { class: 'geoff', placeholder: 'bar' })
+      end
+
+      assert_form_group do
+        assert_label :department_id, "What's your department?"
+        assert_select("select.#{@brand}-select.geoff[placeholder=bar]")
+      end
+    end
+
+    test 'ds_select without choices' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
+      end
+
+      assert_form_group do
+        assert_hint :department_id, 'This is a hint'
+        assert_select("select.#{@brand}-select.geoff[placeholder='bar']") do
+          assert_select 'option', count: 0
+        end
       end
     end
 

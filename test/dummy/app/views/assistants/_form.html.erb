@@ -10,10 +10,10 @@
   <%= form.ds_password_field :password, hint: "Demo for ds_password_field", class: "#{brand}-input--width-30" %>
   <%= form.ds_number_field :age, width: 3, hint: "Demo for ds_number_field" %>
   <%= form.ds_text_area :description, hint: "Demo for ds_text_area" %>
-  <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true %>
+  <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { size: nil }%>
 
   <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "Demo for ds_collection_select", prompt: "Please select", include_blank: false %>
-  <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "Demo for ds_select" %>
+  <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "Demo for ds_select", label: { size: 'm', caption: { text: 'Label size default to nil. If you want to customise it, you can do so here. For example, below is a medium size label' } } %>
 
   <%= form.ds_submit %>
   <%= form.ds_submit "Draft", type: :secondary %>
