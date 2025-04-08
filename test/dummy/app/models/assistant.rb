@@ -1,6 +1,6 @@
 # This is a demonstration class for testing the design system.
 class Assistant < ApplicationRecord
-  Filling = Struct.new(:id, :name, :description)
+  Filling = Struct.new(:id, :title, :description)
   Colour = Struct.new(:id, :title, :description)
 
   FILLINGS = [
@@ -13,7 +13,7 @@ class Assistant < ApplicationRecord
     Colour.new('blue', 'Blue', 'Violets are... purple?')
   ].freeze
 
-  serialize :desired_filling, JSON
+  # serialize :desired_filling, Array
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.
   # This results in errors being added to the object on attributes that do not appear in the form, for example on department instead of department_id.

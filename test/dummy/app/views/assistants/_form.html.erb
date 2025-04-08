@@ -16,7 +16,7 @@
   <% end %>
 
   <%= form.ds_field_set_tag "Checkboxes" do %>
-    <%= form.ds_collection_check_boxes :desired_filling, @fillings, :id, :name, hint_method: :description, hint: "Demo for ds_collection_check_boxes" %>
+    <%= form.ds_collection_check_boxes :desired_filling, @fillings, :id, :title, hint_method: :description, hint: "Demo for ds_collection_check_boxes" %>
 
     <%#= form.ds_check_boxes_fieldset :desired_filling, multiple: true, hint: "Demo for ds_check_boxes_fieldset" do %>
       <%#= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :pastrami %>
