@@ -21,6 +21,18 @@ class AssistantTest < ActiveSupport::TestCase
     assert_empty assistant.errors.details[:title]
   end
 
+  test 'validates department' do
+    assistant = Assistant.new
+
+    assistant.department = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:department_id], error: :blank
+
+    assistant.department = departments(:marketing)
+    assistant.valid?
+    assert_empty assistant.errors.details[:department_id]
+  end
+
   test 'validates age' do
     assistant = Assistant.new
 
@@ -149,18 +161,6 @@ class AssistantTest < ActiveSupport::TestCase
     assistant.website = 'http://www.example.com'
     assistant.valid?
     assert_empty assistant.errors.details[:website]
-  end
-
-  test 'validates department' do
-    assistant = Assistant.new
-
-    assistant.department = nil
-    refute assistant.valid?
-    assert_includes assistant.errors.details[:department_id], error: :blank
-
-    assistant.department = departments(:marketing)
-    assistant.valid?
-    assert_empty assistant.errors.details[:department_id]
   end
 
   test 'validates role' do
