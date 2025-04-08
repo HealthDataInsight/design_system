@@ -19,22 +19,26 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.check_box, but with label automatically added.
       def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
-        options, value, unchecked_value = separate_options_and_value(options, checked_value, unchecked_value)
-
         # First try to find a custom translation for this specific value
         # If no custom translation provided, fall back to the default humanised value
         custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
-        label = { size: nil,
-                  text: custom_translation.include?('Translation missing') ? translated_label(value) : custom_translation }
+        label = if custom_translation.include?('Translation missing')
+                  optional_label(value, options)
+                else
+                  optional_label(value, options, custom_translation)
+                end
 
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
+        value = true if checked_value == '1'
+        unchecked_value = false if unchecked_value == '0'
+
         # link_errors [Boolean] controls whether this radio button should be linked to from {#govuk_error_summary}
         # exclusive [Boolean] sets the checkbox so that when checked none of its siblings can be too. Usually
         #   used for the 'None of these apply to me' option found beneath a {#govuk_check_box_divider}.
-        govuk_check_box(method, value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
-                                                        exclusive: false, **options)
+        govuk_check_box(method, value:, unchecked_value:, hint:, label:, link_errors: false, multiple: true,
+                                exclusive: false, **options)
       end
 
       def ds_check_boxes_fieldset(method, options = {}, &)
@@ -340,22 +344,23 @@ module DesignSystem
 
       private
 
-      def optional_label(method, options)
+      def optional_label(method_or_value, options, fallback_text = nil)
         # We want to fallback to the default label text if no custom text is provided
-        default_text_for(method, options, :label)
+        label_or_legend_content(method, options, :label, fallback_text)
       end
 
-      def optional_legend(method, options)
+      def optional_legend(method_or_value, options, fallback_text = nil)
         # We want to fallback to the default legend text if no custom text is provided
-        default_text_for(method, options, :legend)
+        label_or_legend_content(method, options, :legend, fallback_text)
       end
 
-      def default_text_for(method, options, key)
-        default_text = { size: nil, text: translated_label(method) }
-        custom_text = options.delete(key) || {}
-        text = default_text.merge(custom_text)
-        text[:text] ||= default_text[:text]
-        text
+      # This helper generates label or legend content
+      def label_or_legend_content(method_or_value, options, key, fallback_text = nil)
+        default_content = { size: nil, text: fallback_text || translated_label(method_or_value) }
+        custom_content = options.delete(key) || {}
+        content = default_content.merge(custom_content)
+        content[:text] ||= default_content[:text]
+        content
       end
 
       def translated_label(method)
