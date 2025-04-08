@@ -70,7 +70,6 @@ class AssistantsController < ApplicationController
       :date_of_birth,
       :department_id,
       :description,
-      :desired_filling,
       :email,
       :lunch_option,
       :password,
@@ -78,7 +77,8 @@ class AssistantsController < ApplicationController
       :role_id,
       :terms_agreed,
       :title,
-      :website
+      :website,
+      desired_filling: []
     )
   end
 end

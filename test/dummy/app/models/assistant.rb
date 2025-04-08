@@ -13,7 +13,7 @@ class Assistant < ApplicationRecord
     Colour.new('blue', 'Blue', 'Violets are... purple?')
   ].freeze
 
-  # serialize :desired_filling, Array
+  serialize :desired_filling, coder: JSON
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.
   # This results in errors being added to the object on attributes that do not appear in the form, for example on department instead of department_id.
@@ -28,8 +28,6 @@ class Assistant < ApplicationRecord
             presence: { message: 'Select a colour' }
   validates :description,
             presence: { message: 'Enter a description' }
-  validates :desired_filling,
-            presence: { message: 'Select at least one filling' }
   validates :lunch_option,
             presence: { message: 'Select a lunch option' }
   validates :password,
@@ -48,6 +46,7 @@ class Assistant < ApplicationRecord
   validates :role_id, presence: { message: 'Select at least one role' }
 
   validate :dob_must_be_in_the_past, if: -> { date_of_birth.present? }
+  validate :must_select_at_least_one_filling
   validate :phone_or_email_exists
 
   private
@@ -56,6 +55,12 @@ class Assistant < ApplicationRecord
     return unless phone.blank? && email.blank?
 
     errors.add(:base, 'Enter a telephone number or email address')
+  end
+
+  def must_select_at_least_one_filling
+    return unless desired_filling.blank? || desired_filling.reject(&:blank?).empty?
+
+    errors.add(:desired_filling, 'Select at least one filling')
   end
 
   def dob_must_be_in_the_past
