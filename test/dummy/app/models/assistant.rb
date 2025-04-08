@@ -13,7 +13,7 @@ class Assistant < ApplicationRecord
     Colour.new('blue', 'Blue', 'Violets are... purple?')
   ].freeze
 
-  serialize :desired_filling, coder: JSON
+  serialize :desired_filling, coder: YAML
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.
   # This results in errors being added to the object on attributes that do not appear in the form, for example on department instead of department_id.
