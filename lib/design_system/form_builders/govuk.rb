@@ -68,14 +68,14 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormOptionsHelper.collection_radio_buttons, but with legend automatically added.
       def ds_collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &)
-        legend = { text: translated_label(method) }
         hint = options.delete(:hint)
         hint = { text: hint } if hint
         hint_method = options.delete(:hint_method)
-        caption = options.delete(:caption) || {}
         bold_labels = options.delete(:bold_labels)
-        include_hidden = options.delete(:include_hidden) || true
+        caption = options.delete(:caption) || {}
         form_group = options.delete(:form_group) || {}
+        include_hidden = options.delete(:include_hidden) || true
+        legend = { text: translated_label(method) }
 
         # value_method [Symbol, Proc] The method called against each member of the collection to provide the value.
         #   When a +Proc+ is provided it must take a single argument that is a single member of the collection
