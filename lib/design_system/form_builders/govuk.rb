@@ -42,7 +42,7 @@ module DesignSystem
       end
 
       def ds_check_boxes_fieldset(method, options = {}, &)
-        legend = { text: translated_label(method) }
+        legend = optional_legend(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -54,7 +54,7 @@ module DesignSystem
       # Same interface as ActionView::Helpers::FormOptionsHelper.collection_check_boxes, but with legend automatically added.
       def ds_collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {},
                                     &)
-        legend = { text: translated_label(method) }
+        legend = optional_legend(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
         hint_method = options.delete(:hint_method)
@@ -75,7 +75,7 @@ module DesignSystem
         caption = options.delete(:caption) || {}
         form_group = options.delete(:form_group) || {}
         include_hidden = options.delete(:include_hidden) || true
-        legend = { text: translated_label(method) }
+        legend = optional_legend(method, options)
 
         # value_method [Symbol, Proc] The method called against each member of the collection to provide the value.
         #   When a +Proc+ is provided it must take a single argument that is a single member of the collection
@@ -162,8 +162,9 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.field_set_tag, but with legend and fieldset tags automatically added.
       def ds_field_set_tag(legend = nil, options = nil, &)
-        legend = { text: legend || 'Fieldset heading' }
         options ||= {}
+        legend_options = options.delete(:legend) || {}
+        legend = { text: legend || 'Fieldset heading' }.merge(legend_options)
 
         govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
       end
@@ -241,7 +242,7 @@ module DesignSystem
 
       # Same interface as ActionView::Helpers::FormHelper.radio_button, but with label automatically added.
       def ds_radio_button(method, tag_value, options = {})
-        label = { size: nil, text: translated_label(tag_value) }
+        label = optional_label(tag_value, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
@@ -249,7 +250,7 @@ module DesignSystem
       end
 
       def ds_radio_buttons_fieldset(method, options = {}, &)
-        legend = { text: translated_label(method) }
+        legend = optional_legend(method, options)
         hint = options.delete(:hint)
         hint = { text: hint } if hint
 
