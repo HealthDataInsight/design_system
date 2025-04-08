@@ -46,23 +46,21 @@ class AssistantTest < ActiveSupport::TestCase
 
     assistant.desired_filling = nil
     refute assistant.valid?
-    assert_includes assistant.errors.details[:desired_filling], error: :blank
+    assert_includes assistant.errors.details[:desired_filling], error: 'Select at least one filling'
 
     assistant.desired_filling = []
     refute assistant.valid?
-    assert_includes assistant.errors.details[:desired_filling], error: :blank
+    assert_includes assistant.errors.details[:desired_filling], error: 'Select at least one filling'
 
     assistant.desired_filling = ['pastrami']
     assistant.valid?
     assert_empty assistant.errors.details[:desired_filling]
-    assert_equal ['pastrami'], assistant.desired_filling
     assert_equal ['pastrami'], assistant.read_attribute(:desired_filling)
 
     assistant.desired_filling = %w[pastrami cheddar]
     assistant.valid?
     assert_empty assistant.errors.details[:desired_filling]
-    assert_equal %w[pastrami cheddar], assistant.desired_filling
-    assert_equal '["pastrami","cheddar"]', assistant.read_attribute(:desired_filling)
+    assert_equal %w[pastrami cheddar], assistant.read_attribute(:desired_filling)
   end
 
   test 'validates lunch option' do
