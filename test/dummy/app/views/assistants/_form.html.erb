@@ -24,7 +24,7 @@
     <%# end %>
 
     <%= form.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: "Demo for ds_check_boxes_fieldset" do %>
-      <%= form.ds_check_box :terms_agreed, { multiple: false, link_errors: true }, true, false %>
+      <%= form.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'Demo for checkbox item hint' }, true, false %>
     <% end %>
   <% end %>
 
