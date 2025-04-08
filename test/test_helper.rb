@@ -36,8 +36,16 @@ module GovukFormBuilderTestableHelper
   end
 
   # Asserts the presence and attributes of a hint
-  def assert_hint(field = nil, text = nil, model: 'assistant')
-    selector = "div.#{@brand}-hint[id='#{model}_#{field}_hint']"
+  def assert_hint(field = nil, value = nil, text = nil, classes: [], model: 'assistant')
+    base_class = "div.#{@brand}-hint"
+    class_selector = base_class + classes.map { |c| ".#{c}" }.join
+
+    selector = if value
+                 "#{class_selector}[id='#{model}_#{field}_#{value}_hint']"
+               else
+                 "#{class_selector}[id='#{model}_#{field}_hint']"
+               end
+
     assert_select(selector, text)
   end
 
@@ -48,8 +56,12 @@ module GovukFormBuilderTestableHelper
 
   # Asserts the presence and attributes of a label
   # TODO: support special labels like checkbox_label?
-  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
-    selector = "label.#{@brand}-label[for='#{model}_#{field}']"
+  def assert_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
+    selector = if value
+                 "label.#{@brand}-label[for='#{model}_#{field}_#{value}']"
+               else
+                 "label.#{@brand}-label[for='#{model}_#{field}']"
+               end
     selector << classes.map { |c| ".#{c}" }.join
     assert_select(selector, text)
   end
