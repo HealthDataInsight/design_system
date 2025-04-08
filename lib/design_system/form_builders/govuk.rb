@@ -164,7 +164,8 @@ module DesignSystem
       def ds_field_set_tag(legend = nil, options = nil, &)
         options ||= {}
         legend_options = options.delete(:legend) || {}
-        legend = { text: legend || 'Fieldset heading' }.merge(legend_options)
+        custom_translation = I18n.t('helpers.fieldset.legend')
+        legend = { text: legend || custom_translation }.merge(legend_options)
 
         govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
       end

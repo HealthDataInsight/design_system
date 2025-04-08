@@ -53,6 +53,9 @@ en:
           true: Yes, I agree
     errors:
       title: There is a problem
+  helpers:
+    fieldset:
+      legend: Fieldset heading
   notices:
     create:
       success: "%{model} was successfully created."

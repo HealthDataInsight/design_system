@@ -12,7 +12,7 @@ module GovukFormBuilderTestable
 
     test 'ds_check_box with single checkbox' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_check_boxes_fieldset(:desired_filling, { multiple: true }) do
+        f.ds_check_boxes_fieldset(:desired_filling, { multiple: true, legend: { size: 'm' } }) do
           f.ds_check_box(:desired_filling, { multiple: true }, :pastrami)
         end
       end
