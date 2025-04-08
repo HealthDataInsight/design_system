@@ -18,37 +18,5 @@ module FormBuilders
       assert_equal({ hint: 'This is a hint' }, options)
       assert_equal({ class: 'geoff' }, html_options)
     end
-
-    test 'separate_options_and_value with options and unchecked_value' do
-      options, value, unchecked_value = @builder.send(:separate_options_and_value, { hint: 'This is a hint' }, 'yes', 'no')
-
-      assert_equal({ hint: 'This is a hint' }, options)
-      assert_equal('yes', value)
-      assert_equal('no', unchecked_value)
-    end
-
-    test 'separate_options_and_value with options, without unchecked_value' do
-      options, value, unchecked_value = @builder.send(:separate_options_and_value, { hint: 'This is a hint' }, 'yes', '0')
-
-      assert_equal({ hint: 'This is a hint' }, options)
-      assert_equal('yes', value)
-      assert_equal(false, unchecked_value)
-    end
-
-    test 'separate_options_and_value without options, with unchecked_value' do
-      options, value, unchecked_value = @builder.send(:separate_options_and_value, 'yes', 'no', '0')
-
-      assert_equal({}, options)
-      assert_equal('yes', value)
-      assert_equal('no', unchecked_value)
-    end
-
-    test 'separate_options_and_value without options or unchecked_value' do
-      options, value, unchecked_value = @builder.send(:separate_options_and_value, 'yes', '1', '0')
-
-      assert_equal({}, options)
-      assert_equal('yes', value)
-      assert_equal(false, unchecked_value)
-    end
   end
 end

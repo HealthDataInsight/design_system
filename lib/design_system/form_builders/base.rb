@@ -39,7 +39,7 @@ module DesignSystem
         [content, options]
       end
 
-      # This method separates the choices and options from the html_options
+      # This method separates the choices for ds_select from options
       def separate_choices_or_options(choices = nil, options = {}, html_options = {})
         if choices.is_a?(Hash) && html_options.empty?
           html_options = options
