@@ -1,6 +1,6 @@
 class AssistantsController < ApplicationController
-  before_action :all_departments, only: %i[new edit create update]
   before_action :set_assistant, only: %i[show edit update destroy]
+  before_action :all_departments, only: %i[new edit create update]
 
   # GET /assistants
   def index

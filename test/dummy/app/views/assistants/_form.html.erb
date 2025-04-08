@@ -3,7 +3,7 @@
 
   <%#= form.ds_label(:title, text: 'What is your title?' )%>
 
-  <%= form.ds_field_set_tag "Input fields", { legend: { size: 's' } } do %>
+  <%= form.ds_field_set_tag "Input fields" do %>
     <%= form.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30" %>
     <%= form.ds_phone_field :phone, width: 20, hint: "Demo for ds_phone_field" %>
     <%= form.ds_email_field :email, width: 20, hint: "Demo for ds_email_field" %>

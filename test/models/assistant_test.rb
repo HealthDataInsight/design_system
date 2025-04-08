@@ -1,6 +1,26 @@
 require 'test_helper'
 
 class AssistantTest < ActiveSupport::TestCase
+  test 'validates title' do
+    assistant = Assistant.new
+
+    assistant.title = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:title], error: :blank
+
+    assistant.title = ''
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:title], error: :blank
+
+    assistant.title = 'a'
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:title], error: :too_short, count: 2
+
+    assistant.title = 'foo'
+    assistant.valid?
+    assert_empty assistant.errors.details[:title]
+  end
+
   test 'validates age' do
     assistant = Assistant.new
 
@@ -113,26 +133,6 @@ class AssistantTest < ActiveSupport::TestCase
     assistant.terms_agreed = '1'
     assistant.valid?
     assert_empty assistant.errors.details[:terms_agreed]
-  end
-
-  test 'validates title' do
-    assistant = Assistant.new
-
-    assistant.title = nil
-    refute assistant.valid?
-    assert_includes assistant.errors.details[:title], error: :blank
-
-    assistant.title = ''
-    refute assistant.valid?
-    assert_includes assistant.errors.details[:title], error: :blank
-
-    assistant.title = 'a'
-    refute assistant.valid?
-    assert_includes assistant.errors.details[:title], error: :too_short, count: 2
-
-    assistant.title = 'foo'
-    assistant.valid?
-    assert_empty assistant.errors.details[:title]
   end
 
   test 'validates website' do
