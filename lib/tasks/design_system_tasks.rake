@@ -85,7 +85,7 @@ def copy_files_from_repo(temp_dir, version, brand)
 end
 
 desc 'Update the NHS frontend to a specific version'
-task :update_nhs_frontend, [:version] do |t, args|
+task :update_nhs_frontend, [:version] do |_t, args|
   version = args[:version]
   validate_version(version)
   brand = 'nhsuk'
@@ -114,7 +114,7 @@ task :update_nhs_frontend, [:version] do |t, args|
 end
 
 desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
-task :update_ndrs_frontend, [:version] do |t, args|
+task :update_ndrs_frontend, [:version] do |_t, args|
   version = args[:version]
   validate_version(version)
   brand = 'ndrsuk'
