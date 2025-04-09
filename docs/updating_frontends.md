@@ -53,13 +53,13 @@ The files in the repo's ./packages/assets folder need to be copied to the [publi
 ### Layout
 The [layout file](../app/views/layouts/nhsuk.html.erb) will need to be updated to change version numbers of links, etc.
 
-## NDRSUK Frontend (currently v8.1.1)
+## NDRSUK Frontend (currently v9.1.0)
 The SCSS files are currently in the [downloaded repo's](https://github.com/HealthDataInsight/ndrsuk-frontend) ./packages folder. After downloading, run the script in ./scripts/nhs2ndrs. This will edit and rename files as required. There is additional information in the repo's README.md. The complete list is:
 - ./ndrsuk.scss
 - ./components/**/*
 - ./core/**/*
 
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/ndrsuk-frontend-8.1.1), retaining the folder structure.
+These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/ndrsuk-frontend-9.1.0), retaining the folder structure.
 
 ### Javascript
 
