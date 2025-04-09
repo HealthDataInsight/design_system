@@ -16,14 +16,88 @@ module DesignSystem
 
       # TODO: will be supported in next PR
       # dividers
-      # ds_check_box
-      # ds_check_boxes_fieldset
-      # ds_collection_check_boxes
-      # ds_collection_radio_buttons
-      # ds_error_summary
-      # ds_fieldset
-      # ds_radio_button
-      # ds_radio_buttons_fieldset
+
+      # Same interface as ActionView::Helpers::FormHelper.check_box, but with label automatically added.
+      def ds_check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
+        value = checked_value == '1' ? true : checked_value
+        unchecked_value = false if unchecked_value == '0'
+
+        # First try to find a custom translation for this specific value
+        # If no custom translation provided, fall back to the default humanised value
+        custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
+        label = if custom_translation.include?('Translation missing')
+                  optional_label(value, options)
+                else
+                  optional_label(value, options, custom_translation)
+                end
+
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # link_errors [Boolean] controls whether this radio button should be linked to from {#govuk_error_summary}
+        # exclusive [Boolean] sets the checkbox so that when checked none of its siblings can be too. Usually
+        #   used for the 'None of these apply to me' option found beneath a {#govuk_check_box_divider}.
+        govuk_check_box(method, value, unchecked_value, hint:, label:, link_errors: false, multiple: true,
+                                                        exclusive: false, **options)
+      end
+
+      def ds_check_boxes_fieldset(method, options = {}, &)
+        legend = optional_legend(method, options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        # multiple [Boolean] controls whether the check box is part of a collection or represents a single attribute
+        govuk_check_boxes_fieldset(method,
+                                   legend:, caption: {}, hint:, small: false, form_group: {}, multiple: true, **options, &)
+      end
+
+      # Same interface as ActionView::Helpers::FormOptionsHelper.collection_check_boxes, but with legend automatically added.
+      def ds_collection_check_boxes(method, collection, value_method, text_method, options = {}, html_options = {},
+                                    &)
+        legend = optional_legend(method, options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+        hint_method = options.delete(:hint_method)
+        caption = options.delete(:caption) || {}
+        form_group = options.delete(:form_group) || {}
+        include_hidden = options.delete(:include_hidden) || config.default_collection_check_boxes_include_hidden
+
+        govuk_collection_check_boxes(method, collection, value_method, text_method, hint_method, hint:, legend:,
+                                                                                                 caption:, small: false, form_group:, include_hidden:, **html_options, &)
+      end
+
+      # Same interface as ActionView::Helpers::FormOptionsHelper.collection_radio_buttons, but with legend automatically added.
+      def ds_collection_radio_buttons(method, collection, value_method, text_method, options = {}, html_options = {}, &)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+        hint_method = options.delete(:hint_method)
+        bold_labels = options.delete(:bold_labels)
+        caption = options.delete(:caption) || {}
+        form_group = options.delete(:form_group) || {}
+        include_hidden = options.delete(:include_hidden) || true
+        legend = optional_legend(method, options)
+
+        # value_method [Symbol, Proc] The method called against each member of the collection to provide the value.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection
+        # text_method [Symbol, Proc, nil] The method called against each member of the collection to provide the label text.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection.
+        #   When a +nil+ value is provided the label text will be retrieved from the locale.
+        # hint_method [Symbol, Proc, nil] The method called against each member of the collection to provide the hint text.
+        #   When a +Proc+ is provided it must take a single argument that is a single member of the collection.
+        #   When a +nil+ value is provided the hint text will be retrieved from the locale. This is the default and param can be omitted.
+        # legend [NilClass,Hash,Proc] options for configuring the legend. Legend will be omitted if +nil+.
+        # inline [Boolean] controls whether the radio buttons are displayed inline or not
+        # small [Boolean] controls whether small radio buttons are used instead of regular-sized ones
+        # bold_labels [Boolean] controls whether the radio button labels are bold
+        # include_hidden [Boolean] controls whether a hidden field is inserted to allow for empty submissions
+        # legend text [String] the fieldset legend's text content
+        # legend size [String] the size of the fieldset legend font, can be +xl+, +l+, +m+ or +s+
+        # legend tag [Symbol,String] the tag used for the fieldset's header, defaults to +h1+.
+        # legend hidden [Boolean] control the visibility of the legend. Hidden legends will still be read by screenreaders
+        # legend kwargs [Hash] additional arguments are applied as attributes on the +legend+ element
+        govuk_collection_radio_buttons(method, collection, value_method, text_method, hint_method:, hint:, legend:,
+                                                                                      caption:, inline: false, small: false, bold_labels:, include_hidden:, form_group:, **html_options, &)
+      end
 
       # Same interface as  ActionView::Helpers::FormOptionsHelper.collection_select, but with label automatically added.
       # label, hint, caption and form_group should be provided as options rather than html_options
@@ -84,6 +158,16 @@ module DesignSystem
         #   messages that will be rendered in the summary.
         govuk_error_summary(title, presenter: config.default_error_summary_presenter, link_base_errors_to: nil,
                                    order: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.field_set_tag, but with legend and fieldset tags automatically added.
+      def ds_field_set_tag(legend = nil, options = nil, &)
+        options ||= {}
+        legend_options = options.delete(:legend) || {}
+        custom_translation = I18n.t('helpers.fieldset.legend')
+        legend = { text: legend || custom_translation }.merge(legend_options)
+
+        govuk_fieldset(legend:, caption: {}, described_by: nil, **options, &)
       end
 
       # Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added
@@ -155,6 +239,24 @@ module DesignSystem
 
         govuk_phone_field(method, hint:, label:, caption: {}, width: nil, extra_letter_spacing: false, form_group: {},
                                   prefix_text: nil, suffix_text: nil, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.radio_button, but with label automatically added.
+      def ds_radio_button(method, tag_value, options = {})
+        label = optional_label(tag_value, options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_radio_button(method, tag_value, hint:, label:, link_errors: false, **options)
+      end
+
+      def ds_radio_buttons_fieldset(method, options = {}, &)
+        legend = optional_legend(method, options)
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        govuk_radio_buttons_fieldset(method,
+                                     hint:, legend:, caption: {}, inline: false, small: false, form_group: {}, **options, &)
       end
 
       # Same interface as ActionView::Helpers::FormOptionsHelper.select, but with label automatically added.
@@ -245,22 +347,23 @@ module DesignSystem
 
       private
 
-      def optional_label(method, options)
+      def optional_label(method_or_value, options, fallback_text = nil)
         # We want to fallback to the default label text if no custom text is provided
-        default_text_for(method, options, :label)
+        label_or_legend_content(method_or_value, options, :label, fallback_text)
       end
 
-      def optional_legend(method, options)
+      def optional_legend(method_or_value, options, fallback_text = nil)
         # We want to fallback to the default legend text if no custom text is provided
-        default_text_for(method, options, :legend)
+        label_or_legend_content(method_or_value, options, :legend, fallback_text)
       end
 
-      def default_text_for(method, options, key)
-        default_text = { size: nil, text: translated_label(method) }
-        custom_text = options.delete(key) || {}
-        text = default_text.merge(custom_text)
-        text[:text] ||= default_text[:text]
-        text
+      # This helper generates label or legend content
+      def label_or_legend_content(method_or_value, options, key, fallback_text = nil)
+        default_content = { size: nil, text: fallback_text || translated_label(method_or_value) }
+        custom_content = options.delete(key) || {}
+        content = default_content.merge(custom_content)
+        content[:text] ||= default_content[:text]
+        content
       end
 
       def translated_label(method)

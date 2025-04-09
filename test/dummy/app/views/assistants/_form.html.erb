@@ -2,21 +2,50 @@
   <%= form.ds_error_summary link_base_errors_to: :email %>
 
   <%#= form.ds_label(:title, text: 'What is your title?' )%>
-  <%= form.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30" %>
-  <%= form.ds_phone_field :phone, width: 20, hint: "Demo for ds_phone_field" %>
-  <%= form.ds_email_field :email, width: 20, hint: "Demo for ds_email_field" %>
-  <%= form.ds_url_field :website, hint: "Demo for ds_url_field" %>
-  <%= form.ds_file_field :cv %>
-  <%= form.ds_password_field :password, hint: "Demo for ds_password_field", class: "#{brand}-input--width-30" %>
-  <%= form.ds_number_field :age, width: 3, hint: "Demo for ds_number_field" %>
-  <%= form.ds_text_area :description, hint: "Demo for ds_text_area" %>
-  <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { size: nil }%>
 
-  <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "Demo for ds_collection_select", prompt: "Please select", include_blank: false %>
-  <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "Demo for ds_select", label: { size: 'm', caption: { text: 'Label size default to nil. If you want to customise it, you can do so here. For example, below is a medium size label' } } %>
+  <%= form.ds_field_set_tag "Input fields" do %>
+    <%= form.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30" %>
+    <%= form.ds_phone_field :phone, width: 20, hint: "Demo for ds_phone_field" %>
+    <%= form.ds_email_field :email, width: 20, hint: "Demo for ds_email_field" %>
+    <%= form.ds_url_field :website, hint: "Demo for ds_url_field" %>
+    <%= form.ds_file_field :cv %>
+    <%= form.ds_password_field :password, hint: "Demo for ds_password_field", class: "#{brand}-input--width-30" %>
+    <%= form.ds_number_field :age, width: 3, hint: "Demo for ds_number_field" %>
+    <%= form.ds_text_area :description, hint: "Demo for ds_text_area" %>
+    <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { size: nil }%>
+  <% end %>
 
-  <%= form.ds_submit %>
-  <%= form.ds_submit "Draft", type: :secondary %>
-  <%= form.ds_submit "Warning", type: :warning %>
-  <%= form.ds_submit "Disabled", type: :secondary, disabled: true %>
+  <%= form.ds_field_set_tag "Checkboxes" do %>
+    <%= form.ds_collection_check_boxes :desired_filling, Assistant::FILLINGS, :id, :title, hint_method: :description, hint: "Demo for ds_collection_check_boxes" %>
+
+    <%#= form.ds_check_boxes_fieldset :desired_filling, multiple: true, hint: "Demo for ds_check_boxes_fieldset" do %>
+      <%#= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :pastrami %>
+      <%#= form.ds_check_box :desired_filling, { multiple: true, link_errors: true }, :cheddar %>
+    <%# end %>
+
+    <%= form.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: "Demo for ds_check_boxes_fieldset" do %>
+      <%= form.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'Demo for checkbox item hint' }, true, false %>
+    <% end %>
+  <% end %>
+
+  <%= form.ds_field_set_tag "Selects" do %>
+    <%= form.ds_collection_select :role_id, Role.all, :id, :title, hint: "Demo for ds_collection_select", prompt: "Please select", include_blank: false %>
+    <%= form.ds_select :department_id, options_for_select(@departments.map { |department| [department.title, department.id] }), prompt: "Please select", include_blank: false, hint: "Demo for ds_select", label: { size: 'm', caption: { text: 'Label size default to nil. If you want to customise it, you can do so here. For example, below is a medium size label' } } %>
+  <% end %>
+
+  <%= form.ds_field_set_tag "Radio buttons" do %>
+    <%= form.ds_collection_radio_buttons :colour, Assistant::COLOURS, :id, :title, { hint_method: :description, hint: "Demo for ds_collection_radio_buttons" }, { small: true, inline: true } %>
+
+    <%= form.ds_radio_buttons_fieldset :lunch_option, hint: "Demo for ds_radio_buttons_fieldset" do %>
+      <%= form.ds_radio_button :lunch_option, "Salad", link_errors: true %>
+      <%= form.ds_radio_button :lunch_option, "Jacket potato" %>
+    <% end %>
+  <% end %>
+
+  <%= form.ds_field_set_tag "Submit buttons" do %>
+    <%= form.ds_submit %>
+    <%= form.ds_submit "Draft", type: :secondary %>
+    <%= form.ds_submit "Warning", type: :warning %>
+    <%= form.ds_submit "Disabled", type: :secondary, disabled: true %>
+  <% end %>
 <% end %>

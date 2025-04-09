@@ -32,19 +32,30 @@ en:
   activerecord:
     attributes:
       assistant:
-        age: What's your age?
+        age: What is your age?
+        colour: What is your favourite colour?
         cv: Upload a file
-        date_of_birth: What's your date of birth?
-        department_id: What's your department?
+        date_of_birth: What is your date of birth?
+        department_id: What is your department?
         description: Enter description
-        email: What's your email?
-        password: What's your password?
-        phone: What's your phone number?
-        role_id: What's your role?
+        desired_filling: What do you want in your sandwich?
+        email: What is your email?
+        lunch_option: What do you want to have for lunch?
+        password: What is your password?
+        phone: What is your phone number?
+        role_id: What is your role?
+        terms_agreed: Do you agree to the terms?
         title: Title
-        website: What's your website?
+        website: What is your website?
+    options:
+      assistant:
+        terms_agreed:
+          true: Yes, I agree
     errors:
       title: There is a problem
+  helpers:
+    fieldset:
+      legend: Fieldset heading
   notices:
     create:
       success: "%{model} was successfully created."

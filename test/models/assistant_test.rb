@@ -33,6 +33,80 @@ class AssistantTest < ActiveSupport::TestCase
     assert_empty assistant.errors.details[:department_id]
   end
 
+  test 'validates age' do
+    assistant = Assistant.new
+
+    assistant.age = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:age], error: :blank
+
+    assistant.age = -1
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:age], value: -1, error: :greater_than_or_equal_to, count: 0
+
+    assistant.age = 1
+    assistant.valid?
+    assert_empty assistant.errors.details[:age]
+  end
+
+  test 'validates colour' do
+    assistant = Assistant.new
+
+    assistant.colour = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:colour], error: :blank
+
+    assistant.colour = 'red'
+    assistant.valid?
+    assert_empty assistant.errors.details[:colour]
+  end
+
+  test 'validates description' do
+    assistant = Assistant.new
+
+    assistant.description = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:description], error: :blank
+
+    assistant.description = 'a'
+    assistant.valid?
+    assert_empty assistant.errors.details[:description]
+  end
+
+  test 'validates desired filling' do
+    assistant = Assistant.new
+
+    assistant.desired_filling = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:desired_filling], error: 'Select at least one filling'
+
+    assistant.desired_filling = []
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:desired_filling], error: 'Select at least one filling'
+
+    assistant.desired_filling = ['pastrami']
+    assistant.valid?
+    assert_empty assistant.errors.details[:desired_filling]
+    assert_equal ['pastrami'], assistant.read_attribute(:desired_filling)
+
+    assistant.desired_filling = %w[pastrami cheddar]
+    assistant.valid?
+    assert_empty assistant.errors.details[:desired_filling]
+    assert_equal %w[pastrami cheddar], assistant.read_attribute(:desired_filling)
+  end
+
+  test 'validates lunch option' do
+    assistant = Assistant.new
+
+    assistant.lunch_option = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:lunch_option], error: :blank
+
+    assistant.lunch_option = 'Salad'
+    assistant.valid?
+    assert_empty assistant.errors.details[:lunch_option]
+  end
+
   test 'validates password' do
     assistant = Assistant.new
 
@@ -51,6 +125,42 @@ class AssistantTest < ActiveSupport::TestCase
     assistant.password = 'password'
     assistant.valid?
     assert_empty assistant.errors.details[:password]
+  end
+
+  test 'validates terms agreed' do
+    assistant = Assistant.new
+
+    assistant.terms_agreed = false
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:terms_agreed], error: :accepted
+
+    assistant.terms_agreed = '0'
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:terms_agreed], error: :accepted
+
+    assistant.terms_agreed = true
+    assistant.valid?
+    assert_empty assistant.errors.details[:terms_agreed]
+
+    assistant.terms_agreed = '1'
+    assistant.valid?
+    assert_empty assistant.errors.details[:terms_agreed]
+  end
+
+  test 'validates website' do
+    assistant = Assistant.new
+
+    assistant.website = nil
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:website], error: :blank
+
+    assistant.website = 'not a website'
+    refute assistant.valid?
+    assert_includes assistant.errors.details[:website], error: :invalid, value: 'not a website'
+
+    assistant.website = 'http://www.example.com'
+    assistant.valid?
+    assert_empty assistant.errors.details[:website]
   end
 
   test 'validates role' do
