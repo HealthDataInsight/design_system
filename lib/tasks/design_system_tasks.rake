@@ -1,12 +1,83 @@
 desc 'Retrieve latest version of the NHS design system and generate the NDRS equivalent'
+task :retrieve_nhsuk_ds, [:version] do |_t, args|
+  require 'fileutils'
+  require 'pathname'
+
+  # Install nhsuk-frontend package
+  system('npm install nhsuk-frontend --save')
+
+  # Get the installed version from package.json
+  package_json = JSON.parse(File.read('package.json'))
+  version = args[:version] || package_json['dependencies']['nhsuk-frontend'].gsub('^', '')
+
+  # Define source and destination paths
+  FOLDERS = [
+    { src: 'node_modules/nhsuk-frontend/packages/assets',
+      dest: "public/design_system/static/nhsuk-frontend-#{version}" },
+    { src: 'node_modules/nhsuk-frontend/packages/components',
+      dest: "app/assets/stylesheets/design_system/nhsuk-frontend-#{version}/components" },
+    { src: 'node_modules/nhsuk-frontend/packages/core',
+      dest: "app/assets/stylesheets/design_system/nhsuk-frontend-#{version}/core" },
+    { src: 'node_modules/nhsuk-frontend/packages',
+      dest: "app/assets/stylesheets/design_system/nhsuk-frontend-#{version}/packages" }
+  ].freeze
+
+  # Create destination directories if they don't exist
+  FOLDERS.each do |folder|
+    FileUtils.mkdir_p(folder[:dest])
+  end
+
+  # Copy assets
+  FOLDERS.each do |folder|
+    FileUtils.rm_rf(folder[:dest]) if Dir.exist?(folder[:dest])
+    FileUtils.cp_r(folder[:src], folder[:dest])
+  end
+
+  # Remove all README.md files from assets directory
+  FOLDERS.each do |folder|
+    Dir.glob(File.join(folder[:dest], '**', 'README.md')).each do |readme_file|
+      FileUtils.rm(readme_file) if File.exist?(readme_file)
+    end
+  end
+
+  # Remove all .njk files from assets directory
+  FOLDERS.each do |folder|
+    Dir.glob(File.join(folder[:dest], '**', '*.njk')).each do |njk_file|
+      FileUtils.rm(njk_file) if File.exist?(njk_file)
+    end
+  end
+
+  # Copy nhsuk.min.js
+  min_js_src = 'node_modules/nhsuk-frontend/dist/nhsuk.min.js'
+  min_js_dest = "#{FOLDERS[0][:dest]}/nhsuk.min.js"
+  FileUtils.cp(min_js_src, min_js_dest)
+  FileUtils.rm(min_js_src) if File.exist?(min_js_src)
+
+  # Copy nhsuk.scss
+  scss_src = 'node_modules/nhsuk-frontend/packages/nhsuk.scss'
+  scss_dest = "#{FOLDERS[1][:dest]}/nhsuk.scss"
+  FileUtils.cp(scss_src, scss_dest)
+  FileUtils.rm(scss_src) if File.exist?(scss_src)
+
+  # Clean up source directories after copying
+  FOLDERS.each do |folder|
+    FileUtils.rm_rf(folder[:src]) if Dir.exist?(folder[:src])
+  end
+
+  # Uninstall nhsuk-frontend package
+  system('npm uninstall nhsuk-frontend --save')
+
+  puts "Successfully retrieved NHS UK frontend version #{version}"
+end
+
 task :make_ndrs_ds do
   require 'fileutils'
   require 'pathname'
 
   # Find the latest NHS UK frontend version
-  version = Dir.glob('public/design_system/static/nhsuk-frontend-*').
-            map { |d| d.match(/nhsuk-frontend-(\d+\.\d+\.\d+)/)[1] }.
-            max_by { |v| Gem::Version.new(v) }
+  version = Dir.glob('public/design_system/static/nhsuk-frontend-*')
+               .map { |d| d.match(/nhsuk-frontend-(\d+\.\d+\.\d+)/)[1] }
+               .max_by { |v| Gem::Version.new(v) }
 
   puts "Found NHS UK frontend version: #{version}"
 
