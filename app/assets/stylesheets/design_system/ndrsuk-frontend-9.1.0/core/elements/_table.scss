@@ -1,0 +1,51 @@
+/* ==========================================================================
+   ELEMENTS / #TABLES
+   ========================================================================== */
+
+/**
+ * 1. Force `<table>`s to be full-width by default.
+ */
+
+table {
+  @include ndrsuk-responsive-margin(7, "bottom");
+
+  border-spacing: 0;
+  vertical-align: top;
+  width: 100%; /* [1] */
+
+  @include mq($media-type: print) {
+    page-break-inside: avoid;
+  }
+}
+
+thead {
+  th {
+    border-bottom: $ndrsuk-border-table-header-width solid $ndrsuk-border-color;
+  }
+}
+
+th,
+td {
+  @include ndrsuk-typography-responsive(19);
+  @include ndrsuk-responsive-padding(3, "bottom");
+  @include ndrsuk-responsive-padding(4, "right");
+  @include ndrsuk-responsive-padding(3, "top");
+  padding-left: 0;
+
+  border-bottom: $ndrsuk-border-table-cell-width solid $ndrsuk-border-color;
+  text-align: left;
+  vertical-align: top;
+
+  &:last-child {
+    padding-right: 0;
+  }
+}
+
+th {
+  font-weight: $ndrsuk-font-bold;
+}
+
+caption {
+  @include ndrsuk-font($size: 22, $weight: bold);
+  text-align: left;
+}

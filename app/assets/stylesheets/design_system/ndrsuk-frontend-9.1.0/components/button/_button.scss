@@ -1,0 +1,275 @@
+/* ==========================================================================
+   COMPONENTS/ #BUTTON
+   ========================================================================== */
+
+/**
+ * 1. Ensure that any global link styles are overridden.
+ * 2. Fix unwanted button padding in Firefox.
+ * 3. Use a pseudo element to expand the click target area to include the
+ *    button's shadow as well, in case users try to click it.
+ */
+
+// Because the shadow (s0) is visually 'part of' the button, we need to reduce
+// the height of the button to compensate by adjusting its padding (s1) and
+// increase the bottom margin to include it (s1).
+$button-shadow-size: 4px;
+
+.ndrsuk-button {
+  @include ndrsuk-font(19);
+  @include ndrsuk-responsive-margin(5, "bottom", $adjustment: $button-shadow-size); // s1
+
+  -webkit-appearance: none;
+  background-color: $ndrsuk-button-color;
+  border: $ndrsuk-border-width-form-element solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 $button-shadow-size 0 $ndrsuk-button-shadow-color; // s0
+  box-sizing: border-box;
+  color: $ndrsuk-button-text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 0;
+  padding: 12px ndrsuk-spacing(3); // s2
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  width: auto;
+
+  @include mq($until: tablet) {
+    padding: ndrsuk-spacing(2) ndrsuk-spacing(3); // s2
+  }
+
+  /* 2 */
+  &:link,
+  &:visited,
+  &:active,
+  &:hover {
+    color: $ndrsuk-button-text-color;
+    text-decoration: none;
+  }
+
+  /* 3 */
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background-color: $ndrsuk-button-hover-color;
+  }
+
+  &:focus {
+    background: $ndrsuk-focus-color;
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-focus-text-color;
+    color: $ndrsuk-focus-text-color;
+    outline: $ndrsuk-focus-width solid transparent;
+
+    &:visited {
+      color: $ndrsuk-focus-text-color;
+
+      &:active {
+        color: $color_ndrsuk-white;
+      }
+    }
+  }
+
+  &:active {
+    background: $ndrsuk-button-active-color;
+    box-shadow: none;
+    color: $ndrsuk-button-text-color;
+    top: $button-shadow-size;
+  }
+
+  /* 4 */
+  &::before {
+    background: transparent;
+    bottom: -($ndrsuk-border-width-form-element + $button-shadow-size);
+    content: "";
+    display: block;
+    left: -$ndrsuk-border-width-form-element;
+    position: absolute;
+    right: -$ndrsuk-border-width-form-element;
+    top: -$ndrsuk-border-width-form-element;
+  }
+
+  //
+  // When the button is active it is shifted down by $button-shadow-size to
+  // denote a 'pressed' state. If the user happened to click at the very top
+  // of the button, their mouse is no longer over the button (because it has
+  // 'moved beneath them') and so the click event is not fired.
+  //
+  // This corrects that by shifting the top of the pseudo element so that it
+  // continues to cover the area that the user originally clicked, which means
+  // the click event is still fired.
+  //
+
+  &:active::before {
+    top: -($ndrsuk-border-width-form-element + $button-shadow-size);
+  }
+}
+
+/**
+ * Button variations
+ */
+
+.ndrsuk-button--secondary {
+  background-color: $ndrsuk-secondary-button-color;
+  box-shadow: 0 $button-shadow-size 0 $ndrsuk-secondary-button-shadow-color;
+
+  &:hover {
+    background-color: darken($ndrsuk-secondary-button-color, 10%);
+  }
+
+  &:focus {
+    background: $ndrsuk-focus-color;
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-focus-text-color;
+    color: $ndrsuk-focus-text-color;
+    outline: $ndrsuk-focus-width solid transparent;
+  }
+
+  &:active {
+    background: $ndrsuk-secondary-button-active-color;
+    box-shadow: none;
+    color: $ndrsuk-button-text-color;
+    top: $button-shadow-size;
+  }
+
+  &.ndrsuk-button--disabled {
+    background-color: $ndrsuk-secondary-button-color;
+  }
+}
+
+.ndrsuk-button--reverse {
+  background-color: $ndrsuk-reverse-button-color;
+  box-shadow: 0 $button-shadow-size 0 $ndrsuk-reverse-button-shadow-color;
+  color: $ndrsuk-reverse-button-text-color;
+
+  &:hover {
+    background-color: darken($ndrsuk-reverse-button-color, 5%);
+    color: $ndrsuk-reverse-button-text-color;
+  }
+
+  &:focus {
+    background: $ndrsuk-focus-color;
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-focus-text-color;
+    color: $ndrsuk-focus-text-color;
+    outline: $ndrsuk-focus-width solid transparent;
+  }
+
+  &:active {
+    background: $ndrsuk-reverse-button-active-color;
+    box-shadow: none;
+    color: $color_ndrsuk-white;
+    top: $button-shadow-size;
+  }
+
+  &:link {
+    color: $ndrsuk-reverse-button-text-color;
+
+    &:active {
+      color: $color_ndrsuk-white;
+    }
+  }
+
+  &.ndrsuk-button--disabled {
+    background-color: $ndrsuk-reverse-button-color;
+
+    &:focus {
+      background-color: $ndrsuk-reverse-button-color;
+    }
+  }
+}
+
+.ndrsuk-button--warning {
+  background-color: $ndrsuk-warning-button-color;
+  box-shadow: 0 $button-shadow-size 0 $ndrsuk-warning-button-shadow-color;
+
+  &:hover {
+    background-color: darken($ndrsuk-warning-button-color, 10%);
+  }
+
+  &:focus {
+    background: $ndrsuk-focus-color;
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-focus-text-color;
+    color: $ndrsuk-focus-text-color;
+    outline: $ndrsuk-focus-width solid transparent;
+  }
+
+  &:active {
+    background: $ndrsuk-warning-button-active-color;
+    box-shadow: none;
+    color: $ndrsuk-button-text-color;
+    top: $button-shadow-size;
+  }
+
+  &.ndrsuk-button--disabled {
+    background-color: $ndrsuk-warning-button-color;
+  }
+}
+
+/**
+ * Button disabled states
+ */
+/* stylelint-disable string-quotes */
+.ndrsuk-button--disabled,
+.ndrsuk-button[disabled="disabled"],
+.ndrsuk-button[disabled] {
+  background-color: $ndrsuk-button-color;
+  opacity: (0.5);
+  pointer-events: none;
+
+  &:hover {
+    background-color: $ndrsuk-button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    background-color: $ndrsuk-button-color;
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-button-shadow-color; // s0
+    top: 0;
+  }
+}
+
+.ndrsuk-button--secondary[disabled="disabled"],
+.ndrsuk-button--secondary[disabled] {
+  background-color: $ndrsuk-secondary-button-color;
+  opacity: (0.5);
+
+  &:hover {
+    background-color: $ndrsuk-secondary-button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-secondary-button-shadow-color; // s0
+    top: 0;
+  }
+}
+
+.ndrsuk-button--reverse[disabled="disabled"],
+.ndrsuk-button--reverse[disabled] {
+  background-color: $ndrsuk-reverse-button-color;
+  opacity: (0.5);
+
+  &:hover {
+    background-color: $ndrsuk-reverse-button-color;
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 $button-shadow-size 0 $ndrsuk-reverse-button-shadow-color; // s0
+    top: 0;
+  }
+}

@@ -1,0 +1,316 @@
+/* ==========================================================================
+   COMPONENTS / #CARD
+   ========================================================================== */
+
+/**
+ * 1. Is needed for the :active top positioning, and invisible clickable overlay.
+ * 2. Border is used to create a divider between the white content
+ *    box and an image.
+ * 3. Creates the 'pressed down' effect when clicked.
+ * 4. Removes padding-top from headings directly after the card group.
+ * 5. Includes the border width to achieve the correct left alignment.
+ * 6. Stops the heading from spanning the full width of the card.
+ * 7. Removes padding top for the feature heading positioning.
+ * 8. Default care card colour set to blue (non-urgent care card) -
+ *    using the @mixin care-card tools/_mixins.scss.
+ *    The same mixin is used for each care card, setting the background
+ *    colour,text colour and print border width with the variables.
+ * 9. 'Random number' for the heading triangle.
+ * 10. 'Random number' for the heading triangle positioning.
+ * 11. 'Random number' used for spacing to compensate for the triangle.
+ * 12. Needed to enable the triangle to show correctly in high contrast mode.
+ * 13. Prevent additional padding on headings
+ * 14. Give the action link icon sufficient contrast when used in the emergency variant
+ * 15. Reset the positioning to the default [1] to display heading triangle on a coloured background.
+ * 16. Emergency care card <a> needs to be white because the background colour is black.
+ * 17. Trick IE10 into rendering the invisible clickable area. Without this it does not.
+ */
+
+$card-border-width: 1px;
+$card-border-bottom-width: ndrsuk-spacing(1);
+$card-border-color: $color_ndrsuk-grey-4;
+$card-border-hover-color: $color_ndrsuk-grey-3;
+
+.ndrsuk-card {
+  @include ndrsuk-responsive-margin(7, "bottom");
+
+  background: $color_ndrsuk-white;
+  border: $card-border-width solid $card-border-color;
+  position: relative; /* [1] */
+  width: 100%;
+}
+
+.ndrsuk-card__img {
+  @include print-hide();
+
+  border-bottom: $card-border-width solid $color_ndrsuk-grey-5; /* [2] */
+  display: block;
+  width: 100%;
+}
+
+.ndrsuk-card__content {
+  @include top-and-bottom();
+  @include ndrsuk-responsive-padding(5);
+}
+
+.ndrsuk-card__heading,
+.ndrsuk-card__metadata,
+.ndrsuk-card__description {
+  margin-bottom: ndrsuk-spacing(3);
+}
+
+/* Clickable card
+  ========================================================================== */
+
+.ndrsuk-card--clickable {
+  border-bottom-width: $card-border-bottom-width;
+
+  .ndrsuk-card__heading a,
+  .ndrsuk-card__link {
+    &::before {
+      background-color: rgba(255, 255, 255, 0); /* [17] */
+      bottom: 0;
+      content: "";
+      display: block;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &:active {
+    border-color: $card-border-hover-color;
+    bottom: -$card-border-width; /* [3] */
+  }
+}
+
+/* Card group
+  ========================================================================== */
+
+/**
+* Card group allows you to have a row of cards.
+*
+* Flexbox is used to make each card in a row the same height.
+*/
+
+.ndrsuk-card-group {
+  @include flex();
+
+  margin-bottom: ndrsuk-spacing(3);
+  padding: 0;
+
+  @include mq($until: desktop) {
+    margin-bottom: ndrsuk-spacing(6);
+  }
+
+  + h2,
+  + .ndrsuk-heading-l,
+  + h3,
+  + .ndrsuk-heading-m {
+    padding-top: 0; /* [4] */
+  }
+}
+
+.ndrsuk-card-group__item {
+  @include flex-item();
+
+  list-style-type: none;
+  margin-bottom: 0;
+
+  .ndrsuk-card {
+    margin-bottom: ndrsuk-spacing(5);
+  }
+
+  @include mq($until: desktop) {
+    .ndrsuk-card {
+      margin-bottom: ndrsuk-spacing(3);
+    }
+
+    &:last-child .ndrsuk-card {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Card feature
+  ========================================================================== */
+
+.ndrsuk-card--feature {
+  @include ndrsuk-responsive-margin(7, "top");
+}
+
+.ndrsuk-card__heading--feature {
+  background: $color_ndrsuk-blue;
+  color: $color_ndrsuk-white;
+  display: inline-block;
+  left: -(ndrsuk-spacing(4) + $card-border-width); /* [5] */
+  margin-bottom: ndrsuk-spacing(2);
+  margin-right: -(ndrsuk-spacing(4)); /* [6] */
+  padding: ndrsuk-spacing(2) ndrsuk-spacing(4);
+  position: relative;
+  top: -(ndrsuk-spacing(2));
+
+  @include mq($from: tablet) {
+    left: -(ndrsuk-spacing(5) + $card-border-width); /* [5] */
+    margin-right: -(ndrsuk-spacing(5)); /* [6] */
+    padding: ndrsuk-spacing(2) ndrsuk-spacing(5);
+    top: -(ndrsuk-spacing(3));
+  }
+}
+
+.ndrsuk-card__content--feature {
+  padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */ /* [7] */
+}
+
+/* Care card
+  ========================================================================== */
+
+.ndrsuk-card--care {
+  @include ndrsuk-responsive-margin(7, "top");
+  @include care-card($color_ndrsuk-blue, $color_ndrsuk-white, 4px); /* [8] */
+}
+
+.ndrsuk-card--care__heading-container {
+  @include ndrsuk-responsive-padding(5, "left");
+  @include ndrsuk-responsive-padding(5, "right");
+
+  padding-bottom: ndrsuk-spacing(3);
+  padding-top: ndrsuk-spacing(3);
+  position: relative;
+}
+
+.ndrsuk-card--care__heading {
+  @include ndrsuk-font(26, $weight: bold);
+  @include print-color($ndrsuk-print-text-color);
+
+  margin: 0;
+  padding-top: 0; /* [13] */
+}
+
+.ndrsuk-card--care__arrow {
+  bottom: -10px; /* [9] */
+  display: block;
+  height: 20px; /* [9] */
+  left: 30px; /* [10] */
+  overflow: hidden;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 20px; /* [9] */
+  @include print-hide();
+
+  @include mq($from: tablet) {
+    left: 38px; /* [10] */
+  }
+
+  &:before,
+  &:after {
+    border: solid 32px $color_ndrsuk-blue; /* [9] */
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    top: 0;
+    transform: rotate(45deg); /* [12] */
+    width: 0;
+  }
+}
+
+.ndrsuk-card--care--urgent {
+  @include care-card($color_ndrsuk-red, $color_ndrsuk-white, 6px);
+
+  .ndrsuk-card--care__arrow {
+    &:before,
+    &:after {
+      border-color: $color_ndrsuk-red;
+    }
+  }
+}
+
+.ndrsuk-card--care--emergency {
+  @include care-card($color_ndrsuk-red, $color_ndrsuk-white, 8px);
+
+  .ndrsuk-card--care__arrow {
+    &:before,
+    &:after {
+      border-color: $color_ndrsuk-red;
+    }
+  }
+
+  .ndrsuk-card__content {
+    background-color: $color_ndrsuk-black;
+    border: 0;
+    color: $color_ndrsuk-white;
+    position: static; /* [15] */
+
+    a {
+      color: $color_ndrsuk-white; /* [16] */
+
+      &:focus {
+        color: $color_ndrsuk-black; /* [16] */
+      }
+    }
+    @include mq($media-type: print) {
+      background-color: white;
+      color: $ndrsuk-print-text-color;
+    }
+  }
+
+  .ndrsuk-details,
+  .ndrsuk-details__summary {
+    color: $color_ndrsuk-white;
+  }
+
+  .ndrsuk-details__summary {
+    &:hover {
+      color: $color_ndrsuk-white;
+    }
+    &:focus {
+      color: $color_ndrsuk-black;
+    }
+  }
+
+  .ndrsuk-action-link__link {
+    .ndrsuk-icon__arrow-right-circle {
+      fill: $color_ndrsuk-white; /* [14] */
+    }
+  }
+}
+
+/* Card primary
+  ========================================================================== */
+
+.ndrsuk-card__content--primary {
+  padding-right: 75px;
+
+  @include mq($from: desktop) {
+    height: 100%;
+  }
+
+  .ndrsuk-icon {
+    display: block;
+    fill: $color_ndrsuk-blue;
+    margin-top: -(ndrsuk-spacing(2));
+    pointer-events: none;
+    position: absolute;
+    right: ndrsuk-spacing(4);
+    top: 50%;
+  }
+}
+
+/* Card secondary
+  ========================================================================== */
+
+.ndrsuk-card--secondary {
+  background: transparent;
+  border-bottom: $card-border-bottom-width solid $card-border-color;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.ndrsuk-card__content--secondary {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}

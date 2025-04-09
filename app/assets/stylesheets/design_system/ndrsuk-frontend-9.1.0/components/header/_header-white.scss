@@ -1,0 +1,137 @@
+/**
+    * These are the styles for the white header variants.
+*/
+
+.ndrsuk-header--white {
+  background-color: $color_ndrsuk-white;
+
+  .ndrsuk-header__search-wrap {
+    margin-bottom: ndrsuk-spacing(3);
+
+    @include mq($until: tablet) {
+      &::after {
+        background: $color_ndrsuk-white;
+      }
+    }
+  }
+
+  .ndrsuk-navigation-container {
+    background-color: $color_ndrsuk-blue;
+  }
+
+  .ndrsuk-navigation {
+    .ndrsuk-header__navigation-list {
+      border-top: none;
+    }
+  }
+
+  .ndrsuk-logo {
+    .ndrsuk-logo__background {
+      fill: $color_ndrsuk-blue;
+    }
+
+    .ndrsuk-logo__text {
+      fill: $color_ndrsuk-white;
+    }
+  }
+
+  .ndrsuk-header__link {
+    &:hover {
+      color: $ndrsuk-text-color;
+      text-decoration: underline;
+
+      .ndrsuk-organisation-descriptor {
+        color: $ndrsuk-text-color;
+      }
+    }
+  }
+
+  .ndrsuk-search__submit {
+    background-color: $color_ndrsuk-blue;
+
+    .ndrsuk-icon__search {
+      fill: $color_ndrsuk-white;
+    }
+
+    &:hover {
+      background-color: $color_shade_ndrsuk-blue-20;
+      border-color: $color_shade_ndrsuk-blue-20;
+    }
+
+    &:focus {
+      background-color: $ndrsuk-focus-color;
+
+      .ndrsuk-icon__search {
+        fill: $ndrsuk-focus-text-color;
+      }
+    }
+  }
+
+  .ndrsuk-search__input {
+    border: 1px solid $color_ndrsuk-grey-3;
+
+    &:focus {
+      border: 2px solid $ndrsuk-focus-text-color;
+
+      @include mq($until: tablet) {
+        border: $ndrsuk-focus-width solid $ndrsuk-focus-text-color;
+      }
+    }
+  }
+
+  .ndrsuk-header__search-form {
+    @include mq($until: tablet) {
+      padding-top: 0;
+    }
+  }
+
+  .ndrsuk-organisation-name {
+    color: shade($color_ndrsuk-black, 100%);
+  }
+
+  .ndrsuk-organisation-descriptor {
+    color: $color_ndrsuk-blue;
+  }
+
+  .ndrsuk-header__transactional-service-name--link {
+    color: $color_ndrsuk-black;
+  }
+
+  .ndrsuk-header__service-name {
+    color: $ndrsuk-text-color;
+  }
+}
+
+.ndrsuk-header--white-nav {
+  .ndrsuk-navigation-container {
+    background-color: $color_ndrsuk-white;
+  }
+
+  .ndrsuk-navigation {
+    background-color: $color_ndrsuk-white;
+
+    .ndrsuk-header__navigation-list {
+      border-top: 1px solid $color_ndrsuk-grey-5;
+    }
+
+    .ndrsuk-header__navigation-link {
+      color: $color_ndrsuk-blue;
+
+      &:visited {
+        color: $color_ndrsuk-blue;
+      }
+
+      &:focus {
+        color: $ndrsuk-focus-text-color;
+
+        &:hover {
+          background: $ndrsuk-focus-color;
+        }
+      }
+    }
+
+    .ndrsuk-icon__chevron-down {
+      fill: $color_ndrsuk-blue;
+    }
+  }
+}
