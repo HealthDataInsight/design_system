@@ -33,6 +33,7 @@ All files in the repo's ./packages/govuk-frontend/dist/govuk/assets folder need 
 The [layout file](../app/views/layouts/govuk.html.erb) will need to be updated to change version numbers of links, etc.
 
 ## NHSUK Frontend (currently v9.3.0)
+To update NHSUK Frontend, run `bundle exec rake app:update_nhs_frontend\[9.3.0\]` in the terminal (replace '9.3.0' with your desired version).
 The SCSS files are currently in the [downloaded repo's](https://github.com/nhsuk/nhsuk-frontend) ./packages folder. The complete list is:
 - ./nhsuk.scss
 - ./components/**/*
@@ -54,7 +55,8 @@ The files in the repo's ./packages/assets folder need to be copied to the [publi
 The [layout file](../app/views/layouts/nhsuk.html.erb) will need to be updated to change version numbers of links, etc.
 
 ## NDRSUK Frontend (currently v9.3.0)
-The SCSS files are currently in the [downloaded repo's](https://github.com/HealthDataInsight/ndrsuk-frontend) ./packages folder. After downloading, run the script in ./scripts/nhs2ndrs. This will edit and rename files as required. There is additional information in the repo's README.md. The complete list is:
+The SCSS files are currently in the [downloaded repo's](https://github.com/HealthDataInsight/ndrsuk-frontend) ./packages folder. 
+To update NDRSUK Frontend, run `bundle exec rake app:update_ndrs_frontend\[9.3.0\]` in the terminal (replace '9.3.0' with your desired version). This will edit and rename files as required. There is additional information in the repo's README.md. The complete list is:
 - ./ndrsuk.scss
 - ./components/**/*
 - ./core/**/*
