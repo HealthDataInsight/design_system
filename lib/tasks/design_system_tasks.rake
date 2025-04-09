@@ -3,81 +3,94 @@ task :nhs2ndrs, [:version] do |t, args|
   require 'fileutils'
   require 'pathname'
 
+  # Constants
+  ASSETS_PATH = 'public/design_system/static/'
+  STYLESHEET_PATH = 'app/assets/stylesheets/design_system/'
+  ENGINE_PATH = 'lib/design_system/engine.rb'
+  NDRSUK_SCSS_PATH = "#{STYLESHEET_PATH}/ndrsuk.scss"
+
+  # Helper methods
+  def versioned_dir(version)
+    "ndrsuk-frontend-#{version}"
+  end
+
+  def semantic_version(version)
+    "v#{version}"
+  end
+
+  def rename_nhs_to_ndrs(file)
+    return unless file.include?('nhs')
+
+    new_file = file.gsub('nhs', 'ndrs')
+    FileUtils.mv(file, new_file)
+    new_file
+  end
+
+  def update_version_in_file(file_path, version)
+    content = File.read(file_path)
+    content.gsub!(/ndrsuk-frontend-\d+\.\d+\.\d+/, versioned_dir(version))
+    File.write(file_path, content)
+  end
+
+  # Main task logic
   version = args[:version]
   unless version && version.match(/^\d+\.\d+\.\d+$/)
     raise 'Please provide a version number in the format x.x.x (e.g., rake app:nhs2ndrs\[9.3.0\])'
   end
-
-  semantic_version = "v#{version}"
 
   # Create a temporary directory and clone the repo
   temp_dir = Dir.mktmpdir('ndrsuk-frontend')
   begin
     Dir.chdir(temp_dir) do
       system('git clone https://github.com/HealthDataInsight/ndrsuk-frontend.git .')
-      system("./scripts/nhs2ndrs #{semantic_version}")
+      system("./scripts/nhs2ndrs #{semantic_version(version)}")
     end
 
-    assets_path = 'public/design_system/static/'
-    stylesheet_path = 'app/assets/stylesheets/design_system/'
-
-    versioned_dir = "ndrsuk-frontend-#{version}"
-    FileUtils.mkdir_p("#{assets_path}/#{versioned_dir}")
-    FileUtils.mkdir_p("#{stylesheet_path}/#{versioned_dir}")
+    # Create necessary directories
+    FileUtils.mkdir_p("#{ASSETS_PATH}/#{versioned_dir(version)}")
+    FileUtils.mkdir_p("#{STYLESHEET_PATH}/#{versioned_dir(version)}")
 
     # Copy files from ndrsuk-frontend to design_system
     FileUtils.cp(
       "#{temp_dir}/packages/nhsuk.scss",
-      "#{stylesheet_path}/#{versioned_dir}/ndrsuk.scss"
+      "#{STYLESHEET_PATH}/#{versioned_dir(version)}/ndrsuk.scss"
     )
 
     FileUtils.cp_r(
       "#{temp_dir}/packages/components",
-      "#{stylesheet_path}/#{versioned_dir}/"
+      "#{STYLESHEET_PATH}/#{versioned_dir(version)}/"
     )
 
     FileUtils.cp_r(
       "#{temp_dir}/packages/core",
-      "#{stylesheet_path}/#{versioned_dir}/"
+      "#{STYLESHEET_PATH}/#{versioned_dir(version)}/"
     )
 
     FileUtils.cp_r(
       "#{temp_dir}/packages/assets/.",
-      "#{assets_path}/#{versioned_dir}/"
+      "#{ASSETS_PATH}/#{versioned_dir(version)}/"
     )
 
     FileUtils.cp(
       "#{temp_dir}/packages/nhsuk.js",
-      "#{assets_path}/#{versioned_dir}/ndrsuk.js"
+      "#{ASSETS_PATH}/#{versioned_dir(version)}/ndrsuk.js"
     )
 
     # Rename files to use NDRS
-    ["#{assets_path}/ndrsuk-frontend-#{version}", "#{stylesheet_path}/ndrsuk-frontend-#{version}"].each do |folder|
-      Dir.glob("#{folder}/**/*").each do |file|
+    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
+      Dir.glob("#{base_path}#{versioned_dir(version)}/**/*").each do |file|
         next unless File.file?(file)
 
-        next unless file.include?('nhs')
-
-        new_file = file.gsub('nhs', 'ndrs')
-        FileUtils.mv(file, new_file)
-        file = new_file
+        rename_nhs_to_ndrs(file)
       end
     end
 
-    # Update the engine.rb file to use the new version
-    engine_path = 'lib/design_system/engine.rb'
-    content = File.read(engine_path)
-    content.gsub!(/ndrsuk-frontend-\d+\.\d+\.\d+/, "ndrsuk-frontend-#{version}")
-    File.write(engine_path, content)
-
-    # Update the ndrsuk.scss file to use the new version
-    ndrsuk_scss_path = "#{stylesheet_path}/ndrsuk.scss"
-    content = File.read(ndrsuk_scss_path)
-    content.gsub!(/ndrsuk-frontend-\d+\.\d+\.\d+/, "ndrsuk-frontend-#{version}")
-    File.write(ndrsuk_scss_path, content)
+    # Update version in files
+    update_version_in_file(ENGINE_PATH, version)
+    update_version_in_file(NDRSUK_SCSS_PATH, version)
 
     # Remove older version ndrs folders
-    [assets_path, stylesheet_path].each do |base_path|
+    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
       Dir.glob("#{base_path}ndrsuk-frontend-*").each do |dir|
         next unless File.directory?(dir)
 
@@ -90,7 +103,8 @@ task :nhs2ndrs, [:version] do |t, args|
         FileUtils.rm_rf(dir)
       end
     end
-    puts "Bumped NDRSUK frontend to #{semantic_version}"
+
+    puts "Bumped NDRSUK frontend to #{semantic_version(version)}"
   ensure
     # Clean up the temporary directory
     FileUtils.remove_entry_secure(temp_dir)
