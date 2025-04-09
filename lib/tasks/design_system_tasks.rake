@@ -26,9 +26,27 @@ task :nhs2ndrs, [:version] do |t, args|
     new_file
   end
 
-  def remove_unused_files(dir, file_type)
-    Dir.glob("#{dir}/**/*.#{file_type}").each do |file|
-      FileUtils.rm_rf(file)
+  def remove_markdown_files(version)
+    [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
+      Dir.glob("#{dir}/#{versioned_dir(version)}/**/*.md").each do |file|
+        FileUtils.rm_rf(file)
+      end
+    end
+  end
+
+  def remove_njk_files(version)
+    [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
+      Dir.glob("#{dir}/#{versioned_dir(version)}/**/*.njk").each do |file|
+        FileUtils.rm_rf(file)
+      end
+    end
+  end
+
+  def remove_existing_versions
+    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
+      Dir.glob("#{base_path}/ndrsuk-frontend-*").each do |dir|
+        FileUtils.rm_rf(dir)
+      end
     end
   end
 
@@ -43,6 +61,8 @@ task :nhs2ndrs, [:version] do |t, args|
   unless version && version.match(/^\d+\.\d+\.\d+$/)
     raise 'Please provide a version number in the format x.x.x (e.g., rake app:nhs2ndrs\[9.3.0\])'
   end
+
+  remove_existing_versions
 
   # Create a temporary directory and clone the repo
   temp_dir = Dir.mktmpdir('ndrsuk-frontend')
@@ -96,23 +116,8 @@ task :nhs2ndrs, [:version] do |t, args|
     update_version_in_file(NDRSUK_SCSS_PATH, version)
 
     # Remove unused files
-    remove_unused_files(STYLESHEET_PATH, 'md')
-    remove_unused_files(ASSETS_PATH, 'njk')
-
-    # Remove older version ndrs folders
-    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
-      Dir.glob("#{base_path}ndrsuk-frontend-*").each do |dir|
-        next unless File.directory?(dir)
-
-        dir_version = dir.match(/ndrsuk-frontend-(\d+\.\d+\.\d+)/)
-        next unless dir_version
-
-        dir_version = dir_version[1]
-        next if dir_version == version
-
-        FileUtils.rm_rf(dir)
-      end
-    end
+    remove_markdown_files(version)
+    remove_njk_files(version)
 
     puts "Bumped NDRSUK frontend to #{semantic_version(version)}"
   ensure
