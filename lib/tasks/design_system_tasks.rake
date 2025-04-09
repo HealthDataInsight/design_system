@@ -59,7 +59,7 @@ end
 def copy_files_from_repo(temp_dir, version, brand)
   # Update SCSS files
   FileUtils.cp(
-    "#{temp_dir}/packages/#{brand}.scss",
+    "#{temp_dir}/packages/nhsuk.scss",
     "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
   )
 
@@ -79,7 +79,7 @@ def copy_files_from_repo(temp_dir, version, brand)
 
   # Update JavaScript
   FileUtils.cp(
-    "#{temp_dir}/packages/#{brand}.js",
+    "#{temp_dir}/packages/nhsuk.js",
     "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
   )
 end
@@ -122,6 +122,7 @@ task :update_ndrs_frontend, [:version] do |t, args|
   remove_existing_versions(brand)
 
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
+  puts "temp_dir: #{temp_dir}"
   begin
     Dir.chdir(temp_dir) do
       system('git clone https://github.com/HealthDataInsight/ndrsuk-frontend.git .')
