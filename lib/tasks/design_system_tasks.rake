@@ -26,6 +26,12 @@ task :nhs2ndrs, [:version] do |t, args|
     new_file
   end
 
+  def remove_unused_files(dir, file_type)
+    Dir.glob("#{dir}/**/*.#{file_type}").each do |file|
+      FileUtils.rm_rf(file)
+    end
+  end
+
   def update_version_in_file(file_path, version)
     content = File.read(file_path)
     content.gsub!(/ndrsuk-frontend-\d+\.\d+\.\d+/, versioned_dir(version))
@@ -88,6 +94,10 @@ task :nhs2ndrs, [:version] do |t, args|
     # Update version in files
     update_version_in_file(ENGINE_PATH, version)
     update_version_in_file(NDRSUK_SCSS_PATH, version)
+
+    # Remove unused files
+    remove_unused_files(STYLESHEET_PATH, 'md')
+    remove_unused_files(ASSETS_PATH, 'njk')
 
     # Remove older version ndrs folders
     [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
