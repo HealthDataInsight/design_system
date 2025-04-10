@@ -2,9 +2,6 @@ class AssistantsController < ApplicationController
   include DemoCollections
   before_action :set_assistant, only: %i[show edit update destroy]
   before_action :all_departments, only: %i[new edit create update]
-  before_action :all_roles, only: %i[new edit create update]
-  before_action :set_fillings, only: %i[new edit create update]
-  before_action :set_colours, only: %i[new edit create update]
 
   # GET /assistants
   def index
@@ -59,18 +56,6 @@ class AssistantsController < ApplicationController
     @departments = Department.all
   end
 
-  def all_roles
-    @roles = Role.all
-  end
-
-  def set_fillings
-    @fillings = fillings
-  end
-
-  def set_colours
-    @colours = colours
-  end
-
   # Only allow a list of trusted parameters through.
   def assistant_params
     params.require(:assistant).permit(
@@ -80,7 +65,6 @@ class AssistantsController < ApplicationController
       :date_of_birth,
       :department_id,
       :description,
-      :desired_filling,
       :email,
       :lunch_option,
       :password,
@@ -88,7 +72,8 @@ class AssistantsController < ApplicationController
       :role_id,
       :terms_agreed,
       :title,
-      :website
+      :website,
+      desired_filling: []
     )
   end
 end

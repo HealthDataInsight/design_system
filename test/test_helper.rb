@@ -21,7 +21,13 @@ if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
 end
 
 module GovukFormBuilderTestableHelper
-  def assert_form_group(classes = [], &block)
+  # Asserts the presence and attributes of a file upload input
+  def assert_file_upload(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('input', 'file-upload', field, type:, value:, classes:, attributes:, model:)
+  end
+
+  # Assert the presence of a form group
+  def assert_form_group(classes = [])
     assert_select('form') do
       form_group = assert_select("div.#{@brand}-form-group#{classes.map { |c| ".#{c}" }.join}").first
       assert form_group, "Form group not found with classes: #{classes.join(', ')}"
@@ -29,97 +35,78 @@ module GovukFormBuilderTestableHelper
     end
   end
 
-  def assert_label(field = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-label[for='#{model}-#{field_for_id}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
+  # Asserts the presence and attributes of a hint
+  def assert_hint(field = nil, value = nil, text = nil, classes: [], model: 'assistant')
+    base_class = "div.#{@brand}-hint"
+    class_selector = base_class + classes.map { |c| ".#{c}" }.join
+
+    selector = if value
+                 "#{class_selector}[id='#{model}_#{field}_#{value}_hint']"
+               else
+                 "#{class_selector}[id='#{model}_#{field}_hint']"
+               end
+
     assert_select(selector, text)
   end
 
-  def assert_radio_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "label.#{@brand}-radios__label[for='#{model}-#{field_for_id}-#{value}-field']"
-    selector << classes.map { |c| ".#{c}" }.join
-    assert_select(selector, text)
-  end
-
-  def assert_legend(text = nil, model: 'assistant', classes: [])
-    selector = "legend.#{@brand}-fieldset__legend#{classes.map { |c| ".#{c}" }.join}"
-    assert_select(selector, text)
-  end
-
-  def assert_hint(field = nil, text = nil, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    selector = "div.#{@brand}-hint[id='#{model}-#{field_for_id}-hint']"
-    assert_select(selector, text)
-  end
-
+  # Asserts the presence and attributes of an input field
   def assert_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    input_classes = ["#{@brand}-input"]
-    input_classes << classes
-    input_classes = input_classes.flatten.compact
+    assert_form_element('input', 'input', field, type:, value:, classes:, attributes:, model:)
+  end
 
-    input_attributes = {
-      type: type,
-      id: "#{model}-#{field_for_id}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
+  # Asserts the presence and attributes of a label
+  # TODO: support special labels like checkbox_label?
+  def assert_label(field = nil, value = nil, text = nil, model: 'assistant', classes: [])
+    selector = if value
+                 "label.#{@brand}-label[for='#{model}_#{field}_#{value}']"
+               else
+                 "label.#{@brand}-label[for='#{model}_#{field}']"
+               end
+    selector << classes.map { |c| ".#{c}" }.join
+    assert_select(selector, text)
+  end
+
+  # Asserts the presence and attributes of a text area
+  def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
+    assert_form_element('textarea', 'textarea', field, value:, classes:, attributes:, model:)
+  end
+
+  private
+
+  # Asserts the presence and attributes of a form element
+  #
+  # @param element_type [Symbol] The type of HTML element to assert (:input, :textarea, :file_upload)
+  # @param base_class [String] The class name of the element in the design system, prefixed by the brand name (e.g., 'input', 'textarea', 'file-upload')
+  # @param field [Symbol] The form field name (e.g., :title, :description)
+  # @param options [Hash] Additional options for the element
+  # @option options [String] :type The HTML input type (e.g., 'text', 'email', 'tel')
+  # @option options [String] :value The expected value of the field
+  # @option options [Array<String>] :classes Additional CSS classes to check for
+  # @option options [Hash] :attributes Additional HTML attributes to verify
+  # @option options [String] :model The model name for the field (defaults to 'assistant')
+  #
+  # @example
+  #   assert_form_element(:input, :title, type: :text, value: 'Lorem ipsum dolor sit amet')
+  #   assert_form_element(:textarea, :description, classes: ['custom-class'])
+  #   assert_form_element(:file_upload, :cv, type: :file, attributes: { accept: 'application/pdf' })
+  def assert_form_element(element_type, base_class, field, options = {})
+    base_classes = ["#{@brand}-#{base_class}"]
+    classes = (base_classes + Array(options[:classes])).flatten.compact
+
+    attributes = {
+      id: "#{options[:model] || 'assistant'}_#{field}",
+      name: "#{options[:model] || 'assistant'}[#{field}]"
+    }.merge(options[:attributes] || {})
 
     # Build the selector with each class as a separate class attribute
-    class_selector = input_classes.map { |c| ".#{c}" }.join
-    input = assert_select("input#{class_selector}").first
-    assert input, "Input not found with classes: #{input_classes.join(', ')}"
+    class_selector = classes.map { |c| ".#{c}" }.join
+    element = assert_select("#{element_type}#{class_selector}").first
+    assert element, "#{element_type.capitalize} not found with type: #{options[:type]} and classes: #{classes.join(', ')}"
 
-    input_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, input[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{input[key.to_s]}'"
+    attributes.each do |key, expected_value|
+      assert_equal expected_value.to_s, element[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{element[key.to_s]}'"
     end
 
-    assert_equal value, input['value'] if value
-  end
-
-  def assert_text_area(field = nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    textarea_classes = ["#{@brand}-textarea"]
-    textarea_classes << classes
-    textarea_classes = textarea_classes.flatten.compact
-
-    textarea_attributes = {
-      id: "#{model}-#{field_for_id}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
-
-    class_selector = textarea_classes.map { |c| ".#{c}" }.join
-    textarea = assert_select("textarea#{class_selector}").first
-    assert textarea, "Textarea not found with classes: #{textarea_classes.join(', ')}"
-
-    textarea_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, textarea[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{textarea[key.to_s]}'"
-    end
-
-    assert_equal value, textarea['value'] if value
-  end
-
-  def assert_radio_input(field = nil, type: nil, value: nil, classes: [], attributes: {}, model: 'assistant')
-    field_for_id = field.to_s.gsub('_', '-')
-    radio_input_classes = ["#{@brand}-radios__input"]
-    radio_input_classes << classes
-    radio_input_classes = radio_input_classes.flatten.compact
-
-    radio_input_attributes = {
-      type: type,
-      id: "#{model}-#{field_for_id}-#{value}-field",
-      name: "#{model}[#{field}]"
-    }.merge(attributes)
-
-    class_selector = radio_input_classes.map { |c| ".#{c}" }.join
-    radio_input = assert_select("input#{class_selector}").first
-    assert radio_input, "Radio input not found with type: #{type} and classes: #{radio_input_classes.join(', ')}"
-
-    radio_input_attributes.each do |key, expected_value|
-      assert_equal expected_value.to_s, radio_input[key.to_s], "Expected #{key} to be '#{expected_value}' but was '#{radio_input[key.to_s]}'"
-    end
-
-    assert_equal value, radio_input['value'] if value
+    assert_equal options[:value], element['value'] if options[:value]
   end
 end
