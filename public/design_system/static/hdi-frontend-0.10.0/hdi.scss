@@ -2225,7 +2225,8 @@
   --color-primary: rgb(99 102 241);
   --color-primary-content: #ffffff;
   --color-secondary: rgb(112 176 217);
-  --color-secondary-content: rgb(209 213 233);
+  --color-secondary-content: #ffffff;
+  --color-error: rgb(212, 53, 28);
   .hdi-sidebar-border {
     border-color: var(--color-gray-200);
   }
@@ -2237,7 +2238,8 @@
   --color-primary: rgb(99 102 241);
   --color-primary-content: black;
   --color-secondary: rgb(112 176 217);
-  --color-secondary-content: rgb(209 213 233);
+  --color-secondary-content: black;
+  --color-error: rgb(212, 53, 28);
   .hdi-sidebar-border {
     border-color: var(--color-gray-700);
   }
@@ -2909,22 +2911,32 @@
 .hdi-fieldset__legend--xl {
   font-size: var(--text-3xl);
   line-height: var(--tw-leading, var(--text-3xl--line-height));
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
 }
 .hdi-fieldset__legend--l {
   font-size: var(--text-2xl);
   line-height: var(--tw-leading, var(--text-2xl--line-height));
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
 }
 .hdi-fieldset__legend--m {
   font-size: var(--text-xl);
   line-height: var(--tw-leading, var(--text-xl--line-height));
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
 }
 .hdi-fieldset__legend--s {
   font-size: var(--text-lg);
   line-height: var(--tw-leading, var(--text-lg--line-height));
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
 }
 .hdi-fieldset__heading {
   font-size: var(--text-3xl);
   line-height: var(--tw-leading, var(--text-3xl--line-height));
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
   overflow-wrap: break-word;
 }
 .hdi-fieldset__legend + .hdi-hint {
