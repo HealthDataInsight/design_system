@@ -3150,6 +3150,15 @@
     width: 25%;
   }
 }
+.hdi-input__wrapper {
+  display: flex;
+  .hdi-input {
+    flex: auto;
+  }
+  .hdi-input:focus {
+    z-index: 1;
+  }
+}
 .hdi-input--error {
   border-style: var(--tw-border-style);
   border-width: 3px;
