@@ -373,6 +373,18 @@ module DesignSystem
                     translate
         content || method.humanize
       end
+
+      # GOVUKDesignSystemFormBuilder::Base field_id method
+      def govuk_field_id(method, link_errors: false)
+        GOVUKDesignSystemFormBuilder::Base.new(self, object_name, method).field_id(link_errors:)
+      end
+
+      # GOVUKDesignSystemFormBuilder::Base has_errors? method
+      def has_errors?(method = nil)
+        object.respond_to?(:errors) &&
+          object.errors.any? &&
+          object.errors.messages[method].present?
+      end
     end
   end
 end
