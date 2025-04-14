@@ -34,7 +34,9 @@
 // This adjustment will not work in browsers that do not support :not().
 // Users with these browsers will see the default size margin (5px larger).
 
-.ndrsuk-fieldset__legend:not(.ndrsuk-fieldset__legend--m):not(.ndrsuk-fieldset__legend--l):not(.ndrsuk-fieldset__legend--xl)
+.ndrsuk-fieldset__legend:not(.ndrsuk-fieldset__legend--m):not(.ndrsuk-fieldset__legend--l):not(
+    .ndrsuk-fieldset__legend--xl
+  )
   + .ndrsuk-hint {
   margin-bottom: ndrsuk-spacing(2);
 }
