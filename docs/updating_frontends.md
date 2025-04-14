@@ -32,46 +32,8 @@ All files in the repo's ./packages/govuk-frontend/dist/govuk/assets folder need 
 ### Layout
 The [layout file](../app/views/layouts/govuk.html.erb) will need to be updated to change version numbers of links, etc.
 
-## NHSUK Frontend (currently v9.3.0)
+## NHSUK Frontend (currently v9.1.0)
 To update NHSUK Frontend, run `bundle exec rake app:update_nhs_frontend\[9.3.0\]` in the terminal (replace '9.3.0' with your desired version).
-The SCSS files are currently in the [downloaded repo's](https://github.com/nhsuk/nhsuk-frontend) ./packages folder. The complete list is:
-- ./nhsuk.scss
-- ./components/**/*
-- ./core/**/*
 
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/nhsuk-frontend-9.3.0), retaining the folder structure.
-
-### Javascript
-
-The javascript file is located in the ./dist folder:
-- nhsuk.min.js
-
-It needs to be copied to the [public folder](../public/design_system/static/nhsuk-frontend-9.3.0) and renamed as nhsuk.min.js
-
-### Assets
-The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/static/nhsuk-frontend-9.3.0), again retaining the folder structure.
-
-### Layout
-The [layout file](../app/views/layouts/nhsuk.html.erb) will need to be updated to change version numbers of links, etc.
-
-## NDRSUK Frontend (currently v9.3.0)
-The SCSS files are currently in the [downloaded repo's](https://github.com/HealthDataInsight/ndrsuk-frontend) ./packages folder. 
-To update NDRSUK Frontend, run `bundle exec rake app:update_ndrs_frontend\[9.3.0\]` in the terminal (replace '9.3.0' with your desired version). This will edit and rename files as required. There is additional information in the repo's README.md. The complete list is:
-- ./ndrsuk.scss
-- ./components/**/*
-- ./core/**/*
-
-These need to be copied to the [assets folder](../app/assets/stylesheets/design_system/static/ndrsuk-frontend-9.3.0), retaining the folder structure.
-
-### Javascript
-
-The javascript file is located in the ./dist folder:
-- ndrsuk.min.js
-
-It needs to be copied to the [public folder](../public/design_system/static/ndrsuk-frontend-9.3.0) and renamed as ndrsuk.min.js
-
-### Assets
-The files in the repo's ./packages/assets folder need to be copied to the [public folder](../public/design_system/static/ndrsuk-frontend-9.3.0), again retaining the folder structure.
-
-### Layout
-The [layout file](../app/views/layouts/ndrsuk.html.erb) will need to be updated to change version numbers of links, etc.
+## NDRSUK Frontend (currently v8.1.1)
+To update NDRSUK Frontend, run `bundle exec rake app:update_ndrs_frontend\[9.3.0\]` in the terminal (replace '9.3.0' with your desired version). This will edit and rename files as required. There is additional information in the repo's README.md.
