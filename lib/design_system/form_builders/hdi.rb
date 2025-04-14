@@ -1,82 +1,30 @@
 require_relative 'base'
+require_relative 'nhsuk'
 
 module DesignSystem
   # Module namespace containing all the form builders
   module FormBuilders
     # The HDI version of the form builder
-    class Hdi < Base
-      # This builder provider the following helper methods:
-      # ds_file_field
-      # ds_label
-      # ds_password_field
-      # ds_text_area
-      # ds_text_field
-
-      # TODO: Same interface as ActionView::Helpers::FormHelper.file_field, but with label automatically added?
-      # def ds_file_field(method, options = {})
-      # end
-
-      # Same interface as ActionView::Helpers::FormHelper.label
-      def ds_label(method, content_or_options = nil, options = {}, &)
-        content, options = separate_content_or_options(content_or_options, options)
-        options = css_class_options_merge(options, %w[block text-sm font-medium leading-6 text-gray-900])
-
-        label(method, content, options, &)
-      end
-
-      # Same interface as ActionView::Helpers::FormHelper.password_field, but with label automatically added.
+    class Hdi < Nhsuk
       def ds_password_field(method, options = {})
-        options = css_class_options_merge(options, %w[
-                                            block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
-                                            ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                                            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                          ])
+        @brand = config.brand
+        options[:id] = govuk_field_id(method, link_errors: true)
+        password_field_options = css_class_options_merge(options, ["#{@brand}-input"])
 
         hint = options.delete(:hint)
-        options[:'aria-describedby'] = field_id("#{method}-hint") if hint
-        options[:autocapitalize] = 'none'
-        options[:autocomplete] = 'current-password'
-        options[:spellcheck] = 'false'
+        password_field_options[:'aria-describedby'] = field_id("#{method}-hint") if hint
+        password_field_options[:autocomplete] = 'current-password'
+        password_field_options['data-ds--show-password-target'] = 'password'
+        password_field_options.delete('text')
 
-        content_tag(:div) do
-          ds_label(method) +
+        content_tag(:div, class: "#{@brand}-form-group", 'data-controller': 'ds--show-password') do
+          ds_label(method, {}) +
             optional_hint(method, hint) +
-            content_tag(:div, class: 'mt-2') do
-              password_field(method, options)
+            content_tag(:div, class: "#{@brand}-input__wrapper") do
+              password_field(method, password_field_options) + '&nbsp;'.html_safe +
+                show_password_button
             end
         end
-      end
-
-      # TODO: Same interface as ActionView::Helpers::FormHelper.text_area, but with label automatically added?
-      # def ds_text_area(method, options = {})
-      # end
-
-      # Same interface as ActionView::Helpers::FormHelper.text_field, but with label automatically added.
-      def ds_text_field(method, options = {})
-        options = css_class_options_merge(options, %w[
-                                            block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm
-                                            ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                                            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6
-                                          ])
-
-        hint = options.delete(:hint)
-        options['aria-describedby'] = field_id("#{method}-hint") if hint
-
-        content_tag(:div) do
-          ds_label(method) +
-            optional_hint(method, hint) +
-            content_tag(:div, class: 'mt-2') do
-              text_field(method, options)
-            end
-        end
-      end
-
-      private
-
-      def optional_hint(method, hint)
-        return nil if hint.nil?
-
-        content_tag(:p, hint, id: field_id("#{method}-hint"), class: 'mt-2 text-sm text-gray-500')
       end
     end
   end

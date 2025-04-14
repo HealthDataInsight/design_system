@@ -7,6 +7,7 @@ module DesignSystem
     class Nhsuk < Govuk
       def ds_password_field(method, options = {})
         @brand = config.brand
+        options[:id] = govuk_field_id(method, link_errors: true)
         password_field_options = css_class_options_merge(options, ["#{@brand}-input"])
 
         hint = options.delete(:hint)
