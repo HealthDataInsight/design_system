@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'pathname'
 
-module NDRSHelpers
+module NdrsukHelpers
   ASSETS_PATH = 'public/design_system/static'.freeze
   STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
   ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
@@ -72,7 +72,7 @@ module NDRSHelpers
   end
 end
 
-desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
+desc 'Retrieve a specific version of the NHSUK design system and generate the NDRSUK equivalent'
 task :make_ndrsuk, [:version] do |_t, args|
   brand = 'ndrsuk'
 
