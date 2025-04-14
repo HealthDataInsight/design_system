@@ -1,14 +1,10 @@
-////
-/// Footer component
-///
-/// @group components
-////
-
-@use "sass:math";
+/* ==========================================================================
+   COMPONENTS / #FOOTER
+   ========================================================================== */
 
 .nhsuk-footer-container {
-  @include clearfix;
-  @include print-hide;
+  @include clearfix();
+  @include print-hide();
   @include nhsuk-responsive-padding(5, bottom);
   @include nhsuk-responsive-padding(5, top);
 
@@ -41,7 +37,7 @@
     float: left;
     padding-bottom: 0;
     padding-right: 40px;
-    width: math.percentage(math.div(3, 4));
+    width: 75%;
 
     &:last-child {
       padding-right: 0;
@@ -86,7 +82,7 @@
 
 .nhsuk-footer__meta {
   @include mq($until: desktop) {
-    border-top: 1px solid $color_nhsuk-grey-5;
+    border-top: 1px solid #f0f4f5;
     padding-top: 35px;
   }
 }
