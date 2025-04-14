@@ -9,7 +9,6 @@
 !/test/dummy/app/assets/builds/.keep
 /test/dummy/db/*.sqlite3
 /test/dummy/db/*.sqlite3-*
-/test/dummy/lib/tasks/hdi_sync.rake
 /test/dummy/log/*.log
 /test/dummy/node_modules/
 /test/dummy/storage/
