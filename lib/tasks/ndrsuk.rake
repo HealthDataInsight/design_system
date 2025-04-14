@@ -90,36 +90,6 @@ def copy_files_from_repo(temp_dir, version, brand)
   )
 end
 
-desc 'Update the NHS frontend to a specific version'
-task :update_nhsuk, [:version] do |_t, args|
-  version = args[:version]
-  brand = 'nhsuk'
-  validate_version(version, brand)
-
-  remove_existing_versions(brand)
-
-  temp_dir = Dir.mktmpdir("#{brand}-frontend")
-  begin
-    Dir.chdir(temp_dir) do
-      system('git clone https://github.com/nhsuk/nhsuk-frontend.git .')
-    end
-
-    setup_directories(version, brand)
-    copy_files_from_repo(temp_dir, version, brand)
-
-    update_version_in_file(ENGINE_PATH, version, brand)
-    update_version_in_file("#{STYLESHEET_PATH}/#{brand}.scss", version, brand)
-
-    remove_markdown_files(version, brand)
-    remove_njk_files(version, brand)
-    remove_js_files(version, brand)
-
-    puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
-  ensure
-    FileUtils.remove_entry_secure(temp_dir)
-  end
-end
-
 desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
 task :update_ndrsuk, [:version] do |_t, args|
   version = args[:version]
