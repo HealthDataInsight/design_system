@@ -45,10 +45,10 @@ def update_version_in_file(file_path, version, brand)
   File.write(file_path, content)
 end
 
-def validate_version(version)
+def validate_version(version, brand)
   return if version && version.match(/^\d+\.\d+\.\d+$/)
 
-  raise 'Please provide a version number in the format x.x.x (e.g., rake app:nhs2ndrs\\[9.3.0\\])'
+  raise "Please provide a version number in the format x.x.x (e.g., rake app:update_#{brand}_frontend\\[9.3.0\\])"
 end
 
 def setup_directories(version, brand)
@@ -87,7 +87,7 @@ end
 desc 'Update the NHS frontend to a specific version'
 task :update_nhs_frontend, [:version] do |_t, args|
   version = args[:version]
-  validate_version(version)
+  validate_version(version, 'nhs')
   brand = 'nhsuk'
 
   remove_existing_versions(brand)
@@ -116,7 +116,7 @@ end
 desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
 task :update_ndrs_frontend, [:version] do |_t, args|
   version = args[:version]
-  validate_version(version)
+  validate_version(version, 'ndrs')
   brand = 'ndrsuk'
 
   remove_existing_versions(brand)

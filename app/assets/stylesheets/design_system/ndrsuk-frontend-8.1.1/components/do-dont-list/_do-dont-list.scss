@@ -1,0 +1,20 @@
+/* ==========================================================================
+   COMPONENTS / #DO-DONT-LIST
+   ========================================================================== */
+
+/**
+ * Do and Don't lists help users understand more easily what they should
+ * and shouldn't do.
+ *
+ * 1. Uses @mixin panel-with-label from tools/_mixins.
+ * 2. Uses @mixin heading-label from tools/_mixins.
+ */
+
+.ndrsuk-do-dont-list {
+  @include panel-with-label($color_ndrsuk-white, $ndrsuk-text-color, $color_ndrsuk-grey-4); /* [1] */
+}
+
+.ndrsuk-do-dont-list__label {
+  @include heading-label($color_ndrsuk-blue, $color_ndrsuk-white); /* [2] */
+  @include print-color($ndrsuk-print-text-color);
+}

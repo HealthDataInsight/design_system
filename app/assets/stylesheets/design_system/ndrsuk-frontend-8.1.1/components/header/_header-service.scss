@@ -1,0 +1,58 @@
+/**
+    * These are the styles for the service header variants.
+*/
+
+.ndrsuk-header__link--service {
+  height: auto;
+  margin-bottom: -(ndrsuk-spacing(1));
+  text-decoration: none;
+  width: auto;
+
+  @include mq($from: large-desktop) {
+    align-items: center;
+    display: flex;
+    -ms-flex-align: center;
+    margin-bottom: 0;
+    width: auto;
+  }
+
+  &:hover {
+    background: none;
+
+    .ndrsuk-header__service-name {
+      text-decoration: underline;
+    }
+  }
+
+  &:focus {
+    background: $ndrsuk-focus-color;
+    box-shadow: 0 0 0 $ndrsuk-focus-width $ndrsuk-focus-color,
+      0 $ndrsuk-focus-width 0 $ndrsuk-focus-width $ndrsuk-focus-text-color;
+
+    .ndrsuk-header__service-name {
+      color: $ndrsuk-focus-text-color;
+      text-decoration: none;
+    }
+
+    .ndrsuk-logo {
+      box-shadow: none;
+    }
+  }
+}
+
+.ndrsuk-header__service-name {
+  @include ndrsuk-font(19);
+
+  color: $color_ndrsuk-white;
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+
+  @include mq($from: large-desktop) {
+    padding-left: ndrsuk-spacing(3);
+  }
+
+  @include mq($until: large-desktop) {
+    max-width: 220px;
+  }
+}
