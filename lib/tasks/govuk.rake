@@ -1,102 +1,100 @@
 require 'fileutils'
 require 'pathname'
 
-# Shared constants
-ASSETS_PATH = 'public/design_system/static'
-STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
-ENGINE_PATH = 'lib/design_system/engine.rb'
+module GovukHelpers
+  # GOVUK specific constants
+  ASSETS_PATH = 'public/design_system/static'
+  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
+  ENGINE_PATH = 'lib/design_system/engine.rb'
 
-# Shared helper methods
-def versioned_dir(version, brand)
-  "#{brand}-frontend-#{version}"
-end
+  def self.versioned_dir(version, brand)
+    "#{brand}-frontend-#{version}"
+  end
 
-def semantic_version(version)
-  "v#{version}"
-end
+  def self.semantic_version(version)
+    "v#{version}"
+  end
 
-def remove_markdown_files(version, brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
-    Dir.glob("#{dir}/#{versioned_dir(version, brand)}/**/*.md").each do |file|
-      FileUtils.rm_rf(file)
+  def self.remove_existing_versions(brand)
+    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
+      Dir.glob("#{base_path}/#{brand}-frontend-*").each do |dir|
+        FileUtils.rm_rf(dir)
+      end
     end
   end
-end
 
-def remove_njk_files(version, brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
-    Dir.glob("#{dir}/#{versioned_dir(version, brand)}/**/*.njk").each do |file|
-      FileUtils.rm_rf(file)
+  def self.update_version_in_file(file_path, version, brand)
+    content = File.read(file_path)
+    content.gsub!(/#{brand}-frontend-\d+\.\d+\.\d+/, versioned_dir(version, brand))
+    File.write(file_path, content)
+  end
+
+  def self.validate_version(version, brand)
+    return if version && version.match(/^\d+\.\d+\.\d+$/)
+
+    raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
+  end
+
+  def self.setup_directories(version, brand)
+    FileUtils.mkdir_p("#{ASSETS_PATH}/#{versioned_dir(version, brand)}")
+    FileUtils.mkdir_p("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}")
+  end
+
+  def self.copy_scss_files(temp_dir, version, brand)
+    # Copy SCSS files
+    %w[components core helpers objects overrides settings tools utilities vendor].each do |dir|
+      Dir.glob("#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{dir}/**/*.scss").each do |file|
+        relative_path = file.gsub("#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/", '')
+        target_path = "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{relative_path}"
+        FileUtils.mkdir_p(File.dirname(target_path))
+        FileUtils.cp(file, target_path)
+      end
+    end
+    %w[_base.scss all.scss].each do |file|
+      FileUtils.cp(
+        "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{file}",
+        "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{file}"
+      )
     end
   end
-end
 
-def remove_js_files(version, brand)
-  Dir.glob("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/**/**/*.js").each do |file|
-    FileUtils.rm_rf(file)
-  end
-end
-
-def remove_existing_versions(brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
-    Dir.glob("#{base_path}/#{brand}-frontend-*").each do |dir|
-      FileUtils.rm_rf(dir)
-    end
-  end
-end
-
-def update_version_in_file(file_path, version, brand)
-  content = File.read(file_path)
-  content.gsub!(/#{brand}-frontend-\d+\.\d+\.\d+/, versioned_dir(version, brand))
-  File.write(file_path, content)
-end
-
-def validate_version(version, brand)
-  return if version && version.match(/^\d+\.\d+\.\d+$/)
-
-  raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
-end
-
-def setup_directories(version, brand)
-  FileUtils.mkdir_p("#{ASSETS_PATH}/#{versioned_dir(version, brand)}")
-  FileUtils.mkdir_p("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}")
-end
-
-def copy_files_from_repo(temp_dir, version, brand)
-  # Update SCSS files
-  FileUtils.cp(
-    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.scss",
-    "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
-  )
-
-  # Update components and core
-  %w[components core].each do |dir|
+  def self.copy_assets_files(temp_dir, version, brand)
+    # Update assets
     FileUtils.cp_r(
-      "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{dir}",
-      "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/"
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/assets/.",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
     )
   end
 
-  # Update assets
-  FileUtils.cp_r(
-    "#{temp_dir}/node_modules/#{brand}-frontend/packages/assets/.",
-    "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
-  )
+  def self.copy_js_files(temp_dir, version, brand)
+    # Update JavaScript
+    FileUtils.cp(
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{brand}-frontend.min.js",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}-frontend.min.js"
+    )
+    FileUtils.cp(
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{brand}-frontend.min.js.map",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}-frontend.min.js.map"
+    )
+  end
 
-  # Update JavaScript
-  FileUtils.cp(
-    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.js",
-    "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
-  )
+  def self.remove_source_maps(version, brand)
+    Dir.glob("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/**/**/*.scss").each do |file|
+      content = File.read(file)
+      content.gsub!(%r{/\*# sourceMappingURL=.*\.scss\.map \*/\n?}, '')
+      content = content.rstrip + "\n"
+      File.write(file, content)
+    end
+  end
 end
 
-desc 'Update the NHS frontend to a specific version'
+desc 'Update the GOVUK frontend to a specific version'
 task :make_govuk, [:version] do |_t, args|
   version = args[:version]
   brand = 'govuk'
-  validate_version(version, brand)
+  GovukHelpers.validate_version(version, brand)
 
-  remove_existing_versions(brand)
+  GovukHelpers.remove_existing_versions(brand)
 
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   begin
@@ -105,17 +103,17 @@ task :make_govuk, [:version] do |_t, args|
       system("npm install #{brand}-frontend@#{version}")
     end
 
-    setup_directories(version, brand)
-    copy_files_from_repo(temp_dir, version, brand)
+    GovukHelpers.setup_directories(version, brand)
+    GovukHelpers.copy_scss_files(temp_dir, version, brand)
+    GovukHelpers.copy_assets_files(temp_dir, version, brand)
+    GovukHelpers.copy_js_files(temp_dir, version, brand)
 
-    update_version_in_file(ENGINE_PATH, version, brand)
-    update_version_in_file("#{STYLESHEET_PATH}/#{brand}.scss", version, brand)
+    GovukHelpers.update_version_in_file(GovukHelpers::ENGINE_PATH, version, brand)
+    GovukHelpers.update_version_in_file("#{GovukHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
 
-    remove_markdown_files(version, brand)
-    remove_njk_files(version, brand)
-    remove_js_files(version, brand)
+    GovukHelpers.remove_source_maps(version, brand)
 
-    puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
+    puts "Bumped #{brand.upcase} frontend to #{GovukHelpers.semantic_version(version)}"
   ensure
     # Clean up npm files
     Dir.chdir(Dir.pwd) do
