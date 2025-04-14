@@ -6,7 +6,6 @@ ASSETS_PATH = 'public/design_system/static'
 STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
 ENGINE_PATH = 'lib/design_system/engine.rb'
 
-# Shared helper methods
 def versioned_dir(version, brand)
   "#{brand}-frontend-#{version}"
 end
@@ -54,7 +53,7 @@ end
 def validate_version(version, brand)
   return if version && version.match(/^\d+\.\d+\.\d+$/)
 
-  raise "Please provide a version number in the format x.x.x (e.g., rake app:update_#{brand}\\[9.3.0\\])"
+  raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
 end
 
 def setup_directories(version, brand)
@@ -65,33 +64,33 @@ end
 def copy_files_from_repo(temp_dir, version, brand)
   # Update SCSS files
   FileUtils.cp(
-    "#{temp_dir}/node_modules/nhsuk-frontend/packages/nhsuk.scss",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.scss",
     "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
   )
 
   # Update components and core
   %w[components core].each do |dir|
     FileUtils.cp_r(
-      "#{temp_dir}/node_modules/nhsuk-frontend/packages/#{dir}",
+      "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{dir}",
       "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/"
     )
   end
 
   # Update assets
   FileUtils.cp_r(
-    "#{temp_dir}/node_modules/nhsuk-frontend/packages/assets/.",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/assets/.",
     "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
   )
 
   # Update JavaScript
   FileUtils.cp(
-    "#{temp_dir}/node_modules/nhsuk-frontend/packages/nhsuk.js",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.js",
     "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
   )
 end
 
 desc 'Update the NHS frontend to a specific version'
-task :update_nhsuk, [:version] do |_t, args|
+task :make_nhsuk, [:version] do |_t, args|
   version = args[:version]
   brand = 'nhsuk'
   validate_version(version, brand)
@@ -102,7 +101,7 @@ task :update_nhsuk, [:version] do |_t, args|
   begin
     Dir.chdir(temp_dir) do
       system('npm init -y')
-      system("npm install nhsuk-frontend@#{version}")
+      system("npm install #{brand}-frontend@#{version}")
     end
 
     setup_directories(version, brand)
@@ -119,7 +118,7 @@ task :update_nhsuk, [:version] do |_t, args|
   ensure
     # Clean up npm files
     Dir.chdir(Dir.pwd) do
-      system('npm uninstall nhsuk-frontend')
+      system("npm uninstall #{brand}-frontend")
       FileUtils.rm_rf('node_modules')
       FileUtils.rm_rf('package.json')
       FileUtils.rm_rf('package-lock.json')

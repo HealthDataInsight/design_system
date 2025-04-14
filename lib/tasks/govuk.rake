@@ -6,6 +6,7 @@ ASSETS_PATH = 'public/design_system/static'
 STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
 ENGINE_PATH = 'lib/design_system/engine.rb'
 
+# Shared helper methods
 def versioned_dir(version, brand)
   "#{brand}-frontend-#{version}"
 end
@@ -64,45 +65,44 @@ end
 def copy_files_from_repo(temp_dir, version, brand)
   # Update SCSS files
   FileUtils.cp(
-    "#{temp_dir}/packages/nhsuk.scss",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.scss",
     "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
   )
 
   # Update components and core
   %w[components core].each do |dir|
     FileUtils.cp_r(
-      "#{temp_dir}/packages/#{dir}",
+      "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{dir}",
       "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/"
     )
   end
 
   # Update assets
   FileUtils.cp_r(
-    "#{temp_dir}/packages/assets/.",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/assets/.",
     "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
   )
 
   # Update JavaScript
   FileUtils.cp(
-    "#{temp_dir}/packages/nhsuk.js",
+    "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.js",
     "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
   )
 end
 
-desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
-task :make_ndrsuk, [:version] do |_t, args|
+desc 'Update the NHS frontend to a specific version'
+task :make_govuk, [:version] do |_t, args|
   version = args[:version]
-  brand = 'ndrsuk'
+  brand = 'govuk'
   validate_version(version, brand)
 
   remove_existing_versions(brand)
 
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
-  puts "temp_dir: #{temp_dir}"
   begin
     Dir.chdir(temp_dir) do
-      system('git clone https://github.com/HealthDataInsight/ndrsuk-frontend.git .')
-      system("./scripts/nhs2ndrs #{semantic_version(version)}")
+      system('npm init -y')
+      system("npm install #{brand}-frontend@#{version}")
     end
 
     setup_directories(version, brand)
@@ -114,8 +114,16 @@ task :make_ndrsuk, [:version] do |_t, args|
     remove_markdown_files(version, brand)
     remove_njk_files(version, brand)
     remove_js_files(version, brand)
+
     puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
   ensure
+    # Clean up npm files
+    Dir.chdir(Dir.pwd) do
+      system("npm uninstall #{brand}-frontend")
+      FileUtils.rm_rf('node_modules')
+      FileUtils.rm_rf('package.json')
+      FileUtils.rm_rf('package-lock.json')
+    end
     FileUtils.remove_entry_secure(temp_dir)
   end
 end
