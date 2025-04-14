@@ -77,26 +77,26 @@ task :make_ndrsuk, [:version] do |_t, args|
   brand = 'ndrsuk'
 
   version = args[:version]
-  NDRSHelpers.validate_version(version, brand)
-  NDRSHelpers.remove_existing_versions(brand)
+  NdrsukHelpers.validate_version(version, brand)
+  NdrsukHelpers.remove_existing_versions(brand)
 
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   puts "temp_dir: #{temp_dir}"
   begin
     Dir.chdir(temp_dir) do
       system('git clone https://github.com/HealthDataInsight/ndrsuk-frontend.git .')
-      system("./scripts/nhs2ndrs #{NDRSHelpers.semantic_version(version)}")
+      system("./scripts/nhs2ndrs #{NdrsukHelpers.semantic_version(version)}")
     end
 
-    NDRSHelpers.setup_directories(version, brand)
-    NDRSHelpers.copy_scss_files(temp_dir, version, brand)
-    NDRSHelpers.copy_assets_files(temp_dir, version, brand)
-    NDRSHelpers.copy_js_files(temp_dir, version, brand)
+    NdrsukHelpers.setup_directories(version, brand)
+    NdrsukHelpers.copy_scss_files(temp_dir, version, brand)
+    NdrsukHelpers.copy_assets_files(temp_dir, version, brand)
+    NdrsukHelpers.copy_js_files(temp_dir, version, brand)
 
-    NDRSHelpers.update_version_in_file(NDRSHelpers::ENGINE_PATH, version, brand)
-    NDRSHelpers.update_version_in_file("#{NDRSHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
+    NdrsukHelpers.update_version_in_file(NdrsukHelpers::ENGINE_PATH, version, brand)
+    NdrsukHelpers.update_version_in_file("#{NdrsukHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
 
-    puts "Bumped #{brand.upcase} frontend to #{NDRSHelpers.semantic_version(version)}"
+    puts "Bumped #{brand.upcase} frontend to #{NdrsukHelpers.semantic_version(version)}"
   ensure
     FileUtils.remove_entry_secure(temp_dir)
   end
