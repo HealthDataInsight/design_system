@@ -2,9 +2,9 @@ require 'fileutils'
 require 'pathname'
 
 module NhsukHelpers
-  ASSETS_PATH = 'public/design_system/static'
-  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
-  ENGINE_PATH = 'lib/design_system/engine.rb'
+  ASSETS_PATH = 'public/design_system/static'.freeze
+  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
+  ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
 
   def self.versioned_dir(version, brand)
     "#{brand}-frontend-#{version}"
@@ -27,7 +27,7 @@ module NhsukHelpers
   end
 
   def self.validate_version(version, brand)
-    return if version && version.match(/^\d+\.\d+\.\d+$/)
+    return if version&.match(/^\d+\.\d+\.\d+$/)
 
     raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
   end

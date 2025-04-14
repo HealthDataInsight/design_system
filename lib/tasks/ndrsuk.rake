@@ -1,120 +1,102 @@
 require 'fileutils'
 require 'pathname'
 
-# Shared constants
-ASSETS_PATH = 'public/design_system/static'
-STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
-ENGINE_PATH = 'lib/design_system/engine.rb'
+module NDRSHelpers
+  ASSETS_PATH = 'public/design_system/static'.freeze
+  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
+  ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
 
-def versioned_dir(version, brand)
-  "#{brand}-frontend-#{version}"
-end
+  def self.versioned_dir(version, brand)
+    "#{brand}-frontend-#{version}"
+  end
 
-def semantic_version(version)
-  "v#{version}"
-end
+  def self.semantic_version(version)
+    "v#{version}"
+  end
 
-def remove_markdown_files(version, brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
-    Dir.glob("#{dir}/#{versioned_dir(version, brand)}/**/*.md").each do |file|
-      FileUtils.rm_rf(file)
+  def self.remove_existing_versions(brand)
+    [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
+      Dir.glob("#{base_path}/#{brand}-frontend-*").each do |dir|
+        FileUtils.rm_rf(dir)
+      end
     end
   end
-end
 
-def remove_njk_files(version, brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |dir|
-    Dir.glob("#{dir}/#{versioned_dir(version, brand)}/**/*.njk").each do |file|
-      FileUtils.rm_rf(file)
+  def self.update_version_in_file(file_path, version, brand)
+    content = File.read(file_path)
+    content.gsub!(/#{brand}-frontend-\d+\.\d+\.\d+/, versioned_dir(version, brand))
+    File.write(file_path, content)
+  end
+
+  def self.validate_version(version, brand)
+    return if version&.match(/^\d+\.\d+\.\d+$/)
+
+    raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
+  end
+
+  def self.setup_directories(version, brand)
+    FileUtils.mkdir_p("#{ASSETS_PATH}/#{versioned_dir(version, brand)}")
+    FileUtils.mkdir_p("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}")
+  end
+
+  def self.copy_scss_files(temp_dir, version, brand)
+    # Update components and core
+    %w[components core].each do |dir|
+      Dir.glob("#{temp_dir}/packages/#{dir}/**/*.scss").each do |file|
+        relative_path = file.gsub("#{temp_dir}/packages/", '')
+        target_path = "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{relative_path}"
+        FileUtils.mkdir_p(File.dirname(target_path))
+        FileUtils.cp(file, target_path)
+      end
     end
-  end
-end
 
-def remove_js_files(version, brand)
-  Dir.glob("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/**/**/*.js").each do |file|
-    FileUtils.rm_rf(file)
-  end
-end
-
-def remove_existing_versions(brand)
-  [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
-    Dir.glob("#{base_path}/#{brand}-frontend-*").each do |dir|
-      FileUtils.rm_rf(dir)
-    end
-  end
-end
-
-def update_version_in_file(file_path, version, brand)
-  content = File.read(file_path)
-  content.gsub!(/#{brand}-frontend-\d+\.\d+\.\d+/, versioned_dir(version, brand))
-  File.write(file_path, content)
-end
-
-def validate_version(version, brand)
-  return if version && version.match(/^\d+\.\d+\.\d+$/)
-
-  raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
-end
-
-def setup_directories(version, brand)
-  FileUtils.mkdir_p("#{ASSETS_PATH}/#{versioned_dir(version, brand)}")
-  FileUtils.mkdir_p("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}")
-end
-
-def copy_files_from_repo(temp_dir, version, brand)
-  # Update SCSS files
-  FileUtils.cp(
-    "#{temp_dir}/packages/nhsuk.scss",
-    "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
-  )
-
-  # Update components and core
-  %w[components core].each do |dir|
-    FileUtils.cp_r(
-      "#{temp_dir}/packages/#{dir}",
-      "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/"
+    # Update root SCSS files
+    FileUtils.cp(
+      "#{temp_dir}/packages/nhsuk.scss",
+      "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
     )
   end
 
-  # Update assets
-  FileUtils.cp_r(
-    "#{temp_dir}/packages/assets/.",
-    "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
-  )
+  def self.copy_assets_files(temp_dir, version, brand)
+    FileUtils.cp_r(
+      "#{temp_dir}/packages/assets/.",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
+    )
+  end
 
-  # Update JavaScript
-  FileUtils.cp(
-    "#{temp_dir}/packages/nhsuk.js",
-    "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
-  )
+  def self.copy_js_files(temp_dir, version, brand)
+    FileUtils.cp(
+      "#{temp_dir}/packages/nhsuk.js",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
+    )
+  end
 end
 
 desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
 task :make_ndrsuk, [:version] do |_t, args|
-  version = args[:version]
   brand = 'ndrsuk'
-  validate_version(version, brand)
 
-  remove_existing_versions(brand)
+  version = args[:version]
+  NDRSHelpers.validate_version(version, brand)
+  NDRSHelpers.remove_existing_versions(brand)
 
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   puts "temp_dir: #{temp_dir}"
   begin
     Dir.chdir(temp_dir) do
       system('git clone https://github.com/HealthDataInsight/ndrsuk-frontend.git .')
-      system("./scripts/nhs2ndrs #{semantic_version(version)}")
+      system("./scripts/nhs2ndrs #{NDRSHelpers.semantic_version(version)}")
     end
 
-    setup_directories(version, brand)
-    copy_files_from_repo(temp_dir, version, brand)
+    NDRSHelpers.setup_directories(version, brand)
+    NDRSHelpers.copy_scss_files(temp_dir, version, brand)
+    NDRSHelpers.copy_assets_files(temp_dir, version, brand)
+    NDRSHelpers.copy_js_files(temp_dir, version, brand)
 
-    update_version_in_file(ENGINE_PATH, version, brand)
-    update_version_in_file("#{STYLESHEET_PATH}/#{brand}.scss", version, brand)
+    NDRSHelpers.update_version_in_file(NDRSHelpers::ENGINE_PATH, version, brand)
+    NDRSHelpers.update_version_in_file("#{NDRSHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
 
-    remove_markdown_files(version, brand)
-    remove_njk_files(version, brand)
-    remove_js_files(version, brand)
-    puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
+    puts "Bumped #{brand.upcase} frontend to #{NDRSHelpers.semantic_version(version)}"
   ensure
     FileUtils.remove_entry_secure(temp_dir)
   end

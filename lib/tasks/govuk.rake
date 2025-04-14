@@ -2,9 +2,9 @@ require 'fileutils'
 require 'pathname'
 
 module GovukHelpers
-  ASSETS_PATH = 'public/design_system/static'
-  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'
-  ENGINE_PATH = 'lib/design_system/engine.rb'
+  ASSETS_PATH = 'public/design_system/static'.freeze
+  STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
+  ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
 
   def self.versioned_dir(version, brand)
     "#{brand}-frontend-#{version}"
@@ -29,7 +29,7 @@ module GovukHelpers
   def self.validate_version(version, brand)
     return if version&.match?(/^\d+\.\d+\.\d+$/)
 
-    raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[9.3.0\\])"
+    raise "Please provide a version number in the format x.x.x (e.g., rake app:make_#{brand}\\[5.9.0\\])"
   end
 
   def self.setup_directories(version, brand)
@@ -81,7 +81,7 @@ module GovukHelpers
     Dir.glob("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/**/**/*.scss").each do |file|
       content = File.read(file)
       content.gsub!(%r{/\*# sourceMappingURL=.*\.scss\.map \*/\n?}, '')
-      content = content.rstrip + "\n"
+      content = "#{content.rstrip}\n"
       File.write(file, content)
     end
   end
