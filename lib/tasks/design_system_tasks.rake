@@ -31,6 +31,12 @@ def remove_njk_files(version, brand)
   end
 end
 
+def remove_js_files(version, brand)
+  Dir.glob("#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/**/**/*.js").each do |file|
+    FileUtils.rm_rf(file)
+  end
+end
+
 def remove_existing_versions(brand)
   [ASSETS_PATH, STYLESHEET_PATH].each do |base_path|
     Dir.glob("#{base_path}/#{brand}-frontend-*").each do |dir|
@@ -48,7 +54,7 @@ end
 def validate_version(version, brand)
   return if version && version.match(/^\d+\.\d+\.\d+$/)
 
-  raise "Please provide a version number in the format x.x.x (e.g., rake app:update_#{brand}_frontend\\[9.3.0\\])"
+  raise "Please provide a version number in the format x.x.x (e.g., rake app:update_#{brand}\\[9.3.0\\])"
 end
 
 def setup_directories(version, brand)
@@ -85,10 +91,10 @@ def copy_files_from_repo(temp_dir, version, brand)
 end
 
 desc 'Update the NHS frontend to a specific version'
-task :update_nhs_frontend, [:version] do |_t, args|
+task :update_nhsuk, [:version] do |_t, args|
   version = args[:version]
-  validate_version(version, 'nhs')
   brand = 'nhsuk'
+  validate_version(version, brand)
 
   remove_existing_versions(brand)
 
@@ -106,18 +112,19 @@ task :update_nhs_frontend, [:version] do |_t, args|
 
     remove_markdown_files(version, brand)
     remove_njk_files(version, brand)
+    remove_js_files(version, brand)
 
-    puts "Bumped #{brand.upcase}UK frontend to #{semantic_version(version)}"
+    puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
   ensure
     FileUtils.remove_entry_secure(temp_dir)
   end
 end
 
 desc 'Retrieve a specific version of the NHS design system and generate the NDRS equivalent'
-task :update_ndrs_frontend, [:version] do |_t, args|
+task :update_ndrsuk, [:version] do |_t, args|
   version = args[:version]
-  validate_version(version, 'ndrs')
   brand = 'ndrsuk'
+  validate_version(version, brand)
 
   remove_existing_versions(brand)
 
@@ -137,8 +144,8 @@ task :update_ndrs_frontend, [:version] do |_t, args|
 
     remove_markdown_files(version, brand)
     remove_njk_files(version, brand)
-
-    puts "Bumped #{brand.upcase}UK frontend to #{semantic_version(version)}"
+    remove_js_files(version, brand)
+    puts "Bumped #{brand.upcase} frontend to #{semantic_version(version)}"
   ensure
     FileUtils.remove_entry_secure(temp_dir)
   end
