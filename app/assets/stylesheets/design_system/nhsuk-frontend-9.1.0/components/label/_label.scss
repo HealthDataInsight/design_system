@@ -1,8 +1,6 @@
-////
-/// Label component
-///
-/// @group components
-////
+/* ==========================================================================
+   COMPONENTS/ #LABEL
+   ========================================================================== */
 
 .nhsuk-label {
   @include nhsuk-font(19);
@@ -11,7 +9,7 @@
   margin-bottom: nhsuk-spacing(1);
 }
 
-// Modifiers that make labels look more like their equivalent headings
+/* Modifiers that make labels look more like their equivalent headings */
 .nhsuk-label--xl,
 .nhsuk-label--l,
 .nhsuk-label--m {
