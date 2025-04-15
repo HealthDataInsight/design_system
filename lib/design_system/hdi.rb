@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'govuk'
+require_relative 'nhsuk'
+
 # This is the HDI branded adapter for the design system
 
 require_relative 'builders/hdi/button'
