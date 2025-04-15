@@ -6,7 +6,7 @@ module DesignSystem
       # This class is used to provide will_paginate renderer for HDI.
       class PaginationRenderer < ::DesignSystem::Builders::Generic::PaginationRenderer
         def container_attributes
-          { class: 'flex items-center justify-between border-t border-gray-200 px-4 sm:px-0' }
+          { class: "#{brand}-pagination" }
         end
 
         def html_container(html)
@@ -15,9 +15,9 @@ module DesignSystem
 
         def previous_or_next_page(page, _text, classname)
           if classname.include?('previous_page')
-            tag(:div, link_with_prev_title(page), class: '-mt-px flex w-0 flex-1') if page
+            tag(:div, link_with_prev_title(page), class: "#{brand}-pagination__prev") if page
           elsif classname.include?('next_page')
-            tag(:div, link_with_next_title(page), class: '-mt-px flex w-0 flex-1 justify-end') if page
+            tag(:div, link_with_next_title(page), class: "#{brand}-pagination__next") if page
           end
         end
 
@@ -27,26 +27,22 @@ module DesignSystem
           tag(:a,
               icon('previous') + 'Previous'.html_safe,
               href: url(target),
-              class: 'inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium
-                text-gray-500 hover:border-gray-300 hover:text-gray-700')
+              class: "#{brand}-link #{brand}-pagination__link")
         end
 
         def link_with_next_title(target)
           tag(:a, "Next#{icon('next')}",
-              href: url(target), class: 'inline-flex items-center border-t-2 border-transparent pl-1 pt-4
-               text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700')
+              href: url(target), class: "#{brand}-link #{brand}-pagination__link")
         end
 
         def page_number(page)
           if page == current_page
             tag(:a, page,
-                class: 'inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4
-                  text-sm font-medium text-indigo-600',
+                class: "#{brand}-link #{brand}-pagination__link",
                 href: '#', aria: { current: 'page' })
           else
             tag(:a, page,
-                class: 'inline-flex items-center border-t-2 border-transparent px-4 pt-4
-                   text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                class: "#{brand}-link #{brand}-pagination__link",
                 href: url(page))
           end
         end
