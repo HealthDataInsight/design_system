@@ -1,0 +1,155 @@
+////
+/// Links
+///
+/// @group tools
+////
+
+/// Default link styling
+///
+/// @example scss
+///   @include ndrsuk-link-style-default;
+
+@mixin ndrsuk-link-style-default {
+  color: $ndrsuk-link-color;
+
+  &:visited {
+    color: $ndrsuk-link-visited-color;
+  }
+
+  &:hover {
+    color: $ndrsuk-link-hover-color;
+    text-decoration: none;
+  }
+
+  &:focus {
+    @include ndrsuk-focused-text;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: $ndrsuk-focus-text-color;
+    }
+
+    .ndrsuk-icon {
+      fill: $ndrsuk-focus-text-color;
+    }
+  }
+
+  &:active {
+    color: $ndrsuk-link-active-color;
+  }
+}
+
+/// White link styling, used in the footer.
+///
+/// @example scss
+///   @include ndrsuk-link-style-white;
+
+@mixin ndrsuk-link-style-white {
+  color: $color_ndrsuk-white;
+
+  &:visited {
+    color: $color_ndrsuk-white;
+  }
+
+  &:hover {
+    color: $color_ndrsuk-white;
+    text-decoration: none;
+  }
+
+  &:focus {
+    color: $ndrsuk-focus-text-color;
+    outline: $ndrsuk-focus-width solid transparent;
+    outline-offset: $ndrsuk-focus-width;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: $ndrsuk-link-active-color;
+  }
+}
+
+/// Default link hover only styling
+///
+/// @example scss
+///   @include ndrsuk-link-style-hover;
+
+@mixin ndrsuk-link-style-hover {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/// No visited state link mixin
+///
+/// Used in cases where it is not helpful to distinguish between visited and
+/// non-visited links.
+///
+/// For example, navigation links to pages with dynamic content like admin
+/// dashboards. The content on the page is changing all the time, so the fact
+/// that you’ve visited it before is not important.
+///
+/// If you use this mixin in a component you must also include the
+/// ndrsuk-link-style-default mixin in order to get the focus state.
+///
+/// @example scss
+///   .ndrsuk-component__link {
+///     @include ndrsuk-link-style-default;
+///     @include ndrsuk-link-style-no-visited-state;
+///   }
+
+@mixin ndrsuk-link-style-no-visited-state {
+  &:link {
+    color: $ndrsuk-link-color;
+  }
+
+  &:visited {
+    color: $ndrsuk-link-color;
+  }
+
+  &:hover {
+    color: $ndrsuk-link-hover-color;
+  }
+
+  &:active {
+    color: $ndrsuk-link-active-color;
+  }
+
+  &:focus {
+    color: $ndrsuk-focus-text-color;
+  }
+}
+
+/// Text link styles
+///
+/// Makes links use the primary text colour, in all states. Use this mixin for
+/// navigation components, such as breadcrumbs or the back link.
+///
+/// If you use this mixin in a component, you must also include the
+/// `ndrsuk-link-style-default` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .ndrsuk-component__link {
+///     @include ndrsuk-link-style-default;
+///     @include ndrsuk-link-style-text;
+///   }
+
+@mixin ndrsuk-link-style-text {
+  &:link,
+  &:visited {
+    color: $ndrsuk-text-color;
+  }
+
+  // Force a colour change on hover to work around a bug in Safari
+  // https://bugs.webkit.org/show_bug.cgi?id=224483
+  &:hover {
+    color: rgba($ndrsuk-text-color, 0.99);
+  }
+
+  &:active,
+  &:focus {
+    color: $ndrsuk-text-color;
+  }
+}

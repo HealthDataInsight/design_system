@@ -1,0 +1,14 @@
+////
+/// Error message component
+///
+/// @group components
+////
+
+.ndrsuk-error-message {
+  @include ndrsuk-font(19, $weight: bold);
+
+  clear: both;
+  color: $ndrsuk-error-color;
+  display: block;
+  margin-bottom: ndrsuk-spacing(3);
+}
