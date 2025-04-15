@@ -26,9 +26,9 @@ module DesignSystem
 
           @output_buffer = ds_pagination(@assistants)
 
-          assert_select('nav.flex') do
-            assert_select('div.-mt-px') do
-              assert_select('a.inline-flex') do
+          assert_select('nav.hdi-pagination') do
+            assert_select('div.hdi-pagination__next') do
+              assert_select('a.hdi-link.hdi-pagination__link') do
                 'Next'
               end
             end
