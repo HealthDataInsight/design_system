@@ -1,0 +1,119 @@
+.ndrsuk-tabs {
+  @include ndrsuk-responsive-margin(1, "top");
+  @include ndrsuk-responsive-margin(6, "bottom");
+}
+
+.ndrsuk-tabs__title {
+  @include ndrsuk-font($size: 19);
+  color: $ndrsuk-text-color;
+  margin-bottom: ndrsuk-spacing(2);
+}
+
+.ndrsuk-tabs__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include ndrsuk-responsive-margin(6, "bottom");
+}
+
+.ndrsuk-tabs__list-item {
+  @include ndrsuk-font($size: 19);
+  margin-left: ndrsuk-spacing(5);
+
+  &::before {
+    color: $ndrsuk-text-color;
+    content: "\2014 "; // "— "
+    margin-left: -(ndrsuk-spacing(5));
+    padding-right: ndrsuk-spacing(1);
+  }
+}
+
+.ndrsuk-tabs__tab {
+  @include ndrsuk-link-style-default;
+
+  display: inline-block;
+  margin-bottom: ndrsuk-spacing(2);
+}
+
+.ndrsuk-tabs__panel {
+  @include ndrsuk-responsive-margin(8, "bottom");
+}
+
+// JavaScript enabled
+.js-enabled {
+  @include govuk-media-query($from: tablet) {
+    .ndrsuk-tabs__list {
+      @include clearfix;
+      border-bottom: 1px solid $ndrsuk-border-color;
+      margin-bottom: 0;
+    }
+
+    .ndrsuk-tabs__title {
+      display: none;
+    }
+
+    .ndrsuk-tabs__list-item {
+      background-color: $color_ndrsuk-grey-4;
+      float: left;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: ndrsuk-spacing(1);
+      padding: ndrsuk-spacing(2) ndrsuk-spacing(4);
+      position: relative;
+      text-align: center;
+
+      &::before {
+        content: none;
+      }
+    }
+
+    .ndrsuk-tabs__list-item--selected {
+      $border-width: 1px;
+      background-color: $color_ndrsuk-white;
+      border: $border-width solid $ndrsuk-border-color;
+      border-bottom: 0;
+      margin-bottom: -$border-width; // Compensation for border (otherwise we get a shift)
+      margin-top: -(ndrsuk-spacing(1));
+      padding-bottom: (ndrsuk-spacing(2) * 1.5) + $border-width;
+      padding-left: ndrsuk-spacing(4) - $border-width;
+      padding-right: ndrsuk-spacing(4) - $border-width;
+      padding-top: (ndrsuk-spacing(2) * 1.5) - $border-width;
+      position: relative;
+
+      .ndrsuk-tabs__tab {
+        text-decoration: none;
+      }
+    }
+
+    .ndrsuk-tabs__tab {
+      @include ndrsuk-link-style-text;
+
+      margin-bottom: 0;
+
+      &::after {
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+
+    .ndrsuk-tabs__panel {
+      @include ndrsuk-responsive-margin(0, "bottom");
+      background-color: $color_ndrsuk-white;
+      border: 1px solid $ndrsuk-border-color;
+      border-top: 0;
+      padding: ndrsuk-spacing(6) ndrsuk-spacing(4);
+
+      & > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .ndrsuk-tabs__panel--hidden {
+      display: none;
+    }
+  }
+}

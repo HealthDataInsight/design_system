@@ -24,7 +24,7 @@ module DesignSystem
           '/design_system/static/flowbite-2.5.1',
           '/design_system/static/govuk-frontend-5.9.0',
           '/design_system/static/heroicons-2.1.5',
-          '/design_system/static/ndrsuk-frontend-8.1.1',
+          '/design_system/static/ndrsuk-frontend-9.3.0',
           '/design_system/static/nhsuk-frontend-9.3.0',
           '/design_system/static/tailwind-3.4.16',
           '/design_system/static/stimulus-3.2.2',

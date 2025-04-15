@@ -54,7 +54,7 @@ bundle exec rake app:make_nhsuk
 bundle exec rake app:make_nhsuk\[9.3.0\]
 ```
 
-### NDRSUK Frontend (currently v8.1.1)
+### NDRSUK Frontend (currently v9.3.0)
 ```bash
 # NDRSUK Version number must be explicitly specified (no 'latest' support)
 bundle exec rake app:make_nhsuk\[9.3.0\]
