@@ -1,0 +1,172 @@
+////
+/// Table component
+///
+/// @group components
+////
+
+/// Table container is used to ensure the table does not break the container.
+///
+/// 1. Margin is removed so there isn't double spacing.
+/// 2. XS size not added because it matches the table header, so it'd be bad for hierarchy
+
+.ndrsuk-table-container {
+  @include ndrsuk-responsive-margin(7, "bottom");
+
+  display: block;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-x: auto;
+  width: 100%;
+
+  .ndrsuk-table {
+    margin: 0; // [1]
+  }
+}
+
+.ndrsuk-table__caption--xl {
+  @include ndrsuk-typography-responsive(48);
+}
+
+.ndrsuk-table__caption--l {
+  @include ndrsuk-typography-responsive(36);
+}
+
+.ndrsuk-table__caption--m {
+  @include ndrsuk-typography-responsive(26);
+}
+
+.ndrsuk-table__caption--s {
+  @include ndrsuk-typography-responsive(22);
+}
+
+// [2]
+
+/// Table row hover
+///
+/// Table row hover is used to aid readability for users.
+
+.ndrsuk-table__row {
+  &:hover {
+    background-color: $color_ndrsuk-grey-5;
+  }
+}
+
+/// Table panel with tab heading
+///
+/// 1. Margin is removed so there isn't double spacing.
+
+.ndrsuk-table__panel-with-heading-tab {
+  @include panel-with-label($color_ndrsuk-white, $ndrsuk-text-color, $color_ndrsuk-grey-4);
+
+  .ndrsuk-table-container,
+  .ndrsuk-table {
+    margin: 0; // [1]
+  }
+}
+
+.ndrsuk-table__heading-tab {
+  @include heading-label($color_ndrsuk-blue, $color_ndrsuk-white);
+}
+
+/// Responsive table
+///
+/// 1. Hiding the thead on mobile
+/// 2. Displaying the thead on desktop
+/// 3. Removing default screen reader behaviour
+/// 4. Assigning role of table-row on desktop to give default screen reader behaviour
+/// 5. Using justify content to space out elements in the row on mobile
+/// 6. Assigning a minimum width in case of black cell
+/// 7. Aligning content to the right on mobile
+/// 8. Aligning mobile header to left to split it from the data
+/// 9. Hiding mobile specific header from desktop view
+/// 10. Adding a display block value due to IE 11 not having full flex support
+
+.ndrsuk-table-responsive {
+  margin-bottom: 0;
+  width: 100%;
+
+  thead {
+    @include visually-hidden; // [1]
+
+    @include mq($from: desktop) {
+      @include visually-shown(table-header-group); // [2]
+
+      &::before,
+      &::after {
+        content: "";
+      }
+    }
+  }
+
+  .ndrsuk-table__body {
+    .ndrsuk-table-responsive__heading {
+      font-weight: $ndrsuk-font-bold;
+      padding-right: ndrsuk-spacing(3);
+      text-align: left; // [8]
+    }
+
+    .ndrsuk-table__row {
+      display: block; // [3]
+      margin-bottom: ndrsuk-spacing(4);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .ndrsuk-table__row th {
+      text-align: right;
+    }
+
+    .ndrsuk-table__row td {
+      display: block; // For browsers that don't support flexbox
+      display: flex;
+      justify-content: space-between; // [5]
+      min-width: 1px; // [6]
+    }
+
+    @media all and (-ms-high-contrast: none) {
+      .ndrsuk-table__row td {
+        display: block; // [10]
+      }
+    }
+
+    @include mq($until: desktop) {
+      .ndrsuk-table__row td {
+        padding-right: 0;
+        text-align: right; // [7]
+
+        &:last-child {
+          border-bottom: 3px solid $color_ndrsuk-grey-4;
+        }
+      }
+    }
+
+    @include mq($from: desktop) {
+      .ndrsuk-table-responsive__heading {
+        display: none; // [9]
+      }
+
+      .ndrsuk-table__row {
+        display: table-row; // [4]
+      }
+
+      .ndrsuk-table__row th {
+        text-align: left;
+      }
+
+      .ndrsuk-table__row td {
+        display: table-cell;
+      }
+    }
+  }
+}
+
+/// Numeric tables
+///
+/// Right aligns table cells for numeric tables.
+
+.ndrsuk-table__header--numeric,
+.ndrsuk-table__cell--numeric {
+  text-align: right;
+}

@@ -1,0 +1,172 @@
+////
+/// Radios component
+///
+/// 1. remove 300ms pause on mobile.
+/// 2. Fix bug in IE11 caused by transform rotate (-45deg).
+///
+/// @group components
+////
+
+$ndrsuk-radios-size: ndrsuk-spacing(6);
+$ndrsuk-radios-label-padding-left-right: 12px;
+// When the default focus width is used on a curved edge it looks visually smaller.
+// So for the circular radios we bump the default to make it look visually consistent.
+$ndrsuk-radios-focus-width: $ndrsuk-focus-width + 1px;
+
+.ndrsuk-radios__item {
+  @include ndrsuk-font(19);
+
+  clear: left;
+  display: block;
+  margin-bottom: ndrsuk-spacing(2);
+  min-height: $ndrsuk-radios-size;
+  padding: 0 0 0 $ndrsuk-radios-size;
+  position: relative;
+}
+
+.ndrsuk-radios__item:last-child,
+.ndrsuk-radios__item:last-of-type {
+  margin-bottom: 0;
+}
+
+.ndrsuk-radios__input {
+  cursor: pointer;
+  height: $ndrsuk-radios-size;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: $ndrsuk-radios-size;
+  z-index: 1;
+}
+
+.ndrsuk-radios__label {
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 8px $ndrsuk-radios-label-padding-left-right ndrsuk-spacing(1);
+  -ms-touch-action: manipulation; // [1]
+  touch-action: manipulation; // [1]
+}
+
+.ndrsuk-radios__hint {
+  display: block;
+  padding-left: $ndrsuk-radios-label-padding-left-right;
+  padding-right: $ndrsuk-radios-label-padding-left-right;
+}
+
+.ndrsuk-radios__input + .ndrsuk-radios__label::before {
+  background: $ndrsuk-form-element-background-color;
+  border: $ndrsuk-border-width-form-element solid $ndrsuk-form-border-color;
+  border-radius: 50%;
+  box-sizing: border-box;
+  content: "";
+  height: $ndrsuk-radios-size;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: $ndrsuk-radios-size;
+}
+
+.ndrsuk-radios__input + .ndrsuk-radios__label::after {
+  background: $ndrsuk-form-border-color;
+  border: 10px solid $ndrsuk-text-color;
+  border-radius: 50%;
+  content: "";
+  height: 0;
+  left: 10px;
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  width: 0;
+}
+
+/// Focus state
+///
+/// 1. Since box-shadows are removed when users customise their colours
+///    We set a transparent outline that is shown instead.
+///
+/// @link https://accessibility.blog.gov.uk/2017/03/27/how-users-change-colours-on-websites/
+
+.ndrsuk-radios__input:focus + .ndrsuk-radios__label::before {
+  @include ndrsuk-focused-radio;
+}
+
+/// Selected state
+
+.ndrsuk-radios__input:checked + .ndrsuk-radios__label::after {
+  opacity: 1;
+}
+
+/// Disabled state
+
+.ndrsuk-radios__input:disabled,
+.ndrsuk-radios__input:disabled + .ndrsuk-radios__label {
+  cursor: default;
+}
+
+.ndrsuk-radios__input:disabled + .ndrsuk-radios__label {
+  opacity: 0.5;
+}
+
+/// Inline variant
+///
+/// 1. Prevent inline modifier being used with conditional reveals
+
+.ndrsuk-radios--inline {
+  @include mq($from: tablet) {
+    @include clearfix;
+
+    .ndrsuk-radios__item {
+      clear: none;
+      float: left;
+      margin-right: ndrsuk-spacing(4);
+    }
+  }
+
+  &.ndrsuk-radios--conditional {
+    // [1]
+    .ndrsuk-radios__item {
+      float: none;
+      margin-right: 0;
+    }
+  }
+}
+
+/// Divider variant
+
+.ndrsuk-radios__divider {
+  $ndrsuk-divider-size: $ndrsuk-radios-size !default;
+  @include ndrsuk-font(19);
+
+  color: $ndrsuk-text-color;
+  margin-bottom: ndrsuk-spacing(2);
+  text-align: center;
+  width: $ndrsuk-divider-size;
+}
+
+/// Conditional
+
+$conditional-border-width: $ndrsuk-border-width-mobile;
+// Calculate the amount of padding needed to keep the border centered against the radios.
+$conditional-border-padding: ($ndrsuk-radios-size * 0.5) - ($conditional-border-width * 0.5);
+// Move the border centered with the radios
+$conditional-margin-left: $conditional-border-padding;
+// Move the contents of the conditional inline with the label
+$conditional-padding-left: $conditional-border-padding + $ndrsuk-radios-label-padding-left-right;
+
+.ndrsuk-radios__conditional {
+  @include ndrsuk-responsive-margin(4, "bottom");
+  border-left: $conditional-border-width solid $ndrsuk-form-border-color;
+  margin-left: $conditional-margin-left;
+  padding-left: $conditional-padding-left;
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.js-enabled .ndrsuk-radios__conditional--hidden {
+  display: none;
+}

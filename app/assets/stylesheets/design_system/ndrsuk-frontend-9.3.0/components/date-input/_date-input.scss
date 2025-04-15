@@ -1,0 +1,27 @@
+////
+/// Date input component
+///
+/// 1. font-size: 0 removes whitespace caused by inline-block
+///
+/// @group components
+////
+
+.ndrsuk-date-input {
+  @include clearfix;
+
+  font-size: 0; // [1]
+}
+
+.ndrsuk-date-input__item {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: ndrsuk-spacing(4);
+}
+
+.ndrsuk-date-input__label {
+  display: block;
+}
+
+.ndrsuk-date-input__input {
+  margin-bottom: 0;
+}

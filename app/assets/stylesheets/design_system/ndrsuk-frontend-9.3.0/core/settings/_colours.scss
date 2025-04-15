@@ -1,0 +1,153 @@
+////
+/// NHS colour palette
+///
+/// Colours are prefixed with color_ to make them easier to
+/// search for within the code base.
+///
+/// We also prefix them with ndrsuk- to prevent clashing with
+/// other colours in existing code bases.
+///
+/// We use the word color, not colour, for variables.
+///
+/// @group settings
+////
+
+// stylelint-disable color-no-hex
+
+$color_ndrsuk-blue: #4AB0E5;
+$color_ndrsuk-turquoise: #218183;
+$color_ndrsuk-white: #ffffff;
+$color_ndrsuk-black: #1B1B1B;
+$color_ndrsuk-green: #55B687;
+$color_ndrsuk-purple: #330072;
+$color_ndrsuk-dark-pink: #7c2855;
+$color_ndrsuk-red: #d5281b;
+$color_ndrsuk-yellow: #ffeb3b;
+
+/// Secondary colours
+
+$color_ndrsuk-pale-yellow: #fff9c4;
+$color_ndrsuk-warm-yellow: #ffb81c;
+$color_ndrsuk-orange: #ed8b00;
+$color_ndrsuk-aqua-green: #00a499;
+$color_ndrsuk-pink: #ae2573;
+
+/// Greyscale
+
+$color_ndrsuk-grey-1: #4c6272;
+$color_ndrsuk-grey-2: #768692;
+$color_ndrsuk-grey-3: #aeb7bd;
+$color_ndrsuk-grey-4: #d8dde0;
+$color_ndrsuk-grey-5: #f0f4f5;
+
+// stylelint-enable color-no-hex
+
+/// RGB and alpha values
+///
+/// Used to create drop/box shadows e.g. for search suggestions dropdown
+///
+
+$color_ndrsuk-grey-1-rgb: rgb(66, 84, 98);
+$alpha-transparency-50: 0.5;
+
+/// Functions for tint and shade
+///
+/// @example scss
+///   tint(color, percentage);
+///   tint($color_ndrsuk-black, 10%);
+///   shade(color, percentage);
+///   shade($color_ndrsuk-blue, 50%);
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+/// Primary colour variations
+///
+/// 1. used for link :active states
+/// 2. used for .is-active state on main navigation
+/// 3. used for :hover states on main navigation
+/// 4. used for :active states on main navigation
+/// 5. used for primary button and action link icon :hover states
+/// 6. used for primary button and action link icon :active states
+
+$color_tint_ndrsuk-black-10: tint($color_ndrsuk-black, 10%); // [1]
+
+$color_shade_ndrsuk-blue-20: shade($color_ndrsuk-blue, 20%); // [2]
+$color_shade_ndrsuk-blue-35: shade($color_ndrsuk-blue, 35%); // [3]
+$color_shade_ndrsuk-blue-50: shade($color_ndrsuk-blue, 50%); // [4]
+
+$color_shade_ndrsuk-green-35: shade($color_ndrsuk-green, 35%); // [5]
+$color_shade_ndrsuk-green-50: shade($color_ndrsuk-green, 50%); // [6]
+
+$color_transparent_ndrsuk-white-20: rgba($color_ndrsuk-white, 0.2);
+$color_transparent_ndrsuk-blue-50: rgba($color_shade_ndrsuk-blue-50, 0.1);
+
+/// Colour aliases
+
+/// Text
+
+$ndrsuk-text-color: $color_ndrsuk-black;
+$ndrsuk-secondary-text-color: $color_ndrsuk-grey-1;
+$ndrsuk-print-text-color: $color_ndrsuk-black;
+// stylelint-disable-next-line color-no-hex
+$ndrsuk-footer-link-text-color: #003087;
+// stylelint-disable-next-line color-no-hex
+$ndrsuk-footer-copyright-text-color: #231f20;
+
+/// Links
+
+$ndrsuk-link-color: $color_ndrsuk-blue;
+$ndrsuk-link-hover-color: $color_ndrsuk-dark-pink;
+$ndrsuk-link-active-color: shade($ndrsuk-link-color, 50%);
+$ndrsuk-link-visited-color: $color_ndrsuk-purple;
+
+/// Focus
+
+$ndrsuk-focus-color: $color_ndrsuk-yellow;
+$ndrsuk-focus-text-color: $color_ndrsuk-black;
+
+/// Border
+
+$ndrsuk-border-color: $color_ndrsuk-grey-4;
+$ndrsuk-secondary-border-color: $color_transparent_ndrsuk-white-20;
+
+/// Box shadow
+
+$ndrsuk-box-shadow: rgba(33, 43, 50, 0.16);
+$ndrsuk-box-shadow-color: $color_ndrsuk-grey-1-rgb;
+
+/// Forms
+
+$ndrsuk-error-color: $color_ndrsuk-red;
+$ndrsuk-form-border-color: $color_ndrsuk-grey-1;
+$ndrsuk-form-element-background-color: $color_ndrsuk-white;
+
+/// Buttons
+
+$ndrsuk-button-color: $color_ndrsuk-green;
+$ndrsuk-button-hover-color: shade($ndrsuk-button-color, 20%);
+$ndrsuk-button-active-color: shade($ndrsuk-button-color, 50%);
+$ndrsuk-button-shadow-color: shade($ndrsuk-button-color, 50%);
+
+$ndrsuk-secondary-button-color: $color_ndrsuk-grey-1;
+$ndrsuk-secondary-button-hover-color: shade($ndrsuk-secondary-button-color, 20%);
+$ndrsuk-secondary-button-active-color: shade($ndrsuk-secondary-button-color, 50%);
+$ndrsuk-secondary-button-shadow-color: shade($ndrsuk-secondary-button-color, 50%);
+
+$ndrsuk-reverse-button-color: $color_ndrsuk-white;
+$ndrsuk-reverse-button-hover-color: shade($ndrsuk-reverse-button-color, 20%);
+$ndrsuk-reverse-button-active-color: $color-ndrsuk-black;
+$ndrsuk-reverse-button-shadow-color: $color-ndrsuk-black;
+
+$ndrsuk-warning-button-color: $color_ndrsuk-red;
+$ndrsuk-warning-button-hover-color: shade($ndrsuk-warning-button-color, 20%);
+$ndrsuk-warning-button-active-color: shade($ndrsuk-warning-button-color, 50%);
+$ndrsuk-warning-button-shadow-color: shade($ndrsuk-warning-button-color, 50%);
+
+$ndrsuk-button-text-color: $color_ndrsuk-white;
+$ndrsuk-reverse-button-text-color: $color_ndrsuk-black;
