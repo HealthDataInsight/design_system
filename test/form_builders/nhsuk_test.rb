@@ -39,5 +39,26 @@ module FormBuilders
         end
       end
     end
+
+    test 'ds_password_field with error' do
+      assistant = Assistant.new
+      refute assistant.valid?
+
+      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        f.ds_password_field(:title)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group[data-controller='ds--show-password']") do
+          assert_select("label.#{@brand}-label", 'Title')
+
+          input = assert_select('input[type=password]').first
+          assert_equal "#{@brand}-input #{@brand}-input--error", input['class']
+          assert_equal 'current-password', input['autocomplete']
+          assert_equal 'password', input['data-ds--show-password-target']
+          assert_nil input['value']
+        end
+      end
+    end
   end
 end

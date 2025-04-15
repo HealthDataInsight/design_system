@@ -8,11 +8,9 @@ module DesignSystem
       def ds_password_field(method, options = {})
         @brand = config.brand
         options[:id] = govuk_field_id(method, link_errors: true)
-        password_field_options = css_class_options_merge(options, ["#{@brand}-input"])
-        if has_errors?(method)
-          password_field_options = css_class_options_merge(password_field_options,
-                                                           ["#{@brand}-input--error"])
-        end
+        password_field_options = css_class_options_merge(options,
+                                                         ["#{@brand}-input",
+                                                          has_errors?(method) ? "#{@brand}-input--error" : nil].compact)
 
         hint = options.delete(:hint)
         password_field_options[:'aria-describedby'] = field_id("#{method}-hint") if hint
