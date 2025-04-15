@@ -36,7 +36,7 @@ registerControllers(application)
 
 ## Updating Frontends
 
-### GOVUK Frontend (currently v5.3.1)
+### GOVUK Frontend (currently v5.9.0)
 ```bash
 # Automatically fetch the latest
 bundle exec rake app:make_govuk
