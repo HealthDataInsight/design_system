@@ -3607,6 +3607,75 @@
   border-width: 3px;
   border-color: var(--color-error);
 }
+.hdi-breadcrumbs {
+  margin-bottom: calc(var(--spacing) * 4);
+  max-width: 100%;
+  overflow-x: auto;
+}
+.hdi-breadcrumbs__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hdi-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  :where(& > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+  }
+}
+.hdi-breadcrumbs__list-item {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hdi-breadcrumbs__list-item__home {
+  display: inline-flex;
+  align-items: center;
+}
+.hdi-breadcrumbs__list-item__home-link {
+  margin-left: calc(var(--spacing) * 4);
+  max-width: 200px;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-gray-500);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-gray-700);
+    }
+  }
+}
+.hdi-breadcrumbs__list-item__home__root {
+  display: inline-flex;
+  align-items: center;
+  :where(& > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+  }
+}
+.hdi-breadcrumbs__list-item__home-link__root {
+  color: var(--color-gray-400);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-gray-500);
+    }
+  }
+}
 .hdi-pagination {
   display: flex;
   align-items: center;
@@ -4427,4 +4496,9 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
   syntax: "*";
   inherits: false;
   initial-value: solid;
+}
+@property --tw-space-x-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
 }
