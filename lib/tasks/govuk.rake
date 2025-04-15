@@ -53,7 +53,7 @@ module GovukHelpers
     end
 
     # Copy root SCSS files
-    %w[_base.scss all.scss].each do |file|
+    %w[_base.scss all.scss index.scss].each do |file|
       FileUtils.cp("#{base_path}/#{file}", "#{target_base}/#{file}")
     end
   end
