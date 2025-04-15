@@ -2,6 +2,7 @@
 
 require_relative 'govuk'
 require_relative 'nhsuk'
+require_relative 'generic'
 
 # This is the HDI branded adapter for the design system
 
