@@ -10,7 +10,7 @@
     <%= form.ds_url_field :website, hint: "Demo for ds_url_field" %>
     <%= form.ds_file_field :cv %>
     <%= form.ds_password_field :password, hint: "Demo for ds_password_field", class: "#{brand}-input--width-30" %>
-    <%= form.ds_number_field :age, width: 5, hint: "Demo for ds_number_field" %>
+    <%= form.ds_number_field :age, width: 3, hint: "Demo for ds_number_field" %>
     <%= form.ds_text_area :description, hint: "Demo for ds_text_area" %>
     <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { size: nil }%>
   <% end %>
@@ -37,7 +37,7 @@
     <%= form.ds_collection_radio_buttons :colour, Assistant::COLOURS, :id, :title, { hint_method: :description, hint: "Demo for ds_collection_radio_buttons" }, { small: true, inline: true } %>
 
     <%= form.ds_radio_buttons_fieldset :lunch_option, hint: "Demo for ds_radio_buttons_fieldset" do %>
-      <%= form.ds_radio_button :lunch_option, "Salad", link_errors: true, hint: "Demo for radio button hint" %>
+      <%= form.ds_radio_button :lunch_option, "Salad", link_errors: true %>
       <%= form.ds_radio_button :lunch_option, "Jacket potato" %>
     <% end %>
   <% end %>

@@ -66,9 +66,4 @@ class Assistant < ApplicationRecord
   def dob_must_be_in_the_past
     errors.add(:date_of_birth, 'Your date of birth must be in the past') unless date_of_birth < Date.today
   end
-
-  # TODO: single field error highlighting issue
-  # def year_of_birth_must_be_1900_or_later
-  #   errors.add(:date_of_birth_year, 'Year of birth must be 1900 or later') unless date_of_birth.year > 1900
-  # end
 end

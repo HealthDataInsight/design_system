@@ -18,7 +18,7 @@ module DesignSystem
           @output_buffer = ds_notice('Important Notice')
           assert_select 'div.rounded-md.bg-blue-50.dark\\:bg-blue-900.p-4.mb-4' do
             assert_select 'div.flex' do
-              assert_select 'div.shrink-0'
+              assert_select 'div.flex-shrink-0'
             end
 
             assert_select 'div.ml-3.flex-1.md\\:flex.md\\:justify-between' do
