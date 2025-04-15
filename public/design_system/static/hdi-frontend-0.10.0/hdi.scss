@@ -3151,7 +3151,10 @@
   }
 }
 .hdi-input__wrapper {
-  display: flex;
+  display: block;
+  @media (width >= 40rem) {
+    display: flex;
+  }
   .hdi-input {
     flex: auto;
   }
