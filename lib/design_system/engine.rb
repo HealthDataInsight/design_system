@@ -22,7 +22,7 @@ module DesignSystem
         ::Rack::Static,
         urls: [
           '/design_system/static/flowbite-2.5.1',
-          '/design_system/static/govuk-frontend-5.3.1',
+          '/design_system/static/govuk-frontend-5.9.0',
           '/design_system/static/heroicons-2.1.5',
           '/design_system/static/ndrsuk-frontend-8.1.1',
           '/design_system/static/nhsuk-frontend-9.1.0',
