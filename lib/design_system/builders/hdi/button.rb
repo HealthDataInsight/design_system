@@ -7,7 +7,7 @@ module DesignSystem
       class Button < ::DesignSystem::Builders::Generic::Button
         def render_button(content_or_options = nil, options = nil, &)
           options = prep_button_options(content_or_options, options)
-          options[:class] = 'font-bold py-2 px-4 rounded-sm'
+          options[:class] = "#{brand}-button"
 
           options = css_class_options_merge(options) do |button_classes|
             button_classes << style_class_hash[options['style']]
@@ -30,16 +30,15 @@ module DesignSystem
 
         def add_disabled_class(options)
           css_class_options_merge(options) do |button_classes|
-            button_classes << 'disabled:bg-gray-300 text-indigo-500 cursor-not-allowed'
+            button_classes << "#{brand}-button--disabled"
           end
         end
 
         def style_class_hash
           {
-            'primary' => 'bg-indigo-600 hover:bg-indigo-500 text-white',
-            'secondary' => 'bg-white-500 hover:bg-gray-50 text-gray',
-            'warning' => 'bg-red-500 hover:bg-red-600 text-white',
-            'reverse' => 'bg-white hover:bg-indigo-400 text-indigo-500'
+            'secondary' => "#{brand}-button--secondary",
+            'warning' => "#{brand}-button--warning",
+            'reverse' => "#{brand}-button--inverse"
           }
         end
       end

@@ -88,8 +88,11 @@ end
 <%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
 
 <%= ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1 %>
-
 <%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
+<%= ds_button_tag 'Draft', style: 'secondary'%>
+<%= ds_button_tag 'Draft', style: 'secondary', disabled: true %>
+<%= ds_button_tag 'Warning', style: 'warning'%>
+<%= ds_button_tag 'Warning', style: 'warning', disabled: true %>
 
 <%= ds_heading 'Assitants table', level: 3 %>
 <%=

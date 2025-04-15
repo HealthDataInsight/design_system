@@ -2698,7 +2698,19 @@
 }
 .hdi-button--disabled {
   pointer-events: none;
-  opacity: 30%;
+  opacity: 40%;
+}
+.hdi-button.hdi-button--disabled {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-content) !important;
+}
+.hdi-button--secondary.hdi-button--disabled {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-secondary-content) !important;
+}
+.hdi-button--warning.hdi-button--disabled {
+  background-color: var(--color-error) !important;
+  color: var(--color-error-content) !important;
 }
 .hdi-checkboxes {
   margin-top: calc(var(--spacing) * 2);
@@ -3926,6 +3938,11 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     --border: 1px;
     --depth: 1;
     --noise: 0;
+  }
+}
+@layer base {
+  :root:has(input.theme-controller[value=custom-theme]:checked),[data-theme="custom-theme"] {
+    color-scheme: normal;
   }
 }
 @layer base {
