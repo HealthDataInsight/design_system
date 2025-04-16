@@ -3676,6 +3676,15 @@
     }
   }
 }
+.hdi-link {
+  color: var(--color-primary);
+  @media (hover: hover) {
+    &:hover {
+      color: color-mix(in oklab, var(--color-primary) 80%, #000);
+    }
+  }
+  text-decoration-line: underline;
+}
 .hdi-pagination {
   display: flex;
   align-items: center;
@@ -3724,6 +3733,54 @@
       color: var(--color-gray-700);
     }
   }
+}
+.hdi-icon {
+  height: calc(var(--spacing) * 6);
+  width: calc(var(--spacing) * 6);
+  flex-shrink: 0;
+}
+.hdi-icon-link {
+  display: flex;
+  column-gap: calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  padding: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  --tw-leading: calc(var(--spacing) * 6);
+  line-height: calc(var(--spacing) * 6);
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-secondary-content);
+  &:hover {
+    @media (hover: hover) {
+      background-color: var(--color-secondary);
+    }
+  }
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-primary);
+    }
+  }
+}
+.hdi-icon-link__active {
+  display: flex;
+  column-gap: calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-secondary);
+  padding: calc(var(--spacing) * 2);
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  --tw-leading: calc(var(--spacing) * 6);
+  line-height: calc(var(--spacing) * 6);
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+.hdi-icon-label {
+  color: var(--color-secondary);
+}
+.hdi-icon-label__active {
+  color: var(--color-primary);
 }
 .three-columns {
   display: flex;
@@ -3869,15 +3926,6 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
   --tw-font-weight: var(--font-weight-normal);
   font-weight: var(--font-weight-normal);
   color: var(--color-primary);
-}
-.hdi-link {
-  color: var(--color-primary);
-  @media (hover: hover) {
-    &:hover {
-      color: color-mix(in oklab, var(--color-primary) 80%, #000);
-    }
-  }
-  text-decoration-line: underline;
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {
