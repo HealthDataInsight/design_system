@@ -2260,7 +2260,7 @@
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
   white-space: nowrap;
-  color: color-mix(in oklab, var(--color-base-content) 75%, transparent);
+  color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
   @media (width >= 40rem) {
     margin-top: calc(var(--spacing) * 0);
   }
@@ -3851,7 +3851,7 @@
   color: var(--color-error);
 }
 .hdi-sidebar-border {
-  background-color: var(--color-base-300);
+  border-color: var(--color-base-300);
 }
 .hdi-sidebar-bg {
   background-color: var(--color-base-200);
