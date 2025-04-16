@@ -10,9 +10,7 @@ module DesignSystem
 
           buffer.concat(
             content_tag(:div, class: "#{brand}-notification-banner__alert", role: 'alert') do
-              content_tag(:div, class: 'flex') do
-                icon_alert_content + text_alert_content(msg)
-              end
+              icon_alert_content + text_alert_content(msg)
             end
           )
           buffer
@@ -23,9 +21,7 @@ module DesignSystem
 
           buffer.concat(
             content_tag(:div, class: "#{brand}-notification-banner") do
-              content_tag(:div, class: 'flex') do
-                icon_notice_content + text_notice_content(msg)
-              end
+              icon_notice_content + text_notice_content(msg)
             end
           )
 
@@ -35,43 +31,35 @@ module DesignSystem
         private
 
         def icon_alert_content
-          content_tag(:div, class: "#{brand}-notification-banner-icon") do
-            content_tag(:svg,
-                        content_tag(:path, '', fill_rule: 'evenodd',
-                                               d: 'M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06
+          content_tag(:svg,
+                      content_tag(:path, '', fill_rule: 'evenodd',
+                                             d: 'M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06
                                                    1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72
                                                    1.72a.75.75 0 01.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10
                                                    8.94 8.28 7.22z', clip_rule: 'evenodd'),
-                        class: "#{brand}-icon #{brand}-icon-error", viewBox: '0 0 20 20',
-                        fill: 'currentColor', aria_hidden: 'true')
-          end
+                      class: "#{brand}-notification-banner-icon #{brand}-icon-error", viewBox: '0 0 20 20', fill: 'currentColor', aria_hidden: 'true', stroke_linecap: 'round', stroke_linejoin: 'round', stroke_width: '2')
         end
 
         def text_alert_content(msg)
-          content_tag(:div, class: "#{brand}-notification-banner-content-wrapper") do
-            content_tag(:div, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
-                        data: { test: 'alert' }, class: 'text-sm text-red-700 dark:text-white')
+          content_tag(:span, 'data-test': 'alert') do
+            sanitize(msg, tags: %w[b p br a], attributes: %w[href targ])
           end
         end
 
         def icon_notice_content
-          content_tag(:div, class: 'shrink-0') do
-            content_tag(:svg,
-                        content_tag(:path, '', fill_rule: 'evenodd',
-                                               d: 'M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9
+          content_tag(:svg,
+                      content_tag(:path, '', fill_rule: 'evenodd',
+                                             d: 'M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9
                                         9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0
                                         0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75
                                         1.75 0 009.253 9H9z', clip_rule: 'evenodd'),
-                        class: "#{brand}-icon #{brand}-icon-info", viewBox: '0 0 20 20',
-                        fill: 'currentColor', aria_hidden: 'true')
-          end
+                      class: "#{brand}-notification-banner-icon #{brand}-icon-info", viewBox: '0 0 20 20',
+                      fill: 'currentColor', aria_hidden: 'true', stroke_linecap: 'round', stroke_linejoin: 'round', stroke_width: '2')
         end
 
         def text_notice_content(msg)
-          content_tag(:div, class: "#{brand}-notification-banner-content-wrapper") do
-            content_tag(:p, class: 'text-sm text-blue-700 dark:text-white', 'data-test': 'notice') do
-              sanitize(msg, tags: %w[b p br a], attributes: %w[href targ])
-            end
+          content_tag(:span, 'data-test': 'notice') do
+            sanitize(msg, tags: %w[b p br a], attributes: %w[href targ])
           end
         end
       end
