@@ -3187,21 +3187,21 @@
   font-weight: var(--font-weight-bold);
 }
 .hdi-label--xl {
-  font-size: var(--text-3xl);
-  line-height: var(--tw-leading, var(--text-3xl--line-height));
-}
-.hdi-label--l {
-  font-size: var(--text-2xl);
-  line-height: var(--tw-leading, var(--text-2xl--line-height));
-}
-.hdi-label--m {
   font-size: var(--text-xl);
   line-height: var(--tw-leading, var(--text-xl--line-height));
 }
-.hdi-label--s {
-  margin-top: calc(var(--spacing) * 0);
+.hdi-label--l {
   font-size: var(--text-lg);
   line-height: var(--tw-leading, var(--text-lg--line-height));
+}
+.hdi-label--m {
+  font-size: var(--text-base);
+  line-height: var(--tw-leading, var(--text-base--line-height));
+}
+.hdi-label--s {
+  margin-top: calc(var(--spacing) * 0);
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
 }
 .hdi-label-wrapper {
   margin: calc(var(--spacing) * 0);
