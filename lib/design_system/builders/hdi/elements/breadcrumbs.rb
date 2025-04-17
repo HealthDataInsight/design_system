@@ -55,7 +55,7 @@ module DesignSystem
 
           def root_path_breadcrumb(breadcrumb)
             content_tag :div, class: "#{brand}-breadcrumbs__link-wrapper--home" do
-              link_to breadcrumb[:path], class: "#{brand}-breadcrumbs__link" do
+              link_to breadcrumb[:path], class: "#{brand}-breadcrumbs__link--home" do
                 BREADCRUMB_HOME_SVG + content_tag(:span, breadcrumb[:label], class: 'sr-only')
               end
             end
