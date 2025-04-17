@@ -24,13 +24,11 @@ module DesignSystem
 
           def content_for_breadcrumbs
             content_for(:breadcrumbs) do
-              content_tag(:div, class: "#{brand}-breadcrumbs") do
-                content_tag(:nav, 'aria-label': 'Breadcrumb', class: "#{brand}-breadcrumbs__nav") do
-                  content_tag(:ol, data: { test: 'breadcrumb_list' }, class: "#{brand}-breadcrumbs__list",
-                                   role: 'list') do
-                    @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
-                      safe_buffer.concat(render_breadcrumb(breadcrumb))
-                    end
+              content_tag(:nav, 'aria-label': 'Breadcrumb', class: "#{brand}-breadcrumbs") do
+                content_tag(:ol, data: { test: 'breadcrumb_list' }, class: "#{brand}-breadcrumbs__list",
+                                 role: 'list') do
+                  @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
+                    safe_buffer.concat(render_breadcrumb(breadcrumb))
                   end
                 end
               end
@@ -41,14 +39,14 @@ module DesignSystem
             is_home_path = home_path?(breadcrumb[:path])
             is_current_page = @context.current_page?(breadcrumb[:path])
 
-            content_tag :li, class: "#{brand}-breadcrumbs__list-item #{is_home_path ? 'home' : 'named'}",
+            content_tag :li, class: "#{brand}-breadcrumbs__item",
                              data: { test: 'breadcrumb_item' } do
               if is_home_path
                 root_path_breadcrumb(breadcrumb)
               else
-                content_tag :div, class: "#{brand}-breadcrumbs__list-item__home" do
+                content_tag :div, class: "#{brand}-breadcrumbs__link-wrapper" do
                   BREADCRUMB_DIVIDER_SVG + link_to(breadcrumb[:label], breadcrumb[:path],
-                                                   class: "#{brand}-breadcrumbs__list-item__home-link",
+                                                   class: "#{brand}-breadcrumbs__link",
                                                    'aria-current': is_current_page ? 'page' : nil)
                 end
               end
@@ -56,8 +54,8 @@ module DesignSystem
           end
 
           def root_path_breadcrumb(breadcrumb)
-            content_tag :div, class: "#{brand}-breadcrumbs__list-item__home__root" do
-              link_to breadcrumb[:path], class: "#{brand}-breadcrumbs__list-item__home-link__root" do
+            content_tag :div, class: "#{brand}-breadcrumbs__link-wrapper--home" do
+              link_to breadcrumb[:path], class: "#{brand}-breadcrumbs__link" do
                 BREADCRUMB_HOME_SVG + content_tag(:span, breadcrumb[:label], class: 'sr-only')
               end
             end
