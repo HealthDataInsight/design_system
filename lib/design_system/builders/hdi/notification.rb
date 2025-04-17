@@ -37,7 +37,7 @@ module DesignSystem
                                                    1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72
                                                    1.72a.75.75 0 01.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10
                                                    8.94 8.28 7.22z', clip_rule: 'evenodd'),
-                      class: "#{brand}-notification-banner-icon #{brand}-icon-error", viewBox: '0 0 20 20', fill: 'currentColor', aria_hidden: 'true', stroke_linecap: 'round', stroke_linejoin: 'round', stroke_width: '2')
+                      class: "#{brand}-notification-banner-icon #{brand}-icon--error", viewBox: '0 0 20 20', fill: 'currentColor', aria_hidden: 'true', stroke_linecap: 'round', stroke_linejoin: 'round', stroke_width: '2')
         end
 
         def text_alert_content(msg)
@@ -53,7 +53,7 @@ module DesignSystem
                                         9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0
                                         0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75
                                         1.75 0 009.253 9H9z', clip_rule: 'evenodd'),
-                      class: "#{brand}-notification-banner-icon #{brand}-icon-info", viewBox: '0 0 20 20',
+                      class: "#{brand}-notification-banner-icon #{brand}-icon--info", viewBox: '0 0 20 20',
                       fill: 'currentColor', aria_hidden: 'true', stroke_linecap: 'round', stroke_linejoin: 'round', stroke_width: '2')
         end
 
