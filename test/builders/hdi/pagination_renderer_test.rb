@@ -27,10 +27,13 @@ module DesignSystem
           @output_buffer = ds_pagination(@assistants)
 
           assert_select('nav.hdi-pagination') do
-            assert_select('div.hdi-pagination__next') do
-              assert_select('a.hdi-link.hdi-pagination__link') do
+            assert_select('div.hdi-pagination-item--next-container') do
+              assert_select('a.hdi-pagination-item.hdi-pagination-item--next') do
                 'Next'
               end
+            end
+            assert_select('a.hdi-pagination-item.hdi-pagination-item--active') do
+              '1'
             end
           end
         end
