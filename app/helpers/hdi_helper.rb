@@ -9,9 +9,9 @@ module HdiHelper
     svg_path = "/design_system/static/hdi-frontend-0.10.0/icons/icon-#{icon_name}.svg"
 
     options['class'] = if active
-                         "#{brand}-sidebar-item #{brand}-sidebar-item--active"
+                         'hdi-sidebar-item hdi-sidebar-item--active'
                        else
-                         "#{brand}-sidebar-item"
+                         'hdi-sidebar-item'
                        end
 
     link_to(path, **options) do
@@ -22,7 +22,7 @@ module HdiHelper
   private
 
   def hdi_sidebar_navigation_svg_tag(svg_path, active)
-    content_tag(:img, nil, src: svg_path, class: "#{brand}-icon",
+    content_tag(:img, nil, src: svg_path, class: 'hdi-icon',
                            'aria-hidden': 'true')
   end
 end
