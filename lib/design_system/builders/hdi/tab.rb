@@ -50,7 +50,7 @@ module DesignSystem
 
         def tab_button_class(selected)
           if selected
-            "#{brand}-tabs__tab--selected"
+            "#{brand}-tabs__tab #{brand}-tabs__tab--selected"
           else
             "#{brand}-tabs__tab"
           end
