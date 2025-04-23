@@ -36,9 +36,14 @@ module DesignSystem
 
         def tabs_body_content
           content_tag(:div, id: 'default-tab-content') do
-            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, _sel), body_buffer|
+            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, sel), body_buffer|
+              style = if sel
+                        "#{brand}-tabs__panel"
+                      else
+                        "#{brand}-tabs__panel #{brand}-tabs__panel--hidden"
+                      end
               body_buffer.concat(
-                content_tag(:div, class: "#{brand}-tabs__panel", id:, role: 'tabpanel',
+                content_tag(:div, class: style, id:, role: 'tabpanel',
                                   'aria-labelledby': "#{id}-tab") do
                   content_tag(:p, content, class: "#{brand}-tabs__panel-content")
                 end
