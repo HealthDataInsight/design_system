@@ -21,13 +21,12 @@ module DesignSystem
         ::ActionDispatch::RemoteIp,
         ::Rack::Static,
         urls: [
-          '/design_system/static/govuk-frontend-5.3.1',
+          '/design_system/static/date-fns-4.1.0',
+          '/design_system/static/govuk-frontend-5.9.0',
           '/design_system/static/hdi-frontend-0.10.0',
-          '/design_system/static/heroicons-2.1.5',
-          '/design_system/static/ndrsuk-frontend-8.1.1',
-          '/design_system/static/nhsuk-frontend-9.1.0',
-          '/design_system/static/stimulus-3.2.2',
-          '/design_system/static/date-fns-4.1.0'
+          '/design_system/static/ndrsuk-frontend-9.3.0',
+          '/design_system/static/nhsuk-frontend-9.3.0',
+          '/design_system/static/stimulus-3.2.2'
         ],
         root: DesignSystem::Engine.root.join('public')
       )

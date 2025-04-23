@@ -1,0 +1,13 @@
+pirate:
+  activerecord:
+    attributes:
+      assistant:
+        age: Age, yarr
+        department_id: Department, yarr
+        description: Description, yarr
+        email: Email, yarr
+        phone: Phone, yarr
+        title: Title, yarr
+        website: Website, yarr
+    errors:
+      title: There is a problem, yarr

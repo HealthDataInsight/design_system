@@ -10,11 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_15_214315) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_01_134939) do
   create_table "assistants", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "department_id", null: false
+    t.string "email"
+    t.string "password"
+    t.integer "age"
+    t.string "colour"
+    t.date "date_of_birth"
+    t.text "description"
+    t.string "desired_filling"
+    t.string "lunch_option"
+    t.string "phone"
+    t.boolean "terms_agreed", default: false
+    t.string "website"
+    t.integer "role_id", null: false
+    t.index ["department_id"], name: "index_assistants_on_department_id"
+    t.index ["role_id"], name: "index_assistants_on_role_id"
+  end
+
+  create_table "departments", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "assistants", "departments"
+  add_foreign_key "assistants", "roles"
 end

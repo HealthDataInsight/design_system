@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user:
+  id: 1
+  title: User
+  description: This is a user role
+
+admin:
+  id: 2
+  title: Admin
+  description: This is an admin role
+
+super_admin:
+  id: 3
+  title: Super Admin
+  description: This is a super admin role

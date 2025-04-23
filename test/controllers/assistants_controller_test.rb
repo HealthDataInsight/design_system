@@ -21,7 +21,22 @@ class AssistantsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create assistant' do
     assert_difference('Assistant.count') do
-      post assistants_url, params: { assistant: { title: 'Foo' } }
+      post assistants_url, params: {
+        assistant: {
+          age: 1,
+          colour: 'red',
+          department_id: 1,
+          description: 'a',
+          desired_filling: ['pastrami'],
+          email: 'foo@foo.com',
+          lunch_option: 'Salad',
+          password: 'password',
+          role_id: 1,
+          terms_agreed: true,
+          title: 'Foo',
+          website: 'http://www.example.com'
+        }
+      }
     end
 
     assert_redirected_to assistant_url(Assistant.last)

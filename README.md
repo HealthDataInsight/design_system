@@ -34,6 +34,34 @@ import { registerControllers } from "design_system/controllers"
 registerControllers(application)
 ```
 
+## Updating Frontends
+
+### GOVUK Frontend (currently v5.9.0)
+```bash
+# Automatically fetch the latest
+bundle exec rake app:make_govuk
+
+# Update to a specific version
+bundle exec rake app:make_govuk\[5.9.0\]
+```
+
+### NHSUK Frontend (currently v9.3.0)
+```bash
+# Automatically fetch the latest
+bundle exec rake app:make_nhsuk
+
+# Update to a specific version
+bundle exec rake app:make_nhsuk\[9.3.0\]
+```
+
+### NDRSUK Frontend (currently v9.3.0)
+```bash
+# NDRSUK Version number must be explicitly specified (no 'latest' support)
+bundle exec rake app:make_nhsuk\[9.3.0\]
+```
+There is additional information in the [ndrsuk-frontend repo](https://github.com/HealthDataInsight/ndrsuk-frontend)'s README.md.
+
+
 ## Build Tailwind CSS with a custom config
 
 If you are self-hosting Tailwind in your host app, you need to import the styles and utilities via design system.

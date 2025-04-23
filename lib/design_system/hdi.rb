@@ -11,4 +11,6 @@ require_relative 'builders/hdi/summary_list'
 require_relative 'builders/hdi/tab'
 require_relative 'builders/hdi/table'
 
+require_relative 'form_builders/hdi'
+
 DesignSystem::Registry.register('hdi')
