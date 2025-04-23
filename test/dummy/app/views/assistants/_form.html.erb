@@ -13,6 +13,7 @@
     <%= form.ds_number_field :age, width: 3, hint: "Demo for ds_number_field" %>
     <%= form.ds_text_area :description, hint: "Demo for ds_text_area" %>
     <%= form.ds_date_field :date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { size: nil }%>
+    <%= form.ds_hidden_field :desired_filling, value: :pastrami, readonly: true %>
   <% end %>
 
   <%= form.ds_field_set_tag "Checkboxes" do %>

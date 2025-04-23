@@ -180,6 +180,13 @@ module DesignSystem
         govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field
+      # TODO
+      def ds_hidden_field(method, options = {})
+        text_field_tag(method, options[:value], readonly: true) if options[:readonly]
+        hidden_field(method, **options)
+      end
+
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
         content, options = separate_content_or_options(content_or_options, options)
