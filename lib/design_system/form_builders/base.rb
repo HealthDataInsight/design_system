@@ -10,6 +10,26 @@ module DesignSystem
         name.demodulize.underscore
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field, but with label automatically added and takes a show_text option
+      def ds_hidden_field(method, options = {})
+        @brand = config.brand
+
+        options[:class] = [options[:class], "#{@brand}-u-visually-hidden"].compact.join(' ')
+
+        label_hash = options.delete(:label) || {}
+        label = ds_label(method, label_hash)
+        show_text = options.delete(:show_text)
+
+        content_tag(:div, class: "#{@brand}-form-group") do
+          components = []
+          components << label if label
+          components << hidden_field(method, **options)
+          components << content_tag(:span, show_text, class: "#{@brand}-body-m") if show_text
+
+          safe_join(components)
+        end
+      end
+
       private
 
       # Helper copied from https://github.com/NHSDigital/ndr_ui/blob/main/app/helpers/ndr_ui/css_helper.rb with thanks.
