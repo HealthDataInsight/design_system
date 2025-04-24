@@ -88,14 +88,14 @@
       </div>
     </div>
 
-    <div class="sticky top-0 z-40 flex items-center gap-x-6 hdi-sidebar-bg-100 px-4 py-4 shadow-xs sm:px-6 lg:hidden">
-      <button type="button" data-action="sidebar#show" class="-m-2.5 p-2.5 text-gray-200 lg:hidden">
+    <div class="banner">
+      <button type="button" data-action="sidebar#show" class="banner-show-sidebar-button">
         <span class="sr-only">Open sidebar</span>
-        <svg class="h-6 w-6 text-gray-900 dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <svg class="hdi-icon heroicon__bars-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
-      <div class="flex-1 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">HDI Portal</div>
+      <div class="banner-title">HDI Portal</div>
       <a href="#">
         <span class="sr-only">Your profile</span>
         <%#= current_user_image_tag %>
