@@ -18,16 +18,16 @@ module DesignSystem
             table.add_column('X')
           end
 
-          assert_select 'table' do
-            assert_select 'caption'
-            assert_select 'thead' do
-              assert_select 'tr' do
-                assert_select 'th:nth-child(1)', 'X'
+          assert_select "div.#{@brand}-table-container" do
+            assert_select "table.#{@brand}-table-responsive" do
+              assert_select "caption.#{@brand}-table__caption", text: 'X and Y'
+              assert_select "thead.#{@brand}-table__head" do
+                assert_select "tr.#{@brand}-table__row" do
+                  assert_select "th.#{@brand}-table__header:nth-child(1)", 'X'
+                end
               end
             end
           end
-
-          assert_select('caption.caption_top', text: 'X and Y')
         end
 
         test 'rendering hdi cells with block and options' do
