@@ -1698,6 +1698,9 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 1px;
   }
+  .border-base-300 {
+    border-color: var(--color-base-300);
+  }
   .bg-accent {
     background-color: var(--color-accent);
   }
@@ -4095,6 +4098,25 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
       text-decoration-line: underline;
     }
   }
+}
+.hdi-visually-hidden {
+  &::before {
+    content: "\00a0";
+  }
+  &::after {
+    content: "\00a0";
+  }
+  border: 0;
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {
