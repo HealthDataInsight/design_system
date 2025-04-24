@@ -61,48 +61,6 @@ bundle exec rake app:make_nhsuk\[9.3.0\]
 ```
 There is additional information in the [ndrsuk-frontend repo](https://github.com/HealthDataInsight/ndrsuk-frontend)'s README.md.
 
-
-## Build Tailwind CSS with a custom config
-
-If you are self-hosting Tailwind in your host app, you need to import the styles and utilities via design system.
-
-Create an input CSS file (`input.css`) to include Tailwind's core styles and any custom utilities used by your host app:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Example Custom Styles */
-@layer utilities {
-  .hdi-border {
-    border-color: #473191;
-  }
-}
-```
-
-For the HDI Portal, copy the code highlight styles from `app/assets/stylesheets/highlightjs` into `application.tailwind.css` (this will now serve as your `input.css`). You may need to check older versions of the project to find these files.
-
-Run the Tailwind CLI to generate a single CSS file with your custom styles:
-
-```bash
-# Replace 'hdi' with the relevant brand name if working on a different project.
-
-$ npx tailwindcss -i input.css -o app/assets/stylesheets/hdi.tailwind.css --minify
-```
-
-Now you can reference the built CSS in your app.
-
-```erb
-<%= stylesheet_link_tag 'hdi.tailwind', 'data-turbo-track': 'reload' %>
-```
-
-Or in the Engine:
-
-```css
-@import 'hdi.tailwind'
-```
-
 ## Contributing
 Contribution directions go here.
 
