@@ -17,10 +17,10 @@ module DesignSystem
             list.add_row(key: 'X', value: 'Y')
           end
 
-          assert_select('dl.hdi-summary-list')
-          assert_select('div.hdi-summary-list__row')
-          assert_select('dt.hdi-summary-list__key', text: 'X')
-          assert_select('dd.hdi-summary-list__value', text: 'Y')
+          assert_select("dl.#{@brand}-summary-list")
+          assert_select("div.#{@brand}-summary-list__row")
+          assert_select("dt.#{@brand}-summary-list__key", text: 'X')
+          assert_select("dd.#{@brand}-summary-list__value", text: 'Y')
         end
 
         test 'renders multiple values in a summary list' do
@@ -31,9 +31,9 @@ module DesignSystem
             end
           end
 
-          assert_select('dt.hdi-summary-list__key', text: 'X')
-          assert_select('dd.hdi-summary-list__value p', text: 'Y')
-          assert_select('dd.hdi-summary-list__value p', text: 'Z')
+          assert_select("dt.#{@brand}-summary-list__key", text: 'X')
+          assert_select("dd.#{@brand}-summary-list__value p", text: 'Y')
+          assert_select("dd.#{@brand}-summary-list__value p", text: 'Z')
         end
 
         test 'renders actions in a summary list' do
@@ -44,10 +44,10 @@ module DesignSystem
             end
           end
 
-          assert_select('dd.hdi-summary-list__value')
-          assert_select('ul.hdi-summary-list__actions-list')
-          assert_select("li.hdi-summary-list__actions-list-item a[href='/edit']", text: 'Edit')
-          assert_select("li.hdi-summary-list__actions-list-item a[href='/delete']", text: 'Delete')
+          assert_select("dd.#{@brand}-summary-list__value")
+          assert_select("ul.#{@brand}-summary-list__actions-list")
+          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/edit']", text: 'Edit')
+          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/delete']", text: 'Delete')
         end
 
         test 'renders row with correct spacing for multiple actions' do
@@ -59,9 +59,9 @@ module DesignSystem
             end
           end
 
-          assert_select("li.hdi-summary-list__actions-list-item a[href='/1']", text: '1')
-          assert_select("li.hdi-summary-list__actions-list-item a[href='/2']", text: '2')
-          assert_select("li.hdi-summary-list__actions-list-item a[href='/3']", text: '3')
+          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/1']", text: '1')
+          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/2']", text: '2')
+          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/3']", text: '3')
         end
       end
     end
