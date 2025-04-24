@@ -20,7 +20,8 @@ module DesignSystem
         private
 
         def link_with_prev_title(target)
-          tag(:a, "Previous#{icon('previous')}",
+          tag(:a,
+              icon('previous') + 'Previous'.html_safe,
               href: url(target),
               class: "#{brand}-pagination-item #{brand}-pagination-item--previous")
         end
