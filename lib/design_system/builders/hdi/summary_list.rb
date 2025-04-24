@@ -19,12 +19,6 @@ module DesignSystem
             end
           end
         end
-
-        def render_action(action)
-          link_to(action[:content],
-                  action[:options][:path] || '#',
-                  class: "#{brand}-link")
-        end
       end
     end
   end
