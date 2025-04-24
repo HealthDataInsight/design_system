@@ -9,7 +9,7 @@
   -->
   <div data-controller="sidebar">
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-    <div data-sidebar-target="menu" class="relative z-50 lg:hidden hidden transition-opacity ease-linear duration-300 opacity-0 " role="dialog" aria-modal="true">
+    <div data-sidebar-target="menu" class="sidebar-off-canvas-container hidden opacity-0" role="dialog" aria-modal="true">
       <!--
         Off-canvas menu backdrop, show/hide based on off-canvas menu state.
 
@@ -20,9 +20,9 @@
           From: "opacity-100"
           To: "opacity-0"
       -->
-      <div class="fixed inset-0 bg-gray-900/80"></div>
+      <div class="sidebar-off-canvas-backdrop"></div>
 
-      <div class="fixed inset-0 flex">
+      <div class="sidebar-off-canvas">
         <!--
           Off-canvas menu, show/hide based on off-canvas menu state.
 
@@ -33,7 +33,7 @@
             From: "translate-x-0"
             To: "-translate-x-full"
         -->
-        <div class="relative mr-16 flex w-full max-w-xs flex-1">
+        <div class="sidebar-off-canvas-inner">
           <!--
             Close button, show/hide based on off-canvas menu state.
 
@@ -44,22 +44,22 @@
               From: "opacity-100"
               To: "opacity-0"
           -->
-          <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-            <button data-action="sidebar#hide" type="button" class="-m-2.5 p-2.5">
+          <div class="sidebar-off-canvas-close-button-container">
+            <button data-action="sidebar#hide" type="button" class="sidebar-off-canvas-close-button">
               <span class="sr-only">Close sidebar</span>
-              <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <svg class="hdi-icon heroicon__x-mark" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
           <!-- Sidebar component, swap this element with another sidebar if you like -->
-          <div class="hdi-sidebar-border hdi-sidebar-bg flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-2">
-            <div class="flex h-16 shrink-0 items-center">
-              <img class="h-8 w-auto" src="/health-data-insight-logo.png" alt="Health Data Insight">
+          <div class="sidebar">
+            <div class="sidebar-header">
+              <img class="sidebar-logo" src="/health-data-insight-logo.png" alt="Health Data Insight">
             </div>
-            <nav aria-label="Menu" class="flex flex-1 flex-col">
-              <ul role="list" class="flex flex-1 flex-col gap-y-7">
+            <nav class="sidebar-content">
+              <ul role="list" class="sidebar-list">
                 <%= render 'hdi/navigation' %>
               </ul>
             </nav>
@@ -69,18 +69,18 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+    <div class="sidebar-container">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div class="hdi-sidebar-border hdi-sidebar-bg flex grow flex-col gap-y-5 overflow-y-auto border-r px-6">
-        <div class="flex h-16 shrink-0 items-center">
-          <img class="h-8 w-auto" src="/health-data-insight-logo.png" alt="Health Data Insight">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <img class="sidebar-logo" src="/health-data-insight-logo.png" alt="Health Data Insight">
         </div>
-        <nav class="flex flex-1 flex-col">
-          <ul role="list" class="flex flex-1 flex-col gap-y-7">
+        <nav class="sidebar-content">
+          <ul role="list" class="sidebar-list">
 
             <%= render 'hdi/navigation' %>
 
-            <li class="-mx-6 mt-auto">
+            <li class="sidebar-user-info">
               <%#= render 'signed_in_user_info' %>
             </li>
           </ul>
