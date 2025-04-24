@@ -20,14 +20,17 @@ module DesignSystem
         private
 
         def link_with_prev_title(target)
+          title = tag(:span, 'Previous', class: "#{brand}-pagination-item-title")
           tag(:a,
-              icon('previous') + 'Previous'.html_safe,
+              icon('previous') + title,
               href: url(target),
               class: "#{brand}-pagination-item #{brand}-pagination-item--previous")
         end
 
         def link_with_next_title(target)
-          tag(:a, "Next#{icon('next')}",
+          title = tag(:span, 'Next', class: "#{brand}-pagination-item-title")
+          tag(:a,
+              title + icon('next'),
               href: url(target),
               class: "#{brand}-pagination-item #{brand}-pagination-item--next")
         end
