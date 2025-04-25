@@ -8,7 +8,8 @@ module HdiHelper
     icon_name = options[:icon] if options[:icon].present?
     svg_path = "/design_system/static/heroicons-2.1.5/icon-#{icon_name}.svg"
 
-    options['class'] = ['sidebar-item']
+    options['class'] ||= []
+    options['class'] << 'sidebar-item'
     options['class'] << 'sidebar-item--active' if active
 
     link_to(path, **options) do
