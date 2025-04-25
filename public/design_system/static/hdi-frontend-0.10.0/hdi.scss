@@ -6,13 +6,8 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-blue-50: oklch(0.97 0.014 254.604);
-    --color-blue-100: oklch(0.932 0.032 255.585);
-    --color-blue-400: oklch(0.707 0.165 254.624);
     --color-blue-500: oklch(0.623 0.214 259.815);
     --color-blue-600: oklch(0.546 0.245 262.881);
-    --color-blue-700: oklch(0.488 0.243 264.376);
-    --color-blue-900: oklch(0.379 0.146 265.522);
     --color-gray-100: oklch(0.967 0.003 264.542);
     --color-gray-200: oklch(0.928 0.006 264.531);
     --color-gray-300: oklch(0.872 0.01 258.338);
@@ -1394,9 +1389,6 @@
   .mb-3 {
     margin-bottom: calc(var(--spacing) * 3);
   }
-  .mb-4 {
-    margin-bottom: calc(var(--spacing) * 4);
-  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -1741,9 +1733,6 @@
   .bg-base-content {
     background-color: var(--color-base-content);
   }
-  .bg-blue-50 {
-    background-color: var(--color-blue-50);
-  }
   .bg-blue-500 {
     background-color: var(--color-blue-500);
   }
@@ -1892,14 +1881,8 @@
   .text-base-content\/50 {
     color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
   }
-  .text-blue-400 {
-    color: var(--color-blue-400);
-  }
   .text-blue-600 {
     color: var(--color-blue-600);
-  }
-  .text-blue-700 {
-    color: var(--color-blue-700);
   }
   .text-gray-200 {
     color: var(--color-gray-200);
@@ -2108,19 +2091,9 @@
       padding-inline: calc(var(--spacing) * 6);
     }
   }
-  .md\:flex {
-    @media (width >= 48rem) {
-      display: flex;
-    }
-  }
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  .md\:justify-between {
-    @media (width >= 48rem) {
-      justify-content: space-between;
     }
   }
   .lg\:fixed {
@@ -2263,11 +2236,6 @@
       padding-left: calc(var(--spacing) * 6);
     }
   }
-  .dark\:bg-blue-900 {
-    &:where([data-theme=dark], [data-theme=dark] *) {
-      background-color: var(--color-blue-900);
-    }
-  }
   .dark\:bg-neutral-400 {
     &:where([data-theme=dark], [data-theme=dark] *) {
       background-color: var(--color-neutral-400);
@@ -2281,11 +2249,6 @@
   .dark\:bg-neutral-900 {
     &:where([data-theme=dark], [data-theme=dark] *) {
       background-color: var(--color-neutral-900);
-    }
-  }
-  .dark\:text-blue-100 {
-    &:where([data-theme=dark], [data-theme=dark] *) {
-      color: var(--color-blue-100);
     }
   }
   .dark\:text-gray-100 {
@@ -2306,11 +2269,6 @@
   .dark\:text-neutral-500 {
     &:where([data-theme=dark], [data-theme=dark] *) {
       color: var(--color-neutral-500);
-    }
-  }
-  .dark\:text-white {
-    &:where([data-theme=dark], [data-theme=dark] *) {
-      color: var(--color-white);
     }
   }
   .dark\:peer-checked\:bg-blue-500 {
@@ -2463,7 +2421,8 @@
   overflow: hidden;
   border-style: var(--tw-border-style);
   border-width: 0px;
-  padding: calc(var(--spacing) * 4);
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   background-color: var(--color-info-light);
   color: var(--color-info-content-light);
 }
@@ -4618,7 +4577,7 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
       --color-base-300: oklch(21.15% 0.012 254.09);
       --color-base-content: oklch(97.807% 0.029 256.847);
       --color-primary: rgb(99 102 241);
-      --color-primary-content: #ffffff;
+      --color-primary-content: black;
       --color-secondary: oklch(65% 0.241 354.308);
       --color-secondary-content: oklch(94% 0.028 342.258);
       --color-accent: oklch(77% 0.152 181.912);
@@ -4632,7 +4591,7 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
       --color-warning: oklch(82% 0.189 84.429);
       --color-warning-content: oklch(41% 0.112 45.904);
       --color-error: rgb(189 39 51);
-      --color-error-content: #ffffff;
+      --color-error-content: black;
       --radius-selector: 0.5rem;
       --radius-field: 0.25rem;
       --radius-box: 0.5rem;
@@ -4658,7 +4617,7 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     --color-base-300: oklch(21.15% 0.012 254.09);
     --color-base-content: oklch(97.807% 0.029 256.847);
     --color-primary: rgb(99 102 241);
-    --color-primary-content: #ffffff;
+    --color-primary-content: black;
     --color-secondary: oklch(65% 0.241 354.308);
     --color-secondary-content: oklch(94% 0.028 342.258);
     --color-accent: oklch(77% 0.152 181.912);
@@ -4672,7 +4631,7 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     --color-warning: oklch(82% 0.189 84.429);
     --color-warning-content: oklch(41% 0.112 45.904);
     --color-error: rgb(189 39 51);
-    --color-error-content: #ffffff;
+    --color-error-content: black;
     --radius-selector: 0.5rem;
     --radius-field: 0.25rem;
     --radius-box: 0.5rem;
