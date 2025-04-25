@@ -16,32 +16,27 @@ module DesignSystem
 
         test 'rendering hdi notice' do
           @output_buffer = ds_notice('Important Notice')
-          assert_select 'div.rounded-md.bg-blue-50.dark\\:bg-blue-900.p-4.mb-4' do
-            assert_select 'div.flex' do
-              assert_select 'div.shrink-0'
-            end
-
-            assert_select 'div.ml-3.flex-1.md\\:flex.md\\:justify-between' do
-              assert_select 'p.text-sm.text-blue-700.dark\\:text-white', 'Important Notice'
-            end
+          assert_select 'div.hdi-notification-banner' do
+            assert_select 'svg.hdi-icon__information-circle'
+            assert_select 'span', 'Important Notice'
           end
         end
 
         test 'rendering hdi alert' do
           @output_buffer = ds_alert('Test alert!')
 
-          assert_select 'div.rounded-md.bg-red-50.dark\\:bg-red-900.p-4.mb-4' do
-            assert_select 'div.text-sm.text-red-700.dark\\:text-white', 'Test alert!'
+          assert_select 'div.hdi-notification-banner.hdi-notification-banner__alert' do
+            assert_select 'svg.hdi-icon__exclamation-circle'
+            assert_select 'span', 'Test alert!'
           end
         end
 
         test 'rendering hdi alert with sanitisation' do
           @output_buffer = ds_alert('<p>Test alert!</p>')
 
-          assert_select 'div.rounded-md.bg-red-50.dark\\:bg-red-900.p-4.mb-4' do
-            assert_select 'div.text-sm.text-red-700.dark\\:text-white' do
-              assert_select 'p', text: 'Test alert!'
-            end
+          assert_select 'div.hdi-notification-banner.hdi-notification-banner__alert' do
+            assert_select 'svg.hdi-icon__exclamation-circle'
+            assert_select 'span', text: 'Test alert!'
           end
         end
       end
