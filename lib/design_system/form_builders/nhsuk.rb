@@ -33,6 +33,7 @@ module DesignSystem
         button_options = {
           type: 'button',
           class: "#{@brand}-button #{@brand}-button--secondary",
+          style: 'padding: 8px 10px 7px !important',
           aria: { label: 'Show password' },
           data: {
             'module' => "#{@brand}-button",
@@ -48,7 +49,7 @@ module DesignSystem
       def optional_hint(method, hint)
         return nil if hint.nil?
 
-        content_tag(:p, hint, id: field_id("#{method}-hint"), class: "#{@brand}-hint")
+        content_tag(:div, hint, id: field_id("#{method}-hint"), class: "#{@brand}-hint")
       end
     end
   end
