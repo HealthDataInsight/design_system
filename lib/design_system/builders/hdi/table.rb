@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'design_system/builders/nhsuk/table'
+
 module DesignSystem
   module Builders
     module Hdi
