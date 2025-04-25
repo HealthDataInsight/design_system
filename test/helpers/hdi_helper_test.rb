@@ -11,7 +11,7 @@ class HdiHelperTest < ActionView::TestCase
     stubs(:current_page?).returns(true)
 
     @output_buffer = ActionView::OutputBuffer.new(hdi_sidebar_navigation_svg(@item))
-    assert_select 'a[data-test="foo"].flex.text-indigo-600', /Home\z/ do
+    assert_select "a[data-test='foo'].sidebar-item.sidebar-item--active", /Home\z/ do
       assert_select 'a[href=?]', root_path
       assert_select 'img[src=?]', '/design_system/static/heroicons-2.1.5/icon-home.svg'
     end
@@ -21,7 +21,7 @@ class HdiHelperTest < ActionView::TestCase
     stubs(:current_page?).returns(false)
 
     @output_buffer = ActionView::OutputBuffer.new(hdi_sidebar_navigation_svg(@item))
-    assert_select 'a[data-test="foo"].flex.text-gray-700', /Home\z/ do
+    assert_select "a[data-test='foo'].sidebar-item", /Home\z/ do
       assert_select 'a[href=?]', root_path
       assert_select 'img[src=?]', '/design_system/static/heroicons-2.1.5/icon-home.svg'
     end
