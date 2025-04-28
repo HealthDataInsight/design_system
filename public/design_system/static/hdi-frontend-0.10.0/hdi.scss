@@ -1217,23 +1217,6 @@
   .z-50 {
     z-index: 50;
   }
-  .tab-content {
-    order: var(--tabcontent-order);
-    display: none;
-    border-color: transparent;
-    --tabcontent-radius-ss: 0;
-    --tabcontent-radius-se: 0;
-    --tabcontent-radius-es: 0;
-    --tabcontent-radius-ee: 0;
-    --tabcontent-order: 1;
-    width: 100%;
-    margin: var(--tabcontent-margin);
-    border-width: var(--border);
-    border-start-start-radius: var(--tabcontent-radius-ss);
-    border-start-end-radius: var(--tabcontent-radius-se);
-    border-end-start-radius: var(--tabcontent-radius-es);
-    border-end-end-radius: var(--tabcontent-radius-ee);
-  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -1436,6 +1419,14 @@
       border-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 10%, var(--color-base-100) );
       background-image: none;
     }
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    --tabs-height: auto;
+    --tabs-direction: row;
+    height: var(--tabs-height);
+    flex-direction: var(--tabs-direction);
   }
   .card-body {
     display: flex;
@@ -1711,9 +1702,6 @@
   .border-l {
     border-left-style: var(--tw-border-style);
     border-left-width: 1px;
-  }
-  .border-base-300 {
-    border-color: var(--color-base-300);
   }
   .bg-accent {
     background-color: var(--color-accent);
@@ -2588,6 +2576,110 @@
     text-align: left;
   }
 }
+.hdi-tabs {
+  margin-bottom: calc(var(--spacing) * 4);
+}
+.hdi-tabs__title {
+  display: none;
+  text-align: center;
+  font-size: var(--text-base);
+  line-height: var(--tw-leading, var(--text-base--line-height));
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.hdi-tabs__list {
+  margin-bottom: -1px;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.hdi-tabs__list-item {
+  margin-inline-end: calc(var(--spacing) * 2);
+  cursor: pointer;
+  text-decoration-line: underline;
+  &:focus {
+    --tw-outline-style: none;
+    outline-style: none;
+    @media (forced-colors: active) {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+  }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  @media (hover: hover) {
+    &:hover {
+      color: color-mix(in oklab, var(--color-primary) 80%, #000);
+    }
+  }
+  text-decoration-line: none;
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+}
+.hdi-tabs__tab {
+  display: inline-block;
+  cursor: pointer;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  padding: calc(var(--spacing) * 4);
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-neutral);
+    }
+  }
+}
+.hdi-tabs__tab--selected {
+  margin-bottom: -1px;
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  border-bottom-color: transparent;
+  background-color: var(--color-base-100);
+  color: var(--color-primary);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-primary);
+    }
+  }
+}
+.hdi-tabs__panel {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  background-color: var(--color-base-100);
+  padding: calc(var(--spacing) * 4);
+}
+.hdi-tabs__panel--hidden {
+  display: none;
+}
+.hdi-tabs__panel-content {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+}
 .hdi-button {
   :where(&) {
     width: unset;
@@ -2898,6 +2990,27 @@
 .hdi-button--warning.hdi-button--disabled {
   background-color: var(--color-error) !important;
   color: var(--color-error-content) !important;
+}
+.hdi-button--start {
+  display: inline-flex;
+  min-height: auto;
+  justify-content: center;
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading, var(--text-lg--line-height));
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+}
+.hdi-button__start-icon {
+  margin-left: calc(var(--spacing) * 1);
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+  flex-shrink: 0;
+  align-self: center;
+  vertical-align: middle;
+  forced-color-adjust: auto;
+  @media (width >= 40rem) {
+    margin-left: calc(var(--spacing) * 2);
+  }
 }
 .hdi-checkboxes {
   margin-top: calc(var(--spacing) * 2);
