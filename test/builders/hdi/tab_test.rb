@@ -20,15 +20,15 @@ module DesignSystem
             tab.add_tab_panel('Trial', 'trial paragraph', 'trial')
           end
 
-          assert_select 'div' do
-            assert_select 'ul.flex.flex-wrap.-mb-px.text-sm.font-medium.text-center' do
-              assert_select 'li.me-2' do
-                assert_select 'button#test-tab', 'Test'
+          assert_select 'div.hdi-tabs[data-controller="tabs"]' do
+            assert_select 'ul.hdi-tabs__list' do
+              assert_select 'li.hdi-tabs__list-item' do
+                assert_select 'button.hdi-tabs__tab.hdi-tabs__tab--selected[data-tabs-target="tabButton"]', 'Test'
               end
             end
           end
 
-          assert_select('div#trial p', text: 'trial paragraph')
+          assert_select('div.hdi-tabs__panel[data-tabs-target="tabPanel"]', text: 'trial paragraph')
         end
       end
     end

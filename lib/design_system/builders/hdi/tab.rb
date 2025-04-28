@@ -25,7 +25,8 @@ module DesignSystem
             @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(name, _content, id, sel), link_buffer|
               link_buffer.concat(
                 content_tag(:li, class: "#{brand}-tabs__list-item", role: 'presentation') do
-                  content_tag(:button, name, class: tab_button_class(sel), id: "#{id}-tab", type: 'button',
+                  style = sel ? "#{brand}-tabs__tab #{brand}-tabs__tab--selected" : "#{brand}-tabs__tab"
+                  content_tag(:button, name, class: style, id: "#{id}-tab", type: 'button',
                                              role: 'tab', 'aria-selected': sel.to_s, 'aria-controls': id.to_s, data: { tabs_target: 'tabButton', action: 'tabs#show' })
                 end
               )
@@ -35,8 +36,8 @@ module DesignSystem
 
         def tabs_body_content
           content_tag(:div, id: 'default-tab-content') do
-            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, _sel), body_buffer|
-              style = "#{brand}-tabs__panel #{brand}-tabs__panel--hidden"
+            @tab.tabs.each_with_object(ActiveSupport::SafeBuffer.new) do |(_name, content, id, sel), body_buffer|
+              style = sel ? "#{brand}-tabs__panel" : "#{brand}-tabs__panel #{brand}-tabs__panel--hidden"
               body_buffer.concat(
                 content_tag(:div, class: style, id:, role: 'tabpanel', 'aria-labelledby': "#{id}-tab",
                                   data: { tabs_target: 'tabPanel' }) do
@@ -45,14 +46,6 @@ module DesignSystem
               )
               body_buffer
             end
-          end
-        end
-
-        def tab_button_class(selected)
-          if selected
-            "#{brand}-tabs__tab #{brand}-tabs__tab--selected"
-          else
-            "#{brand}-tabs__tab"
           end
         end
       end
