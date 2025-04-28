@@ -64,8 +64,8 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
   end
 
-  def ds_button_to(name = nil, options = nil, html_options = nil, &)
-    DesignSystem::Registry.builder(brand, 'button', self).render_button_to(name, options, html_options, &)
+  def ds_link_to(name = nil, options = nil, html_options = nil, &)
+    DesignSystem::Registry.builder(brand, 'link', self).render_link_to(name, options, html_options, &)
   end
 
   def ds_pagination(collection = nil, options = {})
