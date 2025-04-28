@@ -185,7 +185,7 @@ module DesignSystem
       def ds_hidden_field(method, options = {})
         @brand = config.brand
 
-        options[:class] ||= []
+        options[:class] = Array(options[:class])
         options[:class] << "#{@brand}-visually-hidden"
 
         label_hash = options.delete(:label) || {}
