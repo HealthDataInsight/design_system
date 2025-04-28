@@ -9,6 +9,7 @@ module DesignSystem
       include GOVUKDesignSystemFormBuilder::Builder
 
       def initialize(object_name, object, template, options)
+        object_name = object_name.to_s if object_name.is_a?(Symbol)
         super
 
         config.brand = self.class.brand
