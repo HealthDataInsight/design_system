@@ -9,9 +9,9 @@ module DesignSystem
 
         def style_class_hash
           {
-            'primary' => "#{brand}-button",
-            'secondary' => "#{brand}-button #{brand}-button--secondary",
-            'warning' => "#{brand}-button #{brand}-button--warning"
+            'button-primary' => "#{brand}-button",
+            'button-secondary' => "#{brand}-button #{brand}-button--secondary",
+            'button-warning' => "#{brand}-button #{brand}-button--warning"
           }
         end
       end

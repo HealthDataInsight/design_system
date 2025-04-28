@@ -11,10 +11,10 @@ module DesignSystem
 
         def style_class_hash
           {
-            'primary' => "#{brand}-button",
-            'secondary' => "#{brand}-button #{brand}-button--secondary",
-            'warning' => "#{brand}-button #{brand}-button--warning",
-            'reverse' => "#{brand}-button #{brand}-button--inverse"
+            'button-primary' => "#{brand}-button",
+            'button-secondary' => "#{brand}-button #{brand}-button--secondary",
+            'button-warning' => "#{brand}-button #{brand}-button--warning",
+            'button-reverse' => "#{brand}-button #{brand}-button--inverse"
           }
         end
       end
