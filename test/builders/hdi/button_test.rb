@@ -20,6 +20,12 @@ module DesignSystem
           assert_select('button.hdi-button', text: 'Click')
           assert_select 'button[data-id]', true, 'Expected button with passed data-attribute option'
         end
+
+        test 'rendering hdi button with disabled attribute' do
+          @output_buffer = ds_button_tag('Click', 'data-id': 1, type: :reverse, disabled: true)
+
+          assert_select('button.hdi-button.hdi-button--reverse.hdi-button--disabled', text: 'Click')
+        end
       end
     end
   end
