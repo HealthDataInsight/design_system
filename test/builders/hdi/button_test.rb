@@ -15,7 +15,7 @@ module DesignSystem
         end
 
         test 'rendering hdi button' do
-          @output_buffer = ds_button_tag('Click', style: 'primary', 'data-id': 1)
+          @output_buffer = ds_button_tag('Click', 'data-id': 1)
 
           assert_select('button.hdi-button', text: 'Click')
           assert_select 'button[data-id]', true, 'Expected button with passed data-attribute option'

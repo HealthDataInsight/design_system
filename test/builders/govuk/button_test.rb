@@ -15,7 +15,7 @@ module DesignSystem
         end
 
         test 'rendering govuk button' do
-          @output_buffer = ds_button_tag('Cancel', style: 'secondary')
+          @output_buffer = ds_button_tag('Cancel', type: :secondary)
 
           assert_select('button.govuk-button.govuk-button--secondary', text: 'Cancel')
         end

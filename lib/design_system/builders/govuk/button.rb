@@ -12,7 +12,7 @@ module DesignSystem
           options[:class] = "#{brand}-button"
 
           options = css_class_options_merge(options) do |button_classes|
-            button_classes << style_class_hash[options['style']]
+            button_classes << style_class_hash[options['type']]
           end
 
           if block_given?
@@ -46,9 +46,9 @@ module DesignSystem
 
         def style_class_hash
           {
-            'secondary' => "#{brand}-button--secondary",
-            'warning' => "#{brand}-button--warning",
-            'reverse' => "#{brand}-button--inverse"
+            secondary: "#{brand}-button--secondary",
+            warning: "#{brand}-button--warning",
+            reverse: "#{brand}-button--inverse"
           }
         end
       end
