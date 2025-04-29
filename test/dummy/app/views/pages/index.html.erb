@@ -91,6 +91,10 @@ end
 
 <%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
 
+<%= ds_heading 'Links' %>
+<%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
+<%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
+
 <%= ds_heading 'Assitants table', level: 3 %>
 <%=
 ds_table do |table|
