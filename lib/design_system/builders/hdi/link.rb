@@ -1,19 +1,12 @@
 # frozen_string_literal: true
 
+require 'design_system/builders/nhsuk/link'
+
 module DesignSystem
   module Builders
     module Hdi
       # This class provides HDI Link.
-      class Link < ::DesignSystem::Builders::Generic::Link
-        private
-
-        def button_style_class_hash
-          {
-            'button' => "#{brand}-button",
-            'button-secondary' => "#{brand}-button #{brand}-button--secondary",
-            'button-warning' => "#{brand}-button #{brand}-button--warning"
-          }
-        end
+      class Link < ::DesignSystem::Builders::Nhsuk::Link
       end
     end
   end

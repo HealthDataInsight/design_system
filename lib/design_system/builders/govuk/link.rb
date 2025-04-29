@@ -9,12 +9,12 @@ module DesignSystem
       class Link < ::DesignSystem::Builders::Generic::Link
         private
 
-        def button_style_class_hash
+        def button_type_class_hash
           {
-            'button' => "#{brand}-button",
-            'button-secondary' => "#{brand}-button #{brand}-button--secondary",
-            'button-warning' => "#{brand}-button #{brand}-button--warning",
-            'button-reverse' => "#{brand}-button #{brand}-button--inverse"
+            button: "#{brand}-button",
+            secondary_button: "#{brand}-button #{brand}-button--secondary",
+            warning_button: "#{brand}-button #{brand}-button--warning",
+            reverse_button: "#{brand}-button #{brand}-button--inverse"
           }
         end
       end

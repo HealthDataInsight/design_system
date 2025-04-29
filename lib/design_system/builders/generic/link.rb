@@ -12,11 +12,11 @@ module DesignSystem
           html_options ||= {}
 
           if block_given?
-            style = options.delete(:style)
-            options[:class] = prep_link_classes(style)
+            type = options.delete(:type)
+            options[:class] = prep_link_classes(type)
           else
-            style = html_options.delete(:style)
-            html_options[:class] = prep_link_classes(style)
+            type = html_options.delete(:type)
+            html_options[:class] = prep_link_classes(type)
           end
 
           link_to(name, options, html_options, &)
@@ -24,9 +24,9 @@ module DesignSystem
 
         private
 
-        def prep_link_classes(style)
-          if style && button_style_class_hash[style].present?
-            button_style_class_hash[style]
+        def prep_link_classes(type)
+          if type && button_type_class_hash[type].present?
+            button_type_class_hash[type]
           else
             "#{brand}-link"
           end
