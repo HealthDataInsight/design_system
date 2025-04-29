@@ -8,14 +8,27 @@ module DesignSystem
       # This class provides generic methods to display links on html, including button links.
       class Link < Base
         def render_link_to(name = nil, options = nil, html_options = nil, &)
-          style = html_options.delete(:style)
-          if style_class_hash[style]
-            html_options = css_class_options_merge(html_options) do |button_classes|
-              button_classes << style_class_hash[style]
-            end
+          options ||= {}
+          html_options ||= {}
+
+          if block_given?
+            style = options.delete(:style)
+            options[:class] = if style && style_class_hash[style].present?
+                                style_class_hash[style]
+                              else
+                                "#{brand}-link"
+                              end
           else
-            html_options[:class] = "#{brand}-link"
+            style = html_options.delete(:style)
+            html_options[:class] = if style && style_class_hash[style].present?
+                                     style_class_hash[style]
+                                   else
+                                     "#{brand}-link"
+                                   end
           end
+
+          options = nil if options.empty?
+          html_options = nil if html_options.empty?
 
           link_to(name, options, html_options, &)
         end
