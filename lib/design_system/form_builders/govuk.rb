@@ -181,6 +181,27 @@ module DesignSystem
         govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
       end
 
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field, but with label automatically added and takes a show_text option
+      def ds_hidden_field(method, options = {})
+        @brand = config.brand
+
+        options[:class] = Array(options[:class])
+        options[:class] << "#{@brand}-visually-hidden"
+
+        label_hash = options.delete(:label) || {}
+        label = ds_label(method, label_hash)
+        show_text = options.delete(:show_text)
+
+        content_tag(:div, class: "#{@brand}-form-group") do
+          components = []
+          components << label if label
+          components << hidden_field(method, **options)
+          components << content_tag(:span, show_text, class: "#{@brand}-body-m") if show_text
+
+          safe_join(components)
+        end
+      end
+
       # Same interface as ActionView::Helpers::FormHelper.label
       def ds_label(method, content_or_options = nil, options = nil, &)
         content, options = separate_content_or_options(content_or_options, options)

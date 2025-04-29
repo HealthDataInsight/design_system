@@ -16,6 +16,34 @@ module FormBuilders
                    DesignSystem::Registry.form_builder(@brand)
     end
 
+    test 'ds_hidden_field' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_label :title, nil, 'Title'
+          assert_select("input[class='#{@brand}-visually-hidden'][type='hidden'][value='Lorem ipsum dolor sit amet']")
+          assert_select("span.#{@brand}-body-m", 'Show text')
+        end
+      end
+    end
+
+    test 'ds_hidden_field with options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text', class: 'geoff', 'data-foo': 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_label :title, nil, 'Title'
+          assert_select("input[class='geoff #{@brand}-visually-hidden'][type='hidden'][value='Lorem ipsum dolor sit amet'][data-foo=bar]")
+          assert_select("span.#{@brand}-body-m", 'Show text')
+        end
+      end
+    end
+
     test 'ds_password_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
