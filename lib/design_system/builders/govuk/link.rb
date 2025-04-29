@@ -11,7 +11,7 @@ module DesignSystem
 
         def button_style_class_hash
           {
-            'button-primary' => "#{brand}-button",
+            'button' => "#{brand}-button",
             'button-secondary' => "#{brand}-button #{brand}-button--secondary",
             'button-warning' => "#{brand}-button #{brand}-button--warning",
             'button-reverse' => "#{brand}-button #{brand}-button--inverse"

@@ -22,7 +22,7 @@ module DesignSystem
         end
 
         test 'rendering nhsuk button link' do
-          @output_buffer = ds_link_to('All assistants', assistants_path, style: 'button-primary')
+          @output_buffer = ds_link_to('All assistants', assistants_path, style: 'button')
 
           assert_select("a.#{@brand}-button", href: assistants_path)
         end
