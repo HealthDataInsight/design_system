@@ -13,24 +13,23 @@ module DesignSystem
 
           if block_given?
             style = options.delete(:style)
-            options[:class] = if style && style_class_hash[style].present?
-                                style_class_hash[style]
-                              else
-                                "#{brand}-link"
-                              end
+            options[:class] = prep_link_classes(style)
           else
             style = html_options.delete(:style)
-            html_options[:class] = if style && style_class_hash[style].present?
-                                     style_class_hash[style]
-                                   else
-                                     "#{brand}-link"
-                                   end
+            html_options[:class] = prep_link_classes(style)
           end
 
-          options = nil if options.empty?
-          html_options = nil if html_options.empty?
-
           link_to(name, options, html_options, &)
+        end
+
+        private
+
+        def prep_link_classes(style)
+          if style && button_style_class_hash[style].present?
+            button_style_class_hash[style]
+          else
+            "#{brand}-link"
+          end
         end
       end
     end

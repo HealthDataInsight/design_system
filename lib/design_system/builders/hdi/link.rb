@@ -7,7 +7,7 @@ module DesignSystem
       class Link < ::DesignSystem::Builders::Generic::Link
         private
 
-        def style_class_hash
+        def button_style_class_hash
           {
             'button-primary' => "#{brand}-button",
             'button-secondary' => "#{brand}-button #{brand}-button--secondary",
