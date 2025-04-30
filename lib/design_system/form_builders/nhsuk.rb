@@ -25,8 +25,8 @@ module DesignSystem
                     class: form_group_classes.join(' '),
                     data: {
                       controller: 'ds--show-password',
-                      'ds--show-password-show-content-value': 'Show password',
-                      'ds--show-password-hide-content-value': 'Hide password'
+                      'ds--show-password-show-text-value': 'Show password',
+                      'ds--show-password-hide-text-value': 'Hide password'
                     }) do
           ds_label(method, {}) +
             optional_hint(method, hint) +
