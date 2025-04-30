@@ -24,7 +24,7 @@ module DesignSystem
         @brand = config.brand
         options[:id] = govuk_field_id(method, link_errors: true)
         password_field_options = css_class_options_merge(options,
-                                                         ["#{@brand}-input",
+                                                         ["#{@brand}-input #{@brand}-password-field__input",
                                                           has_errors?(method) ? "#{@brand}-input--error" : nil].compact)
 
         hint = options.delete(:hint)
@@ -32,7 +32,6 @@ module DesignSystem
         password_field_options[:autocomplete] = 'current-password'
         password_field_options['data-ds--show-password-target'] = 'password'
         password_field_options.delete('text')
-        password_field_options[:class] = "#{@brand}-password-field__input"
 
         form_group_classes = ["#{@brand}-form-group"]
         form_group_classes << "#{@brand}-form-group--error" if has_errors?(method)
@@ -46,10 +45,8 @@ module DesignSystem
           ds_label(method, {}) +
             optional_hint(method, hint) +
             content_tag(:div, class: "#{@brand}-password-field") do
-              content_tag(:div, class: "#{@brand}-password-field__input-wrapper") do
-                password_field(method, password_field_options) +
-                  show_password_button
-              end
+              password_field(method, password_field_options) +
+                show_password_button
             end
         end
       end
