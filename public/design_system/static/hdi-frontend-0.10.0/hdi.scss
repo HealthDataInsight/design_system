@@ -4467,9 +4467,10 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
 }
 .hdi-grid-row {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  row-gap: calc(var(--spacing) * 2);
+  gap: calc(var(--spacing) * 2);
+  padding-block: calc(var(--spacing) * 2);
+  text-align: center;
 }
 .hdi-grid-column-full {
   width: 100%;
