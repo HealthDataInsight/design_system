@@ -21,7 +21,13 @@ module DesignSystem
         form_group_classes = ["#{@brand}-form-group"]
         form_group_classes << "#{@brand}-form-group--error" if has_errors?(method)
 
-        content_tag(:div, class: form_group_classes.join(' '), 'data-controller': 'ds--show-password') do
+        content_tag(:div,
+                    class: form_group_classes.join(' '),
+                    data: {
+                      controller: 'ds--show-password',
+                      'ds--show-password-show-text-value': 'Show password',
+                      'ds--show-password-hide-text-value': 'Hide password'
+                    }) do
           ds_label(method, {}) +
             optional_hint(method, hint) +
             password_field(method, password_field_options) + '&nbsp;'.html_safe +
