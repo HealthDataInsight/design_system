@@ -25,7 +25,11 @@ module DesignSystem
 
         # First try to find a custom translation for this specific value
         # If no custom translation provided, fall back to the default humanised value
-        custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
+        method_and_value = "#{method}.#{value}"
+        custom_translation = ActionView::Helpers::Tags::Translator.
+                             new(object, object_name, method_and_value, scope: 'helpers.options').
+                             translate
+
         label = if custom_translation.include?('Translation missing')
                   optional_label(value, options)
                 else
