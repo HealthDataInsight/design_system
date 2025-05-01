@@ -28,6 +28,8 @@
     --container-sm: 24rem;
     --container-4xl: 56rem;
     --container-7xl: 80rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-base: 1rem;
@@ -4365,6 +4367,58 @@
   border-bottom-width: 2px;
   border-color: var(--color-neutral-content);
 }
+.hdi-body-l {
+  margin-top: calc(var(--spacing) * 0);
+  margin-bottom: calc(var(--spacing) * 4);
+  display: block;
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading, var(--text-lg--line-height));
+  @media (width >= 40rem) {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+}
+.hdi-body-m {
+  margin-top: calc(var(--spacing) * 0);
+  margin-bottom: calc(var(--spacing) * 2);
+  display: block;
+  font-size: var(--text-base);
+  line-height: var(--tw-leading, var(--text-base--line-height));
+  @media (width >= 40rem) {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+}
+.hdi-body-s {
+  margin-top: calc(var(--spacing) * 0);
+  margin-bottom: calc(var(--spacing) * 2);
+  display: block;
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  @media (width >= 40rem) {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+}
+.hdi-body-xs {
+  margin-top: calc(var(--spacing) * 0);
+  margin-bottom: calc(var(--spacing) * 2);
+  display: block;
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading, var(--text-xs--line-height));
+  @media (width >= 40rem) {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+}
+.hdi-body-bold {
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+}
+.hdi-body-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.hdi-body-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
 .hdi-caption-xl {
   margin-top: calc(var(--spacing) * 1);
   margin-bottom: calc(var(--spacing) * 1);
@@ -4373,7 +4427,7 @@
   line-height: var(--tw-leading, var(--text-lg--line-height));
   --tw-font-weight: var(--font-weight-normal);
   font-weight: var(--font-weight-normal);
-  color: var(--color-primary);
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
 }
 .hdi-caption-l {
   margin-top: calc(var(--spacing) * 1);
@@ -4383,7 +4437,7 @@
   line-height: var(--tw-leading, var(--text-base--line-height));
   --tw-font-weight: var(--font-weight-normal);
   font-weight: var(--font-weight-normal);
-  color: var(--color-primary);
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
 }
 .hdi-caption-m {
   margin-top: calc(var(--spacing) * 1);
@@ -4393,7 +4447,7 @@
   line-height: var(--tw-leading, var(--text-sm--line-height));
   --tw-font-weight: var(--font-weight-normal);
   font-weight: var(--font-weight-normal);
-  color: var(--color-primary);
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
 }
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: calc(var(--spacing) * 0);
@@ -4465,6 +4519,58 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     }
   }
 }
+.hdi-button-group {
+  margin-bottom: calc(var(--spacing) * 6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  :where(& > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  .hdi-button-group a {
+    margin-block: calc(var(--spacing) * 2);
+    display: inline-block;
+    max-width: 100%;
+    text-align: center;
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+    --tw-leading: calc(var(--spacing) * 5);
+    line-height: calc(var(--spacing) * 5);
+  }
+  .hdi-button-group button {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  @media (width >= 40rem) {
+    flex-direction: row;
+  }
+  @media (width >= 40rem) {
+    flex-wrap: wrap;
+  }
+  @media (width >= 40rem) {
+    align-items: baseline;
+  }
+  @media (width >= 40rem) {
+    column-gap: calc(var(--spacing) * 4);
+  }
+  .hdi-button-group a {
+    @media (width >= 40rem) {
+      text-align: left;
+    }
+  }
+  .hdi-button-group button, .hdi-button-group a {
+    @media (width >= 40rem) {
+      margin-right: calc(var(--spacing) * 4);
+    }
+  }
+  .hdi-button-group > :last-child {
+    @media (width >= 40rem) {
+      margin-right: calc(var(--spacing) * 0);
+    }
+  }
+}
 .hdi-grid-row {
   display: flex;
   align-items: center;
@@ -4517,6 +4623,15 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+.hdi-width-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 100%;
+}
+.hdi-width-container--fluid {
+  width: 100%;
+  max-width: 100%;
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {
@@ -4744,8 +4859,8 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     --color-base-content: oklch(21% 0.006 285.885);
     --color-primary: rgb(99 102 241);
     --color-primary-content: #ffffff;
-    --color-secondary: oklch(65% 0.241 354.308);
-    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-secondary: rgb(153 161 175);
+    --color-secondary-content: #ffffff;
     --color-accent: oklch(77% 0.152 181.912);
     --color-accent-content: oklch(38% 0.063 188.416);
     --color-neutral: oklch(14% 0.005 285.823);
@@ -4784,8 +4899,8 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
       --color-base-content: oklch(97.807% 0.029 256.847);
       --color-primary: rgb(99 102 241);
       --color-primary-content: black;
-      --color-secondary: oklch(65% 0.241 354.308);
-      --color-secondary-content: oklch(94% 0.028 342.258);
+      --color-secondary: rgb(153 161 175);
+      --color-secondary-content: black;
       --color-accent: oklch(77% 0.152 181.912);
       --color-accent-content: oklch(38% 0.063 188.416);
       --color-neutral: oklch(14% 0.005 285.823);
@@ -4824,8 +4939,8 @@ h5.hdi-heading-xs, h6.hdi-heading-xs {
     --color-base-content: oklch(97.807% 0.029 256.847);
     --color-primary: rgb(99 102 241);
     --color-primary-content: black;
-    --color-secondary: oklch(65% 0.241 354.308);
-    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-secondary: rgb(153 161 175);
+    --color-secondary-content: black;
     --color-accent: oklch(77% 0.152 181.912);
     --color-accent-content: oklch(38% 0.063 188.416);
     --color-neutral: oklch(14% 0.005 285.823);
