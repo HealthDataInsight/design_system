@@ -9,6 +9,7 @@ module DesignSystem
       include GOVUKDesignSystemFormBuilder::Builder
 
       def initialize(object_name, object, template, options)
+        object_name = object_name.to_s if object_name.is_a?(Symbol)
         super
 
         config.brand = self.class.brand
@@ -178,6 +179,27 @@ module DesignSystem
 
         # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
         govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field, but with label automatically added and takes a show_text option
+      def ds_hidden_field(method, options = {})
+        @brand = config.brand
+
+        options[:class] = Array(options[:class])
+        options[:class] << "#{@brand}-visually-hidden"
+
+        label_hash = options.delete(:label) || {}
+        label = ds_label(method, label_hash)
+        show_text = options.delete(:show_text)
+
+        content_tag(:div, class: "#{@brand}-form-group") do
+          components = []
+          components << label if label
+          components << hidden_field(method, **options)
+          components << content_tag(:span, show_text, class: "#{@brand}-body-m") if show_text
+
+          safe_join(components)
+        end
       end
 
       # Same interface as ActionView::Helpers::FormHelper.label

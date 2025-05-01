@@ -5,6 +5,27 @@ module DesignSystem
   module FormBuilders
     # The NHS version of the form builder
     class Nhsuk < Govuk
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field, but with label automatically added and takes a show_text option
+      def ds_hidden_field(method, options = {})
+        @brand = config.brand
+
+        options[:class] = Array(options[:class])
+        options[:class] << "#{@brand}-u-visually-hidden"
+
+        label_hash = options.delete(:label) || {}
+        label = ds_label(method, label_hash)
+        show_text = options.delete(:show_text)
+
+        content_tag(:div, class: "#{@brand}-form-group") do
+          components = []
+          components << label if label
+          components << hidden_field(method, **options)
+          components << content_tag(:span, show_text, class: "#{@brand}-body-m") if show_text
+
+          safe_join(components)
+        end
+      end
+
       def ds_password_field(method, options = {})
         @brand = config.brand
         options[:id] = govuk_field_id(method, link_errors: true)
@@ -39,6 +60,7 @@ module DesignSystem
         button_options = {
           type: 'button',
           class: "#{@brand}-button #{@brand}-button--secondary",
+          style: 'padding: 8px 10px 7px !important',
           aria: { label: 'Show password' },
           data: {
             'module' => "#{@brand}-button",
@@ -54,7 +76,7 @@ module DesignSystem
       def optional_hint(method, hint)
         return nil if hint.nil?
 
-        content_tag(:p, hint, id: field_id("#{method}-hint"), class: "#{@brand}-hint")
+        content_tag(:div, hint, id: field_id("#{method}-hint"), class: "#{@brand}-hint")
       end
     end
   end
