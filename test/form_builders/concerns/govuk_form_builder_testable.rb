@@ -1,11 +1,49 @@
 require 'design_system/registry'
 
+class DummyModel
+  include ActiveModel::Model
+
+  attr_accessor :role
+end
+
+module DummyAdmin
+  class DummyUser
+    include ActiveModel::Model
+
+    attr_accessor :status
+  end
+end
+
 # This concern manages choosing the relevant layout for our given design system
 module GovukFormBuilderTestable
   include GovukFormBuilderTestableHelper
   extend ActiveSupport::Concern
 
   included do
+    setup do
+      I18n.backend.store_translations(:en, {
+        helpers: {
+          options: {
+            assistant: {
+              terms_agreed: {
+                true: 'Yes, I agree'
+              }
+            },
+            dummy_model: {
+              role: {
+                admin: 'Administrator'
+              }
+            },
+            'dummy_admin/dummy_user': {
+              status: {
+                'active': 'Still in the game'
+              }
+            }
+          }
+        }
+      })
+    end
+
     test 'self.brand' do
       assert_equal @brand, @builder.brand
     end
@@ -40,6 +78,42 @@ module GovukFormBuilderTestable
               assert_equal 'Pastrami', label.text.strip
             end
           end
+        end
+      end
+    end
+
+    test 'ds_check_box item translation for activerecord attributes' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_check_box(:terms_agreed, {}, :true)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-checkboxes__item") do
+          assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label", 'Yes, I agree')
+        end
+      end
+    end
+
+    test 'ds_check_box item translation for activemodel attributes' do
+      @output_buffer = form_with(model: DummyModel.new, builder: @builder, url: '/') do |f|
+        f.ds_check_box(:role, {}, :admin)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-checkboxes__item") do
+          assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label", 'Administrator')
+        end
+      end
+    end
+
+    test 'ds_check_box item translation for activemodel attributes with nested attributes' do
+      @output_buffer = form_with(model: DummyAdmin::DummyUser.new, builder: @builder, url: '/') do |f|
+        f.ds_check_box(:status, {}, :active)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-checkboxes__item") do
+          assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label", 'Still in the game')
         end
       end
     end
