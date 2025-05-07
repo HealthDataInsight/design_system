@@ -2577,6 +2577,110 @@
     text-align: left;
   }
 }
+.hdi-tabs {
+  margin-bottom: calc(var(--spacing) * 4);
+}
+.hdi-tabs__title {
+  display: none;
+  text-align: center;
+  font-size: var(--text-base);
+  line-height: var(--tw-leading, var(--text-base--line-height));
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.hdi-tabs__list {
+  margin-bottom: -1px;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.hdi-tabs__list-item {
+  margin-inline-end: calc(var(--spacing) * 2);
+  cursor: pointer;
+  text-decoration-line: underline;
+  &:focus {
+    --tw-outline-style: none;
+    outline-style: none;
+    @media (forced-colors: active) {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+  }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  @media (hover: hover) {
+    &:hover {
+      color: color-mix(in oklab, var(--color-primary) 80%, #000);
+    }
+  }
+  text-decoration-line: none;
+  &:hover {
+    @media (hover: hover) {
+      text-decoration-line: underline;
+    }
+  }
+}
+.hdi-tabs__tab {
+  display: inline-block;
+  cursor: pointer;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  padding: calc(var(--spacing) * 4);
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-neutral);
+    }
+  }
+}
+.hdi-tabs__tab--selected {
+  margin-bottom: -1px;
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  border-bottom-color: transparent;
+  background-color: var(--color-base-100);
+  color: var(--color-primary);
+  &:hover {
+    @media (hover: hover) {
+      color: var(--color-primary);
+    }
+  }
+}
+.hdi-tabs__panel {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  background-color: var(--color-base-100);
+  padding: calc(var(--spacing) * 4);
+}
+.hdi-tabs__panel--hidden {
+  display: none;
+}
+.hdi-tabs__panel-content {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading, var(--text-sm--line-height));
+  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+}
 .hdi-button {
   :where(&) {
     width: unset;
@@ -2673,8 +2777,14 @@
   }
   margin-top: calc(var(--spacing) * 4);
   margin-bottom: calc(var(--spacing) * 4);
+  max-width: 100%;
+  min-width: 120px;
+  text-wrap: wrap;
   --btn-color: var(--color-primary);
   --btn-fg: var(--color-primary-content);
+  @media (width >= 40rem) {
+    min-width: calc(var(--spacing) * 0);
+  }
 }
 .hdi-button--secondary {
   :where(&) {
@@ -4389,6 +4499,68 @@
   border-bottom-width: 2px;
   border-color: var(--color-neutral-content);
 }
+.hdi-thumbnail {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  & > div {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+.hdi-thumbnail--xl {
+  width: calc(var(--spacing) * 24);
+  border-radius: var(--radius-sm);
+}
+.hdi-thumbnail--l {
+  width: calc(var(--spacing) * 20);
+  border-radius: var(--radius-sm);
+}
+.hdi-thumbnail--m {
+  width: calc(var(--spacing) * 16);
+  border-radius: var(--radius-sm);
+}
+.hdi-thumbnail--s {
+  width: calc(var(--spacing) * 12);
+  border-radius: var(--radius-sm);
+}
+.hdi-thumbnail--xs {
+  width: calc(var(--spacing) * 8);
+  border-radius: var(--radius-sm);
+}
+.hdi-thumbnail--circle {
+  border-radius: calc(infinity * 1px) !important;
+}
+.hdi-thumbnail-placeholder {
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  border-radius: var(--radius-sm);
+  background-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  color: var(--color-base-content);
+}
+.hdi-thumbnail-group {
+  display: flex;
+  overflow: hidden;
+  :where(.avatar) {
+    overflow: hidden;
+    border-radius: calc(infinity * 1px);
+    border: 4px solid var(--color-base-100);
+  }
+  :where(& > :not(:last-child)) {
+    --tw-space-x-reverse: 0;
+    margin-inline-start: calc(calc(var(--spacing) * -6) * var(--tw-space-x-reverse));
+    margin-inline-end: calc(calc(var(--spacing) * -6) * calc(1 - var(--tw-space-x-reverse)));
+  }
+}
 .hdi-body-xl {
   margin-top: calc(var(--spacing) * 0);
   margin-bottom: calc(var(--spacing) * 4);
@@ -4522,6 +4694,19 @@ h1.hdi-heading-xl + .hdi-width-container {
     }
   }
 }
+.hdi-button-group {
+  margin-bottom: calc(var(--spacing) * 6);
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  :where(& > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  column-gap: calc(var(--spacing) * 4);
+}
 .hdi-grid-row {
   display: flex;
   align-items: center;
@@ -4574,6 +4759,11 @@ h1.hdi-heading-xl + .hdi-width-container {
   position: absolute;
   white-space: nowrap;
   width: 1px;
+}
+.hdi-width-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 100%;
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {
