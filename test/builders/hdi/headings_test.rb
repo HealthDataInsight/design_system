@@ -16,24 +16,23 @@ module DesignSystem
           @output_buffer = ds_fixed_elements do |ds|
             ds.main_heading('Welcome!', caption: 'Caption!')
           end
-          # TODO: decide on class-matching: class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
 
           assert_select('div') do
-            assert_select('h1', text: 'Welcome!')
-            assert_select('span', text: 'Caption!')
+            assert_select("span.#{@brand}-caption-m", text: 'Caption!')
+            assert_select("h1.#{@brand}-heading-xl", text: 'Welcome!')
           end
         end
 
         test 'rendering hdi default paragraph heading' do
           @output_buffer = ds_heading('Paragraph heading!', id: 'test-heading')
 
-          assert_select("h2[id='test-heading']", text: 'Paragraph heading!')
+          assert_select("h2.#{@brand}-heading-l[id='test-heading']", text: 'Paragraph heading!')
         end
 
         test 'rendering hdi paragraph heading with specified level' do
           @output_buffer = ds_heading('Paragraph heading!', level: 3)
 
-          assert_select('h3', text: 'Paragraph heading!')
+          assert_select("h3.#{@brand}-heading-m", text: 'Paragraph heading!')
         end
 
         test 'rendering paragraph heading with invalid level' do
