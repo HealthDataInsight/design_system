@@ -25,7 +25,7 @@ module DesignSystem
 
         # First try to find a custom translation for this specific value
         # If no custom translation provided, fall back to the default humanised value
-        custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
+        custom_translation = translated_label_for_value(method, value)
         label = if custom_translation.include?('Translation missing')
                   optional_label(value, options)
                 else
@@ -394,6 +394,15 @@ module DesignSystem
                     new(object, object_name, method, scope: 'helpers.label').
                     translate
         content || method.humanize
+      end
+
+      def translated_label_for_value(method, value)
+        # This method is used to translate the label for a given value
+        # Example: assign an alternative name for checkbox items
+        method_and_value = "#{method}.#{value}"
+        ActionView::Helpers::Tags::Translator.
+          new(object, object_name, method_and_value, scope: 'helpers.options').
+          translate
       end
 
       # GOVUKDesignSystemFormBuilder::Base field_id method
