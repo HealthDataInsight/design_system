@@ -22,26 +22,26 @@ module GovukFormBuilderTestable
   included do
     setup do
       I18n.backend.store_translations(:en, {
-        helpers: {
-          options: {
-            assistant: {
-              terms_agreed: {
-                true: 'Yes, I agree'
-              }
-            },
-            dummy_model: {
-              role: {
-                admin: 'Administrator'
-              }
-            },
-            'dummy_admin/dummy_user': {
-              status: {
-                'active': 'Still in the game'
-              }
-            }
-          }
-        }
-      })
+                                        helpers: {
+                                          options: {
+                                            assistant: {
+                                              terms_agreed: {
+                                                true: 'Yes, I agree'
+                                              }
+                                            },
+                                            dummy_model: {
+                                              role: {
+                                                admin: 'Administrator'
+                                              }
+                                            },
+                                            'dummy_admin/dummy_user': {
+                                              status: {
+                                                active: 'Still in the game'
+                                              }
+                                            }
+                                          }
+                                        }
+                                      })
     end
 
     test 'self.brand' do
