@@ -102,28 +102,25 @@
       </a>
     </div>
 
-    <main class="lg:pl-72">
-      <div class="xl:pr-96">
-        <div class="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+    <div class='width-container'>
+      <main class='main-wrapper'>
+        <%= yield :breadcrumbs %>
 
-            <%= yield :breadcrumbs %>
+        <!-- Main area -->
+        <% if false && user_signed_in? %>
+          <div>
+            <!-- <p>Normalized User Profile:<%#= JSON.pretty_generate(@user[:info])%></p> -->
+            <p>Full User Profile: <%= JSON.pretty_generate(session[:userinfo]) %></p>
+            <p>Expiry: <%= Time.at(session[:userinfo]['exp']) %></p>
+            <%#= JSON.pretty_generate(session[:userinfo].keys) %>
+          </div>
+        <% end %>
 
-          <!-- Main area -->
-          <% if false && user_signed_in? %>
-            <div>
-              <!-- <p>Normalized User Profile:<%#= JSON.pretty_generate(@user[:info])%></p> -->
-              <p>Full User Profile: <%= JSON.pretty_generate(session[:userinfo]) %></p>
-              <p>Expiry: <%= Time.at(session[:userinfo]['exp']) %></p>
-              <%#= JSON.pretty_generate(session[:userinfo].keys) %>
-            </div>
-          <% end %>
+        <%= render 'layouts/alert_and_notice' %>
 
-          <%= render 'layouts/alert_and_notice' %>
-
-          <%= yield %>
-        </div>
-      </div>
-    </main>
+        <%= yield %>
+      </main>
+    </div>
 
     <aside class="secondary-column">
       <!-- Secondary column (hidden on smaller screens) -->
