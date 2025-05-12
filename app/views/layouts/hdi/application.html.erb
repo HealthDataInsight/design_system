@@ -106,16 +106,6 @@
       <main class='hdi-main-wrapper'>
         <%= yield :breadcrumbs %>
 
-        <!-- Main area -->
-        <% if false && user_signed_in? %>
-          <div>
-            <!-- <p>Normalized User Profile:<%#= JSON.pretty_generate(@user[:info])%></p> -->
-            <p>Full User Profile: <%= JSON.pretty_generate(session[:userinfo]) %></p>
-            <p>Expiry: <%= Time.at(session[:userinfo]['exp']) %></p>
-            <%#= JSON.pretty_generate(session[:userinfo].keys) %>
-          </div>
-        <% end %>
-
         <%= render 'layouts/alert_and_notice' %>
 
         <%= yield %>
