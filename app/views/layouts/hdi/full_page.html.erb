@@ -2,6 +2,13 @@
 <html class="h-full">
   <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="/design_system/static/tailwind-4.1.6/index.js"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-hdi-violet: #473191;
+        --font-sans: 'Inter var', ui-sans-serif, sans-serif;
+      }
+    </style>
     <%= stylesheet_link_tag 'hdi', 'data-turbo-track': 'reload' %>
 
     <%= yield :head %>
