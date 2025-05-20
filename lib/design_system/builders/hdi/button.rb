@@ -7,7 +7,7 @@ module DesignSystem
       class Button < ::DesignSystem::Builders::Generic::Button
         def render_button(content_or_options = nil, options = nil, &)
           options = prep_button_options(content_or_options, options)
-          options[:class] = 'font-bold py-2 px-4 rounded'
+          options[:class] = 'font-bold py-2 px-4 rounded-sm'
 
           options = css_class_options_merge(options) do |button_classes|
             button_classes << style_class_hash[options['style']]
