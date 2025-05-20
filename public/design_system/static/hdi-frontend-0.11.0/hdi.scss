@@ -1,4 +1,5 @@
-/*! tailwindcss v4.0.14 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.1.7 | MIT License | https://tailwindcss.com */
+@layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -6,22 +7,22 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-blue-500: oklch(0.623 0.214 259.815);
-    --color-blue-600: oklch(0.546 0.245 262.881);
-    --color-gray-50: oklch(0.985 0.002 247.839);
-    --color-gray-100: oklch(0.967 0.003 264.542);
-    --color-gray-200: oklch(0.928 0.006 264.531);
-    --color-gray-300: oklch(0.872 0.01 258.338);
-    --color-gray-400: oklch(0.707 0.022 261.325);
-    --color-gray-500: oklch(0.551 0.027 264.364);
-    --color-gray-600: oklch(0.446 0.03 256.802);
-    --color-gray-800: oklch(0.278 0.033 256.848);
-    --color-gray-900: oklch(0.21 0.034 264.665);
-    --color-neutral-200: oklch(0.922 0 0);
-    --color-neutral-400: oklch(0.708 0 0);
-    --color-neutral-500: oklch(0.556 0 0);
-    --color-neutral-700: oklch(0.371 0 0);
-    --color-neutral-900: oklch(0.205 0 0);
+    --color-blue-500: oklch(62.3% 0.214 259.815);
+    --color-blue-600: oklch(54.6% 0.245 262.881);
+    --color-gray-50: oklch(98.5% 0.002 247.839);
+    --color-gray-100: oklch(96.7% 0.003 264.542);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
+    --color-gray-600: oklch(44.6% 0.03 256.802);
+    --color-gray-800: oklch(27.8% 0.033 256.848);
+    --color-gray-900: oklch(21% 0.034 264.665);
+    --color-neutral-200: oklch(92.2% 0 0);
+    --color-neutral-400: oklch(70.8% 0 0);
+    --color-neutral-500: oklch(55.6% 0 0);
+    --color-neutral-700: oklch(37.1% 0 0);
+    --color-neutral-900: oklch(20.5% 0 0);
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-xs: 20rem;
@@ -55,17 +56,7 @@
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
-    --default-font-feature-settings: var(--font-sans--font-feature-settings);
-    --default-font-variation-settings: var(
-      --font-sans--font-variation-settings
-    );
     --default-mono-font-family: var(--font-mono);
-    --default-mono-font-feature-settings: var(
-      --font-mono--font-feature-settings
-    );
-    --default-mono-font-variation-settings: var(
-      --font-mono--font-variation-settings
-    );
   }
 }
 @layer base {
@@ -79,13 +70,10 @@
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
-    font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" );
+    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
     font-feature-settings: var(--default-font-feature-settings, normal);
-    font-variation-settings: var( --default-font-variation-settings, normal );
+    font-variation-settings: var(--default-font-variation-settings, normal);
     -webkit-tap-highlight-color: transparent;
-  }
-  body {
-    line-height: inherit;
   }
   hr {
     height: 0;
@@ -109,9 +97,9 @@
     font-weight: bolder;
   }
   code, kbd, samp, pre {
-    font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace );
-    font-feature-settings: var( --default-mono-font-feature-settings, normal );
-    font-variation-settings: var( --default-mono-font-variation-settings, normal );
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
     font-size: 1em;
   }
   small {
@@ -175,7 +163,14 @@
   }
   ::placeholder {
     opacity: 1;
-    color: color-mix(in oklab, currentColor 50%, transparent);
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
   }
   textarea {
     resize: vertical;
@@ -264,7 +259,10 @@
       }
     }
     &:not(:checked, label:has(:checked), :hover, .tab-active, [aria-selected="true"]) {
-      color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+      }
     }
     &:not(input):empty {
       flex-grow: 1;
@@ -366,7 +364,10 @@
     :where( li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title), li:not(.menu-title, .disabled) > details > summary:not(.menu-title) ):not(.menu-active, :active, .btn) {
       &.menu-focus, &:focus-visible {
         cursor: pointer;
-        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+        background-color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+        }
         color: var(--color-base-content);
         --tw-outline-style: none;
         outline-style: none;
@@ -378,7 +379,10 @@
     }
     :where( li:not(.menu-title, .disabled) > *:not(ul, details, .menu-title):not(.menu-active, :active, .btn):hover, li:not(.menu-title, .disabled) > details > summary:not(.menu-title):not(.menu-active, :active, .btn):hover ) {
       cursor: pointer;
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       --tw-outline-style: none;
       outline-style: none;
       @media (forced-colors: active) {
@@ -420,7 +424,10 @@
       }
       &.menu-disabled {
         pointer-events: none;
-        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        }
       }
     }
     .dropdown:focus-within {
@@ -476,20 +483,33 @@
     --btn-bg: var(--btn-color, var(--color-base-200));
     --btn-fg: var(--color-base-content);
     --btn-p: 1rem;
-    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+    --btn-border: var(--btn-bg);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+    }
+    --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+    }
     --btn-noise: var(--fx-noise);
     .prose & {
       text-decoration-line: none;
     }
     @media (hover: hover) {
       &:hover {
-        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+        --btn-bg: var(--btn-color, var(--color-base-200));
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+        }
       }
     }
     &.btn-active {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
       --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
       isolation: isolate;
     }
@@ -499,25 +519,43 @@
     }
     &:active:not(.btn-active) {
       translate: 0 0.5px;
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+      }
+      --btn-border: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
       --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     }
     &:is(:disabled, [disabled], .btn-disabled) {
       &:not(.btn-link, .btn-ghost) {
-        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+        background-color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+        }
         box-shadow: none;
       }
       pointer-events: none;
       --btn-border: #0000;
       --btn-noise: none;
-      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+      --btn-fg: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+      }
       @media (hover: hover) {
         &:hover {
           pointer-events: none;
-          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+          background-color: var(--color-neutral);
+          @supports (color: color-mix(in lab, red, red)) {
+            background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+          }
           --btn-border: #0000;
-          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+          --btn-fg: var(--color-base-content);
+          @supports (color: color-mix(in lab, red, red)) {
+            --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+          }
         }
       }
     }
@@ -593,7 +631,10 @@
           inset-inline: var(--radius-box);
           position: absolute;
           bottom: calc(0.25rem * 0);
-          border-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
+          border-color: var(--color-base-content);
+          @supports (color: color-mix(in lab, red, red)) {
+            border-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
+          }
         }
       }
     }
@@ -616,9 +657,15 @@
   );
     border-radius: calc( var(--radius-selector) + min(var(--toggle-p), var(--radius-selector-max)) + min(var(--border), var(--radius-selector-max)) );
     padding: var(--toggle-p);
-    box-shadow: 0 1px color-mix(in oklab, currentColor calc(var(--depth) * 10%), #0000) inset;
+    box-shadow: 0 1px currentColor inset;
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, currentColor calc(var(--depth) * 10%), #0000) inset;
+    }
     transition: color 0.3s, grid-template-columns 0.2s;
-    --input-color: color-mix(in oklab, var(--color-base-content) 50%, #0000);
+    --input-color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --input-color: color-mix(in oklab, var(--color-base-content) 50%, #0000);
+    }
     --toggle-p: 0.1875rem;
     --size: calc(var(--size-selector, 0.25rem) * 6);
     width: calc((var(--size) * 2) - (var(--border) + var(--toggle-p)) * 2);
@@ -676,7 +723,10 @@
       --tw-content: "";
       content: var(--tw-content);
       transition: background-color 0.1s, translate 0.2s, inset-inline-start 0.2s;
-      box-shadow: 0 -1px oklch(0% 0 0 / calc(var(--depth) * 0.1)) inset, 0 8px 0 -4px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset, 0 1px color-mix(in oklab, currentColor calc(var(--depth) * 10%), #0000);
+      box-shadow: 0 -1px oklch(0% 0 0 / calc(var(--depth) * 0.1)) inset, 0 8px 0 -4px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset, 0 1px currentColor;
+      @supports (color: color-mix(in lab, red, red)) {
+        box-shadow: 0 -1px oklch(0% 0 0 / calc(var(--depth) * 0.1)) inset, 0 8px 0 -4px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset, 0 1px color-mix(in oklab, currentColor calc(var(--depth) * 10%), #0000);
+      }
       background-size: auto, calc(var(--noise) * 100%);
       background-image: none, var(--fx-noise);
     }
@@ -743,9 +793,15 @@
     border-end-start-radius: var(--join-es, var(--radius-field));
     border-end-end-radius: var(--join-ee, var(--radius-field));
     border-color: var(--input-color);
-    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    }
     --size: calc(var(--size-field, 0.25rem) * 10);
-    --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    --input-color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    }
     &:where(input) {
       display: inline-flex;
     }
@@ -767,7 +823,10 @@
     }
     &:focus, &:focus-within {
       --input-color: var(--color-base-content);
-      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      box-shadow: 0 1px var(--input-color);
+      @supports (color: color-mix(in lab, red, red)) {
+        box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      }
       outline: 2px solid var(--input-color);
       outline-offset: 2px;
       isolation: isolate;
@@ -776,9 +835,15 @@
       cursor: not-allowed;
       border-color: var(--color-base-200);
       background-color: var(--color-base-200);
-      color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      }
       &::placeholder {
-        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        }
       }
       box-shadow: none;
     }
@@ -1050,9 +1115,15 @@
     background-size: 4px 4px, 4px 4px;
     background-repeat: no-repeat;
     text-overflow: ellipsis;
-    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    }
     border-color: var(--input-color);
-    --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    --input-color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    }
     --size: calc(var(--size-field, 0.25rem) * 10);
     [dir="rtl"] & {
       background-position: calc(0% + 12px) calc(1px + 50%), calc(0% + 16px) calc(1px + 50%);
@@ -1079,7 +1150,10 @@
     }
     &:focus, &:focus-within {
       --input-color: var(--color-base-content);
-      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      box-shadow: 0 1px var(--input-color);
+      @supports (color: color-mix(in lab, red, red)) {
+        box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      }
       outline: 2px solid var(--input-color);
       outline-offset: 2px;
     }
@@ -1087,9 +1161,15 @@
       cursor: not-allowed;
       border-color: var(--color-base-200);
       background-color: var(--color-base-200);
-      color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      }
       &::placeholder {
-        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        }
       }
     }
     &:has(> select[disabled]) > select[disabled] {
@@ -1097,7 +1177,10 @@
     }
   }
   .checkbox {
-    border: var(--border) solid var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, #0000));
+    border: var(--border) solid var(--input-color, var(--color-base-content));
+    @supports (color: color-mix(in lab, red, red)) {
+      border: var(--border) solid var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, #0000));
+    }
     position: relative;
     flex-shrink: 0;
     cursor: pointer;
@@ -1178,7 +1261,10 @@
     border-radius: calc(infinity * 1px);
     padding: calc(0.25rem * 1);
     vertical-align: middle;
-    border: var(--border) solid var(--input-color, color-mix(in srgb, currentColor 20%, #0000));
+    border: var(--border) solid var(--input-color, currentColor);
+    @supports (color: color-mix(in lab, red, red)) {
+      border: var(--border) solid var(--input-color, color-mix(in srgb, currentColor 20%, #0000));
+    }
     box-shadow: 0 1px oklch(0% 0 0 / calc(var(--depth) * 0.1)) inset;
     --size: calc(var(--size-selector, 0.25rem) * 6);
     width: var(--size);
@@ -1263,8 +1349,14 @@
     padding-inline-end: 0.75rem;
     font-size: 0.875rem;
     border-color: var(--input-color);
-    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
-    --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+    }
+    --input-color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+    }
     textarea {
       appearance: none;
       background-color: transparent;
@@ -1280,7 +1372,10 @@
     }
     &:focus, &:focus-within {
       --input-color: var(--color-base-content);
-      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      box-shadow: 0 1px var(--input-color);
+      @supports (color: color-mix(in lab, red, red)) {
+        box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+      }
       outline: 2px solid var(--input-color);
       outline-offset: 2px;
       isolation: isolate;
@@ -1289,9 +1384,15 @@
       cursor: not-allowed;
       border-color: var(--color-base-200);
       background-color: var(--color-base-200);
-      color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+      }
       &::placeholder {
-        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+        }
       }
       box-shadow: none;
     }
@@ -1330,7 +1431,10 @@
       height: calc(0.25rem * 0.5);
       width: 100%;
       flex-grow: 1;
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
     }
     @media print {
       &:before, &:after {
@@ -1391,7 +1495,10 @@
     align-items: center;
     gap: calc(0.25rem * 1.5);
     white-space: nowrap;
-    color: color-mix(in oklab, currentColor 60%, transparent);
+    color: currentColor;
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, currentColor 60%, transparent);
+    }
     &:has(input) {
       cursor: pointer;
     }
@@ -1405,12 +1512,18 @@
       &:first-child {
         margin-inline-start: calc(0.25rem * -3);
         margin-inline-end: calc(0.25rem * 3);
-        border-inline-end: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+        border-inline-end: var(--border) solid currentColor;
+        @supports (color: color-mix(in lab, red, red)) {
+          border-inline-end: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+        }
       }
       &:last-child {
         margin-inline-start: calc(0.25rem * 3);
         margin-inline-end: calc(0.25rem * -3);
-        border-inline-start: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+        border-inline-start: var(--border) solid currentColor;
+        @supports (color: color-mix(in lab, red, red)) {
+          border-inline-start: var(--border) solid color-mix(in oklab, currentColor 10%, #0000);
+        }
       }
     }
   }
@@ -1486,8 +1599,14 @@
     }
     &.badge-soft {
       color: var(--badge-color, var(--color-base-content));
-      background-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 8%, var(--color-base-100) );
-      border-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 10%, var(--color-base-100) );
+      background-color: var(--badge-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 8%, var(--color-base-100) );
+      }
+      border-color: var(--badge-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        border-color: color-mix( in oklab, var(--badge-color, var(--color-base-content)) 10%, var(--color-base-100) );
+      }
       background-image: none;
       box-shadow: none;
     }
@@ -1530,7 +1649,10 @@
     line-height: 1.25rem;
     background-size: auto, calc(var(--noise) * 100%);
     background-image: none, var(--fx-noise);
-    box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px color-mix( in oklab, color-mix(in oklab, #000 20%, var(--alert-color, var(--color-base-200))) calc(var(--depth) * 20%), #0000 ), 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+    box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px #000, 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px color-mix( in oklab, color-mix(in oklab, #000 20%, var(--alert-color, var(--color-base-200))) calc(var(--depth) * 20%), #0000 ), 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+    }
     &.alert-outline {
       background-color: transparent;
       color: var(--alert-color);
@@ -1546,8 +1668,14 @@
     }
     &.alert-soft {
       color: var(--alert-color, var(--color-base-content));
-      background: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 8%, var(--color-base-100) );
-      border-color: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 10%, var(--color-base-100) );
+      background: var(--alert-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        background: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 8%, var(--color-base-100) );
+      }
+      border-color: var(--alert-color, var(--color-base-content));
+      @supports (color: color-mix(in lab, red, red)) {
+        border-color: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 10%, var(--color-base-100) );
+      }
       box-shadow: none;
       background-image: none;
     }
@@ -1658,7 +1786,7 @@
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .transform {
-    transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .cursor-pointer {
     cursor: pointer;
@@ -1899,7 +2027,7 @@
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .transition {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
@@ -2410,7 +2538,10 @@
   margin: calc(var(--spacing) * -2.5);
   cursor: pointer;
   padding: calc(var(--spacing) * 2.5);
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
   @media (width >= 64rem) {
     display: none;
   }
@@ -2452,7 +2583,10 @@
 .hdi-breadcrumbs__link-wrapper {
   display: inline-flex;
   align-items: center;
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
   &:hover {
     @media (hover: hover) {
       color: var(--color-primary);
@@ -2483,7 +2617,10 @@
     margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
     margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
   }
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
   &:hover {
     @media (hover: hover) {
       color: var(--color-primary);
@@ -2498,7 +2635,10 @@
   width: calc(var(--spacing) * 5);
   height: calc(var(--spacing) * 5);
   flex-shrink: 0;
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
 }
 .hdi-button {
   display: inline-flex;
@@ -2539,20 +2679,33 @@
   --btn-bg: var(--btn-color, var(--color-base-200));
   --btn-fg: var(--color-base-content);
   --btn-p: 1rem;
-  --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-  --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+  --btn-border: var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+  }
+  --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+  }
   --btn-noise: var(--fx-noise);
   .prose & {
     text-decoration-line: none;
   }
   @media (hover: hover) {
     &:hover {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
     }
   }
   &.btn-active {
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     isolation: isolate;
   }
@@ -2562,25 +2715,43 @@
   }
   &:active:not(.btn-active) {
     translate: 0 0.5px;
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-    --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+    }
+    --btn-border: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
   }
   &:is(:disabled, [disabled], .btn-disabled) {
     &:not(.btn-link, .btn-ghost) {
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       box-shadow: none;
     }
     pointer-events: none;
     --btn-border: #0000;
     --btn-noise: none;
-    --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    --btn-fg: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     @media (hover: hover) {
       &:hover {
         pointer-events: none;
-        background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        background-color: var(--color-neutral);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        }
         --btn-border: #0000;
-        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        --btn-fg: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        }
       }
     }
   }
@@ -2645,20 +2816,33 @@
   --btn-bg: var(--btn-color, var(--color-base-200));
   --btn-fg: var(--color-base-content);
   --btn-p: 1rem;
-  --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-  --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+  --btn-border: var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+  }
+  --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+  }
   --btn-noise: var(--fx-noise);
   .prose & {
     text-decoration-line: none;
   }
   @media (hover: hover) {
     &:hover {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
     }
   }
   &.btn-active {
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     isolation: isolate;
   }
@@ -2668,25 +2852,43 @@
   }
   &:active:not(.btn-active) {
     translate: 0 0.5px;
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-    --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+    }
+    --btn-border: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
   }
   &:is(:disabled, [disabled], .btn-disabled) {
     &:not(.btn-link, .btn-ghost) {
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       box-shadow: none;
     }
     pointer-events: none;
     --btn-border: #0000;
     --btn-noise: none;
-    --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    --btn-fg: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     @media (hover: hover) {
       &:hover {
         pointer-events: none;
-        background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        background-color: var(--color-neutral);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        }
         --btn-border: #0000;
-        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        --btn-fg: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        }
       }
     }
   }
@@ -2743,20 +2945,33 @@
   --btn-bg: var(--btn-color, var(--color-base-200));
   --btn-fg: var(--color-base-content);
   --btn-p: 1rem;
-  --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-  --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+  --btn-border: var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+  }
+  --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+  }
   --btn-noise: var(--fx-noise);
   .prose & {
     text-decoration-line: none;
   }
   @media (hover: hover) {
     &:hover {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
     }
   }
   &.btn-active {
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     isolation: isolate;
   }
@@ -2766,25 +2981,43 @@
   }
   &:active:not(.btn-active) {
     translate: 0 0.5px;
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-    --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+    }
+    --btn-border: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
   }
   &:is(:disabled, [disabled], .btn-disabled) {
     &:not(.btn-link, .btn-ghost) {
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       box-shadow: none;
     }
     pointer-events: none;
     --btn-border: #0000;
     --btn-noise: none;
-    --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    --btn-fg: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     @media (hover: hover) {
       &:hover {
         pointer-events: none;
-        background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        background-color: var(--color-neutral);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        }
         --btn-border: #0000;
-        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        --btn-fg: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        }
       }
     }
   }
@@ -2841,20 +3074,33 @@
   --btn-bg: var(--btn-color, var(--color-base-200));
   --btn-fg: var(--color-base-content);
   --btn-p: 1rem;
-  --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-  --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+  --btn-border: var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+  }
+  --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+  }
   --btn-noise: var(--fx-noise);
   .prose & {
     text-decoration-line: none;
   }
   @media (hover: hover) {
     &:hover {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
     }
   }
   &.btn-active {
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     isolation: isolate;
   }
@@ -2864,25 +3110,43 @@
   }
   &:active:not(.btn-active) {
     translate: 0 0.5px;
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-    --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+    }
+    --btn-border: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
   }
   &:is(:disabled, [disabled], .btn-disabled) {
     &:not(.btn-link, .btn-ghost) {
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       box-shadow: none;
     }
     pointer-events: none;
     --btn-border: #0000;
     --btn-noise: none;
-    --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    --btn-fg: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     @media (hover: hover) {
       &:hover {
         pointer-events: none;
-        background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        background-color: var(--color-neutral);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        }
         --btn-border: #0000;
-        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        --btn-fg: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        }
       }
     }
   }
@@ -2968,7 +3232,10 @@
   margin-bottom: calc(var(--spacing) * 0);
 }
 .hdi-checkboxes__input {
-  border: var(--border) solid var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, #0000));
+  border: var(--border) solid var(--input-color, var(--color-base-content));
+  @supports (color: color-mix(in lab, red, red)) {
+    border: var(--border) solid var(--input-color, color-mix(in oklab, var(--color-base-content) 20%, #0000));
+  }
   position: relative;
   flex-shrink: 0;
   cursor: pointer;
@@ -3061,7 +3328,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
 }
 .hdi-checkboxes__label {
@@ -3155,20 +3425,33 @@
   --btn-bg: var(--btn-color, var(--color-base-200));
   --btn-fg: var(--color-base-content);
   --btn-p: 1rem;
-  --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
-  --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
+  --btn-border: var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-border: color-mix(in oklab, var(--btn-bg), #000 calc(var(--depth) * 5%));
+  }
+  --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+    0 4px 3px -2px var(--btn-bg);
+  @supports (color: color-mix(in lab, red, red)) {
+    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000),
     0 4px 3px -2px color-mix(in oklab, var(--btn-bg) calc(var(--depth) * 30%), #0000);
+  }
   --btn-noise: var(--fx-noise);
   .prose & {
     text-decoration-line: none;
   }
   @media (hover: hover) {
     &:hover {
-      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      --btn-bg: var(--btn-color, var(--color-base-200));
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+      }
     }
   }
   &.btn-active {
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
     isolation: isolate;
   }
@@ -3178,25 +3461,43 @@
   }
   &:active:not(.btn-active) {
     translate: 0 0.5px;
-    --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
-    --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 5%);
+    }
+    --btn-border: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
     --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
   }
   &:is(:disabled, [disabled], .btn-disabled) {
     &:not(.btn-link, .btn-ghost) {
-      background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      background-color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+      }
       box-shadow: none;
     }
     pointer-events: none;
     --btn-border: #0000;
     --btn-noise: none;
-    --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    --btn-fg: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     @media (hover: hover) {
       &:hover {
         pointer-events: none;
-        background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        background-color: var(--color-neutral);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-neutral) 20%, transparent);
+        }
         --btn-border: #0000;
-        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        --btn-fg: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+        }
       }
     }
   }
@@ -3278,7 +3579,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
 }
 .hdi-error-summary__title {
@@ -3343,7 +3647,10 @@
         inset-inline: var(--radius-box);
         position: absolute;
         bottom: calc(0.25rem * 0);
-        border-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
+        border-color: var(--color-base-content);
+        @supports (color: color-mix(in lab, red, red)) {
+          border-color: color-mix(in oklab, var(--color-base-content) 5%, transparent);
+        }
       }
     }
   }
@@ -3436,9 +3743,15 @@
   border-end-start-radius: var(--join-es, var(--radius-field));
   border-end-end-radius: var(--join-ee, var(--radius-field));
   border-color: var(--input-color);
-  box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  @supports (color: color-mix(in lab, red, red)) {
+    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  }
   --size: calc(var(--size-field, 0.25rem) * 10);
-  --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+  --input-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+  }
   &::file-selector-button {
     margin-inline-end: calc(0.25rem * 4);
     cursor: pointer;
@@ -3460,18 +3773,31 @@
     background-size: calc(var(--noise) * 100%);
     background-image: var(--btn-noise);
     text-shadow: 0 0.5px oklch(1 0 0 / calc(var(--depth) * 0.15));
-    box-shadow: 0 0.5px 0 0.5px color-mix( in oklab, color-mix(in oklab, white 30%, var(--btn-bg)) calc(var(--depth) * 20%), #0000 ) inset, var(--btn-shadow);
+    box-shadow: 0 0.5px 0 0.5px white inset, var(--btn-shadow);
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 0.5px 0 0.5px color-mix( in oklab, color-mix(in oklab, white 30%, var(--btn-bg)) calc(var(--depth) * 20%), #0000 ) inset, var(--btn-shadow);
+    }
     --size: calc(var(--size-field, 0.25rem) * 10);
     --btn-bg: var(--btn-color, var(--color-base-200));
     --btn-fg: var(--color-base-content);
-    --btn-border: color-mix(in oklab, var(--btn-bg), #000 5%);
-    --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) 30%, #0000),
+    --btn-border: var(--btn-bg);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-border: color-mix(in oklab, var(--btn-bg), #000 5%);
+    }
+    --btn-shadow: 0 3px 2px -2px var(--btn-bg),
+      0 4px 3px -2px var(--btn-bg);
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-shadow: 0 3px 2px -2px color-mix(in oklab, var(--btn-bg) 30%, #0000),
       0 4px 3px -2px color-mix(in oklab, var(--btn-bg) 30%, #0000);
+    }
     --btn-noise: var(--fx-noise);
   }
   &:focus {
     --input-color: var(--color-base-content);
-    box-shadow: 0 1px color-mix(in oklab, var(--input-color) 10%, #0000);
+    box-shadow: 0 1px var(--input-color);
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, var(--input-color) 10%, #0000);
+    }
     outline: 2px solid var(--input-color);
     outline-offset: 2px;
     isolation: isolate;
@@ -3481,17 +3807,26 @@
     border-color: var(--color-base-200);
     background-color: var(--color-base-200);
     &::placeholder {
-      color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+      }
     }
     box-shadow: none;
-    color: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+    }
     &::file-selector-button {
       cursor: not-allowed;
       border-color: var(--color-base-200);
       background-color: var(--color-base-200);
       --btn-border: #0000;
       --btn-noise: none;
-      --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+      --btn-fg: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        --btn-fg: color-mix(in oklch, var(--color-base-content) 20%, #0000);
+      }
     }
   }
   --btn-color: var(--color-primary);
@@ -3506,7 +3841,10 @@
   margin-bottom: calc(var(--spacing) * 2);
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
 }
 .hdi-input {
   display: block;
@@ -3537,7 +3875,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
   @media (width >= 40rem) {
     font-size: var(--text-sm);
@@ -3678,7 +4019,10 @@
   color: var(--color-primary);
   @media (hover: hover) {
     &:hover {
-      color: color-mix(in oklab, var(--color-primary) 80%, #000);
+      color: var(--color-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-primary) 80%, #000);
+      }
     }
   }
   text-decoration-line: none;
@@ -3708,7 +4052,10 @@
   line-height: 1.25rem;
   background-size: auto, calc(var(--noise) * 100%);
   background-image: none, var(--fx-noise);
-  box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px color-mix( in oklab, color-mix(in oklab, #000 20%, var(--alert-color, var(--color-base-200))) calc(var(--depth) * 20%), #0000 ), 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+  box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px #000, 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+  @supports (color: color-mix(in lab, red, red)) {
+    box-shadow: 0 3px 0 -2px oklch(100% 0 0 / calc(var(--depth) * 0.08)) inset, 0 1px color-mix( in oklab, color-mix(in oklab, #000 20%, var(--alert-color, var(--color-base-200))) calc(var(--depth) * 20%), #0000 ), 0 4px 3px -2px oklch(0% 0 0 / calc(var(--depth) * 0.08));
+  }
   &.alert-outline {
     background-color: transparent;
     color: var(--alert-color);
@@ -3724,8 +4071,14 @@
   }
   &.alert-soft {
     color: var(--alert-color, var(--color-base-content));
-    background: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 8%, var(--color-base-100) );
-    border-color: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 10%, var(--color-base-100) );
+    background: var(--alert-color, var(--color-base-content));
+    @supports (color: color-mix(in lab, red, red)) {
+      background: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 8%, var(--color-base-100) );
+    }
+    border-color: var(--alert-color, var(--color-base-content));
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix( in oklab, var(--alert-color, var(--color-base-content)) 10%, var(--color-base-100) );
+    }
     box-shadow: none;
     background-image: none;
   }
@@ -3771,7 +4124,10 @@
   line-height: var(--tw-leading, var(--text-sm--line-height));
   --tw-font-weight: var(--font-weight-medium);
   font-weight: var(--font-weight-medium);
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
   &:hover {
     @media (hover: hover) {
       border-color: var(--color-base-300);
@@ -3779,7 +4135,10 @@
   }
   &:hover {
     @media (hover: hover) {
-      color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+      }
     }
   }
 }
@@ -3818,13 +4177,19 @@
   margin-right: calc(var(--spacing) * 3);
   width: calc(var(--spacing) * 5);
   height: calc(var(--spacing) * 5);
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
 }
 .hdi-pagination-item--next .hdi-icon {
   margin-left: calc(var(--spacing) * 3);
   width: calc(var(--spacing) * 5);
   height: calc(var(--spacing) * 5);
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
 }
 .hdi-password-field {
   position: relative;
@@ -3891,7 +4256,10 @@
   border-radius: calc(infinity * 1px);
   padding: calc(0.25rem * 1);
   vertical-align: middle;
-  border: var(--border) solid var(--input-color, color-mix(in srgb, currentColor 20%, #0000));
+  border: var(--border) solid var(--input-color, currentColor);
+  @supports (color: color-mix(in lab, red, red)) {
+    border: var(--border) solid var(--input-color, color-mix(in srgb, currentColor 20%, #0000));
+  }
   box-shadow: 0 1px oklch(0% 0 0 / calc(var(--depth) * 0.1)) inset;
   --size: calc(var(--size-selector, 0.25rem) * 6);
   width: var(--size);
@@ -3956,7 +4324,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
 }
 .hdi-radios__label {
@@ -4012,9 +4383,15 @@
   background-size: 4px 4px, 4px 4px;
   background-repeat: no-repeat;
   text-overflow: ellipsis;
-  box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  box-shadow: 0 1px var(--input-color) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  @supports (color: color-mix(in lab, red, red)) {
+    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000) inset, 0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+  }
   border-color: var(--input-color);
-  --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+  --input-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+  }
   --size: calc(var(--size-field, 0.25rem) * 10);
   [dir="rtl"] & {
     background-position: calc(0% + 12px) calc(1px + 50%), calc(0% + 16px) calc(1px + 50%);
@@ -4041,7 +4418,10 @@
   }
   &:focus, &:focus-within {
     --input-color: var(--color-base-content);
-    box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+    box-shadow: 0 1px var(--input-color);
+    @supports (color: color-mix(in lab, red, red)) {
+      box-shadow: 0 1px color-mix(in oklab, var(--input-color) calc(var(--depth) * 10%), #0000);
+    }
     outline: 2px solid var(--input-color);
     outline-offset: 2px;
   }
@@ -4049,9 +4429,15 @@
     cursor: not-allowed;
     border-color: var(--color-base-200);
     background-color: var(--color-base-200);
-    color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+    color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
+    }
     &::placeholder {
-      color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+      }
     }
   }
   &:has(> select[disabled]) > select[disabled] {
@@ -4085,7 +4471,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
 }
 .hdi-select--error {
@@ -4173,12 +4562,18 @@
   }
   &:hover {
     @media (hover: hover) {
-      color: color-mix(in oklab, var(--color-primary) 80%, transparent);
+      color: var(--color-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-primary) 80%, transparent);
+      }
     }
   }
 }
 .sidebar-item--active {
-  background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  background-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  }
   color: var(--color-primary);
 }
 .sidebar-user-info {
@@ -4202,7 +4597,10 @@
 .sidebar-off-canvas-backdrop {
   position: fixed;
   inset: calc(var(--spacing) * 0);
-  background-color: color-mix(in oklab, var(--color-gray-900) 80%, transparent);
+  background-color: color-mix(in srgb, oklch(21% 0.034 264.665) 80%, transparent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-gray-900) 80%, transparent);
+  }
 }
 .sidebar-off-canvas {
   position: fixed;
@@ -4230,7 +4628,10 @@
   margin: calc(var(--spacing) * -2.5);
   cursor: pointer;
   padding: calc(var(--spacing) * 2.5);
-  color: color-mix(in oklab, var(--color-neutral-content) 50%, transparent);
+  color: var(--color-neutral-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-neutral-content) 50%, transparent);
+  }
 }
 .secondary-column {
   position: fixed;
@@ -4264,7 +4665,10 @@
     border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
   }
   :where(& > :not(:last-child)) {
-    border-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+    border-color: var(--color-base-content);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+    }
   }
   overflow: hidden;
   padding-block: calc(var(--spacing) * 4);
@@ -4292,7 +4696,10 @@
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
   white-space: nowrap;
-  color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 70%, transparent);
+  }
 }
 .hdi-summary-list__actions {
   display: flex;
@@ -4312,7 +4719,10 @@
   display: inline-block;
   border-right-style: var(--tw-border-style);
   border-right-width: 1px;
-  border-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  border-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  }
   padding-right: calc(var(--spacing) * 2);
   padding-left: calc(var(--spacing) * 2);
   font-size: var(--text-sm);
@@ -4429,7 +4839,10 @@
   flex-wrap: wrap;
   border-bottom-style: var(--tw-border-style);
   border-bottom-width: 1px;
-  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  border-color: var(--color-neutral-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  }
   text-align: center;
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
@@ -4457,7 +4870,10 @@
   color: var(--color-primary);
   @media (hover: hover) {
     &:hover {
-      color: color-mix(in oklab, var(--color-primary) 80%, #000);
+      color: var(--color-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-primary) 80%, #000);
+      }
     }
   }
   text-decoration-line: none;
@@ -4474,9 +4890,15 @@
   border-top-right-radius: var(--radius-md);
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  background-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+  }
   padding: calc(var(--spacing) * 4);
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
   &:hover {
     @media (hover: hover) {
       color: var(--color-neutral);
@@ -4487,7 +4909,10 @@
   margin-bottom: -1px;
   border-style: var(--tw-border-style);
   border-width: 1px;
-  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  border-color: var(--color-neutral-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  }
   border-bottom-color: transparent;
   background-color: var(--color-base-100);
   color: var(--color-primary);
@@ -4504,7 +4929,10 @@
   border-bottom-left-radius: var(--radius-md);
   border-style: var(--tw-border-style);
   border-width: 1px;
-  border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  border-color: var(--color-neutral-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    border-color: color-mix(in oklab, var(--color-neutral-content) 40%, transparent);
+  }
   background-color: var(--color-base-100);
   padding: calc(var(--spacing) * 4);
 }
@@ -4514,7 +4942,10 @@
 .hdi-tabs__panel-content {
   font-size: var(--text-sm);
   line-height: var(--tw-leading, var(--text-sm--line-height));
-  color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+  }
 }
 .hdi-textarea {
   display: block;
@@ -4542,7 +4973,10 @@
     outline-offset: 0px;
   }
   &:focus {
-    outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    outline-color: var(--color-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
   }
   @media (width >= 40rem) {
     font-size: var(--text-sm);
@@ -4821,7 +5255,10 @@
     justify-content: center;
   }
   border-radius: var(--radius-sm);
-  background-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  background-color: var(--color-base-content);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+  }
   color: var(--color-base-content);
 }
 .hdi-thumbnail-group {
@@ -5133,7 +5570,10 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
 }
 @layer base {
   :root {
-    scrollbar-color: color-mix(in oklch, currentColor 35%, #0000) #0000;
+    scrollbar-color: currentColor #0000;
+    @supports (color: color-mix(in lab, red, red)) {
+      scrollbar-color: color-mix(in oklch, currentColor 35%, #0000) #0000;
+    }
   }
 }
 @layer base {
@@ -5168,7 +5608,10 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
 ) {
     scrollbar-gutter: stable;
     background-image: linear-gradient(var(--color-base-100), var(--color-base-100));
-    --root-bg: color-mix(in srgb, var(--color-base-100), oklch(0% 0 0) 40%);
+    --root-bg: var(--color-base-100);
+    @supports (color: color-mix(in lab, red, red)) {
+      --root-bg: color-mix(in srgb, var(--color-base-100), oklch(0% 0 0) 40%);
+    }
   }
 }
 @keyframes skeleton {
@@ -5336,7 +5779,7 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
   [type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select {
     appearance: none;
     background-color: #fff;
-    border-color: oklch(0.551 0.027 264.364);
+    border-color: oklch(55.1% 0.027 264.364);
     border-width: 1px;
     border-radius: 0px;
     padding-top: 0.5rem;
@@ -5352,15 +5795,15 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
       --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
-      --tw-ring-color: oklch(0.546 0.245 262.881);
+      --tw-ring-color: oklch(54.6% 0.245 262.881);
       --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
       --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
       box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-      border-color: oklch(0.546 0.245 262.881);
+      border-color: oklch(54.6% 0.245 262.881);
     }
   }
   input::placeholder,textarea::placeholder {
-    color: oklch(0.551 0.027 264.364);
+    color: oklch(55.1% 0.027 264.364);
     opacity: 1;
   }
   ::-webkit-datetime-edit-fields-wrapper {
@@ -5380,7 +5823,7 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
     padding-bottom: 0;
   }
   select {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='oklch(0.551 0.027 264.364)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='oklch(55.1%25 0.027 264.364)' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
     background-position: right 0.5rem center;
     background-repeat: no-repeat;
     background-size: 1.5em 1.5em;
@@ -5406,9 +5849,9 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
     flex-shrink: 0;
     height: 1rem;
     width: 1rem;
-    color: oklch(0.546 0.245 262.881);
+    color: oklch(54.6% 0.245 262.881);
     background-color: #fff;
-    border-color: oklch(0.551 0.027 264.364);
+    border-color: oklch(55.1% 0.027 264.364);
     border-width: 1px;
     --tw-shadow: 0 0 #0000;
   }
@@ -5424,7 +5867,7 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
     --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
     --tw-ring-offset-width: 2px;
     --tw-ring-offset-color: #fff;
-    --tw-ring-color: oklch(0.546 0.245 262.881);
+    --tw-ring-color: oklch(54.6% 0.245 262.881);
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -5499,27 +5942,22 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;
-  initial-value: rotateX(0);
 }
 @property --tw-rotate-y {
   syntax: "*";
   inherits: false;
-  initial-value: rotateY(0);
 }
 @property --tw-rotate-z {
   syntax: "*";
   inherits: false;
-  initial-value: rotateZ(0);
 }
 @property --tw-skew-x {
   syntax: "*";
   inherits: false;
-  initial-value: skewX(0);
 }
 @property --tw-skew-y {
   syntax: "*";
   inherits: false;
-  initial-value: skewY(0);
 }
 @property --tw-space-y-reverse {
   syntax: "*";
@@ -5547,6 +5985,11 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
   syntax: "*";
   inherits: false;
 }
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
 @property --tw-inset-shadow {
   syntax: "*";
   inherits: false;
@@ -5555,6 +5998,11 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
 @property --tw-inset-shadow-color {
   syntax: "*";
   inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
 }
 @property --tw-ring-color {
   syntax: "*";
@@ -5633,6 +6081,19 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
   syntax: "*";
   inherits: false;
 }
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-duration {
   syntax: "*";
   inherits: false;
@@ -5665,4 +6126,56 @@ h1.hdi-heading-xl + .hdi-button, h2.hdi-heading-l + .hdi-button, h3.hdi-heading-
   syntax: "*";
   inherits: false;
   initial-value: 0;
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-space-y-reverse: 0;
+      --tw-leading: initial;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
+      --tw-duration: initial;
+      --tw-ease: initial;
+      --tw-content: "";
+      --tw-space-x-reverse: 0;
+      --tw-border-style: solid;
+      --tw-outline-style: solid;
+      --tw-divide-y-reverse: 0;
+    }
+  }
 }
