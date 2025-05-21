@@ -104,4 +104,8 @@ module DesignSystemHelper
                timeago_add_suffix_value: true
              })
   end
+
+  def ds_panel(title, body)
+    DesignSystem::Registry.builder(brand, 'panel', self).render_panel(title, body)
+  end
 end

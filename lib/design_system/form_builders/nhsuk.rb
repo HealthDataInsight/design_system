@@ -60,7 +60,7 @@ module DesignSystem
         button_options = {
           type: 'button',
           class: "#{@brand}-button #{@brand}-button--secondary",
-          style: 'padding: 8px 10px 7px !important',
+          style: 'padding: 8px 10px 7px; margin-bottom: 0px !important',
           aria: { label: 'Show password' },
           data: {
             'module' => "#{@brand}-button",
