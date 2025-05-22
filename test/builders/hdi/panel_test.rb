@@ -17,9 +17,9 @@ module DesignSystem
         test 'rendering hdi panel' do
           @output_buffer = ds_panel('Important Notice', 'This is important!')
 
-          assert_select 'div.block' do
-            assert_select 'h1.mb-2', 'Important Notice'
-            assert_select 'p.font-normal', 'This is important!'
+          assert_select 'div.hdi-panel' do
+            assert_select 'h1.hdi-panel__title', 'Important Notice'
+            assert_select 'div.hdi-panel__body', 'This is important!'
           end
         end
       end
