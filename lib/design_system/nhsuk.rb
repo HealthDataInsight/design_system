@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'builders/nhsuk/button'
+require_relative 'builders/nhsuk/callout'
 require_relative 'builders/nhsuk/fixed_elements'
 require_relative 'builders/nhsuk/heading'
 require_relative 'builders/nhsuk/link'

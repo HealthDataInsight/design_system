@@ -108,4 +108,8 @@ module DesignSystemHelper
   def ds_panel(title, body)
     DesignSystem::Registry.builder(brand, 'panel', self).render_panel(title, body)
   end
+
+  def ds_callout(label, body)
+    DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
+  end
 end
