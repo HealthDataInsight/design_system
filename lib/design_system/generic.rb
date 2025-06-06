@@ -4,6 +4,7 @@
 
 require_relative 'builders/concerns/brand_derivable'
 require_relative 'builders/generic/button'
+require_relative 'builders/generic/callout'
 require_relative 'builders/generic/fixed_elements'
 require_relative 'builders/generic/heading'
 require_relative 'builders/generic/link'
