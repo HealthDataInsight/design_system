@@ -35,7 +35,7 @@ module DesignSystem
         # text_method [Symbol] The method called against each member of the collection to provide the text
         # options (rails_options) [Hash] Options hash passed through to Rails' +collection_select+ helper
         govuk_collection_select(method, collection, value_method, text_method, options:, hint:, label:,
-                                                                              caption: {}, form_group: {}, **html_options)
+                                                                               caption: {}, form_group: {}, **html_options)
       end
 
       def ds_password_field(method, options = {})

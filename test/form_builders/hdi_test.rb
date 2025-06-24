@@ -19,7 +19,7 @@ module FormBuilders
 
     test 'ds_collection_select without multiple' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: "Demo for ds_collection_select", prompt: "Please select" })
+        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
       end
 
       assert_form_group do
@@ -44,7 +44,7 @@ module FormBuilders
 
     test 'ds_collection_select with multiple' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: "Demo for ds_collection_select", prompt: "Please select" }, { multiple: true })
+        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' }, { multiple: true })
       end
 
       assert_form_group do
@@ -69,7 +69,7 @@ module FormBuilders
 
     test 'ds_collection_select with prompt and no options' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_collection_select(:role_id, [], :id, :title, { hint: "Demo for ds_collection_select", prompt: "Please select" })
+        f.ds_collection_select(:role_id, [], :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
       end
 
       assert_form_group do
