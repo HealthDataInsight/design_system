@@ -15,6 +15,29 @@ module DesignSystem
       SVG
       # rubocop:enable Rails/OutputSafety
 
+      def ds_collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+        label = optional_label(method, options)
+
+        hint = options.delete(:hint)
+        hint = { text: hint } if hint
+
+        count = collection.count
+
+        if html_options[:multiple] && count > 0
+          # Expand dropdown size to fit the content
+          html_options[:style] = Array(html_options[:style])
+          html_options[:style] << "height: #{count * 30}px;"
+        end
+
+        # attribute_name [Symbol] The name of the attribute
+        # collection [Enumerable<Object>] Options to be added to the +select+ element
+        # value_method [Symbol] The method called against each member of the collection to provide the value
+        # text_method [Symbol] The method called against each member of the collection to provide the text
+        # options (rails_options) [Hash] Options hash passed through to Rails' +collection_select+ helper
+        govuk_collection_select(method, collection, value_method, text_method, options:, hint:, label:,
+                                                                              caption: {}, form_group: {}, **html_options)
+      end
+
       def ds_password_field(method, options = {})
         @brand = config.brand
         options[:id] = govuk_field_id(method, link_errors: true)
