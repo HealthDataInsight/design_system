@@ -17,6 +17,72 @@ module FormBuilders
                    DesignSystem::Registry.form_builder(@brand)
     end
 
+    test 'ds_collection_select without multiple' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
+      end
+
+      assert_form_group do
+        assert_label :role_id, nil, 'What is your role?'
+
+        select = assert_select("select.#{@brand}-select").first
+        assert_equal 'assistant_role_id', select['id']
+        assert_equal 'assistant[role_id]', select['name']
+
+        assert_equal 3, Role.all.count
+        assert_nil select['style']
+
+        options = assert_select('option')
+        assert_equal '1', options[0]['value']
+        assert_equal 'User', options[0].text.strip
+        assert_equal '2', options[1]['value']
+        assert_equal 'Admin', options[1].text.strip
+        assert_equal '3', options[2]['value']
+        assert_equal 'Super Admin', options[2].text.strip
+      end
+    end
+
+    test 'ds_collection_select with multiple' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' }, { multiple: true })
+      end
+
+      assert_form_group do
+        assert_label :role_id, nil, 'What is your role?'
+
+        select = assert_select("select.#{@brand}-select").first
+        assert_equal 'assistant_role_id', select['id']
+        assert_equal 'assistant[role_id][]', select['name']
+
+        assert_equal 3, Role.all.count
+        assert_equal 'height: 90px;', select['style']
+
+        options = assert_select('option')
+        assert_equal '1', options[0]['value']
+        assert_equal 'User', options[0].text.strip
+        assert_equal '2', options[1]['value']
+        assert_equal 'Admin', options[1].text.strip
+        assert_equal '3', options[2]['value']
+        assert_equal 'Super Admin', options[2].text.strip
+      end
+    end
+
+    test 'ds_collection_select with prompt and no options' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_collection_select(:role_id, [], :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
+      end
+
+      assert_form_group do
+        assert_label :role_id, nil, 'What is your role?'
+
+        select = assert_select("select.#{@brand}-select").first
+        assert_equal 'assistant_role_id', select['id']
+        assert_equal 'assistant[role_id]', select['name']
+
+        assert_nil select['style']
+      end
+    end
+
     test 'ds_password_field' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
