@@ -26,7 +26,7 @@ module DesignSystem
         if html_options[:multiple] && count > 0
           # Expand dropdown size to fit the content
           html_options[:style] = Array(html_options[:style])
-          html_options[:style] << "height: #{count * 30}px;"
+          html_options[:style] << "height: #{[count * 30, 250].min}px;"
         end
 
         # attribute_name [Symbol] The name of the attribute
