@@ -49,4 +49,50 @@ module GOVUKDesignSystemFormBuilder
       end
     end
   end
+
+  module Traits
+    module Error
+      private
+
+      def error_element
+        # Check if @html_attributes is defined and contains the suppress_error key.
+        # This instance variable is typically set by other traits like Traits::Input or Traits::Field.
+        if instance_variable_defined?(:@html_attributes) &&
+           @html_attributes &&
+           @html_attributes.key?(:suppress_error) &&
+           @html_attributes[:suppress_error]
+          @error_element = NullErrorElement.new(*bound) # Suppress the error message
+        else
+          # The `bound` method (from Elements::Base) provides [@builder, @object_name, @attribute_name].
+          @error_element ||= GOVUKDesignSystemFormBuilder::Elements::ErrorMessage.new(*bound)
+        end
+      end
+    end
+  end
+
+  # Null Object for suppressed error messages
+  class NullErrorElement
+    # Takes the same arguments as the real ErrorMessage constructor for compatibility
+    def initialize(builder, object_name, attribute_name, **_kwargs)
+      # We don't need to store them for this null object
+    end
+
+    def html
+      ActiveSupport::SafeBuffer.new # Renders no HTML
+    end
+
+    def to_s
+      '' # Returns an empty string if the object itself is converted to a string
+    end
+
+    def error_id
+      nil # Important for aria-describedby, indicates no specific error ID
+    end
+
+    private
+
+    def has_errors?
+      false # So it doesn't try to render itself as if it has errors
+    end
+  end
 end
