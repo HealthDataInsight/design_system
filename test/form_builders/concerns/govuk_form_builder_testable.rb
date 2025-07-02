@@ -1098,5 +1098,40 @@ module GovukFormBuilderTestable
         end
       end
     end
+
+    test 'suppresses inline error when suppress_error is true' do
+      @assistant = Assistant.new
+      assert_not @assistant.valid?
+      assert @assistant.errors[:title].any?, 'Title should have errors'
+
+      @output_buffer = form_with(model: @assistant, builder: @builder, url: '#') do |f|
+        f.ds_text_field(:title, label: { text: 'Title' }, suppress_error: true)
+      end
+
+      # Assert that the inline error message is NOT present
+      assert_select_from(@output_buffer, "p.#{@brand}-error-message", count: 0)
+    end
+
+    test 'shows inline error when suppress_error is false' do
+      @assistant = Assistant.new
+      assert_not @assistant.valid?
+      assert @assistant.errors[:title].any?, 'Title should have errors'
+
+      @output_buffer = form_with(model: @assistant, builder: @builder, url: '#') do |f|
+        f.govuk_text_field(:title, label: { text: 'Title' }, suppress_error: false)
+      end
+
+      # Assert that the inline error message IS present
+      @assistant.errors[:title].first
+      assert_select_from(@output_buffer, "p.#{@brand}-error-message", count: 1)
+    end
+
+    private
+
+    # Helper to use assert_select on a string of HTML output
+    def assert_select_from(html_output, ...)
+      parsed_html = Nokogiri::HTML::DocumentFragment.parse(html_output)
+      assert_select(parsed_html, ...)
+    end
   end
 end
