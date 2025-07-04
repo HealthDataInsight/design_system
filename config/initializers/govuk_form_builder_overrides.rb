@@ -66,6 +66,7 @@ module GOVUKDesignSystemFormBuilder
 
     class Legend
       using PrefixableArray
+
       private
 
       def classes

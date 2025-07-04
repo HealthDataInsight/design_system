@@ -142,7 +142,7 @@ module FormBuilders
 
     test 'legend hidden' do
       @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_date_field(:date_of_birth, hint: "Demo for ds_date_field", date_of_birth: true, legend: { text:'Find me', size: nil, hidden: true })
+        f.ds_date_field(:date_of_birth, hint: 'Demo for ds_date_field', date_of_birth: true, legend: { text: 'Find me', size: nil, hidden: true })
       end
 
       assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-visually-hidden", text: 'Find me')
