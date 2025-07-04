@@ -88,5 +88,21 @@ module FormBuilders
         end
       end
     end
+
+    test 'label hidden' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: { hidden: true })
+      end
+
+      assert_select("label.#{@brand}-label span.#{@brand}-u-visually-hidden", text: 'What is your department?')
+    end
+
+    test 'legend hidden' do
+      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_date_field(:date_of_birth, hint: 'Demo for ds_date_field', date_of_birth: true, legend: { text: 'Find me', size: nil, hidden: true })
+      end
+
+      assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-u-visually-hidden", text: 'Find me')
+    end
   end
 end
