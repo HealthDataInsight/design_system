@@ -48,6 +48,35 @@ module GOVUKDesignSystemFormBuilder
         end
       end
     end
+
+    class Label
+      private
+
+      def retrieve_text(option_text, hidden)
+        text = [option_text, localised_text(:label), @attribute_name.capitalize].find(&:presence)
+        hidden_class = brand.in?(%w[nhsuk ndrsuk]) ? 'u-visually-hidden' : 'visually-hidden'
+
+        if hidden
+          tag.span(text, class: %(#{brand}-#{hidden_class}))
+        else
+          text
+        end
+      end
+    end
+
+    class Legend
+      using PrefixableArray
+      private
+
+      def classes
+        hidden_class = brand.in?(%w[nhsuk ndrsuk]) ? 'u-visually-hidden' : 'visually-hidden'
+        build_classes(
+          %(fieldset__legend),
+          @size_class,
+          hidden_class => @hidden
+        ).prefix(brand)
+      end
+    end
   end
 
   module Traits
