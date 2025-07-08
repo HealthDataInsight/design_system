@@ -3,7 +3,6 @@
 /coverage/
 /doc/
 /log/*.log
-/node_modules/
 /pkg/
 /tmp/
 /test/dummy/app/assets/builds/
