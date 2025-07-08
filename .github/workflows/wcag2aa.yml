@@ -58,6 +58,3 @@ jobs:
       - name: Run accessibility tests
         run: |
           npx pa11y-ci --config .github/workflows/pa11y/wcag2aa.js
-      
-      - name: Stop server
-        run: bin/rails stop
