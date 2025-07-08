@@ -26,14 +26,18 @@ jobs:
         with:
           node-version: latest
           cache: npm
+          cache-dependency-path: test/dummy/package-lock.json
 
       - name: Install dependencies
+        working-directory: test/dummy
         run: npm install
 
       - name: Build assets
+        working-directory: test/dummy
         run: npm run build
 
       - name: Start server in the background
+        working-directory: test/dummy
         run: |
           npm run serve &
 
