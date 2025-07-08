@@ -1,0 +1,42 @@
+---
+name: "WCAG 2.2 AA "
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions: read-all
+
+jobs:
+  test_accessibility:
+    name: Test Accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@latest
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Start server in the background
+        run: |
+          npm run serve &
+
+      - name: Run accessibility tests
+        run: |
+          npx pa11y-ci --config .github/workflows/pa11y/wcag2aa.js
