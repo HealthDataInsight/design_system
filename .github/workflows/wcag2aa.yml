@@ -32,14 +32,9 @@ jobs:
         working-directory: test/dummy
         run: npm install
 
-      - name: Build assets
-        working-directory: test/dummy
-        run: npm run build
-
       - name: Start server in the background
         working-directory: test/dummy
-        run: |
-          npm run serve &
+        run: bin/dev
 
       - name: Run accessibility tests
         run: |
