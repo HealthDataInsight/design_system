@@ -41,9 +41,6 @@ jobs:
       - name: Prepare the database
         run: bin/rails db:setup
 
-      # - name: Build assets
-      #   run: RAILS_GROUPS=assets RAILS_ENV=test bin/rails dartsass:build assets:precompile
-
       - name: Install dependencies
         run: |
           gem install foreman
@@ -51,9 +48,6 @@ jobs:
 
       - name: Prepare the database
         run: bin/rails db:setup
-
-      # - name: Build assets
-      #   run: bin/rails dartsass:build tmp:clear assets:clobber assets:precompile
 
       - name: Start server in the background
         working-directory: test/dummy
