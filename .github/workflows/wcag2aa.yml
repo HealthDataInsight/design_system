@@ -57,8 +57,13 @@ jobs:
 
       - name: Start server in the background
         working-directory: test/dummy
-        run: bin/dev
+        run: |
+          bin/dev &
+          sleep 10
 
       - name: Run accessibility tests
         run: |
           npx pa11y-ci --config .github/workflows/pa11y/wcag2aa.js
+      
+      - name: Stop server
+        run: bin/rails stop
