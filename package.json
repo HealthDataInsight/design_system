@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@aarongoldenthal/pa11y-ci": "^4.6.2"
+  }
+}

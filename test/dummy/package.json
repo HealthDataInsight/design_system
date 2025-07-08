@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@aarongoldenthal/pa11y-ci": "^4.6.2",
     "cypress": "^13.9.0"
   }
 }
