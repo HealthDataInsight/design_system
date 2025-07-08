@@ -44,10 +44,16 @@ jobs:
       # - name: Build assets
       #   run: RAILS_GROUPS=assets RAILS_ENV=test bin/rails dartsass:build assets:precompile
 
-      - name: Install foreman
-        run: gem install foreman --user-install
-        env:
-          PATH: ${{ env.PATH }}:$HOME/.gem/ruby/3.2.0/bin
+      - name: Install dependencies
+        run: |
+          gem install foreman
+          bundle install
+
+      - name: Prepare the database
+        run: bin/rails db:setup
+
+      - name: Build assets
+        run: bin/rails dartsass:build tmp:clear assets:clobber assets:precompile
 
       - name: Start server in the background
         working-directory: test/dummy
