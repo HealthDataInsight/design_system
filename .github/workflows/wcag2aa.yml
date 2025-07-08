@@ -7,6 +7,7 @@ on:  # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 permissions: read-all
 
@@ -31,6 +32,22 @@ jobs:
       - name: Install dependencies
         working-directory: test/dummy
         run: npm install
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Prepare the database
+        run: bin/rails db:setup
+
+      - name: Build assets
+        run: RAILS_GROUPS=assets RAILS_ENV=test bin/rails assets:precompile
+
+      - name: Install foreman
+        run: gem install foreman --user-install
+        env:
+          PATH: ${{ env.PATH }}:$HOME/.gem/ruby/3.2.0/bin
 
       - name: Start server in the background
         working-directory: test/dummy
