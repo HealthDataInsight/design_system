@@ -43,7 +43,6 @@ module GovukFormBuilderTestable
                                           }
                                         }
                                       })
-     @controller.stubs(:brand).returns('govuk')
     end
 
     test 'self.brand' do
