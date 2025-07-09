@@ -16,6 +16,7 @@ end
 
 # This concern manages choosing the relevant layout for our given design system
 module GovukFormBuilderTestable
+  include DesignSystemHelper
   include GovukFormBuilderTestableHelper
   extend ActiveSupport::Concern
 
@@ -42,6 +43,7 @@ module GovukFormBuilderTestable
                                           }
                                         }
                                       })
+     @controller.stubs(:brand).returns('govuk')
     end
 
     test 'self.brand' do
@@ -49,7 +51,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_check_box with single checkbox' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_check_boxes_fieldset(:desired_filling, { multiple: true, legend: { size: 'm' } }) do
           f.ds_check_box(:desired_filling, { multiple: true }, :pastrami)
         end
@@ -83,7 +85,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_check_box item translation for activerecord attributes' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_check_box(:terms_agreed, {}, :true)
       end
 
@@ -95,7 +97,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_check_box item translation for activemodel attributes' do
-      @output_buffer = form_with(model: DummyModel.new, builder: @builder, url: '/') do |f|
+      @output_buffer = ds_form_with(model: DummyModel.new, builder: @builder, url: '/') do |f|
         f.ds_check_box(:role, {}, :admin)
       end
 
@@ -107,7 +109,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_check_box item translation for activemodel attributes with nested attributes' do
-      @output_buffer = form_with(model: DummyAdmin::DummyUser.new, builder: @builder, url: '/') do |f|
+      @output_buffer = ds_form_with(model: DummyAdmin::DummyUser.new, builder: @builder, url: '/') do |f|
         f.ds_check_box(:status, {}, :active)
       end
 
@@ -119,7 +121,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_select' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title)
       end
 
@@ -141,7 +143,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_select with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title, hint: 'This is a hint')
       end
 
@@ -155,7 +157,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_select with html options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
       end
 
@@ -173,7 +175,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_select with custom label size' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title, label: { size: 'l' })
       end
 
@@ -183,7 +185,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_date_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_date_field(:date_of_birth, hint: 'This is a hint')
       end
 
@@ -240,7 +242,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_date_field with custom legend size' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_date_field(:date_of_birth, legend: { size: nil })
       end
 
@@ -250,7 +252,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_email_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_email_field(:email)
       end
 
@@ -261,7 +263,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_email_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_email_field(:email, hint: 'This is a hint')
       end
 
@@ -274,7 +276,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_email_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_email_field(:email, class: 'geoff', placeholder: 'bar')
       end
 
@@ -288,7 +290,7 @@ module GovukFormBuilderTestable
 
     test 'ds_email_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_email_field(:email)
         end
 
@@ -308,7 +310,7 @@ module GovukFormBuilderTestable
       )
       assistant.valid?
 
-      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
         f.ds_error_summary
       end
 
@@ -339,7 +341,7 @@ module GovukFormBuilderTestable
       )
       assistant.valid?
 
-      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
         f.ds_error_summary('Oops')
       end
 
@@ -369,7 +371,7 @@ module GovukFormBuilderTestable
       )
       assistant.valid?
 
-      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
         f.ds_error_summary(link_base_errors_to: :email)
       end
 
@@ -398,7 +400,7 @@ module GovukFormBuilderTestable
       )
       assistant.valid?
 
-      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
         f.ds_error_summary(class: 'geoff', 'data-foo': 'bar')
       end
 
@@ -421,7 +423,7 @@ module GovukFormBuilderTestable
       assistant.valid?
 
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
           f.ds_error_summary
         end
 
@@ -436,7 +438,7 @@ module GovukFormBuilderTestable
     # NOTE: We test the file field without ActiveStorage to keep the design system lightweight.
     # We only test the HTML structure and attributes, not the actual file handling functionality.
     test 'ds_file_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_file_field(:cv)
       end
 
@@ -447,7 +449,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_file_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_file_field(:cv, hint: 'This is a hint')
       end
 
@@ -459,7 +461,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_label' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_label(:title)
       end
 
@@ -469,7 +471,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_label with content and options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_label(:title, 'Titlezzz', class: 'bob', 'data-foo': 'bar')
       end
 
@@ -480,7 +482,7 @@ module GovukFormBuilderTestable
 
     test 'ds_label with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_label(:title)
         end
 
@@ -491,7 +493,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_number_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_number_field(:age)
       end
 
@@ -502,7 +504,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_number_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_number_field(:age, hint: 'This is a hint')
       end
 
@@ -515,7 +517,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_number_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_number_field(:age, class: 'geoff', placeholder: 'bar')
       end
 
@@ -529,7 +531,7 @@ module GovukFormBuilderTestable
 
     test 'ds_number_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_number_field(:age)
         end
 
@@ -540,7 +542,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_phone_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_phone_field(:phone)
       end
 
@@ -551,7 +553,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_phone_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_phone_field(:phone, hint: 'This is a hint')
       end
 
@@ -563,7 +565,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_phone_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_phone_field(:phone, class: 'geoff', placeholder: 'bar', width: 20)
       end
 
@@ -577,7 +579,7 @@ module GovukFormBuilderTestable
 
     test 'ds_phone_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_phone_field(:phone)
         end
 
@@ -588,7 +590,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_radio_button' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_radio_buttons_fieldset(:desired_filling) do
           f.ds_radio_button(:desired_filling, :pastrami) +
             f.ds_radio_button(:desired_filling, :cheddar)
@@ -626,7 +628,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_radio_button with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_radio_buttons_fieldset(:desired_filling, hint: 'This is a hint') do
           f.ds_radio_button(:desired_filling, :pastrami, hint: 'Brined, smoked, steamed and seasoned') +
             f.ds_radio_button(:desired_filling, :cheddar, hint: 'A sharp, off-white natural cheese')
@@ -670,7 +672,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_radio_buttons_fieldset with option inline' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_radio_buttons_fieldset(:desired_filling, inline: true) do
           f.ds_radio_button(:desired_filling, :pastrami) +
             f.ds_radio_button(:desired_filling, :cheddar)
@@ -698,7 +700,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_radio_buttons_fieldset with html options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_radio_buttons_fieldset(:desired_filling, class: 'geoff', 'data-foo': 'bar') do
           f.ds_radio_button(:desired_filling, :pastrami) +
             f.ds_radio_button(:desired_filling, :cheddar)
@@ -721,7 +723,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_radio_buttons with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, hint: 'This is a hint')
       end
 
@@ -791,7 +793,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_radio_buttons with html options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
       end
 
@@ -811,7 +813,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_collection_radio_buttons with block' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title) do
           content_tag(:p, 'Hello')
         end
@@ -825,7 +827,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_select with options (hint and label)' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id,
                     options_for_select(Department.all.map { |department| [department.title, department.id] }),
                     hint: 'This is a hint', label: { size: 'l' })
@@ -841,7 +843,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_select with html options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), {}, { class: 'geoff', placeholder: 'bar' })
       end
 
@@ -852,7 +854,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_select without choices' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id, { hint: 'This is a hint' }, { class: 'geoff', placeholder: 'bar' })
       end
 
@@ -866,7 +868,7 @@ module GovukFormBuilderTestable
 
     test 'ds_select with locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }))
         end
       end
@@ -877,7 +879,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_select with block' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id) do
           options_for_select(Department.all.map { |department| [department.title, department.id] })
         end
@@ -901,7 +903,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_submit' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_submit
       end
 
@@ -915,7 +917,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_submit with secondary' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_submit('Draft', type: :secondary)
       end
 
@@ -929,7 +931,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_submit with warning' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_submit('Warning', type: :warning)
       end
 
@@ -941,7 +943,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_submit with disabled' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_submit('Disabled', type: :secondary, disabled: true)
       end
 
@@ -952,7 +954,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_area' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_area(:description)
       end
 
@@ -963,7 +965,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_area with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_area(:description, hint: 'This is a hint')
       end
 
@@ -976,7 +978,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_area with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_area(:description, class: 'geoff', placeholder: 'bar', rows: 2, max_words: 20)
       end
 
@@ -994,7 +996,7 @@ module GovukFormBuilderTestable
 
     test 'ds_text_area with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_text_area(:description)
         end
 
@@ -1005,7 +1007,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_field(:title)
       end
 
@@ -1016,7 +1018,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_field(:title, hint: 'This is a hint')
       end
 
@@ -1028,7 +1030,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_text_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_text_field(:title, class: 'geoff', placeholder: 'bar')
       end
 
@@ -1040,7 +1042,7 @@ module GovukFormBuilderTestable
 
     test 'ds_text_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_text_field(:title)
         end
 
@@ -1051,7 +1053,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_url_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_url_field(:website)
       end
 
@@ -1062,7 +1064,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_url_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_url_field(:website, hint: 'This is a hint')
       end
 
@@ -1075,7 +1077,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_url_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_url_field(:website, class: 'geoff', placeholder: 'bar')
       end
 
@@ -1089,7 +1091,7 @@ module GovukFormBuilderTestable
 
     test 'ds_url_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_url_field(:website)
         end
 
@@ -1104,7 +1106,7 @@ module GovukFormBuilderTestable
       assert_not @assistant.valid?
       assert @assistant.errors[:title].any?, 'Title should have errors'
 
-      @output_buffer = form_with(model: @assistant, builder: @builder, url: '#') do |f|
+      @output_buffer = ds_form_with(model: @assistant, builder: @builder, url: '#') do |f|
         f.ds_text_field(:title, label: { text: 'Title' }, suppress_error: true)
       end
 
@@ -1117,7 +1119,7 @@ module GovukFormBuilderTestable
       assert_not @assistant.valid?
       assert @assistant.errors[:title].any?, 'Title should have errors'
 
-      @output_buffer = form_with(model: @assistant, builder: @builder, url: '#') do |f|
+      @output_buffer = ds_form_with(model: @assistant, builder: @builder, url: '#') do |f|
         f.govuk_text_field(:title, label: { text: 'Title' }, suppress_error: false)
       end
 
