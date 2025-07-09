@@ -9,6 +9,7 @@ module FormBuilders
     def setup
       @brand = 'govuk'
       @builder = DesignSystem::FormBuilders::Govuk
+      @controller.stubs(:brand).returns(@brand)
     end
 
     test 'Registry.form_builder returns Govuk form builder' do
@@ -17,7 +18,7 @@ module FormBuilders
     end
 
     test 'ds_hidden_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text')
       end
 
@@ -31,7 +32,7 @@ module FormBuilders
     end
 
     test 'ds_hidden_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text', class: 'geoff', 'data-foo': 'bar')
       end
 
@@ -45,7 +46,7 @@ module FormBuilders
     end
 
     test 'ds_password_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
       end
 
@@ -74,7 +75,7 @@ module FormBuilders
     end
 
     test 'ds_password_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title, hint: 'This is a hint')
       end
 
@@ -107,7 +108,7 @@ module FormBuilders
     end
 
     test 'ds_password_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title, class: 'geoff', placeholder: 'bar')
       end
 
@@ -137,7 +138,7 @@ module FormBuilders
 
     test 'ds_password_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_password_field(:title)
         end
 
@@ -167,7 +168,7 @@ module FormBuilders
     end
 
     test 'label hidden' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: { hidden: true })
       end
 
@@ -175,7 +176,7 @@ module FormBuilders
     end
 
     test 'legend hidden' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_date_field(:date_of_birth, hint: 'Demo for ds_date_field', date_of_birth: true, legend: { text: 'Find me', size: nil, hidden: true })
       end
 

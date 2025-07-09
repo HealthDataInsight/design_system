@@ -10,6 +10,7 @@ module FormBuilders
     def setup
       @brand = 'hdi'
       @builder = DesignSystem::FormBuilders::Hdi
+      @controller.stubs(:brand).returns(@brand)
     end
 
     test 'Registry.form_builder returns Hdi form builder' do
@@ -18,7 +19,7 @@ module FormBuilders
     end
 
     test 'ds_collection_select without multiple' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
       end
 
@@ -43,7 +44,7 @@ module FormBuilders
     end
 
     test 'ds_collection_select with multiple' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:role_id, Role.all, :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' }, { multiple: true })
       end
 
@@ -68,7 +69,7 @@ module FormBuilders
     end
 
     test 'ds_collection_select with prompt and no options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:role_id, [], :id, :title, { hint: 'Demo for ds_collection_select', prompt: 'Please select' })
       end
 
@@ -84,7 +85,7 @@ module FormBuilders
     end
 
     test 'ds_password_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
       end
 
@@ -113,7 +114,7 @@ module FormBuilders
       assistant = Assistant.new
       refute assistant.valid?
 
-      @output_buffer = form_with(model: assistant, builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
         f.ds_password_field(:title)
       end
 
@@ -133,7 +134,7 @@ module FormBuilders
     end
 
     test 'label hidden' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: { hidden: true })
       end
 
@@ -141,7 +142,7 @@ module FormBuilders
     end
 
     test 'legend hidden' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_date_field(:date_of_birth, hint: 'Demo for ds_date_field', date_of_birth: true, legend: { text: 'Find me', size: nil, hidden: true })
       end
 

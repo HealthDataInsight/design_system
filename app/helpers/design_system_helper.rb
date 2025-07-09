@@ -27,11 +27,9 @@ module DesignSystemHelper
     DesignSystem::Registry.form_builder(brand)
   end
 
-  def ds_form_with_branding(model: nil, scope: nil, url: nil, format: nil, **options, &)
-    ds_form_without_branding(model:, scope:, url:, format:, builder: ds_form_builder, **options, &)
+  def ds_form_with(model: nil, scope: nil, url: nil, format: nil, **options, &)
+    form_with(model:, scope:, url:, format:, builder: ds_form_builder, **options, &)
   end
-  alias ds_form_without_branding form_with
-  alias form_with ds_form_with_branding
 
   def ds_render_template(design_system_layout = 'application')
     @design_system_layout = design_system_layout
