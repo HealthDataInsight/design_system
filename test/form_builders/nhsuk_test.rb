@@ -9,6 +9,7 @@ module FormBuilders
     def setup
       @brand = 'nhsuk'
       @builder = DesignSystem::FormBuilders::Nhsuk
+      @controller.stubs(:brand).returns(@brand)
     end
 
     test 'Registry.form_builder returns Nhsuk form builder' do

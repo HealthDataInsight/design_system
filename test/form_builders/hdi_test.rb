@@ -10,6 +10,7 @@ module FormBuilders
     def setup
       @brand = 'hdi'
       @builder = DesignSystem::FormBuilders::Hdi
+      @controller.stubs(:brand).returns(@brand)
     end
 
     test 'Registry.form_builder returns Hdi form builder' do
