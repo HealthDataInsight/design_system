@@ -24,7 +24,7 @@ module DesignSystem
         unchecked_value = false if unchecked_value == '0'
 
         # First try to find a custom translation for this specific value
-        # If no custom translation provided, fall back to the default humanised value
+        # If no custom translation provided, fall back to the default value
         custom_translation = translated_label_for_value(method, value)
         label = if custom_translation.include?('Translation missing')
                   optional_label(value, options)
@@ -400,9 +400,16 @@ module DesignSystem
         # This method is used to translate the label for a given value
         # Example: assign an alternative name for checkbox items
         method_and_value = "#{method}.#{value}"
-        ActionView::Helpers::Tags::Translator.
-          new(object, object_name, method_and_value, scope: 'helpers.options').
-          translate
+        translation = ActionView::Helpers::Tags::Translator.
+                      new(object, object_name, method_and_value, scope: 'helpers.options').
+                      translate
+        # If translation returns the humanized version of the value,
+        # it means no translation was found, so return the original value
+        if translation == value.to_s.humanize
+          value.to_s
+        else
+          translation
+        end
       end
 
       # GOVUKDesignSystemFormBuilder::Base field_id method

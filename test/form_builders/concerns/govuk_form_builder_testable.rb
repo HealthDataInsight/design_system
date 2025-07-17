@@ -76,7 +76,7 @@ module GovukFormBuilderTestable
               assert_equal 'checkbox', input['type']
 
               label = assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label[for='assistant_desired_filling_pastrami']").first
-              assert_equal 'Pastrami', label.text.strip
+              assert_equal 'pastrami', label.text.strip
             end
           end
         end
@@ -1125,6 +1125,152 @@ module GovukFormBuilderTestable
       # Assert that the inline error message IS present
       @assistant.errors[:title].first
       assert_select_from(@output_buffer, "p.#{@brand}-error-message", count: 1)
+    end
+
+    test 'ds_method_name and method_name should produce equivalent elements' do
+      %i[text_field email_field phone_field].each do |method_name|
+        ds_output = ds_form_with(model: assistants(:one)) do |f|
+          f.send("ds_#{method_name}", :title)
+        end
+
+        rails_output = form_with(model: assistants(:one)) do |f|
+          f.label(:title) + f.send(method_name, :title)
+        end
+
+        ds_doc = Nokogiri::HTML(ds_output)
+        rails_doc = Nokogiri::HTML(rails_output)
+
+        ds_input = ds_doc.at_css('input:not([type="hidden"])')
+        rails_input = rails_doc.at_css('input:not([type="hidden"])')
+
+        assert_equal ds_input['id'], rails_input['id']
+        assert_equal ds_input['name'], rails_input['name']
+
+        ds_label = ds_doc.at_css('label')
+        rails_label = rails_doc.at_css('label')
+
+        assert_equal ds_label.text.strip, rails_label.text.strip
+      end
+    end
+
+    test 'ds_select and select should produce equivalent elements' do
+      collection = Department.all.map { |d| [d.title, d.id] }
+
+      ds_output = ds_form_with(model: assistants(:one)) do |f|
+        f.ds_select(:department_id, collection)
+      end
+
+      rails_output = ds_form_with(model: assistants(:one)) do |f|
+        f.label(:department_id) + f.select(:department_id, collection)
+      end
+
+      ds_doc = Nokogiri::HTML(ds_output)
+      rails_doc = Nokogiri::HTML(rails_output)
+
+      # Compare the select tags
+      ds_select = ds_doc.at_css('select')
+      rails_select = rails_doc.at_css('select')
+      assert_equal ds_select['id'], rails_select['id']
+      assert_equal ds_select['name'], rails_select['name']
+
+      # Compare the options
+      ds_options = ds_doc.css('option').map { |o| [o['value'], o.text.strip] }
+      rails_options = rails_doc.css('option').map { |o| [o['value'], o.text.strip] }
+      assert_equal ds_options, rails_options
+
+      # Compare the labels
+      ds_label = ds_doc.at_css('label')
+      rails_label = rails_doc.at_css('label')
+      assert_equal ds_label.text.strip, rails_label.text.strip
+    end
+
+    test 'ds_check_box and check_box should produce equivalent elements' do
+      choices = [[:pastrami, 'Pastrami'], [:cheddar, 'Cheddar']]
+
+      ds_output = ds_form_with(model: assistants(:one)) do |f|
+        f.ds_check_boxes_fieldset(:desired_filling) do
+          choices.map { |value, _text| f.ds_check_box(:desired_filling, {}, value) }.join.html_safe
+        end
+      end
+
+      rails_output = ds_form_with(model: assistants(:one)) do |f|
+        choices.map do |value, text|
+          f.check_box(:desired_filling, { multiple: true }, value, '') + f.label(:desired_filling, text, value: value)
+        end.join.html_safe
+      end
+
+      ds_doc = Nokogiri::HTML(ds_output)
+      rails_doc = Nokogiri::HTML(rails_output)
+
+      # Compare the checkboxes
+      ds_checkboxes = ds_doc.css('input[type=checkbox]')
+      rails_checkboxes = rails_doc.css('input[type=checkbox]')
+
+      assert_equal ds_checkboxes.size, rails_checkboxes.size
+
+      ds_checkboxes.each_with_index do |ds_checkbox, i|
+        rails_checkbox = rails_checkboxes[i]
+        assert_equal ds_checkbox['id'], rails_checkbox['id']
+        assert_equal ds_checkbox['name'], rails_checkbox['name']
+        assert_equal ds_checkbox['value'], rails_checkbox['value']
+      end
+
+      # Compare the labels
+      ds_labels = ds_doc.css('label')
+      rails_labels = rails_doc.css('label')
+
+      assert_equal ds_labels.size, rails_labels.size
+
+      ds_labels.each_with_index do |ds_label, i|
+        rails_label = rails_labels[i]
+        assert_equal ds_label['for'], rails_label['for']
+        # We have stopped default humanize behaviour in DS labels for options in checkbox
+        assert_equal ds_label.text.humanize.strip, rails_label.text.strip
+      end
+    end
+
+    test 'ds_radio_button and radio_button should produce equivalent elements' do
+      choices = [[:pastrami, 'Pastrami'], [:cheddar, 'Cheddar']]
+
+      ds_output = ds_form_with(model: assistants(:one)) do |f|
+        f.ds_radio_buttons_fieldset(:desired_filling) do
+          choices.map { |value, _text| f.ds_radio_button(:desired_filling, value, {}) }.join.html_safe
+        end
+      end
+
+      rails_output = ds_form_with(model: assistants(:one)) do |f|
+        choices.map do |value, text|
+          f.radio_button(:desired_filling, value) + f.label(:desired_filling, text, value: value)
+        end.join.html_safe
+      end
+
+      ds_doc = Nokogiri::HTML(ds_output)
+      rails_doc = Nokogiri::HTML(rails_output)
+
+      # Compare the radio buttons
+      ds_radios = ds_doc.css('input[type=radio]')
+      rails_radios = rails_doc.css('input[type=radio]')
+
+      assert_equal ds_radios.size, rails_radios.size, 'Should have the same number of radio buttons'
+
+      ds_radios.each_with_index do |ds_radio, i|
+        rails_radio = rails_radios[i]
+        assert_equal ds_radio['id'], rails_radio['id']
+        assert_equal ds_radio['name'], rails_radio['name']
+        assert_equal ds_radio['value'], rails_radio['value']
+      end
+
+      # Compare the labels
+      ds_labels = ds_doc.css('label')
+      rails_labels = rails_doc.css('label')
+
+      assert_equal ds_labels.size, rails_labels.size, 'Should have the same number of labels'
+
+      ds_labels.each_with_index do |ds_label, i|
+        rails_label = rails_labels[i]
+        assert_equal ds_label['for'], rails_label['for']
+        assert_equal ds_label.text.strip, rails_label.text.strip
+      end
     end
 
     private
