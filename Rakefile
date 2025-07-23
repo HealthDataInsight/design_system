@@ -6,3 +6,41 @@ load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
+
+# This class is responsible for building the JavaScript for the design system.
+class JsBuilder
+  extend Rake::FileUtilsExt
+
+  def self.build(watch: false)
+    require 'fileutils'
+
+    output_dir = "public/design_system/static/design_system-#{DesignSystem::VERSION}"
+    mkdir_p(output_dir)
+
+    command = 'npx esbuild app/javascript/design_system/index.js --bundle ' \
+              "--outfile=#{output_dir}/design_system.js --format=esm"
+    command += " --watch" if watch
+
+    if watch
+      puts "Watching for changes... Press Ctrl+C to stop"
+      trap('INT') do
+        puts "\nStopping watch mode"
+        exit
+      end
+    end
+
+    sh command
+  end
+end
+
+namespace :js do
+  desc 'Build the JavaScript for the design system'
+  task :build do
+    JsBuilder.build(watch: false)
+  end
+
+  desc 'Watch for changes and rebuild the JavaScript for the design system'
+  task :watch do
+    JsBuilder.build(watch: true)
+  end
+end
