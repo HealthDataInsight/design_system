@@ -8,11 +8,6 @@ module DesignSystem
 
     initializer 'design_system.importmap', before: 'importmap' do |app|
       app.config.importmap.paths << Engine.root.join('config/importmap.rb')
-      app.config.importmap.cache_sweepers << Engine.root.join('app/assets/javascripts')
-    end
-
-    initializer 'design_system.assets.precompile' do |app|
-      app.config.assets.precompile += %w[design_system/controllers/index.js]
     end
 
     # Adding Rack::Static to serve up assets from the design_systems
@@ -22,6 +17,7 @@ module DesignSystem
         ::Rack::Static,
         urls: [
           '/design_system/static/date-fns-4.1.0',
+          "/design_system/static/design_system-#{DesignSystem::VERSION}",
           '/design_system/static/govuk-frontend-5.9.0',
           '/design_system/static/hdi-frontend-0.12.0',
           '/design_system/static/heroicons-2.1.5',

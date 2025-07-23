@@ -18,19 +18,13 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install design_system
+gem install design_system
 ```
 
-Add the following to `app/assets/config/manifest.js`:
-
-```ruby
-//= link design_system/controllers/index.js
-```
-
-Add the following to `app/javascript/controllers/index.js`:
+Add the following to `app/javascript/controllers/index.js`, after `import { application } from './application'`:
 
 ```javascript
-import { registerControllers } from "design_system/controllers"
+import { registerControllers } from 'design_system/controllers'
 registerControllers(application)
 ```
 
@@ -60,6 +54,14 @@ bundle exec rake app:make_nhsuk\[9.3.0\]
 bundle exec rake app:make_nhsuk\[9.3.0\]
 ```
 There is additional information in the [ndrsuk-frontend repo](https://github.com/HealthDataInsight/ndrsuk-frontend)'s README.md.
+
+### Shared Frontend Code
+
+Before releasing a new version of the gem, rebuild the shared javascript code using:
+
+```bash
+bundle exec rake js:build
+```
 
 ## Contributing
 Contribution directions go here.
