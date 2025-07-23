@@ -1,10 +1,10 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-  static targets = [ 'password' , 'button']
+  static targets = ['password', 'button']
   static values = {
     showText: String,
-    hideText: String,
+    hideText: String
   }
 
   showPasswordSvg = `
