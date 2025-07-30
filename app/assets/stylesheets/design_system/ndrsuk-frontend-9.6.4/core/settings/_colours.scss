@@ -1,0 +1,188 @@
+@use "sass:color";
+
+////
+/// NHS colour palette
+///
+/// Colours are prefixed with color_ to make them easier to
+/// search for within the code base.
+///
+/// We also prefix them with ndrsuk- to prevent clashing with
+/// other colours in existing code bases.
+///
+/// We use the word color, not colour, for variables.
+///
+/// @group settings
+////
+
+// stylelint-disable color-no-hex
+
+$color_ndrsuk-blue: #218183;
+$color_ndrsuk-white: #ffffff;
+$color_ndrsuk-black: #212b32;
+$color_ndrsuk-green: #007f3b;
+$color_ndrsuk-purple: #330072;
+$color_ndrsuk-dark-pink: #7c2855;
+$color_ndrsuk-red: #d5281b;
+$color_ndrsuk-yellow: #ffeb3b;
+
+/// Secondary colours
+
+$color_ndrsuk-pale-yellow: #fff9c4;
+$color_ndrsuk-warm-yellow: #ffb81c;
+$color_ndrsuk-orange: #ed8b00;
+$color_ndrsuk-aqua-green: #00a499;
+$color_ndrsuk-pink: #ae2573;
+
+/// Greyscale
+
+$color_ndrsuk-grey-1: #4c6272;
+$color_ndrsuk-grey-2: #768692;
+$color_ndrsuk-grey-3: #aeb7bd;
+$color_ndrsuk-grey-4: #d8dde0;
+$color_ndrsuk-grey-5: #f0f4f5;
+
+// stylelint-enable color-no-hex
+
+/// RGB and alpha values
+///
+/// Used to create drop/box shadows e.g. for search suggestions dropdown
+///
+
+$color_ndrsuk-grey-1-rgb: rgb(66, 84, 98);
+$alpha-transparency-50: 0.5;
+
+/// Tint function
+///
+/// @example scss
+///   ndrsuk-tint(color, percentage);
+///   ndrsuk-tint($color_ndrsuk-black, 10%);
+///
+
+@function ndrsuk-tint($color, $percentage) {
+  @return color.mix(white, $color, $percentage);
+}
+
+/// Tint function (deprecated)
+///
+/// @alias ndrsuk-tint
+/// @deprecated To be removed in v10.0, replaced by ndrsuk-tint
+
+@function tint($color, $percentage) {
+  @warn "The `tint` function will be removed in a future release, use `ndrsuk-tint` instead.";
+  @return ndrsuk-tint($color, $percentage);
+}
+
+/// Shade function
+///
+/// @example scss
+///   ndrsuk-shade(color, percentage);
+///   ndrsuk-shade($color_ndrsuk-blue, 50%);
+///
+
+@function ndrsuk-shade($color, $percentage) {
+  @return color.mix(black, $color, $percentage);
+}
+
+/// Shade function (deprecated)
+///
+/// @alias ndrsuk-shade
+/// @deprecated To be removed in v10.0, replaced by ndrsuk-shade
+
+@function shade($color, $percentage) {
+  @warn "The `shade` function will be removed in a future release, use `ndrsuk-shade` instead.";
+  @return ndrsuk-shade($color, $percentage);
+}
+
+/// Primary colour variations
+///
+/// 1. used for link :active states
+/// 2. used for .is-active state on main navigation
+/// 3. used for :hover states on main navigation
+/// 4. used for :active states on main navigation
+/// 5. used for primary button and action link icon :hover states
+/// 6. used for primary button and action link icon :active states
+
+$color_tint_ndrsuk-black-10: ndrsuk-tint($color_ndrsuk-black, 10%); // [1]
+
+$color_shade_ndrsuk-blue-20: ndrsuk-shade($color_ndrsuk-blue, 20%); // [2]
+$color_shade_ndrsuk-blue-35: ndrsuk-shade($color_ndrsuk-blue, 35%); // [3]
+$color_shade_ndrsuk-blue-50: ndrsuk-shade($color_ndrsuk-blue, 50%); // [4]
+
+$color_shade_ndrsuk-green-35: ndrsuk-shade($color_ndrsuk-green, 35%); // [5]
+$color_shade_ndrsuk-green-50: ndrsuk-shade($color_ndrsuk-green, 50%); // [6]
+
+$color_transparent_ndrsuk-white-20: rgba($color_ndrsuk-white, 0.2);
+$color_transparent_ndrsuk-blue-50: rgba($color_shade_ndrsuk-blue-50, 0.1);
+
+/// Colour aliases
+
+/// Text
+
+$ndrsuk-text-color: $color_ndrsuk-black;
+$ndrsuk-reverse-text-color: $color_ndrsuk-white;
+$ndrsuk-secondary-text-color: $color_ndrsuk-grey-1;
+$ndrsuk-print-text-color: $color_ndrsuk-black;
+// stylelint-disable-next-line color-no-hex
+$ndrsuk-footer-link-text-color: #003087;
+// stylelint-disable-next-line color-no-hex
+$ndrsuk-footer-copyright-text-color: #231f20;
+
+/// Links
+
+$ndrsuk-link-color: $color_ndrsuk-blue;
+$ndrsuk-link-hover-color: $color_ndrsuk-dark-pink;
+$ndrsuk-link-active-color: ndrsuk-shade($ndrsuk-link-color, 50%);
+$ndrsuk-link-visited-color: $color_ndrsuk-purple;
+
+/// Focus
+
+$ndrsuk-focus-color: $color_ndrsuk-yellow;
+$ndrsuk-focus-text-color: $color_ndrsuk-black;
+
+/// Border
+
+$ndrsuk-border-color: $color_ndrsuk-grey-4;
+$ndrsuk-secondary-border-color: $color_transparent_ndrsuk-white-20;
+
+/// Box shadow
+
+$ndrsuk-box-shadow: rgba(33, 43, 50, 0.16);
+$ndrsuk-box-shadow-color: $color_ndrsuk-grey-1-rgb;
+
+/// Forms
+
+$ndrsuk-error-color: $color_ndrsuk-red;
+$ndrsuk-form-border-color: $color_ndrsuk-grey-1;
+$ndrsuk-form-element-background-color: $color_ndrsuk-white;
+
+/// Buttons
+
+$ndrsuk-button-color: $color_ndrsuk-green;
+$ndrsuk-button-text-color: $color_ndrsuk-white;
+$ndrsuk-button-hover-color: ndrsuk-shade($ndrsuk-button-color, 20%);
+$ndrsuk-button-active-color: ndrsuk-shade($ndrsuk-button-color, 50%);
+$ndrsuk-button-shadow-color: ndrsuk-shade($ndrsuk-button-color, 50%);
+
+$ndrsuk-secondary-button-color: transparent;
+$ndrsuk-secondary-button-solid-background-color: $color_ndrsuk-white;
+$ndrsuk-secondary-button-border-color: $color_ndrsuk-blue;
+$ndrsuk-secondary-button-text-color: $color_ndrsuk-blue;
+$ndrsuk-secondary-button-hover-color: ndrsuk-tint($ndrsuk-secondary-button-border-color, 85%);
+$ndrsuk-secondary-button-active-color: ndrsuk-tint($ndrsuk-secondary-button-border-color, 78%);
+$ndrsuk-secondary-button-shadow-color: $ndrsuk-secondary-button-border-color;
+
+$ndrsuk-reverse-button-color: $color_ndrsuk-white;
+$ndrsuk-reverse-button-text-color: $color_ndrsuk-black;
+$ndrsuk-reverse-button-hover-color: ndrsuk-shade($ndrsuk-reverse-button-color, 15%);
+$ndrsuk-reverse-button-active-color: ndrsuk-shade($ndrsuk-reverse-button-color, 30%);
+$ndrsuk-reverse-button-shadow-color: ndrsuk-shade($ndrsuk-reverse-button-color, 30%);
+
+$ndrsuk-warning-button-color: $color_ndrsuk-red;
+$ndrsuk-warning-button-hover-color: ndrsuk-shade($ndrsuk-warning-button-color, 20%);
+$ndrsuk-warning-button-active-color: ndrsuk-shade($ndrsuk-warning-button-color, 50%);
+$ndrsuk-warning-button-shadow-color: ndrsuk-shade($ndrsuk-warning-button-color, 50%);
+
+$ndrsuk-login-button-color: $color_ndrsuk-blue;
+$ndrsuk-login-button-hover-color: ndrsuk-shade($ndrsuk-login-button-color, 20%);
+$ndrsuk-login-button-active-color: ndrsuk-shade($ndrsuk-login-button-color, 50%);
+$ndrsuk-login-button-shadow-color: ndrsuk-shade($ndrsuk-login-button-color, 50%);

@@ -1,0 +1,66 @@
+@use "../../core/settings" as *;
+@use "../../core/tools" as *;
+
+////
+/// Back link component
+///
+/// 1. Allow space for the arrow.
+/// 2. Align the icon with the start of the back link.
+/// 3. Align the icon with the middle of the text.
+/// 4. Make back link same height as breadcrumb.
+///
+/// @group components
+////
+
+.ndrsuk-back-link {
+  padding-top: ndrsuk-spacing(3);
+  line-height: 1; // [4]
+
+  @include ndrsuk-media-query($from: tablet) {
+    padding-top: ndrsuk-spacing(4);
+  }
+}
+
+.ndrsuk-back-link__link {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 0 0 16px; // [1]
+  position: relative;
+
+  @include ndrsuk-link-style-default;
+  @include ndrsuk-link-style-no-visited-state;
+  @include ndrsuk-font-size(16);
+
+  .ndrsuk-icon__chevron-left {
+    height: 24px;
+    left: -8px; // [2]
+    position: absolute;
+    top: -1px; // [3]
+    width: 24px;
+
+    @include ndrsuk-media-query($from: tablet) {
+      top: 0; // [3]
+    }
+  }
+
+  .ndrsuk-back-link--reverse & {
+    @include ndrsuk-link-style-white;
+  }
+
+  &:link,
+  .ndrsuk-back-link--reverse &:link {
+    text-decoration: none;
+  }
+
+  &:hover,
+  .ndrsuk-back-link--reverse &:hover {
+    text-decoration: underline;
+  }
+}
+
+// stylelint-disable-next-line selector-no-qualifying-type
+button.ndrsuk-back-link__link {
+  text-decoration: none;
+}
