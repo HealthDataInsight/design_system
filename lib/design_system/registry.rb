@@ -23,7 +23,7 @@ module DesignSystem
       end
 
       def form_builder(brand)
-        "DesignSystem::FormBuilders::#{brand.camelcase}".constantize
+        "DesignSystem::#{brand.camelcase}::FormBuilder".constantize
       end
 
       private
@@ -31,7 +31,7 @@ module DesignSystem
       def namespaced_builder_klass(brand, klass_name)
         raise ArgumentError, "Unknown brand: #{brand}" unless design_systems.include?(brand)
 
-        "DesignSystem::Builders::#{brand.camelize}::#{klass_name.camelize}".constantize
+        "DesignSystem::#{brand.camelize}::Builders::#{klass_name.camelize}".constantize
       end
     end
   end
