@@ -2,18 +2,18 @@ require_relative 'nhsuk'
 
 # This is the NDRS branding adapter for the design system
 
-require_relative 'builders/ndrsuk/button'
-require_relative 'builders/ndrsuk/callout'
-require_relative 'builders/ndrsuk/fixed_elements'
-require_relative 'builders/ndrsuk/heading'
-require_relative 'builders/ndrsuk/link'
-require_relative 'builders/ndrsuk/notification'
-require_relative 'builders/ndrsuk/pagination_renderer'
-require_relative 'builders/ndrsuk/panel'
-require_relative 'builders/ndrsuk/summary_list'
-require_relative 'builders/ndrsuk/tab'
-require_relative 'builders/ndrsuk/table'
+require_relative 'ndrsuk/builders/button'
+require_relative 'ndrsuk/builders/callout'
+require_relative 'ndrsuk/builders/fixed_elements'
+require_relative 'ndrsuk/builders/heading'
+require_relative 'ndrsuk/builders/link'
+require_relative 'ndrsuk/builders/notification'
+require_relative 'ndrsuk/builders/pagination_renderer'
+require_relative 'ndrsuk/builders/panel'
+require_relative 'ndrsuk/builders/summary_list'
+require_relative 'ndrsuk/builders/tab'
+require_relative 'ndrsuk/builders/table'
 
-require_relative 'form_builders/ndrsuk'
+require_relative 'ndrsuk/form_builder'
 
 DesignSystem::Registry.register('ndrsuk')
