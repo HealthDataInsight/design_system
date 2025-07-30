@@ -1,6 +1,5 @@
-// Using the NHSUK frontend with configuration.
-@use 'nhsuk-frontend-9.6.4/core' with (
-  $nhsuk-assets-path: "/design_system/static/nhsuk-frontend-9.6.4/"
-);
+// Using the NHSUK frontend.
+@use 'nhsuk-frontend-9.6.4/core';
+@use 'nhsuk-frontend-9.6.4/components';
 
 // Use extreme caution when making any design system level style changes or additions here.
