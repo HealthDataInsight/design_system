@@ -2,18 +2,18 @@
 
 # This is the GOV.UK adapter for the design system
 
-require_relative 'builders/govuk/button'
-require_relative 'builders/govuk/callout'
-require_relative 'builders/govuk/fixed_elements'
-require_relative 'builders/govuk/heading'
-require_relative 'builders/govuk/link'
-require_relative 'builders/govuk/notification'
-require_relative 'builders/govuk/pagination_renderer'
-require_relative 'builders/govuk/panel'
-require_relative 'builders/govuk/summary_list'
-require_relative 'builders/govuk/tab'
-require_relative 'builders/govuk/table'
+require_relative 'govuk/builders/button'
+require_relative 'govuk/builders/callout'
+require_relative 'govuk/builders/fixed_elements'
+require_relative 'govuk/builders/heading'
+require_relative 'govuk/builders/link'
+require_relative 'govuk/builders/notification'
+require_relative 'govuk/builders/pagination_renderer'
+require_relative 'govuk/builders/panel'
+require_relative 'govuk/builders/summary_list'
+require_relative 'govuk/builders/tab'
+require_relative 'govuk/builders/table'
 
-require_relative 'form_builders/govuk'
+require_relative 'govuk/form_builder'
 
 DesignSystem::Registry.register('govuk')
