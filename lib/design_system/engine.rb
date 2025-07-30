@@ -22,7 +22,7 @@ module DesignSystem
           '/design_system/static/hdi-frontend-0.12.0',
           '/design_system/static/heroicons-2.1.5',
           '/design_system/static/ndrsuk-frontend-9.3.0',
-          '/design_system/static/nhsuk-frontend-9.3.0',
+          '/design_system/static/nhsuk-frontend-9.6.4',
           '/design_system/static/stimulus-3.2.2',
           '/design_system/static/tailwind-4.1.6'
         ],
