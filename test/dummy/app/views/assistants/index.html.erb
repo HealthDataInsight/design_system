@@ -10,9 +10,9 @@ end
   <% @assistants.each do |assistant| %>
     <%= render assistant %>
     <p>
-      <%= link_to "Show this assistant", assistant %>
+      <%= ds_link_to "Show this assistant", assistant %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New assistant", new_assistant_path %>
+<%= ds_link_to "New assistant", new_assistant_path, type: :button %>

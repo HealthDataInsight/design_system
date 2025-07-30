@@ -56,7 +56,7 @@
           <!-- Sidebar component, swap this element with another sidebar if you like -->
           <div class="sidebar">
             <div class="sidebar-header">
-              <img class="sidebar-logo" src="/health-data-insight-logo.png" alt="Health Data Insight">
+              <img class="sidebar-logo" src="/design_system/static/hdi-frontend-0.12.0/logos/health-data-insight-logo.png" alt="Health Data Insight">
             </div>
             <nav class="sidebar-content">
               <ul role="list" class="sidebar-list">
@@ -73,7 +73,7 @@
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="sidebar">
         <div class="sidebar-header">
-          <img class="sidebar-logo" src="/health-data-insight-logo.png" alt="Health Data Insight">
+          <img class="sidebar-logo" src="/design_system/static/hdi-frontend-0.12.0/logos/health-data-insight-logo.png" alt="Health Data Insight">
         </div>
         <nav class="sidebar-content">
           <ul role="list" class="sidebar-list">
@@ -102,30 +102,17 @@
       </a>
     </div>
 
-    <main class="lg:pl-72">
-      <div class="xl:pr-96">
-        <div class="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+    <div class='hdi-width-container'>
+      <main class='hdi-main-wrapper'>
+        <%= yield :breadcrumbs %>
 
-            <%= yield :breadcrumbs %>
+        <%= render 'layouts/alert_and_notice' %>
 
-          <!-- Main area -->
-          <% if false && user_signed_in? %>
-            <div>
-              <!-- <p>Normalized User Profile:<%#= JSON.pretty_generate(@user[:info])%></p> -->
-              <p>Full User Profile: <%= JSON.pretty_generate(session[:userinfo]) %></p>
-              <p>Expiry: <%= Time.at(session[:userinfo]['exp']) %></p>
-              <%#= JSON.pretty_generate(session[:userinfo].keys) %>
-            </div>
-          <% end %>
+        <%= yield %>
+      </main>
+    </div>
 
-          <%= render 'layouts/alert_and_notice' %>
-
-          <%= yield %>
-        </div>
-      </div>
-    </main>
-
-    <aside class="hdi-sidebar-border fixed inset-y-0 right-0 hidden w-96 overflow-y-auto border-l px-4 py-6 sm:px-6 lg:px-8 xl:block">
+    <aside class="secondary-column">
       <!-- Secondary column (hidden on smaller screens) -->
     </aside>
   </div>

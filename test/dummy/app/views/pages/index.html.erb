@@ -91,6 +91,10 @@ end
 
 <%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
 
+<%= ds_heading 'Links' %>
+<%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
+<%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
+
 <%= ds_heading 'Assitants table', level: 3 %>
 <%=
 ds_table do |table|
@@ -104,7 +108,8 @@ end
 
 <%= ds_heading 'Stimulus controllers' %>
 <div data-controller="ds--hello-world">
-  <input type="text">
+  <label for="hello-world-name">Name</label>
+  <input type="text" id="hello-world-name">
   <button>Greet</button>
 </div>
 
@@ -116,3 +121,13 @@ end
 
 <%= ds_heading 'Pagination' %>
 <%= ds_pagination(@assistants) %>
+
+<br/>
+<%= ds_heading 'Panel' %>
+<%= ds_panel('Application confirmed', 'We have sent you a confirmation email') %>
+
+<br/>
+<%= ds_heading 'Warning Callout' %>
+<%= ds_callout('School Message:', 'Half term break is over !!') %>
+
+

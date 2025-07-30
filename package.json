@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@stimulus-components/timeago": "^5.0.2",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.5"
+  },
+  "scripts": {
+    "build": "bundle exec rake js:build",
+    "build:watch": "bundle exec rake js:watch"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HealthDataInsight/design_system/issues"
+  },
+  "homepage": "https://github.com/HealthDataInsight/design_system#readme"
+}

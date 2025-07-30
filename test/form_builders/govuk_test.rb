@@ -9,6 +9,7 @@ module FormBuilders
     def setup
       @brand = 'govuk'
       @builder = DesignSystem::FormBuilders::Govuk
+      @controller.stubs(:brand).returns(@brand)
     end
 
     test 'Registry.form_builder returns Govuk form builder' do
@@ -16,8 +17,36 @@ module FormBuilders
                    DesignSystem::Registry.form_builder(@brand)
     end
 
+    test 'ds_hidden_field' do
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_label :title, nil, 'Title'
+          assert_select("input[class='#{@brand}-visually-hidden'][type='hidden'][value='Lorem ipsum dolor sit amet']")
+          assert_select("span.#{@brand}-body-m", 'Show text')
+        end
+      end
+    end
+
+    test 'ds_hidden_field with options' do
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_hidden_field(:title, value: assistants(:one).title, show_text: 'Show text', class: 'geoff', 'data-foo': 'bar')
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-form-group") do
+          assert_label :title, nil, 'Title'
+          assert_select("input[class='geoff #{@brand}-visually-hidden'][type='hidden'][value='Lorem ipsum dolor sit amet'][data-foo=bar]")
+          assert_select("span.#{@brand}-body-m", 'Show text')
+        end
+      end
+    end
+
     test 'ds_password_field' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title)
       end
 
@@ -46,7 +75,7 @@ module FormBuilders
     end
 
     test 'ds_password_field with hint' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title, hint: 'This is a hint')
       end
 
@@ -79,7 +108,7 @@ module FormBuilders
     end
 
     test 'ds_password_field with options' do
-      @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_password_field(:title, class: 'geoff', placeholder: 'bar')
       end
 
@@ -109,7 +138,7 @@ module FormBuilders
 
     test 'ds_password_field with pirate locale' do
       I18n.with_locale :pirate do
-        @output_buffer = form_with(model: assistants(:one), builder: @builder) do |f|
+        @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
           f.ds_password_field(:title)
         end
 
@@ -136,6 +165,22 @@ module FormBuilders
           end
         end
       end
+    end
+
+    test 'label hidden' do
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), label: { hidden: true })
+      end
+
+      assert_select("label.#{@brand}-label span.#{@brand}-visually-hidden", text: 'What is your department?')
+    end
+
+    test 'legend hidden' do
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+        f.ds_date_field(:date_of_birth, hint: 'Demo for ds_date_field', date_of_birth: true, legend: { text: 'Find me', size: nil, hidden: true })
+      end
+
+      assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-visually-hidden", text: 'Find me')
     end
   end
 end

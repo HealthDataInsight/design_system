@@ -9,6 +9,7 @@ module DesignSystem
       include GOVUKDesignSystemFormBuilder::Builder
 
       def initialize(object_name, object, template, options)
+        object_name = object_name.to_s if object_name.is_a?(Symbol)
         super
 
         config.brand = self.class.brand
@@ -23,8 +24,8 @@ module DesignSystem
         unchecked_value = false if unchecked_value == '0'
 
         # First try to find a custom translation for this specific value
-        # If no custom translation provided, fall back to the default humanised value
-        custom_translation = I18n.t("activerecord.options.#{object_name}.#{method}.#{value}")
+        # If no custom translation provided, fall back to the default value
+        custom_translation = translated_label_for_value(method, value)
         label = if custom_translation.include?('Translation missing')
                   optional_label(value, options)
                 else
@@ -178,6 +179,27 @@ module DesignSystem
 
         # javascript [Boolean] Configures whether to add HTML for the javascript-enhanced version of the component
         govuk_file_field(method, label:, caption: {}, hint:, form_group: {}, javascript: false, **options)
+      end
+
+      # Same interface as ActionView::Helpers::FormHelper.hidden_field, but with label automatically added and takes a show_text option
+      def ds_hidden_field(method, options = {})
+        @brand = config.brand
+
+        options[:class] = Array(options[:class])
+        options[:class] << "#{@brand}-visually-hidden"
+
+        label_hash = options.delete(:label) || {}
+        label = ds_label(method, label_hash)
+        show_text = options.delete(:show_text)
+
+        content_tag(:div, class: "#{@brand}-form-group") do
+          components = []
+          components << label if label
+          components << hidden_field(method, **options)
+          components << content_tag(:span, show_text, class: "#{@brand}-body-m") if show_text
+
+          safe_join(components)
+        end
       end
 
       # Same interface as ActionView::Helpers::FormHelper.label
@@ -372,6 +394,22 @@ module DesignSystem
                     new(object, object_name, method, scope: 'helpers.label').
                     translate
         content || method.humanize
+      end
+
+      def translated_label_for_value(method, value)
+        # This method is used to translate the label for a given value
+        # Example: assign an alternative name for checkbox items
+        method_and_value = "#{method}.#{value}"
+        translation = ActionView::Helpers::Tags::Translator.
+                      new(object, object_name, method_and_value, scope: 'helpers.options').
+                      translate
+        # If translation returns the humanized version of the value,
+        # it means no translation was found, so return the original value
+        if translation == value.to_s.humanize
+          value.to_s
+        else
+          translation
+        end
       end
 
       # GOVUKDesignSystemFormBuilder::Base field_id method

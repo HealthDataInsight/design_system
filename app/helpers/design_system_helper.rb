@@ -27,11 +27,9 @@ module DesignSystemHelper
     DesignSystem::Registry.form_builder(brand)
   end
 
-  def ds_form_with_branding(model: nil, scope: nil, url: nil, format: nil, **options, &)
-    ds_form_without_branding(model:, scope:, url:, format:, builder: ds_form_builder, **options, &)
+  def ds_form_with(model: nil, scope: nil, url: nil, format: nil, **options, &)
+    form_with(model:, scope:, url:, format:, builder: ds_form_builder, **options, &)
   end
-  alias ds_form_without_branding form_with
-  alias form_with ds_form_with_branding
 
   def ds_render_template(design_system_layout = 'application')
     @design_system_layout = design_system_layout
@@ -62,6 +60,10 @@ module DesignSystemHelper
 
   def ds_button_tag(content_or_options = nil, options = nil, &)
     DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
+  end
+
+  def ds_link_to(name = nil, options = nil, html_options = nil, &)
+    DesignSystem::Registry.builder(brand, 'link', self).render_link_to(name, options, html_options, &)
   end
 
   def ds_pagination(collection = nil, options = {})
@@ -99,5 +101,13 @@ module DesignSystemHelper
                timeago_refresh_interval_value: refresh_interval,
                timeago_add_suffix_value: true
              })
+  end
+
+  def ds_panel(title, body)
+    DesignSystem::Registry.builder(brand, 'panel', self).render_panel(title, body)
+  end
+
+  def ds_callout(label, body)
+    DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
   end
 end

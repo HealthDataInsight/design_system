@@ -52,7 +52,7 @@ module NdrsukHelpers
 
     # Update root SCSS files
     FileUtils.cp(
-      "#{temp_dir}/packages/nhsuk.scss",
+      "#{temp_dir}/packages/#{brand}.scss",
       "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}/#{brand}.scss"
     )
   end
@@ -66,8 +66,12 @@ module NdrsukHelpers
 
   def self.copy_js_files(temp_dir, version, brand)
     FileUtils.cp(
-      "#{temp_dir}/packages/nhsuk.js",
+      "#{temp_dir}/packages/#{brand}.js",
       "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
+    )
+    FileUtils.cp(
+      "#{temp_dir}/packages/#{brand}.min.js",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.min.js"
     )
   end
 end

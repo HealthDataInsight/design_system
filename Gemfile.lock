@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    design_system (0.3.0)
+    design_system (0.5.0)
       govuk_design_system_formbuilder (~> 5.6.0)
       rails (>= 7.0.8.1)
       stimulus-rails (~> 1.3)
@@ -139,6 +139,7 @@ GEM
       activesupport (>= 6.1)
     google-protobuf (3.25.3-arm64-darwin)
     google-protobuf (3.25.3-x86_64-darwin)
+    google-protobuf (3.25.3-x86_64-linux)
     govuk_design_system_formbuilder (5.6.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
@@ -222,6 +223,8 @@ GEM
     nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.4-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     parallel (1.24.0)
     parser (3.3.1.0)
@@ -310,6 +313,8 @@ GEM
       google-protobuf (~> 3.23)
     sass-embedded (1.69.5-x86_64-darwin)
       google-protobuf (~> 3.23)
+    sass-embedded (1.69.5-x86_64-linux-gnu)
+      google-protobuf (~> 3.23)
     selenium-webdriver (4.20.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
@@ -332,6 +337,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.7.3-arm64-darwin)
     sqlite3 (1.7.3-x86_64-darwin)
+    sqlite3 (1.7.3-x86_64-linux)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.0)
@@ -355,6 +361,7 @@ PLATFORMS
   arm64-darwin
   x86_64-darwin-23
   x86_64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   charlock_holmes (>= 0.7.9)

@@ -67,6 +67,10 @@ module NhsukHelpers
       "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.js",
       "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
     )
+    FileUtils.cp(
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}.min.js",
+      "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.min.js"
+    )
   end
 end
 

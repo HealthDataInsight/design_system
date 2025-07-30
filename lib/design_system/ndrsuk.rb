@@ -3,10 +3,13 @@ require_relative 'nhsuk'
 # This is the NDRS branding adapter for the design system
 
 require_relative 'builders/ndrsuk/button'
+require_relative 'builders/ndrsuk/callout'
 require_relative 'builders/ndrsuk/fixed_elements'
 require_relative 'builders/ndrsuk/heading'
+require_relative 'builders/ndrsuk/link'
 require_relative 'builders/ndrsuk/notification'
 require_relative 'builders/ndrsuk/pagination_renderer'
+require_relative 'builders/ndrsuk/panel'
 require_relative 'builders/ndrsuk/summary_list'
 require_relative 'builders/ndrsuk/tab'
 require_relative 'builders/ndrsuk/table'
