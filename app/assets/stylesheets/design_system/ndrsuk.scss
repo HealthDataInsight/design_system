@@ -1,3 +1,6 @@
-@use 'ndrsuk-frontend-9.6.4/ndrsuk';
+// Using the NDRSUK frontend with configuration.
+@use 'ndrsuk-frontend-9.6.4/core' with (
+  $ndrsuk-assets-path: "/design_system/static/ndrsuk-frontend-9.6.4/"
+);
 
 // Use extreme caution when making any design system level style changes or additions here.

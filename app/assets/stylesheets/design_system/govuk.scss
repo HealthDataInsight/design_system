@@ -1,6 +1,6 @@
 // Using the GOVUK frontend with configuration.
 // https://sass-lang.com/documentation/at-rules/use/#configuration
-@use 'govuk-frontend-5.11.1/all' with (
+@use 'govuk-frontend-5.11.1/index' with (
   $govuk-assets-path: "/design_system/static/govuk-frontend-5.11.1/"
 );
 
