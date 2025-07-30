@@ -1,0 +1,48 @@
+@use "sass:math";
+@use "../../core/settings" as *;
+@use "../../core/tools" as *;
+
+////
+/// Image component
+///
+/// 1. Overrides default browser margin values.
+/// 2. Makes the image width two thirds of its container for desktop.
+/// 3. Avoid image printing full width of a page.
+/// 4. Removes top margin from subsequent ndrsuk-image.
+///
+/// @group components
+////
+
+.ndrsuk-image {
+  background-color: $color_ndrsuk-white;
+  border-bottom: 1px solid $color_ndrsuk-grey-4;
+
+  margin-left: 0; // [1]
+  margin-right: 0; // [1]
+
+  @include ndrsuk-responsive-margin(6, "bottom");
+  @include ndrsuk-responsive-margin(6, "top");
+
+  @include ndrsuk-media-query($from: desktop) {
+    width: math.percentage(math.div(2, 3)); // [2]
+  }
+
+  @include ndrsuk-media-query($media-type: print) {
+    width: math.percentage(math.div(1, 2)); // [3]
+  }
+
+  & + .ndrsuk-image {
+    @include ndrsuk-responsive-margin(0, "top"); // [4]
+  }
+}
+
+.ndrsuk-image__img {
+  display: block;
+  width: 100%;
+}
+
+.ndrsuk-image__caption {
+  padding: ndrsuk-spacing(3);
+
+  @include ndrsuk-font-size(16);
+}

@@ -5,6 +5,7 @@ module GovukHelpers
   ASSETS_PATH = 'public/design_system/static'.freeze
   STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
   ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
+  APPLICATION_LAYOUT_PATH = 'app/views/layouts/govuk/application.html.erb'.freeze
 
   def self.versioned_dir(version, brand)
     "#{brand}-frontend-#{version}"
@@ -98,7 +99,6 @@ task :make_govuk, [:version] do |_t, args|
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   begin
     Dir.chdir(temp_dir) do
-      system('npm init -y')
       system("npm install #{brand}-frontend#{version ? "@#{version}" : ''}")
     end
 
@@ -107,6 +107,7 @@ task :make_govuk, [:version] do |_t, args|
     GovukHelpers.copy_assets_files(temp_dir, version, brand)
     GovukHelpers.copy_js_files(temp_dir, version, brand)
 
+    GovukHelpers.update_version_in_file(GovukHelpers::APPLICATION_LAYOUT_PATH, version, brand)
     GovukHelpers.update_version_in_file(GovukHelpers::ENGINE_PATH, version, brand)
     GovukHelpers.update_version_in_file("#{GovukHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
     GovukHelpers.remove_source_maps(version, brand)
@@ -115,7 +116,6 @@ task :make_govuk, [:version] do |_t, args|
   ensure
     Dir.chdir(Dir.pwd) do
       system("npm uninstall #{brand}-frontend")
-      FileUtils.rm_rf(['node_modules', 'package.json', 'package-lock.json'])
     end
     FileUtils.remove_entry_secure(temp_dir)
   end

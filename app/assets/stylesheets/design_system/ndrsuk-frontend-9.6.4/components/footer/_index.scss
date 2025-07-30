@@ -1,0 +1,87 @@
+@use "sass:math";
+@use "../../core/settings" as *;
+@use "../../core/tools" as *;
+
+////
+/// Footer component
+///
+/// @group components
+////
+
+.ndrsuk-footer-container {
+  background-color: $color_ndrsuk-grey-4;
+  border-top: ndrsuk-spacing(1) solid $color_ndrsuk-blue;
+
+  @include ndrsuk-clearfix;
+  @include ndrsuk-print-hide;
+  @include ndrsuk-responsive-padding(5, bottom);
+  @include ndrsuk-responsive-padding(5, top);
+}
+
+.ndrsuk-footer {
+  background-color: $color_ndrsuk-grey-4;
+  margin-bottom: 15px;
+
+  @include ndrsuk-media-query($from: desktop) {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.ndrsuk-footer__list {
+  list-style-type: none;
+  margin-bottom: 25px;
+  padding-left: ndrsuk-spacing(0);
+
+  @include ndrsuk-responsive-padding(4, bottom);
+
+  &:last-child {
+    margin-bottom: 15px;
+  }
+
+  @include ndrsuk-media-query($from: desktop) {
+    float: left;
+    padding-bottom: 0;
+    padding-right: 40px;
+    width: math.percentage(math.div(3, 4));
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+
+.ndrsuk-footer__list-item {
+  @include ndrsuk-font(16);
+
+  @include ndrsuk-media-query($from: desktop) {
+    float: none;
+    margin-right: 0;
+  }
+}
+
+.ndrsuk-footer-default__list-item {
+  @include ndrsuk-media-query($from: desktop) {
+    float: left;
+    margin-right: ndrsuk-spacing(5);
+  }
+}
+
+.ndrsuk-footer__list-item-link,
+.ndrsuk-footer__list-item-link:visited {
+  color: $ndrsuk-footer-link-text-color;
+}
+
+.ndrsuk-footer__copyright {
+  color: $ndrsuk-footer-copyright-text-color;
+  margin-bottom: 0;
+
+  @include ndrsuk-font(16);
+}
+
+.ndrsuk-footer__meta {
+  @include ndrsuk-media-query($until: desktop) {
+    border-top: 1px solid $color_ndrsuk-grey-5;
+    padding-top: 35px;
+  }
+}

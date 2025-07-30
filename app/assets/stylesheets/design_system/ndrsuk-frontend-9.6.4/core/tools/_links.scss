@@ -1,0 +1,184 @@
+@use "../settings" as *;
+@use "focused" as *;
+
+////
+/// Links
+///
+/// @group tools
+////
+
+/// Link styling with colour overrides
+///
+/// @param {Color} $link-colour [$ndrsuk-link-color] - Link colour
+/// @param {Color} $link-hover-colour [$ndrsuk-link-hover-color] - Link hover colour
+/// @param {Color} $link-visited-colour [$ndrsuk-link-visited-color] - Link visited colour
+/// @param {Color} $link-active-colour [$ndrsuk-link-active-color] - Link active colour
+///
+
+@mixin ndrsuk-link-style(
+  $link-color: $ndrsuk-link-color,
+  $link-visited-color: $ndrsuk-link-visited-color,
+  $link-hover-color: $ndrsuk-link-hover-color,
+  $link-active-color: $ndrsuk-link-active-color
+) {
+  & {
+    color: $link-color;
+    text-decoration: underline;
+  }
+
+  .ndrsuk-icon {
+    fill: $link-color;
+  }
+
+  @include ndrsuk-link-style-visited($link-visited-color);
+  @include ndrsuk-link-style-hover($link-hover-color);
+  @include ndrsuk-link-style-active($link-active-color);
+  @include ndrsuk-link-style-focus;
+}
+
+/// Default link styling
+///
+/// @example scss
+///   @include ndrsuk-link-style-default;
+///
+
+@mixin ndrsuk-link-style-default {
+  @include ndrsuk-link-style;
+}
+
+/// White link styling, used in hero
+/// component, and in the `.ndrsuk-link--reverse`
+/// modifier class.
+///
+/// @example scss
+///   @include ndrsuk-link-style-white;
+///
+
+@mixin ndrsuk-link-style-white {
+  @include ndrsuk-link-style-text($override-color: $ndrsuk-reverse-text-color);
+}
+
+/// Default link visited only styling
+///
+/// @param {Color} $link-visited-color [$ndrsuk-link-visited-color] - Link visited colour
+///
+/// @example scss
+///   @include ndrsuk-link-style-visited;
+///
+
+@mixin ndrsuk-link-style-visited($link-visited-color: $ndrsuk-link-visited-color) {
+  &:visited {
+    color: $link-visited-color;
+
+    .ndrsuk-icon {
+      fill: $link-visited-color;
+    }
+  }
+}
+
+/// Default link hover only styling
+///
+/// @param {Color} $link-hover-colour [$ndrsuk-link-hover-color] - Link hover colour
+///
+/// @example scss
+///   @include ndrsuk-link-style-hover;
+///
+
+@mixin ndrsuk-link-style-hover($link-hover-colour: $ndrsuk-link-hover-color) {
+  &:hover,
+  &:hover:visited {
+    color: $link-hover-colour;
+    text-decoration: none;
+
+    .ndrsuk-icon {
+      fill: $link-hover-colour;
+    }
+  }
+}
+
+/// Default link focus only styling
+///
+/// @example scss
+///   @include ndrsuk-link-style-focus;
+///
+
+@mixin ndrsuk-link-style-focus {
+  &:focus,
+  &:focus:visited {
+    @include ndrsuk-focused-text;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+/// Default link active only styling
+///
+/// @param {Color} $link-active-colour [$ndrsuk-link-active-color] - Link active colour
+///
+/// @example scss
+///   @include ndrsuk-link-style-active;
+///
+
+@mixin ndrsuk-link-style-active($link-active-colour: $ndrsuk-link-active-color) {
+  &:active,
+  &:active:visited {
+    color: $link-active-colour;
+
+    .ndrsuk-icon {
+      fill: $link-active-colour;
+    }
+  }
+}
+
+/// No visited state link mixin
+///
+/// Used in cases where it is not helpful to distinguish between visited and
+/// non-visited links.
+///
+/// For example, navigation links to pages with dynamic content like admin
+/// dashboards. The content on the page is changing all the time, so the fact
+/// that you’ve visited it before is not important.
+///
+/// If you use this mixin in a component you must also include the
+/// ndrsuk-link-style-default mixin in order to get the focus state.
+///
+/// @example scss
+///   .ndrsuk-component__link {
+///     @include ndrsuk-link-style-default;
+///     @include ndrsuk-link-style-no-visited-state;
+///   }
+///
+
+@mixin ndrsuk-link-style-no-visited-state {
+  @include ndrsuk-link-style-visited($link-visited-color: $ndrsuk-link-color);
+}
+
+/// Text link styles
+///
+/// Makes links use the primary text colour, in all states. Use this mixin for
+/// navigation components, such as breadcrumbs or the back link.
+///
+/// @param {Color} $override-color [$ndrsuk-text-color] - Link colour for all states
+///
+/// @example scss
+///   .ndrsuk-component__link {
+///     @include ndrsuk-link-style-text;
+///   }
+///
+
+@mixin ndrsuk-link-style-text($override-color: $ndrsuk-text-color) {
+  @include ndrsuk-link-style(
+    $link-color: $override-color,
+    $link-visited-color: $override-color,
+    $link-hover-color: $override-color,
+    $link-active-color: $override-color
+  );
+
+  // Force a colour change on hover to work around a bug in Safari
+  // https://bugs.webkit.org/show_bug.cgi?id=224483
+  &:not(:focus):hover {
+    color: rgba($override-color, 0.99);
+  }
+}

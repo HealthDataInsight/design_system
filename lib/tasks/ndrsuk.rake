@@ -5,6 +5,7 @@ module NdrsukHelpers
   ASSETS_PATH = 'public/design_system/static'.freeze
   STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
   ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
+  APPLICATION_LAYOUT_PATH = 'app/views/layouts/ndrsuk/application.html.erb'.freeze
 
   def self.versioned_dir(version, brand)
     "#{brand}-frontend-#{version}"
@@ -97,6 +98,7 @@ task :make_ndrsuk, [:version] do |_t, args|
     NdrsukHelpers.copy_assets_files(temp_dir, version, brand)
     NdrsukHelpers.copy_js_files(temp_dir, version, brand)
 
+    NdrsukHelpers.update_version_in_file(NdrsukHelpers::APPLICATION_LAYOUT_PATH, version, brand)
     NdrsukHelpers.update_version_in_file(NdrsukHelpers::ENGINE_PATH, version, brand)
     NdrsukHelpers.update_version_in_file("#{NdrsukHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
 

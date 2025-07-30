@@ -5,6 +5,7 @@ module NhsukHelpers
   ASSETS_PATH = 'public/design_system/static'.freeze
   STYLESHEET_PATH = 'app/assets/stylesheets/design_system'.freeze
   ENGINE_PATH = 'lib/design_system/engine.rb'.freeze
+  APPLICATION_LAYOUT_PATH = 'app/views/layouts/nhsuk/application.html.erb'.freeze
 
   def self.versioned_dir(version, brand)
     "#{brand}-frontend-#{version}"
@@ -85,7 +86,6 @@ task :make_nhsuk, [:version] do |_t, args|
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   begin
     Dir.chdir(temp_dir) do
-      system('npm init -y')
       system("npm install #{brand}-frontend@#{version}")
     end
 
@@ -94,6 +94,7 @@ task :make_nhsuk, [:version] do |_t, args|
     NhsukHelpers.copy_assets_files(temp_dir, version, brand)
     NhsukHelpers.copy_js_files(temp_dir, version, brand)
 
+    NhsukHelpers.update_version_in_file(NhsukHelpers::APPLICATION_LAYOUT_PATH, version, brand)
     NhsukHelpers.update_version_in_file(NhsukHelpers::ENGINE_PATH, version, brand)
     NhsukHelpers.update_version_in_file("#{NhsukHelpers::STYLESHEET_PATH}/#{brand}.scss", version, brand)
 
@@ -101,7 +102,6 @@ task :make_nhsuk, [:version] do |_t, args|
   ensure
     Dir.chdir(Dir.pwd) do
       system("npm uninstall #{brand}-frontend")
-      FileUtils.rm_rf(['node_modules', 'package.json', 'package-lock.json'])
     end
     FileUtils.remove_entry_secure(temp_dir)
   end

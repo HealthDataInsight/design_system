@@ -1,0 +1,16 @@
+@use "../tools" as *;
+
+////
+/// Reading width
+///
+/// Adds a maximum width to large pieces of content
+///
+/// @group utilities
+///
+/// @example html
+///   <div class="ndrsuk-u-reading-width"></div>
+////
+
+.ndrsuk-u-reading-width {
+  @include ndrsuk-reading-width;
+}

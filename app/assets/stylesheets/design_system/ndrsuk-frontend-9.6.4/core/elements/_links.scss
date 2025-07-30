@@ -1,0 +1,42 @@
+@use "../../core/settings" as *;
+@use "../../core/tools" as *;
+
+////
+/// Links
+///
+/// Our basic `<a>` elements only need very minimal styling.
+/// It uses the @mixin ndrsuk-link-style-default within tools/links.
+/// Anything more opinionated (e.g. buttons, calls-to-action, etc.) will need a
+/// class defining in the Components layer.
+///
+/// 1. Outputs full link URL for print.
+/// 2. Point unit used for print.
+///
+/// @group elements
+////
+
+a {
+  @include ndrsuk-link-style-default;
+
+  @include ndrsuk-media-query($media-type: print) {
+    &::after {
+      color: $ndrsuk-text-color;
+      content: " (Link: " attr(href) ")"; // [1]
+      font-size: inherit; // [2]
+    }
+  }
+}
+
+.ndrsuk-link--no-visited-state {
+  @include ndrsuk-link-style-no-visited-state;
+}
+
+.ndrsuk-link--reverse {
+  @include ndrsuk-link-style-white;
+
+  @include ndrsuk-media-query($media-type: print) {
+    &::after {
+      color: currentcolor;
+    }
+  }
+}
