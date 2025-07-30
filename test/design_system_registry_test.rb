@@ -7,14 +7,14 @@ class DesignSystemRegistryTest < ActiveSupport::TestCase
   end
 
   test 'loads design systems' do
-    assert_equal 4, @registry.design_systems.count
+    assert_equal 2, @registry.design_systems.count
   end
 
   test 'can register/unregister a new design system' do
     @registry.unregister('govuk')
-    assert_equal 3, @registry.design_systems.count
+    assert_equal 1, @registry.design_systems.count
     @registry.register('govuk')
-    assert_equal 4, @registry.design_systems.count
+    assert_equal 2, @registry.design_systems.count
   end
 
   def teardown

@@ -6,9 +6,9 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Filis Liu', 'Nick Robinson', 'Shilpi Goel', 'Tim Gentry']
   spec.email       = ['52189+timgentry@users.noreply.github.com']
   spec.homepage    = 'https://github.com/HealthDataInsight/design_system'
-  spec.summary     = 'Design System Engine for GOV.UK, NHS, NDRS and HDI'
+  spec.summary     = 'Design System Engine for GOV.UK, NHS and other design systems'
   spec.description = 'Ruby on Rails Engine to consistent, compliant sites using ' \
-                     'GOV.UK, NHS, NDRS and HDI design systems'
+                     'GOV.UK, NHS and other design systems'
   spec.license     = 'MIT'
   spec.required_ruby_version = '>= 3.1.6'
 

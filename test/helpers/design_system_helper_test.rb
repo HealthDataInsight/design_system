@@ -1,11 +1,9 @@
 require 'test_helper'
 require_relative '../../app/helpers/design_system_helper'
-require_relative '../../app/helpers/hdi_helper'
 
 class DesignSystemHelperTest < ActionView::TestCase
   def setup
     @registry = DesignSystem::Registry
-    @controller.class.helper HdiHelper
   end
 
   def teardown
@@ -33,30 +31,6 @@ class DesignSystemHelperTest < ActionView::TestCase
       block_excuted = true
     end
     assert block_excuted
-  end
-
-  test 'ds_render_template default to application layout' do
-    @controller.stubs(
-      brand: 'hdi',
-      navigation_items: [{ label: 'Test Item', path: '/test' }]
-    )
-
-    @output_buffer = ds_render_template
-
-    assert_select 'body[data-ds-brand="hdi"]'
-    assert_select 'body[data-ds-layout="application"]'
-  end
-
-  test 'ds_render_template renders left_panel custom layout upon request' do
-    @controller.stubs(
-      brand: 'hdi',
-      navigation_items: [{ label: 'Test Item', path: '/test' }]
-    )
-
-    @output_buffer = ds_render_template('left_panel')
-
-    assert_select 'body[data-ds-brand="hdi"]'
-    assert_select 'body[data-ds-layout="left_panel"]'
   end
 
   test 'ds_timeago generates correct HTML' do
