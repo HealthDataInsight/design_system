@@ -66,16 +66,15 @@ end
 ds_tab do |tab|
   tab.title = 'Contents'
   #(name, content, id, selected)
-  tab.add_tab_panel('Profile',
-                    ds_table do |table|
-                      table.caption = 'Profile'
-                      table.add_column('Name')
-                      table.add_column('Gender')
-                      table.add_numeric_column('Age')
-                      table.add_row 'Ryan', 'Male', 30
-                    end,
-                    'profile',
-                    sel: true)
+  tab.add_tab_panel('Profile', nil, 'profile',selected: true) do
+	  ds_table do |table|
+		  table.caption = 'Profile'
+		  table.add_column('Name')
+		  table.add_column('Gender')
+		  table.add_numeric_column('Age')
+		  table.add_row 'Ryan', 'Male', 30
+	  end
+  end
   tab.add_tab_panel('Dashboard','this is dashboard' ,'dashboard')
   tab.add_tab_panel('Settings', 'this is settings','settings')
   tab.add_tab_panel('Contacts', 'this is contacts', 'contacts')
