@@ -4,7 +4,7 @@ require 'will_paginate/array'
 module DesignSystem
   module Nhsuk
     module Builders
-      # This tests the hdi pagination renderer
+      # This tests the NHS pagination renderer
       class PaginationRendererTest < ActionView::TestCase
         include DesignSystemHelper
         include WillPaginate::ActionView

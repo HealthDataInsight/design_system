@@ -7,9 +7,6 @@ module DesignSystem
       attr_reader :navigation_items
 
       helper DesignSystemHelper
-
-      # TODO: Work out how to use a hook to include this
-      helper HdiHelper
     end
 
     def brand
