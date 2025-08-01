@@ -1,0 +1,520 @@
+@use "../settings" as *;
+@use "sass-mq" as *;
+@use "spacing" as *;
+@use "typography" as *;
+
+////
+/// Mixins
+///
+/// @group tools
+////
+
+/// Clearfix mixin
+///
+/// @see utilities/clearfix
+///
+/// @example scss
+///   @include ndrsuk-clearfix();
+///
+
+@mixin ndrsuk-clearfix() {
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+/// Clearfix mixin (deprecated)
+///
+/// @alias ndrsuk-clearfix
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-clearfix
+
+@mixin clearfix() {
+  @include ndrsuk-warning("clearfix", "clearfix is deprecated. Use ndrsuk-clearfix instead.");
+  @include ndrsuk-clearfix;
+}
+
+/// Reading width mixin, add a maximum width
+/// to large pieces of content
+///
+/// @see utilities/reading-width
+///
+/// @example scss
+///   @include ndrsuk-reading-width();
+///
+
+@mixin ndrsuk-reading-width() {
+  max-width: 44em;
+}
+
+/// Reading width mixin, add a maximum width
+/// to large pieces of content (deprecated)
+///
+/// @alias ndrsuk-reading-width
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-reading-width
+
+@mixin reading-width() {
+  @include ndrsuk-warning("reading-width", "reading-width is deprecated. Use ndrsuk-reading-width instead.");
+  @include ndrsuk-reading-width;
+}
+
+/// Helper function containing the common code for the following two mixins
+///
+/// @link https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+///   - Hiding Content for Accessibility, Jonathan Snook, February 2011
+/// @link https://github.com/h5bp/html5-boilerplate/blob/9f13695d21ff92c55c78dfa9f16bb02a1b6e911f/src/css/main.css#L121-L158
+///   - h5bp/html5-boilerplate - Thanks!
+///
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @link https://github.com/alphagov/govuk-frontend Original code taken from GDS (Government Digital Service)
+
+@mixin _ndrsuk-visually-hide-content($important: true) {
+  position: absolute if($important, !important, null);
+
+  width: 1px if($important, !important, null);
+  height: 1px if($important, !important, null);
+  // If margin is set to a negative value it can cause text to be announced in
+  // the wrong order in VoiceOver for OSX
+  margin: 0 if($important, !important, null);
+  padding: 0 if($important, !important, null);
+
+  overflow: hidden if($important, !important, null);
+
+  // `clip` is needed for IE11 support
+  clip: rect(0 0 0 0) if($important, !important, null);
+  clip-path: inset(50%) if($important, !important, null);
+
+  border: 0 if($important, !important, null);
+
+  // For long content, line feeds are not interpreted as spaces and small width
+  // causes content to wrap 1 word per line:
+  // https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+  white-space: nowrap if($important, !important, null);
+
+  // Prevent users from selecting or copying visually-hidden text. This prevents
+  // a user unintentionally copying more text than they intended and needing to
+  // manually trim it down again.
+  user-select: none;
+}
+
+/// Hide an element visually, but have it available for screen readers
+///
+/// @see utilities/visually-hidden
+///
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @example scss
+///   @include ndrsuk-visually-hidden;
+///
+
+@mixin ndrsuk-visually-hidden($important: true) {
+  @include _ndrsuk-visually-hide-content($important: $important);
+
+  // Absolute positioning has the unintended consequence of removing any
+  // whitespace surrounding visually hidden text from the accessibility tree.
+  // Insert a space character before and after visually hidden text to separate
+  // it from any visible text surrounding it.
+  &::before {
+    content: "\00a0";
+  }
+
+  &::after {
+    content: "\00a0";
+  }
+}
+
+/// Hide an element visually, but have it available for screen readers
+/// (deprecated)
+///
+/// @alias ndrsuk-visually-hidden
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-visually-hidden
+
+@mixin visually-hidden() {
+  @include ndrsuk-visually-hidden;
+}
+
+/// Hide an element visually, but have it available for screen readers whilst
+/// allowing the element to be focused when navigated to via the keyboard (e.g.
+/// for the skip link)
+///
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @link https://github.com/alphagov/govuk-frontend Original code taken from GDS (Government Digital Service)
+
+@mixin ndrsuk-visually-hidden-focusable($important: true) {
+  // IE 11 doesn't support the combined `:not(:active, :focus)` syntax.
+  &:not(:active):not(:focus) {
+    @include _ndrsuk-visually-hide-content($important: $important);
+  }
+}
+
+/// Hide an element visually, but have it available for screen readers whilst
+/// allowing the element to be focused when navigated to via the keyboard (e.g.
+/// for the skip link) (deprecated)
+///
+/// @alias ndrsuk-visually-hidden-focusable
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-visually-hidden-focusable
+
+@mixin visually-hidden-focusable($args...) {
+  @include ndrsuk-warning(
+    "visually-hidden-focusable",
+    "visually-hidden-focusable is deprecated. Use ndrsuk-visually-hidden-focusable instead."
+  );
+  @include ndrsuk-visually-hidden-focusable($args...);
+}
+
+/// Show an element visually that has previously been hidden by visually-hidden
+///
+/// For differences between mobile and desktop views, use $display to set the CSS display property
+///
+/// @param {String} $display [null] - CSS display property (optional)
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @deprecated To be removed in v11.0, use @media queries to apply `visually-hidden` instead
+
+@mixin visually-shown($display: null, $important: true) {
+  @include ndrsuk-warning(
+    "visually-shown",
+    "visually-shown is deprecated. Use @media queries to apply `visually-hidden` instead."
+  );
+
+  position: static if($important, !important, null);
+  width: auto if($important, !important, null);
+  height: auto if($important, !important, null);
+  margin: 0 if($important, !important, null);
+  padding: 0 if($important, !important, null);
+  overflow: visible if($important, !important, null);
+  clip: auto if($important, !important, null);
+  clip-path: none if($important, !important, null);
+  border: none if($important, !important, null);
+  white-space: normal if($important, !important, null);
+  user-select: auto if($important, !important, null);
+
+  @if $display {
+    display: $display;
+  }
+}
+
+/// Top and bottom margin mixin, remove
+/// the top and bottom margin spacing
+///
+/// @see utilities/top-and-bottom
+///
+/// @example scss
+///   @include ndrsuk-top-and-bottom;
+///
+
+@mixin ndrsuk-top-and-bottom() {
+  & > *:first-child {
+    margin-top: 0;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/// Top and bottom margin mixin, remove
+/// the top and bottom margin spacing (deprecated)
+///
+/// @alias ndrsuk-top-and-bottom
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-top-and-bottom
+
+@mixin top-and-bottom() {
+  @include ndrsuk-warning("top-and-bottom", "top-and-bottom is deprecated and will be removed in a future release.");
+  @include ndrsuk-top-and-bottom;
+}
+
+/// Panel mixin
+///
+/// See components/_panel
+///
+/// @example scss
+///   @include ndrsuk-panel($color_ndrsuk-blue, $color_ndrsuk-white);
+///
+
+@mixin ndrsuk-panel($panel-background-color, $panel-text-color) {
+  background-color: $panel-background-color;
+  color: $panel-text-color;
+
+  @include ndrsuk-top-and-bottom;
+  @include ndrsuk-responsive-margin(7, "bottom");
+  @include ndrsuk-responsive-margin(7, "top");
+  @include ndrsuk-responsive-padding(5);
+
+  @include ndrsuk-media-query($media-type: print) {
+    border: 1px solid $ndrsuk-print-text-color;
+    page-break-inside: avoid;
+  }
+}
+
+/// Panel mixin (deprecated)
+///
+/// @alias ndrsuk-panel
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-panel
+
+@mixin panel($args...) {
+  @include ndrsuk-warning("panel", "panel is deprecated. Use ndrsuk-panel instead.");
+  @include ndrsuk-panel($args...);
+}
+
+/// Panel with label mixin, inherits panel styling
+/// and removes padding top for the label positioning
+///
+/// Used in-conjunction with @mixin heading-label
+///
+/// @see components/_warning-component
+///
+/// @example scss
+///   @include ndrsuk-panel-with-label($color_ndrsuk-blue, $color_ndrsuk-white);
+///
+
+@mixin ndrsuk-panel-with-label($panel-background-color, $panel-text-color, $panel-border-color) {
+  border: 1px solid $panel-border-color;
+  // stylelint-disable-next-line declaration-no-important
+  padding-top: 0 !important;
+
+  @include ndrsuk-panel($panel-background-color, $panel-text-color);
+}
+
+/// Panel with label mixin, inherits panel styling
+/// and removes padding top for the label positioning (deprecated)
+///
+/// @alias ndrsuk-panel-with-label
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-panel-with-label
+
+@mixin panel-with-label($args...) {
+  @include ndrsuk-warning("panel-with-label", "panel-with-label is deprecated. Use ndrsuk-panel-with-label instead.");
+  @include ndrsuk-panel-with-label($args...);
+}
+
+/// Heading label mixin, adds a tab heading to
+/// warning callout, do and don't lists and panel
+///
+/// Used in-conjunction with @mixin panel-with-label
+///
+/// @see components/_warning-component
+///
+/// 1. Background colour to be set on the @include.
+/// 2. Text colour to be set on the @include.
+/// 3. Display inline-block so it does not take up the full width.
+/// 4. Margin -24px left and right aligns the heading to the box.
+/// 5. Top positioning set to minus to make the heading
+///    sit just outside the box.
+///
+/// @example scss
+///   @include ndrsuk-heading-label($color_ndrsuk-blue, $color_ndrsuk-white);
+///
+
+@mixin ndrsuk-heading-label($heading-background-color, $heading-text-color) {
+  background-color: $heading-background-color; // [1]
+  color: $heading-text-color; // [2]
+  display: inline-block; // [3]
+  margin: ndrsuk-spacing(0) ndrsuk-spacing(0) ndrsuk-spacing(2) -33px;
+  padding: ndrsuk-spacing(2) ndrsuk-spacing(5);
+  position: relative;
+  top: -16px; // [5]
+
+  @include ndrsuk-font-size(26);
+
+  @include ndrsuk-media-query($until: tablet) {
+    margin-left: -25px;
+    margin-right: 0;
+    padding: ndrsuk-spacing(2) ndrsuk-spacing(4);
+    top: -8px; // [5]
+  }
+
+  @include ndrsuk-media-query($media-type: print) {
+    background: none;
+    color: $color_ndrsuk-black;
+    top: 0;
+  }
+}
+
+/// Heading label mixin, adds a tab heading to
+/// warning callout, do and don't lists and panel (deprecated)
+///
+/// @alias ndrsuk-heading-label
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-heading-label
+
+@mixin heading-label($args...) {
+  @include ndrsuk-warning("heading-label", "heading-label is deprecated. Use ndrsuk-heading-label instead.");
+  @include ndrsuk-heading-label($args...);
+}
+
+/// Care card mixin, used for creating
+/// different coloured care cards
+///
+/// @see components/card/card
+///
+/// @example scss
+///   @include ndrsuk-care-card($color_ndrsuk-blue, $color_ndrsuk-white, 4px);
+///
+
+@mixin ndrsuk-care-card($heading-background-color, $heading-text-color, $print-border-size) {
+  .ndrsuk-card--care__heading-container {
+    background-color: $heading-background-color;
+    color: $heading-text-color;
+  }
+
+  @include ndrsuk-media-query($media-type: print) {
+    border: $print-border-size solid $ndrsuk-print-text-color;
+    color: $ndrsuk-print-text-color;
+    page-break-inside: avoid;
+  }
+}
+
+/// Care card mixin, used for creating
+/// different coloured care cards (deprecated)
+///
+/// @alias ndrsuk-care-card
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-care-card
+
+@mixin care-card($args...) {
+  @include ndrsuk-warning("care-card", "care-card is deprecated. Use ndrsuk-care-card instead.");
+  @include ndrsuk-care-card($args...);
+}
+
+/// Print colour mixin, sets the text print colour
+/// warning callout, do and don't lists and panels
+///
+/// @see components/_care-card
+///
+/// @example scss
+///   @include ndrsuk-print-color($ndrsuk-print-text-color);
+///
+
+@mixin ndrsuk-print-color($print-color) {
+  @include ndrsuk-media-query($media-type: print) {
+    color: $print-color;
+    fill: $print-color;
+
+    &:active,
+    &:focus,
+    &:visited {
+      color: $ndrsuk-print-text-color;
+    }
+  }
+}
+
+/// Print colour mixin, sets the text print colour
+/// warning callout, do and don't lists and panels (deprecated)
+///
+/// @alias ndrsuk-print-color
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-print-color
+
+@mixin print-color($args...) {
+  @include ndrsuk-warning("print-color", "print-color is deprecated. Use ndrsuk-print-color instead.");
+  @include ndrsuk-print-color($args...);
+}
+
+/// Print hide mixin, hides the element from print
+///
+/// @example scss
+///   @include ndrsuk-print-hide();
+///
+
+@mixin ndrsuk-print-hide() {
+  @include ndrsuk-media-query($media-type: print) {
+    display: none;
+  }
+}
+
+/// Print hide mixin, hides the element from print (deprecated)
+///
+/// @alias ndrsuk-print-hide
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-print-hide
+
+@mixin print-hide($args...) {
+  @include ndrsuk-warning("print-hide", "print-hide is deprecated. Use ndrsuk-print-hide instead.");
+  @include ndrsuk-print-hide($args...);
+}
+
+/// Flex mixin
+///
+/// @example scss
+///   @include ndrsuk-flex;
+///
+
+@mixin ndrsuk-flex() {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Flex mixin (deprecated)
+///
+/// @alias ndrsuk-flex
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-flex
+
+@mixin flex($args...) {
+  @include ndrsuk-warning("flex", "flex is deprecated. Use ndrsuk-flex instead.");
+  @include ndrsuk-flex($args...);
+}
+
+/// Flex item mixin
+///
+/// @example scss
+///   @include ndrsuk-flex-item;
+///
+
+@mixin ndrsuk-flex-item() {
+  display: flex;
+
+  @include ndrsuk-media-query($until: desktop) {
+    flex: 0 0 100%;
+  }
+}
+
+// Flex item mixin (deprecated)
+///
+/// @alias ndrsuk-flex-item
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-flex-item
+
+@mixin flex-item($args...) {
+  @include ndrsuk-warning("flex-item", "flex-item is deprecated. Use ndrsuk-flex-item instead.");
+  @include ndrsuk-flex-item($args...);
+}
+
+/// Remove margin mobile mixin
+///
+/// Removes left and right margin at tablet breakpoint
+
+@mixin ndrsuk-remove-margin-mobile() {
+  @include ndrsuk-media-query($until: tablet) {
+    margin-left: -$ndrsuk-gutter-half;
+    margin-right: -$ndrsuk-gutter-half;
+  }
+}
+
+/// Remove margin mobile mixin (deprecated)
+///
+/// Removes left and right margin at tablet breakpoint
+///
+/// @alias ndrsuk-remove-margin-mobile
+/// @deprecated To be removed in v11.0, replaced by ndrsuk-remove-margin-mobile
+
+@mixin remove-margin-mobile() {
+  @include ndrsuk-warning(
+    "remove-margin-mobile",
+    "remove-margin-mobile is deprecated. Use ndrsuk-remove-margin-mobile instead."
+  );
+
+  @include ndrsuk-remove-margin-mobile;
+}
+
+/// NHS logo size helper
+///
+/// Saves duplicating the code for when using the logo as a link.
+/// Used in the header and footer.
+
+@mixin ndrsuk-logo-size {
+  height: 40px;
+  width: 100px;
+}
+
+@mixin ndrsuk-logo-size-small {
+  height: 32px;
+  width: 80px;
+}
