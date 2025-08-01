@@ -1,8 +1,0 @@
-@use "settings/warnings" as *;
-@forward ".";
-
-@include ndrsuk-warning(
-  "import-using-all",
-  "Importing using 'core/all' is deprecated. Update your import statement to import 'core'.",
-  $silence-further-warnings: false
-);
