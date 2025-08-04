@@ -8,7 +8,7 @@ module DesignSystem
       # This class provides GOVUK Tab.
       class Tab < ::DesignSystem::Generic::Builders::Tab
         def render_tabs
-          @tab = ::DesignSystem::Components::Tab.new
+          @tab = ::DesignSystem::Components::Tab.new(self)
 
           yield @tab
           content_tag(:div, class: "#{brand}-tabs", 'data-module': "#{brand}-tabs") do

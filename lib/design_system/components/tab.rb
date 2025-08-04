@@ -6,12 +6,14 @@ module DesignSystem
     class Tab
       attr_accessor :tabs, :title
 
-      def initialize
+      def initialize(view_context = nil)
+        @view_context = view_context
         @tabs = []
       end
 
-      def add_tab_panel(name, content, id, sel: false)
-        @tabs << [name, content, id, sel]
+      def add_tab_panel(name, content, id = nil, selected: false, &block)
+        content ||= @view_context.capture(&block) if block_given?
+        @tabs << [name, content, id, selected]
       end
     end
   end
