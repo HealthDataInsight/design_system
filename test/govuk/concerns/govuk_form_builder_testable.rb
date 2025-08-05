@@ -119,6 +119,20 @@ module GovukFormBuilderTestable
       end
     end
 
+    test 'ds_check_box item with dot in value is not incorrectly translated' do
+      value_with_dot = 'Made up dummy values (e.g. see with dot it works)'
+      @output_buffer = ds_form_with(model: DummyModel.new, builder: @builder, url: '/') do |f|
+        f.ds_check_box(:role, {}, value_with_dot)
+      end
+
+      assert_select('form') do
+        assert_select("div.#{@brand}-checkboxes__item") do
+          label = assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label").first
+          assert_equal value_with_dot, label.text.strip
+        end
+      end
+    end
+
     test 'ds_collection_select' do
       @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
         f.ds_collection_select(:department_id, Department.all, :id, :title)
