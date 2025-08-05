@@ -405,7 +405,9 @@ module DesignSystem
                       translate
         # If translation returns the humanized version of the value,
         # it means no translation was found, so return the original value
-        if translation == value.to_s.humanize
+        # Extra condition: if value contains dots and translation is only the last part
+        if translation == value.to_s.humanize ||
+           (value.to_s.include?('.') && translation == value.to_s.split('.').last.humanize)
           value.to_s
         else
           translation
