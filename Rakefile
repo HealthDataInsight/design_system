@@ -6,6 +6,7 @@ load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
+require 'ndr_dev_support/tasks'
 
 # This class is responsible for building the JavaScript for the design system.
 class JsBuilder
