@@ -29,7 +29,9 @@ module DesignSystem
           assert_select('nav.nhsuk-pagination') do
             assert_select('ul.nhsuk-list.nhsuk-pagination__list') do
               assert_select('li.nhsuk-pagination-item--previous') do
-                'Previous'
+                assert_select '[aria-label=?]', 'Previous Page' do
+                  assert_select 'span.nhsuk-pagination__title', text: 'Previous'
+                end
               end
             end
           end

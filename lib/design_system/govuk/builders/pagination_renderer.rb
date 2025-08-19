@@ -13,32 +13,34 @@ module DesignSystem
           tag(:nav, html, container_attributes)
         end
 
-        def previous_or_next_page(page, text, classname)
+        def previous_or_next_page(page, text, classname, aria_label = nil)
           if classname.include?('previous_page')
-            tag(:div, link_with_prev_title(text, page), class: 'govuk-pagination__prev') if page
+            tag(:div, link_with_prev_title(text, page, aria_label), class: 'govuk-pagination__prev') if page
           elsif classname.include?('next_page')
-            tag(:div, link_with_next_title(text, page), class: 'govuk-pagination__next') if page
+            tag(:div, link_with_next_title(text, page, aria_label), class: 'govuk-pagination__next') if page
           end
         end
 
         private
 
-        def link_with_prev_title(_text, target)
+        def link_with_prev_title(_text, target, aria_label)
           tag(:a,
               govuk_icon('previous') + tag(:span,
                                            "Previous#{tag(:span, 'page', class: 'govuk-visually-hidden')}",
                                            class: 'govuk-pagination__link-title'),
               href: url(target),
-              class: 'govuk-link govuk-pagination__link')
+              class: 'govuk-link govuk-pagination__link',
+              'aria-label': aria_label)
         end
 
-        def link_with_next_title(_text, target)
+        def link_with_next_title(_text, target, aria_label)
           tag(:a,
               tag(:span,
                   "Next#{tag(:span, 'page', class: 'govuk-visually-hidden')}",
                   class: 'govuk-pagination__link-title') +
               govuk_icon('next'),
-              href: url(target), class: 'govuk-link govuk-pagination__link')
+              href: url(target), class: 'govuk-link govuk-pagination__link',
+              'aria-label': aria_label)
         end
 
         def page_number(page)
