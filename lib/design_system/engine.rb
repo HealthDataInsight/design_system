@@ -17,7 +17,6 @@ module DesignSystem
         ::ActionDispatch::RemoteIp,
         ::Rack::Static,
         urls: [
-          '/design_system/static/date-fns-4.1.0',
           "/design_system/static/design_system-#{DesignSystem::VERSION}",
           '/design_system/static/govuk-frontend-5.11.1',
           '/design_system/static/nhsuk-frontend-9.6.4',
