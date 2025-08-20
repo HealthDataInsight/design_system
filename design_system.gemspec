@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'govuk_design_system_formbuilder', '~> 5.6.0'
   spec.add_dependency 'rails', '>= 7.0.8.1'
   spec.add_dependency 'stimulus-rails', '~> 1.3'
-  spec.add_dependency 'will_paginate', '~> 3.3'
+  spec.add_dependency 'will_paginate', '~> 4.0.1'
 
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

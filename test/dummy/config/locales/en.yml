@@ -63,3 +63,6 @@ en:
       success: "%{model} was successfully updated."
     destroy:
       success: "%{model} was successfully destroyed."
+  will_paginate:
+    previous_aria_label: Previous Page
+    next_aria_label: Next Page
