@@ -393,7 +393,6 @@ DEPENDENCIES
   importmap-rails (~> 2.1)
   mocha (~> 2.2.0)
   ndr_dev_support (~> 7.3)
-  psych (= 5.2.6)
   puma (>= 6.4.3)
   sprockets-rails
   sqlite3 (~> 1.3)
