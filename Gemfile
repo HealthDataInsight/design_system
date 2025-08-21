@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Specify your gem's dependencies in design_system.gemspec.
 gemspec
 
-gem 'puma'
+gem 'puma', '>= 6.4.3'
 
 gem 'sprockets-rails'
 
