@@ -9,7 +9,7 @@ module DesignSystem
         def render_alert(msg)
           content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': 'error-summary-title', role: 'alert',
                             tabindex: '-1') do
-            content_tag(:h2, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
+            content_tag(:h2, sanitize(msg, tags: %w[b p br a], attributes: %w[href target]),
                         class: "#{brand}-error-summary__title", id: 'error-summary-title')
           end
         end
