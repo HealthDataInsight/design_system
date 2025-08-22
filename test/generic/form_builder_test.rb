@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'design_system/govuk/form_builder'
 
 module Generic
   class FormBuilderTest < ActionView::TestCase

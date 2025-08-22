@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'design_system/generic/builders/concerns/brand_derivable'
-require 'design_system/helpers/css_helper'
-
 module DesignSystem
   module Generic
     module Builders

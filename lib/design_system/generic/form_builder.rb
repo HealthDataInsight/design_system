@@ -1,5 +1,3 @@
-require 'design_system/helpers/css_helper'
-
 module DesignSystem
   module Generic
     # The generic version of the form builder

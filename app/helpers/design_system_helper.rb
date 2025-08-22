@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'design_system/registry'
-
 # The helpers for the design system
 module DesignSystemHelper
   include ActionView::Helpers::FormHelper

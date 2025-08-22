@@ -1,6 +1,4 @@
 require 'test_helper'
-require 'design_system/nhsuk/form_builder'
-require_relative '../govuk/concerns/govuk_form_builder_testable'
 
 module Nhsuk
   class FormBuilderTest < ActionView::TestCase

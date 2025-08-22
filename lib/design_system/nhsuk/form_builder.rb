@@ -1,5 +1,3 @@
-require 'design_system/govuk/form_builder'
-
 module DesignSystem
   # Module namespace containing all the form builders
   module Nhsuk
