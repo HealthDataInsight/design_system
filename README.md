@@ -1,6 +1,6 @@
 # DesignSystem
 
-DesignSystem is a Ruby on Rails engine that enables consistent, compliant web applications across design systems including GOV.UK, NHS. It is designed to be extensible, and design systems have been created for NDRS (National Disease Registration Service), and HDI (Health Data Insight).
+DesignSystem is a Ruby on Rails engine that enables consistent, compliant web applications across design systems including GOV.UK, NHS. It is designed to be extensible, and design systems are being developed for the National Disease Registration Service (NDRS), and Health Data Insight (HDI).
 
 The gem provides unified form builders, UI components (tables, buttons, navigation, tabs), layouts, and styling that automatically adapt to each design system's specific requirements and branding guidelines.
 
@@ -67,15 +67,6 @@ bundle exec rake app:make_nhsuk
 # Update to a specific version
 bundle exec rake app:make_nhsuk\[9.3.0\]
 ```
-
-### NDRSUK Frontend (currently v9.3.0)
-
-```bash
-# NDRSUK Version number must be explicitly specified (no 'latest' support)
-bundle exec rake app:make_nhsuk\[9.3.0\]
-```
-
-There is additional information in the [ndrsuk-frontend repo](https://github.com/HealthDataInsight/ndrsuk-frontend)'s README.md.
 
 ### Shared Frontend Code
 
