@@ -1,7 +1,11 @@
+require 'design_system/helpers/css_helper'
+
 module DesignSystem
   module Generic
     # The generic version of the form builder
     class FormBuilder < ActionView::Helpers::FormBuilder
+      include DesignSystem::Helpers::CssHelper
+
       delegate :content_tag, :tag, :safe_join, :link_to, :capture, to: :@template
 
       def self.brand
@@ -9,18 +13,6 @@ module DesignSystem
       end
 
       private
-
-      # Helper copied from https://github.com/NHSDigital/ndr_ui/blob/main/app/helpers/ndr_ui/css_helper.rb with thanks.
-      # This method merges the specified css_classes into the options hash
-      def css_class_options_merge(options, css_classes = [])
-        options = options.symbolize_keys
-        css_classes += options[:class].split if options.include?(:class)
-        yield(css_classes) if block_given?
-        options[:class] = css_classes.join(' ') unless css_classes.empty?
-        raise "Multiple css class definitions: #{css_classes.inspect}" unless css_classes == css_classes.uniq
-
-        options
-      end
 
       # This method exposes some useful Rails magic as a helper method
       def separate_content_or_options(content_or_options = nil, options = nil)
