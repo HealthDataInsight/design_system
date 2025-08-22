@@ -1,5 +1,3 @@
-require 'design_system/registry'
-
 class DummyModel
   include ActiveModel::Model
 

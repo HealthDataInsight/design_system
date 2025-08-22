@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'base'
-require_relative 'elements/breadcrumbs'
-require_relative 'elements/form'
-require_relative 'elements/headings'
-
 module DesignSystem
   module Generic
     module Builders

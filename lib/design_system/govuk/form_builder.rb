@@ -1,4 +1,3 @@
-require 'design_system/generic/form_builder'
 require 'govuk_design_system_formbuilder'
 
 module DesignSystem

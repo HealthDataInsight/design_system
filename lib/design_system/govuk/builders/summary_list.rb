@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'design_system/generic/builders/summary_list'
-
 module DesignSystem
   module Govuk
     module Builders
