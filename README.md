@@ -1,6 +1,8 @@
 # DesignSystem
 
-DesignSystem is a Ruby on Rails engine that enables consistent, compliant web applications across design systems including GOV.UK, NHS. It is designed to be extensible, and design systems are being developed for the National Disease Registration Service (NDRS), and Health Data Insight (HDI).
+[![Gem Version](https://badge.fury.io/rb/design_system.svg)](https://badge.fury.io/rb/design_system)
+
+DesignSystem is an extensible Ruby on Rails engine that enables consistent, compliant web applications across design systems. It includes GOV.UK and NHS UK design systems and plugins are being developed for the National Disease Registration Service (NDRS), and Health Data Insight (HDI).
 
 The gem provides unified form builders, UI components (tables, buttons, navigation, tabs), layouts, and styling that automatically adapt to each design system's specific requirements and branding guidelines.
 
