@@ -12,10 +12,12 @@ module DummyAdmin
   end
 end
 
+require 'design_system/govuk/test_helpers/form_builder_assertions_helper'
+
 # This concern manages choosing the relevant layout for our given design system
 module GovukFormBuilderTestable
   include DesignSystemHelper
-  include GovukFormBuilderTestableHelper
+  include DesignSystem::Govuk::TestHelpers::FormBuilderAssertionsHelper
   extend ActiveSupport::Concern
 
   included do
@@ -434,9 +436,7 @@ module GovukFormBuilderTestable
       assistant.valid?
 
       I18n.with_locale :pirate do
-        @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
-          f.ds_error_summary
-        end
+        @output_buffer = ds_form_with(model: assistant, builder: @builder, &:ds_error_summary)
 
         assert_select("div.#{@brand}-error-summary") do
           assert_select("div[role='alert']") do
@@ -914,9 +914,7 @@ module GovukFormBuilderTestable
     end
 
     test 'ds_submit' do
-      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
-        f.ds_submit
-      end
+      @output_buffer = ds_form_with(model: assistants(:one), builder: @builder, &:ds_submit)
 
       assert_select('form') do
         button = assert_select("button.#{@brand}-button[type=submit]").first

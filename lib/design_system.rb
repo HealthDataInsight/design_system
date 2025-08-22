@@ -1,6 +1,10 @@
 require 'zeitwerk'
 
 loader = Zeitwerk::Loader.for_gem
+
+# Avoid loading default resolvers by default
+loader.ignore("#{__dir__}/design_system/*/test_helpers")
+
 loader.setup
 
 require 'design_system/version'
