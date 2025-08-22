@@ -63,15 +63,15 @@ file safety:
   Gemfile.lock:
     comments:
     reviewed_by: shilpigoeldev
-    safe_revision: 1d22ca944498cda7dc94d11e398684ae63c8024f
+    safe_revision: e2d767b4d8b4d4e3e8c68385836c9b7f6e4bf1bc
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
     safe_revision: 775e36b3b0dc4cdbe4a9ad39df108bb29736c55f
   README.md:
     comments:
-    reviewed_by: timgentry
-    safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
+    reviewed_by: shilpigoeldev
+    safe_revision: e2d767b4d8b4d4e3e8c68385836c9b7f6e4bf1bc
   Rakefile:
     comments:
     reviewed_by: shilpigoeldev
