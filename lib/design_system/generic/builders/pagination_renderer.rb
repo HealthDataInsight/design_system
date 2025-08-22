@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'design_system/generic/builders/concerns/brand_derivable'
 require 'will_paginate/view_helpers/action_view'
 
 module DesignSystem

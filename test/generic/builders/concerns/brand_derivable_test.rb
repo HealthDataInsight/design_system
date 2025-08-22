@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require Rails.root.join('../../lib/design_system/generic/builders/concerns/brand_derivable')
+require 'design_system/generic/builders/concerns/brand_derivable'
 
 module DesignSystem
   module HelloWorld
