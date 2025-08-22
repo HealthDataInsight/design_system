@@ -1,9 +1,9 @@
 require 'test_helper'
-require_relative 'concerns/govuk_form_builder_testable'
+require 'design_system/govuk/test_helpers/form_builder_testable'
 
 module Govuk
   class FormBuilderTest < ActionView::TestCase
-    include GovukFormBuilderTestable
+    include DesignSystem::Govuk::TestHelpers::FormBuilderTestable
 
     def setup
       @brand = 'govuk'

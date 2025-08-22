@@ -1,8 +1,9 @@
 require 'test_helper'
+require 'design_system/govuk/test_helpers/form_builder_testable'
 
 module Nhsuk
   class FormBuilderTest < ActionView::TestCase
-    include GovukFormBuilderTestable
+    include DesignSystem::Govuk::TestHelpers::FormBuilderTestable
 
     def setup
       @brand = 'nhsuk'
