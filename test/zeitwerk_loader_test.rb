@@ -7,8 +7,8 @@ class ZeitwerkLoaderTest < Minitest::Test
     @root = Pathname.new(File.expand_path('..', __dir__))
 
     @loader = Zeitwerk::Loader.new
-    @loader.tag = 'structured_store.rb'
-    @loader.inflector = Zeitwerk::GemInflector.new(@root.join('lib/structured_store.rb'))
+    @loader.tag = 'design_system.rb'
+    @loader.inflector = Zeitwerk::GemInflector.new(@root.join('lib/design_system.rb'))
     # @loader.push_dir(@root.join('test'))
     @loader.ignore(@root.join('test/test_helper.rb'))
     @loader.setup
