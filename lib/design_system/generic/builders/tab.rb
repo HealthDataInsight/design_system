@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'design_system/components/tab'
-require_relative 'base'
-
 module DesignSystem
   module Generic
     module Builders

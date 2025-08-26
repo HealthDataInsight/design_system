@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'design_system/govuk/form_builder'
 require_relative 'concerns/govuk_form_builder_testable'
 
 module Govuk

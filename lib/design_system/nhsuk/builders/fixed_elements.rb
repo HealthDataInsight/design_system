@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'design_system/govuk/builders/fixed_elements'
-require_relative 'elements/breadcrumbs'
-
 module DesignSystem
   module Nhsuk
     module Builders
