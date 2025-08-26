@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Cleaned up require calls with Zeitwerk
 - DRYed up use of the CssHelper and moved it under the DesignSystem namespace
+- Moved GOVUK test helpers under the DesignSystem namespace for reuse in plugins
 
 ## [0.7.0] - 2025-08-22
 
