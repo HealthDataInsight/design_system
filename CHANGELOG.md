@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Cleaned up require calls with Zeitwerk
-- Cleaned up use of the CssHelper and moved in under the DesignSystem namespace
+- Cleaned up use of the CssHelper and moved it under the DesignSystem namespace
 
 ## [0.7.0] - 2025-08-22
 
