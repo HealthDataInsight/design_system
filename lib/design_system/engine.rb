@@ -4,9 +4,6 @@ require 'stimulus-rails'
 module DesignSystem
   # This is the main engine class for the design system.
   class Engine < ::Rails::Engine
-    # Allow changes to the design system to be reloaded in development.
-    config.autoload_paths << File.expand_path('..', __dir__) if Rails.env.development?
-
     initializer 'design_system.importmap', before: 'importmap' do |app|
       app.config.importmap.paths << Engine.root.join('config/importmap.rb')
     end
