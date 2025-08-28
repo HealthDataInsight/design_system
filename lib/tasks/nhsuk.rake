@@ -39,7 +39,7 @@ module NhsukHelpers
   end
 
   def self.copy_scss_files(temp_dir, version, brand)
-    base_path = "#{temp_dir}/node_modules/#{brand}-frontend/packages"
+    base_path = "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}"
     target_base = "#{STYLESHEET_PATH}/#{versioned_dir(version, brand)}"
 
     # Copy SCSS files from directories
@@ -53,23 +53,24 @@ module NhsukHelpers
     end
 
     # Copy root SCSS files
+    FileUtils.cp("#{base_path}/index.scss", "#{target_base}/index.scss")
     FileUtils.cp("#{base_path}/#{brand}.scss", "#{target_base}/#{brand}.scss")
   end
 
   def self.copy_assets_files(temp_dir, version, brand)
     FileUtils.cp_r(
-      "#{temp_dir}/node_modules/#{brand}-frontend/packages/assets/.",
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/assets/.",
       "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/"
     )
   end
 
   def self.copy_js_files(temp_dir, version, brand)
     FileUtils.cp(
-      "#{temp_dir}/node_modules/#{brand}-frontend/packages/#{brand}.js",
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{brand}.js",
       "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.js"
     )
     FileUtils.cp(
-      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}.min.js",
+      "#{temp_dir}/node_modules/#{brand}-frontend/dist/#{brand}/#{brand}-frontend.min.js",
       "#{ASSETS_PATH}/#{versioned_dir(version, brand)}/#{brand}.min.js"
     )
   end
