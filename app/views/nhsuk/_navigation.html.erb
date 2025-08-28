@@ -1,15 +1,12 @@
 <% if controller.navigation_items.present? %>
-  <div class="nhsuk-navigation-container">
-    <nav class="nhsuk-navigation" id="header-navigation" role="navigation" aria-label="Primary navigation">
-      <ul class="nhsuk-header__navigation-list">
-        <% controller.navigation_items.each do |item| %>
-          <li class="nhsuk-header__navigation-item">
-            <%= link_to(item[:label], item[:path], item[:options].merge(class: 'nhsuk-header__navigation-link')) %>
-          </li>
-        <% end %>
-        <li class="nhsuk-header__navigation-item nhsuk-header__navigation-item--home">
-          <%= link_to('Home', root_path, class: 'nhsuk-header__navigation-link') %>
+<div class="nhsuk-navigation-container">
+  <nav class="nhsuk-navigation" id="header-navigation" role="navigation" aria-label="Primary navigation">
+    <ul class="nhsuk-header__navigation-list">
+      <% controller.navigation_items.each do |item| %>
+        <li class="nhsuk-header__navigation-item">
+          <%= link_to(item[:label], item[:path], item[:options].merge(class: 'nhsuk-header__navigation-link')) %>
         </li>
+      <% end %>
         <li class="nhsuk-mobile-menu-container">
           <button class="nhsuk-header__menu-toggle nhsuk-header__navigation-link" id="toggle-menu" aria-expanded="false">
             <span class="nhsuk-u-visually-hidden">Browse</span>
@@ -19,7 +16,7 @@
             </svg>
           </button>
         </li>
-      </ul>
-    </nav>
-  </div>
+    </ul>
+  </nav>
+</div>
 <% end %>
