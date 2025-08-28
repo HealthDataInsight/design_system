@@ -22,7 +22,7 @@ module DesignSystem
 
     def add_footer_link(name, href)
       @footer_links ||= []
-      @footer_links << { name: name, href: href }
+      @footer_links << { name:, href: }
     end
   end
 end
