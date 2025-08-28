@@ -86,46 +86,27 @@
     </main>
   </div>
 
-  <footer role="contentinfo">
-    <div class="nhsuk-footer-container">
-      <div class="nhsuk-width-container">
-        <h2 class="nhsuk-u-visually-hidden">Support links</h2>
-        <div class="nhsuk-footer">
-
-          <ul class="nhsuk-footer__list">
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">NHS sites</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">About us</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Contact us</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Profile editor login</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Site map</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Accessibility statement</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Our policies</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Cookies</a>
-            </li>
-          </ul>
-          <div>
-            <p class="nhsuk-footer__copyright">&copy; NHS England</p>
-          </div>
+<footer role="contentinfo">
+  <div class="nhsuk-footer-container">
+    <div class="nhsuk-width-container">
+      <h2 class="nhsuk-u-visually-hidden">Support links</h2>
+      <div class="nhsuk-footer">
+        <ul class="nhsuk-footer__list">
+          <% if controller.footer_links.present? %>
+            <% controller.footer_links.each do |link| %>
+              <li class="nhsuk-footer__list-item">
+                <a class="nhsuk-footer__list-item-link" href="<%= link[:href] %>"><%= link[:name] %></a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <div>
+          <p class="nhsuk-footer__copyright">© NHS England</p>
         </div>
-
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
 </body>
 
