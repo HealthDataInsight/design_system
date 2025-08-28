@@ -20,9 +20,9 @@ module DesignSystem
       @navigation_items << { label:, path:, options: }
     end
 
-    def add_footer_link(name, href)
+    def add_footer_link(name, href, options = {})
       @footer_links ||= []
-      @footer_links << { name:, href: }
+      @footer_links << { name:, href:, options: }
     end
   end
 end

@@ -95,7 +95,9 @@
           <% if controller.footer_links.present? %>
             <% controller.footer_links.each do |link| %>
               <li class="nhsuk-footer__list-item">
-                <a class="nhsuk-footer__list-item-link" href="<%= link[:href] %>"><%= link[:name] %></a>
+                <%= link_to link[:name],
+                    link[:href],
+                    { class: "nhsuk-footer__list-item-link" }.merge(link[:options] || {}) %>
               </li>
             <% end %>
           <% end %>

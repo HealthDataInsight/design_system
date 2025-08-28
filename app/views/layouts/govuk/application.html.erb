@@ -136,7 +136,9 @@
             <% if controller.footer_links.present? %>
               <% controller.footer_links.each do |link| %>
                 <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="<%= link[:href] %>"><%= link[:name] %></a>
+                  <%= link_to link[:name],
+                      link[:href],
+                      { class: "govuk-footer__link" }.merge(link[:options] || {}) %>
                 </li>
               <% end %>
             <% end %>
