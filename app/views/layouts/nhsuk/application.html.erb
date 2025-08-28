@@ -101,7 +101,9 @@
           <% end %>
         </ul>
         <div>
-          <p class="nhsuk-footer__copyright">© NHS England</p>
+          <p class="nhsuk-footer__copyright">
+            <%= defined?(@copyright_notice) && @copyright_notice.present? ? @copyright_notice : "© NHS England" %>
+          </p>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ module DesignSystem
     included do
       attr_reader :navigation_items
       attr_reader :footer_links
+      attr_reader :copyright_notice
 
       helper DesignSystemHelper
     end
