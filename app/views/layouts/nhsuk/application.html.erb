@@ -104,8 +104,8 @@
         </ul>
         <div>
           <p class="nhsuk-footer__copyright">
-            <% if defined?(@copyright_notice) && @copyright_notice.present? %>
-              <%= @copyright_notice %>
+            <% if controller.copyright_notice.present? %>
+              <%= controller.copyright_notice %>
             <% end %>
           </p>
         </div>

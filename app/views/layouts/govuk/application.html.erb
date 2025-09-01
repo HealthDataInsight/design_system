@@ -164,9 +164,9 @@
           </span>
         </div>
         <div class="govuk-footer__meta-item">
-          <% if defined?(@copyright_notice) && @copyright_notice.present? %>
+          <% if controller.copyright_notice.present? %>
             <span class="govuk-footer__link govuk-footer__copyright-logo">
-              <%= @copyright_notice %>
+              <%= controller.copyright_notice %>
             </span>
           <% end %>
         </div>

@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   def set_footer_links
     add_footer_link('Custom Link', '#', target: '_blank', rel: 'noopener')
     add_footer_link('Another Link', '#')
-    @copyright_notice = '© NHS England 2025'
+    self.copyright_notice = '© NHS England 2025'
   end
 end
