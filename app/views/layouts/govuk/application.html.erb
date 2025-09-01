@@ -133,26 +133,15 @@
         <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
           <h2 class="govuk-visually-hidden">Support links</h2>
           <ul class="govuk-footer__inline-list">
-            <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="#">
-                Help
-              </a>
-            </li>
-            <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="#">
-                Cookies
-              </a>
-            </li>
-            <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="#">
-                Contact
-              </a>
-            </li>
-            <li class="govuk-footer__inline-list-item">
-              <a class="govuk-footer__link" href="#">
-                Terms and conditions
-              </a>
-            </li>
+            <% if controller.footer_links.present? %>
+              <% controller.footer_links.each do |link| %>
+                <li class="govuk-footer__inline-list-item">
+                  <%= link_to link[:name],
+                      link[:href],
+                      { class: "govuk-footer__link" }.merge(link[:options] || {}) %>
+                </li>
+              <% end %>
+            <% end %>
           </ul>
           <svg
             aria-hidden="true"
@@ -175,11 +164,11 @@
           </span>
         </div>
         <div class="govuk-footer__meta-item">
-          <a
-            class="govuk-footer__link govuk-footer__copyright-logo"
-            href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">
-            © Crown copyright
-          </a>
+          <% if controller.copyright_notice.present? %>
+            <span class="govuk-footer__link govuk-footer__copyright-logo">
+              <%= controller.copyright_notice %>
+            </span>
+          <% end %>
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ module DesignSystem
 
     included do
       attr_reader :navigation_items
+      attr_reader :footer_links
+      attr_accessor :copyright_notice
 
       helper DesignSystemHelper
     end
@@ -16,6 +18,11 @@ module DesignSystem
     def add_navigation_item(label, path, options = {})
       @navigation_items ||= []
       @navigation_items << { label:, path:, options: }
+    end
+
+    def add_footer_link(name, href, options = {})
+      @footer_links ||= []
+      @footer_links << { name:, href:, options: }
     end
   end
 end

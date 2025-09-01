@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   include DesignSystem::Branded
 
-  before_action :add_navigation, :set_service_name
+  before_action :add_navigation, :set_service_name, :set_footer_links
   helper_method :brand
 
   private
@@ -24,5 +24,11 @@ class ApplicationController < ActionController::Base
 
   def set_service_name
     @service_name = 'Design system'
+  end
+
+  def set_footer_links
+    add_footer_link('Custom Link', '#', target: '_blank', rel: 'noopener')
+    add_footer_link('Another Link', '#')
+    self.copyright_notice = '© NHS England 2025'
   end
 end
