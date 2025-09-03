@@ -55,7 +55,7 @@ file safety:
   CHANGELOG.md:
     comments:
     reviewed_by: timgentry
-    safe_revision: 7d464246ccf95595e5d40fc278d0a7848412d8df
+    safe_revision: f3ab66b5ec0264f2de66a364d988040485ca53a6
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -67,7 +67,7 @@ file safety:
   Gemfile.lock:
     comments:
     reviewed_by: timgentry
-    safe_revision: 2f0b61fc403a48fe7a56a4c401e1499f3c109a80
+    safe_revision: f3ab66b5ec0264f2de66a364d988040485ca53a6
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
@@ -1303,7 +1303,7 @@ file safety:
   lib/design_system.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: bdb2217a02c2a4503c395991238b80796c8307c8
+    safe_revision: 7d464246ccf95595e5d40fc278d0a7848412d8df
   lib/design_system/all.rb:
     comments:
     reviewed_by: timgentry
@@ -1531,7 +1531,7 @@ file safety:
   lib/design_system/version.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: 775e36b3b0dc4cdbe4a9ad39df108bb29736c55f
+    safe_revision: f3ab66b5ec0264f2de66a364d988040485ca53a6
   lib/tasks/design_system_tasks.rake:
     comments:
     reviewed_by: shilpigoeldev
