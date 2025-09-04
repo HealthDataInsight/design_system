@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    design_system (0.8.0)
+    design_system (0.8.1)
       govuk_design_system_formbuilder (~> 5.11.0)
       rails (>= 7.0.8.5)
       stimulus-rails (~> 1.3)

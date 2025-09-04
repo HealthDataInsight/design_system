@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Built the missing static JavaScript asset
 - Made the build (rake) task less brittle
 
 ## [0.8.0] - 2025-09-04
