@@ -55,7 +55,7 @@ file safety:
   CHANGELOG.md:
     comments:
     reviewed_by: shilpigoeldev
-    safe_revision: d1bce4c7227a0bbbb6173a335cf22aef91dd535d
+    safe_revision: 8e14b1363a1a44d5cbf9a3994e3fb2c505d4290a
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -67,7 +67,7 @@ file safety:
   Gemfile.lock:
     comments:
     reviewed_by: shilpigoeldev
-    safe_revision: d1bce4c7227a0bbbb6173a335cf22aef91dd535d
+    safe_revision: 8e14b1363a1a44d5cbf9a3994e3fb2c505d4290a
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
@@ -79,7 +79,7 @@ file safety:
   Rakefile:
     comments:
     reviewed_by: shilpigoeldev
-    safe_revision: 5801a0057d31471037dd1bb5e4f33a9f20f6a7b5
+    safe_revision: 8e14b1363a1a44d5cbf9a3994e3fb2c505d4290a
   app/assets/config/design_system_manifest.js:
     comments:
     reviewed_by: timgentry
@@ -1286,8 +1286,8 @@ file safety:
     safe_revision: 2df65fdfef254da2093a02fc568bf576bd72c038
   design_system.gemspec:
     comments:
-    reviewed_by: timgentry
-    safe_revision: 2f0b61fc403a48fe7a56a4c401e1499f3c109a80
+    reviewed_by: shilpigoeldev
+    safe_revision: 5103d01bd393040e45dca272250494d1da02a2e6
   docs/decisions/0000-use-markdown-any-decision-records.md:
     comments:
     reviewed_by: timgentry
@@ -1531,7 +1531,7 @@ file safety:
   lib/design_system/version.rb:
     comments:
     reviewed_by: shilpigoeldev
-    safe_revision: d1bce4c7227a0bbbb6173a335cf22aef91dd535d
+    safe_revision: 8e14b1363a1a44d5cbf9a3994e3fb2c505d4290a
   lib/tasks/design_system_tasks.rake:
     comments:
     reviewed_by: shilpigoeldev
@@ -1552,10 +1552,10 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
-  public/design_system/static/design_system-0.7.0/design_system.js:
+  public/design_system/static/design_system-0.8.1/design_system.js:
     comments:
-    reviewed_by: timgentry
-    safe_revision: 775e36b3b0dc4cdbe4a9ad39df108bb29736c55f
+    reviewed_by: shilpigoeldev
+    safe_revision: 8e14b1363a1a44d5cbf9a3994e3fb2c505d4290a
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
