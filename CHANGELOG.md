@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2025-09-04
+
 ### Added
 
 - Added the ability to manage footer links and copyright notice
@@ -28,5 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/structured_store/compare/v0.7.0...HEAD
+[unreleased]: https://github.com/HealthDataInsight/structured_store/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/HealthDataInsight/structured_store/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/HealthDataInsight/structured_store/releases/tag/v0.7.0

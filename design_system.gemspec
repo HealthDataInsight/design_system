@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/HealthDataInsight/design_system'
-  spec.metadata['changelog_uri'] = 'https://github.com/HealthDataInsight/design_system/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = 'https://github.com/HealthDataInsight/design_system/blob/main/CHANGELOG.md'
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir['{app,config,db,lib,public}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
