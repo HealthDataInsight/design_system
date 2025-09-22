@@ -19,7 +19,7 @@ class JsBuilder
 
     # Remove all old builds
     FileUtils.rm_rf(Dir.glob('public/design_system/static/design_system-*'))
-    
+
     output_dir = "public/design_system/static/design_system-#{DesignSystem::VERSION}"
     mkdir_p(output_dir)
 
@@ -49,4 +49,22 @@ namespace :js do
   task :watch do
     JsBuilder.build(watch: true)
   end
+end
+
+desc 'Deploy the gem to RubyGems.org'
+task :deploy_to_rubygems do
+  # Raise an error if the static files are not built
+  unless Dir.exist?("public/design_system/static/design_system-#{DesignSystem::VERSION}")
+    raise "Static files not built. Please run `rake js:build` before deploying."
+  end
+
+  sh 'gem build'
+
+  filename = "design_system-#{DesignSystem::VERSION}.gem"
+  raise "Gem file #{filename} not found. Please ensure the gem was built successfully." unless File.exist?(filename)
+
+  sh "gem push #{filename}"
+
+  # remove the built gem file after pushing
+  rm filename
 end

@@ -61,7 +61,8 @@ module DesignSystem
 
             assert_form_group do
               assert_select("fieldset.#{@brand}-fieldset") do
-                assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-fieldset__legend--m", 'What do you want in your sandwich?')
+                assert_select("legend.#{@brand}-fieldset__legend.#{@brand}-fieldset__legend--m",
+                              'What do you want in your sandwich?')
 
                 input = assert_select('input').first
                 assert_equal 'assistant_desired_filling', input['id']
@@ -174,7 +175,8 @@ module DesignSystem
 
           test 'ds_collection_select with html options' do
             @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
-              f.ds_collection_select(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
+              f.ds_collection_select(:department_id, Department.all, :id, :title, {},
+                                     { class: 'geoff', placeholder: 'bar' })
             end
 
             assert_form_group do
@@ -287,7 +289,7 @@ module DesignSystem
               assert_label :email, nil, 'What is your email?'
               assert_hint :email, nil, 'This is a hint'
               assert_input :email, type: :email, value: 'one@ex.com',
-                                  attributes: { 'aria-describedby' => 'assistant_email_hint' }
+                                   attributes: { 'aria-describedby' => 'assistant_email_hint' }
             end
           end
 
@@ -299,8 +301,8 @@ module DesignSystem
             assert_form_group do
               assert_label :email, nil, 'What is your email?'
               assert_input :email, type: :email, value: 'one@ex.com',
-                                  classes: ['geoff'],
-                                  attributes: { placeholder: 'bar' }
+                                   classes: ['geoff'],
+                                   attributes: { placeholder: 'bar' }
             end
           end
 
@@ -326,9 +328,7 @@ module DesignSystem
             )
             assistant.valid?
 
-            @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
-              f.ds_error_summary
-            end
+            @output_buffer = ds_form_with(model: assistant, builder: @builder, &:ds_error_summary)
 
             assert_select("div.#{@brand}-error-summary[data-module='#{@brand}-error-summary']") do
               assert_select("div[role='alert']") do
@@ -526,7 +526,7 @@ module DesignSystem
               assert_label :age, nil, 'What is your age?'
               assert_hint :age, nil, 'This is a hint'
               assert_input :age, type: :number, value: '30',
-                                attributes: { 'aria-describedby' => 'assistant_age_hint' }
+                                 attributes: { 'aria-describedby' => 'assistant_age_hint' }
             end
           end
 
@@ -538,8 +538,8 @@ module DesignSystem
             assert_form_group do
               assert_label :age, nil, 'What is your age?'
               assert_input :age, type: :number, value: '30',
-                                classes: ['geoff'],
-                                attributes: { placeholder: 'bar' }
+                                 classes: ['geoff'],
+                                 attributes: { placeholder: 'bar' }
             end
           end
 
@@ -574,7 +574,8 @@ module DesignSystem
             assert_form_group do
               assert_label :phone, nil, 'What is your phone number?'
               assert_hint :phone, nil, 'This is a hint'
-              assert_input :phone, type: :tel, value: '07700900001', attributes: { 'aria-describedby' => 'assistant_phone_hint' }
+              assert_input :phone, type: :tel, value: '07700900001',
+                                   attributes: { 'aria-describedby' => 'assistant_phone_hint' }
             end
           end
 
@@ -586,8 +587,8 @@ module DesignSystem
             assert_form_group do
               assert_label :phone, nil, 'What is your phone number?'
               assert_input :phone, type: :tel, value: '07700900001',
-                                  classes: ["#{@brand}-input--width-20", 'geoff'],
-                                  attributes: { placeholder: 'bar' }
+                                   classes: ["#{@brand}-input--width-20", 'geoff'],
+                                   attributes: { placeholder: 'bar' }
             end
           end
 
@@ -666,7 +667,8 @@ module DesignSystem
 
                     assert_label :desired_filling, 'pastrami', classes: ["#{@brand}-radios__label"]
 
-                    assert_hint :desired_filling, 'pastrami', 'Brined, smoked, steamed and seasoned', classes: ["#{@brand}-radios__hint"]
+                    assert_hint :desired_filling, 'pastrami', 'Brined, smoked, steamed and seasoned',
+                                classes: ["#{@brand}-radios__hint"]
                   end
 
                   assert_select("div.#{@brand}-radios__item:nth-child(2)") do
@@ -678,7 +680,8 @@ module DesignSystem
 
                     assert_label :desired_filling, 'cheddar', classes: ["#{@brand}-radios__label"]
 
-                    assert_hint :desired_filling, 'cheddar', 'A sharp, off-white natural cheese', classes: ["#{@brand}-radios__hint"]
+                    assert_hint :desired_filling, 'cheddar', 'A sharp, off-white natural cheese',
+                                classes: ["#{@brand}-radios__hint"]
                   end
                 end
               end
@@ -808,7 +811,8 @@ module DesignSystem
 
           test 'ds_collection_radio_buttons with html options' do
             @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
-              f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, {}, { class: 'geoff', placeholder: 'bar' })
+              f.ds_collection_radio_buttons(:department_id, Department.all, :id, :title, {},
+                                            { class: 'geoff', placeholder: 'bar' })
             end
 
             assert_form_group do
@@ -858,7 +862,9 @@ module DesignSystem
 
           test 'ds_select with html options' do
             @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
-              f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }), {}, { class: 'geoff', placeholder: 'bar' })
+              f.ds_select(:department_id, options_for_select(Department.all.map do |department|
+                [department.title, department.id]
+              end), {}, { class: 'geoff', placeholder: 'bar' })
             end
 
             assert_form_group do
@@ -883,7 +889,9 @@ module DesignSystem
           test 'ds_select with locale' do
             I18n.with_locale :pirate do
               @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
-                f.ds_select(:department_id, options_for_select(Department.all.map { |department| [department.title, department.id] }))
+                f.ds_select(:department_id, options_for_select(Department.all.map do |department|
+                  [department.title, department.id]
+                end))
               end
             end
 
@@ -985,7 +993,7 @@ module DesignSystem
               assert_label :description, nil, 'Enter description'
               assert_hint :description, nil, 'This is a hint'
               assert_text_area :description,
-                              attributes: { 'aria-describedby' => 'assistant_description_hint' }
+                               attributes: { 'aria-describedby' => 'assistant_description_hint' }
             end
           end
 
@@ -997,8 +1005,9 @@ module DesignSystem
             assert_form_group(["#{@brand}-character-count[data-module='#{@brand}-character-count'][data-maxwords='20']"]) do
               assert_label :description, nil, 'Enter description'
               assert_text_area :description,
-                              classes: ['geoff'],
-                              attributes: { placeholder: 'bar', rows: 2, 'aria-describedby' => 'assistant_description-info' }
+                               classes: ['geoff'],
+                               attributes: { placeholder: 'bar', rows: 2,
+                                             'aria-describedby' => 'assistant_description-info' }
 
               info = assert_select("span.#{@brand}-hint.#{@brand}-character-count__message").first
               assert_includes info.text.strip, '20 words'
@@ -1037,7 +1046,8 @@ module DesignSystem
             assert_form_group do
               assert_label :title, nil, 'Title'
               assert_hint :title, nil, 'This is a hint'
-              assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', attributes: { 'aria-describedby' => 'assistant_title_hint' }
+              assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet',
+                                   attributes: { 'aria-describedby' => 'assistant_title_hint' }
             end
           end
 
@@ -1048,7 +1058,8 @@ module DesignSystem
 
             assert_form_group do
               assert_label :title, nil, 'Title'
-              assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', classes: ['geoff'], attributes: { placeholder: 'bar' }
+              assert_input :title, type: :text, value: 'Lorem ipsum dolor sit amet', classes: ['geoff'],
+                                   attributes: { placeholder: 'bar' }
             end
           end
 
@@ -1084,7 +1095,7 @@ module DesignSystem
               assert_label :website, nil, 'What is your website?'
               assert_hint :website, nil, 'This is a hint'
               assert_input :website, type: :url, value: 'https://www.ab.com',
-                                    attributes: { 'aria-describedby' => 'assistant_website_hint' }
+                                     attributes: { 'aria-describedby' => 'assistant_website_hint' }
             end
           end
 
@@ -1096,8 +1107,8 @@ module DesignSystem
             assert_form_group do
               assert_label :website, nil, 'What is your website?'
               assert_input :website, type: :url, value: 'https://www.ab.com',
-                                    classes: ['geoff'],
-                                    attributes: { placeholder: 'bar' }
+                                     classes: ['geoff'],
+                                     attributes: { placeholder: 'bar' }
             end
           end
 
@@ -1208,7 +1219,8 @@ module DesignSystem
 
             rails_output = ds_form_with(model: assistants(:one)) do |f|
               choices.map do |value, text|
-                f.check_box(:desired_filling, { multiple: true }, value, '') + f.label(:desired_filling, text, value: value)
+                f.check_box(:desired_filling, { multiple: true }, value,
+                            '') + f.label(:desired_filling, text, value: value)
               end.join.html_safe
             end
 

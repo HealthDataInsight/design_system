@@ -88,8 +88,7 @@ module GOVUKDesignSystemFormBuilder
         # Check if @html_attributes is defined and contains the suppress_error key.
         # This instance variable is typically set by other traits like Traits::Input or Traits::Field.
         if instance_variable_defined?(:@html_attributes) &&
-           @html_attributes &&
-           @html_attributes.key?(:suppress_error) &&
+           @html_attributes&.key?(:suppress_error) &&
            @html_attributes[:suppress_error]
           @error_element = NullErrorElement.new(*bound) # Suppress the error message
         else

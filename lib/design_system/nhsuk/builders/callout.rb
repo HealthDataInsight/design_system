@@ -3,7 +3,7 @@
 module DesignSystem
   module Nhsuk
     module Builders
-    # This generates html for rendering callout for Nhsuk
+      # This generates html for rendering callout for Nhsuk
       class Callout < ::DesignSystem::Generic::Builders::Callout
       end
     end
