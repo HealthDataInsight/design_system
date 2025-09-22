@@ -7,7 +7,7 @@ module DesignSystem
       delegate :content_tag, :tag, :safe_join, :link_to, :capture, to: :@template
 
       def self.brand
-        self.name.split('::')[1].underscore
+        name.split('::')[1].underscore
       end
 
       private

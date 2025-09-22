@@ -19,7 +19,7 @@ class JsBuilder
 
     # Remove all old builds
     FileUtils.rm_rf(Dir.glob('public/design_system/static/design_system-*'))
-    
+
     output_dir = "public/design_system/static/design_system-#{DesignSystem::VERSION}"
     mkdir_p(output_dir)
 

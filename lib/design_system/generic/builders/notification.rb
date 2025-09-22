@@ -6,6 +6,7 @@ module DesignSystem
       # This class provides generic methods to display notifications.
       class Notification < Base
         include ActionView::Helpers::SanitizeHelper
+
         def render_alert(msg)
           content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': 'error-summary-title', role: 'alert',
                             tabindex: '-1') do
