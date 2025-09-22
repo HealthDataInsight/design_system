@@ -328,9 +328,7 @@ module DesignSystem
             )
             assistant.valid?
 
-            @output_buffer = ds_form_with(model: assistant, builder: @builder) do |f|
-              f.ds_error_summary
-            end
+            @output_buffer = ds_form_with(model: assistant, builder: @builder, &:ds_error_summary)
 
             assert_select("div.#{@brand}-error-summary[data-module='#{@brand}-error-summary']") do
               assert_select("div[role='alert']") do
