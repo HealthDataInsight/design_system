@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   include DesignSystem::Branded
 
-  before_action :add_navigation, :set_service_name, :set_footer_links, :set_searchbar_presence
+  before_action :add_navigation, :set_service_name, :set_footer_links, :set_searchbar_url
   helper_method :brand
 
   private
@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     self.copyright_notice = '© NHS England 2025'
   end
 
-  def set_searchbar_presence
-    @searchbar = false # Default is hidden
+  def set_searchbar_url
+    @searchbar_url = nil # Default is nil (hidden)
   end
 end
