@@ -5,3 +5,65 @@
 );
 
 // Use extreme caution when making any design system level style changes or additions here.
+
+.app-header-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+
+.app-header-search {
+  margin-left: auto; // Pushes search to the right
+}
+
+// Center navigation items within their container
+.app-header-layout .govuk-header__navigation {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0; // Remove any default margin
+}
+
+.app-site-search {
+  display: block !important;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;    // govuk-spacing(2)
+  margin-bottom: 10px;    // govuk-spacing(2)
+
+  .govuk-frontend-supported & {
+    display: block;
+  }
+}
+.app-site-search__wrapper {
+  display: block;
+  position: relative;
+}
+
+.app-site-search__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 0; // BUG: Safari 10 on macOS seems to add an implicit margin.
+  padding: 5px;
+  border: 2px solid #ffffff;
+  border-radius: 0; // Safari 10 on iOS adds implicit border rounding.
+  font-size: 16px;
+  &::placeholder {
+    color: #505a5f;
+  }
+}
+
+.app-site-search__submit {
+  position: absolute;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
