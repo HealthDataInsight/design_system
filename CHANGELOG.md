@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the inclusive language workflow, rubocop fixes and YAML linting
+- Changed NHSUK search bar visibility depending on setting of @searchbar_url
+
+### Added
+
+- Added rake task to deploy_to_rubygems 
+- Added searchbar to govuk header , adapting logic from nhsuk search bar
+
+## [0.8.1] - 2025-09-04
+
 ### Fixed
 
 - Built the missing static JavaScript asset
@@ -35,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/structured_store/compare/v0.8.0...HEAD
-[0.8.0]: https://github.com/HealthDataInsight/structured_store/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/HealthDataInsight/structured_store/releases/tag/v0.7.0
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/HealthDataInsight/design_system/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/HealthDataInsight/design_system/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/HealthDataInsight/design_system/releases/tag/v0.7.0
