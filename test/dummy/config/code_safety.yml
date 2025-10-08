@@ -54,8 +54,8 @@ file safety:
     safe_revision: a8410ed8b23a1932c1af631e2f82965219dffe4a
   CHANGELOG.md:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: cb0ed880961c20afc54c3880df9aa814f3bd35ae
+    reviewed_by: timgentry
+    safe_revision: f0f19aa09a9addc35d112ef13d50631ff46a4e67
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -1303,7 +1303,7 @@ file safety:
   lib/design_system.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: 7d464246ccf95595e5d40fc278d0a7848412d8df
+    safe_revision: f0f19aa09a9addc35d112ef13d50631ff46a4e67
   lib/design_system/all.rb:
     comments:
     reviewed_by: timgentry
@@ -1552,10 +1552,10 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
-  public/design_system/static/design_system-0.9.0/design_system.js:
+  public/design_system/static/design_system-0.9.1/design_system.js:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: cb0ed880961c20afc54c3880df9aa814f3bd35ae
+    reviewed_by:
+    safe_revision:
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
