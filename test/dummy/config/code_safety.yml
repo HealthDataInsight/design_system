@@ -51,7 +51,7 @@ file safety:
   ".ruby-version":
     comments:
     reviewed_by: timgentry
-    safe_revision: a8410ed8b23a1932c1af631e2f82965219dffe4a
+    safe_revision: a0da9e620faad4e2a850cc698a8eba2f3de85ef1
   CHANGELOG.md:
     comments:
     reviewed_by: timgentry
@@ -1239,7 +1239,7 @@ file safety:
   app/views/layouts/govuk/application.html.erb:
     comments:
     reviewed_by: timgentry
-    safe_revision: c5f6f6a4332a82e91ae9c66f48e694b311f5346f
+    safe_revision: 77d93b219d2a7e21adbb509e0eed5f8c01925a57
   app/views/layouts/govuk/full_page.html.erb:
     comments:
     reviewed_by: timgentry
@@ -1323,7 +1323,7 @@ file safety:
   lib/design_system/engine.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: 7d464246ccf95595e5d40fc278d0a7848412d8df
+    safe_revision: f1f61735243af65cd4cb6cf73624491262356e32
   lib/design_system/generic.rb:
     comments:
     reviewed_by: timgentry
