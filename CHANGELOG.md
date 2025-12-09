@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+
+- Load the Branded concern before each request (in development)
+
 ## [0.9.3] - 2025-10-13
 
 ## Fixed
