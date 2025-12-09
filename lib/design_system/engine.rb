@@ -23,5 +23,10 @@ module DesignSystem
         root: DesignSystem::Engine.root.join('public')
       )
     end
+
+    # Load the Branded concern before each request (in development) or once (in production)
+    config.to_prepare do
+      require_dependency Engine.root.join('app/controllers/concerns/design_system/branded.rb').to_s
+    end
   end
 end
