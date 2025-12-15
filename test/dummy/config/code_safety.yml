@@ -1323,7 +1323,7 @@ file safety:
   lib/design_system/engine.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: f1f61735243af65cd4cb6cf73624491262356e32
+    safe_revision: df7b67269c5bafb884b48a52ac5d60d8018284df
   lib/design_system/generic.rb:
     comments:
     reviewed_by: timgentry
