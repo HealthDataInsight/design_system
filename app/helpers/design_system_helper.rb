@@ -108,4 +108,10 @@ module DesignSystemHelper
   def ds_callout(label, body)
     DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
   end
+
+  def ds_details(summary_text, &)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'details', self).render_details(summary_text, &)
+  end
 end
