@@ -3,6 +3,7 @@
 require_relative 'nhsuk/builders/button'
 require_relative 'nhsuk/builders/callout'
 require_relative 'nhsuk/builders/fixed_elements'
+require_relative 'nhsuk/builders/details'
 require_relative 'nhsuk/builders/heading'
 require_relative 'nhsuk/builders/link'
 require_relative 'nhsuk/builders/notification'
