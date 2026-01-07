@@ -54,8 +54,8 @@ file safety:
     safe_revision: a0da9e620faad4e2a850cc698a8eba2f3de85ef1
   CHANGELOG.md:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: df239a068475402920d5da18ecf53c93e4e44e96
+    reviewed_by: timgentry
+    safe_revision: 8482a425c63b349ed6b3bdf1bb812f30e0c073f7
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -66,8 +66,8 @@ file safety:
     safe_revision: 1d22ca944498cda7dc94d11e398684ae63c8024f
   Gemfile.lock:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: df239a068475402920d5da18ecf53c93e4e44e96
+    reviewed_by: timgentry
+    safe_revision: 8482a425c63b349ed6b3bdf1bb812f30e0c073f7
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
@@ -1199,7 +1199,7 @@ file safety:
   app/helpers/design_system_helper.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: 2f0b61fc403a48fe7a56a4c401e1499f3c109a80
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   app/javascript/design_system/controllers/hello_world_controller.js:
     comments:
     reviewed_by: timgentry
@@ -1327,7 +1327,7 @@ file safety:
   lib/design_system/generic.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/generic/builders/base.rb:
     comments:
     reviewed_by: timgentry
@@ -1346,8 +1346,8 @@ file safety:
     safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
   lib/design_system/generic/builders/details.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/generic/builders/elements/breadcrumbs.rb:
     comments:
     reviewed_by: shilpigoeldev
@@ -1403,7 +1403,7 @@ file safety:
   lib/design_system/govuk.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/govuk/builders/button.rb:
     comments:
     reviewed_by: timgentry
@@ -1414,8 +1414,8 @@ file safety:
     safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
   lib/design_system/govuk/builders/details.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/govuk/builders/elements/breadcrumbs.rb:
     comments:
     reviewed_by: shilpigoeldev
@@ -1479,7 +1479,7 @@ file safety:
   lib/design_system/nhsuk.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/nhsuk/builders/button.rb:
     comments:
     reviewed_by: timgentry
@@ -1490,8 +1490,8 @@ file safety:
     safe_revision: 06534e33f9e46fd8cd1fca445e377281a6ee5538
   lib/design_system/nhsuk/builders/details.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   lib/design_system/nhsuk/builders/elements/breadcrumbs.rb:
     comments:
     reviewed_by: shilpigoeldev
@@ -1542,8 +1542,8 @@ file safety:
     safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
   lib/design_system/version.rb:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: df239a068475402920d5da18ecf53c93e4e44e96
+    reviewed_by: timgentry
+    safe_revision: 8482a425c63b349ed6b3bdf1bb812f30e0c073f7
   lib/tasks/design_system_tasks.rake:
     comments:
     reviewed_by: shilpigoeldev
@@ -1564,6 +1564,10 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
+  public/design_system/static/design_system-0.10.0/design_system.js:
+    comments:
+    reviewed_by: timgentry
+    safe_revision: 8482a425c63b349ed6b3bdf1bb812f30e0c073f7
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
@@ -1930,8 +1934,8 @@ file safety:
     safe_revision: 679192e17598983baa989a73f560a7d04afad571
   test/dummy/app/views/pages/index.html.erb:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: f5d235584383f3513845026021ae86fd01577f52
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   test/dummy/bin/dev:
     comments:
     reviewed_by: timgentry
@@ -2182,8 +2186,8 @@ file safety:
     safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
   test/govuk/builders/details_test.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   test/govuk/builders/headings_test.rb:
     comments:
     reviewed_by: timgentry
@@ -2266,8 +2270,8 @@ file safety:
     safe_revision: dbc0112c97eec135c65311371b4b50fb9295afe9
   test/nhsuk/builders/details_test.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   test/nhsuk/builders/headings_test.rb:
     comments:
     reviewed_by: shilpigoeldev
