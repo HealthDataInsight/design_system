@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.9.6] - 2026-01-07
+## [0.10.0] - 2026-01-07
 
 ### Added
 
@@ -85,8 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.9.6...HEAD
-[0.9.6]: https://github.com/HealthDataInsight/design_system/compare/v0.9.5...v0.9.6
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/HealthDataInsight/design_system/compare/v0.9.5...v0.10.0
 [0.9.5]: https://github.com/HealthDataInsight/design_system/compare/v0.9.4...v0.9.5
 [0.9.4]: https://github.com/HealthDataInsight/design_system/compare/v0.9.3...v0.9.4
 [0.9.3]: https://github.com/HealthDataInsight/design_system/compare/v0.9.2...v0.9.3
