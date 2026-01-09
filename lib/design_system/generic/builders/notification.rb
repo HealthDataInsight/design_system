@@ -7,19 +7,21 @@ module DesignSystem
       class Notification < Base
         include ActionView::Helpers::SanitizeHelper
 
-        def render_alert(msg)
+        def render_alert(msg = nil, &)
+          content_to_display = block_given? ? capture(&) : msg
           content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': 'error-summary-title', role: 'alert',
                             tabindex: '-1') do
-            content_tag(:h2, sanitize(msg, tags: %w[b p br a], attributes: %w[href target]),
+            content_tag(:h2, content_to_display,
                         class: "#{brand}-error-summary__title", id: 'error-summary-title')
           end
         end
 
-        def render_notice(msg)
+        def render_notice(msg = nil, &)
+          content_to_display = block_given? ? capture(&) : msg
           content_tag(:div, class: "#{brand}-notification-banner", role: 'region',
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
-            banner_tile + banner_content(msg)
+            banner_tile + banner_content(content_to_display)
           end
         end
 
@@ -32,9 +34,9 @@ module DesignSystem
           end
         end
 
-        def banner_content(msg)
+        def banner_content(content)
           content_tag(:div, class: "#{brand}-notification-banner__content") do
-            content_tag(:p, sanitize(msg, tags: %w[b p br a], attributes: %w[href targ]),
+            content_tag(:p, content,
                         class: "#{brand}-notification-banner__heading")
           end
         end
