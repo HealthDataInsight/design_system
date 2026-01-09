@@ -35,6 +35,34 @@ module DesignSystem
             assert_select 'h2.govuk-error-summary__title', 'Test alert!'
           end
         end
+
+        test 'rendering govuk notice with block' do
+          @output_buffer = ds_notice do
+            '<strong>Notice:</strong> Complex content with <a href="#">link</a>'.html_safe
+          end
+
+          assert_select 'div.govuk-notification-banner' do
+            assert_select 'div.govuk-notification-banner__content' do
+              assert_select 'p.govuk-notification-banner__heading' do
+                assert_select 'strong', 'Notice:'
+                assert_select 'a[href="#"]', 'link'
+              end
+            end
+          end
+        end
+
+        test 'rendering govuk alert with block' do
+          @output_buffer = ds_alert do
+            '<strong>Error:</strong> Check <a href="/help">help page</a>'.html_safe
+          end
+
+          assert_select 'div.govuk-error-summary' do
+            assert_select 'h2.govuk-error-summary__title' do
+              assert_select 'strong', 'Error:'
+              assert_select 'a[href="/help"]', 'help page'
+            end
+          end
+        end
       end
     end
   end

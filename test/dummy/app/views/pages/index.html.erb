@@ -1,5 +1,16 @@
 <%= ds_alert("I am an alert")%>
 <%= ds_notice("I am a notice")%>
+
+<%# Example with block content %>
+<%= ds_alert do %>
+  <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
+<% end %>
+
+<%= ds_notice do %>
+  <strong>Notice with block:</strong>
+  <br>
+  You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
+<% end %>
 <%=
 ds_fixed_elements do |ds|
   ds.breadcrumb 'One', root_path

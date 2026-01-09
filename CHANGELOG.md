@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `ds_alert` and `ds_notice` now accept block content for complex HTML, in addition to plain text strings
+- String parameters to `ds_alert` and `ds_notice` are now treated as plain text (no HTML processing)
+
 ## [0.10.0] - 2026-01-07
 
 ### Added
