@@ -2,7 +2,6 @@
 
 # This is the GOV.UK adapter for the design system
 
-require_relative 'govuk/builders/back_link'
 require_relative 'govuk/builders/button'
 require_relative 'govuk/builders/callout'
 require_relative 'govuk/builders/details'

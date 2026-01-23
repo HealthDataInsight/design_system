@@ -64,10 +64,6 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'link', self).render_link_to(name, options, html_options, &)
   end
 
-  def ds_back_link(path, text = 'Back')
-    DesignSystem::Registry.builder(brand, 'back_link', self).render_back_link(path, text)
-  end
-
   def ds_pagination(collection = nil, options = {})
     defaults = {
       renderer: DesignSystem::Registry.builder(brand, 'pagination_renderer', self),
