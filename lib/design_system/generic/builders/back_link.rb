@@ -12,9 +12,7 @@ module DesignSystem
         private
 
         def prep_back_link_style(path, text)
-          content_tag(:a, href: path, class: "#{brand}-back-link") do
-            text
-          end
+          content_tag(:a, text, href: path, class: "#{brand}-back-link")
         end
       end
     end
