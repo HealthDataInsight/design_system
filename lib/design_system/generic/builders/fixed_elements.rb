@@ -5,12 +5,14 @@ module DesignSystem
     module Builders
       # This class is used to provide the generic fixed elements builder.
       class FixedElements < Base
+        include Elements::Backlink
         include Elements::Breadcrumbs
         include Elements::Form
         include Elements::Headings
 
         def render
           content_for_breadcrumbs if @breadcrumbs.present?
+          content_for_backlink if @backlink && @breadcrumbs.blank?
 
           render_main_container do
             safe_buffer = ActiveSupport::SafeBuffer.new
