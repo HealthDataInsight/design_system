@@ -8,7 +8,7 @@ module DesignSystem
         module Backlink
           def backlink(label, path)
             @backlink = true
-            @label = label
+            @label = label || 'Back'
             @path = path
           end
 
