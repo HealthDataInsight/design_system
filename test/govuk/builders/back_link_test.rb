@@ -18,7 +18,7 @@ module DesignSystem
         test 'rendering govuk link' do
           @output_buffer = ds_back_link(assistant_path(@assistant))
 
-          assert_select("a.#{@brand}-back-link", href: assistant_path(@assistant))
+          assert_select("a.#{@brand}-back-link", href: assistant_path(@assistant), text: 'Back')
         end
 
         test 'rendering govuk button link and custom text' do
