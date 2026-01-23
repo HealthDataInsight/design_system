@@ -38,7 +38,7 @@ module DesignSystem
             ds.breadcrumb 'One', root_path
             ds.backlink 'Custom text', assistant_path(@assistant)
           end
-          
+
           # backlink should not coexist with breadcrumbs
           @output_buffer = @view_flow.get(:breadcrumbs)
           assert_select("div.#{@brand}-breadcrumbs") do

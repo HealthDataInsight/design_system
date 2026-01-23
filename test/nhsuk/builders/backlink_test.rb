@@ -21,7 +21,7 @@ module DesignSystem
           end
 
           @output_buffer = @view_flow.get(:backlink)
-          assert_select("nav") do
+          assert_select('nav') do
             assert_select("div.#{@brand}-width-container") do
               assert_select("div.#{@brand}-back-link") do
                 assert_select("a.#{@brand}-back-link__link", href: assistant_path(@assistant), text: 'Back')
