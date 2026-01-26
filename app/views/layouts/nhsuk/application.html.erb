@@ -12,8 +12,6 @@
 
     <%= stylesheet_link_tag 'nhsuk', 'data-turbo-track': 'reload' %>
 
-    <script src="/design_system/static/nhsuk-frontend-10.3.1/nhsuk.min.js" defer></script>
-
     <link rel="shortcut icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/apple-touch-icon-180x180.png">
     <link rel="mask-icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/favicon.svg" color="#005eb8">
@@ -114,6 +112,11 @@
   </div>
 </footer>
 
+  <script type="module" src="/design_system/static/nhsuk-frontend-10.3.1/nhsuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '/design_system/static/nhsuk-frontend-10.3.1/nhsuk-frontend.min.js'
+    initAll()
+  </script>
 </body>
 
 </html>
