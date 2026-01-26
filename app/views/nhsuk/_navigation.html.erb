@@ -1,18 +1,19 @@
 <% if controller.navigation_items.present? %>
-  <div class="nhsuk-navigation-container">
-    <nav class="nhsuk-navigation" id="header-navigation" role="navigation" aria-label="Primary navigation">
+  <nav class="nhsuk-header__navigation" aria-label="Menu">
+    <div class="nhsuk-header__navigation-container nhsuk-width-container">
       <ul class="nhsuk-header__navigation-list">
         <% controller.navigation_items.each do |item| %>
           <li class="nhsuk-header__navigation-item">
             <%= link_to(item[:label], item[:path], item[:options].merge(class: 'nhsuk-header__navigation-link')) %>
           </li>
         <% end %>
-          <li class="nhsuk-header__menu">
-            <button class="nhsuk-header__menu-toggle nhsuk-header__navigation-link" id="toggle-menu" aria-expanded="false">
-              <span class="nhsuk-u-visually-hidden">Browse</span>More
-            </button>
-          </li>
+        <li class="nhsuk-header__menu" hidden>
+          <button class="nhsuk-header__menu-toggle nhsuk-header__navigation-link" id="toggle-menu" aria-expanded="false">
+            <span class="nhsuk-u-visually-hidden">Browse</span>More
+          </button>
+        </li>
       </ul>
-    </nav>
-  </div>
+    </div>
+  </nav>
+
 <% end %>
