@@ -118,6 +118,7 @@
   </header>
   <div class="govuk-width-container">
     <%= yield :breadcrumbs %>
+    <%= yield :backlink %>
     <main class="govuk-main-wrapper" id="main-content">
       <%= render :partial => 'layouts/alert_and_notice' %>
       <%= yield %>
