@@ -114,4 +114,8 @@ module DesignSystemHelper
 
     DesignSystem::Registry.builder(brand, 'details', self).render_details(summary_text, &)
   end
+
+  def ds_action_link(name = nil, options = nil, html_options = nil, &)
+    DesignSystem::Registry.builder(brand, 'action_link', self).render_action_link(name, options, html_options, &)
+  end
 end
