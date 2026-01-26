@@ -48,24 +48,24 @@
           </span>
         </a>
       </div>
-
-      <div class="nhsuk-header__content" id="content-header">
-        <div class="nhsuk-header__search">
-          <div class="nhsuk-header__search-wrap" id="wrap-search">
-            <form class="nhsuk-header__search-form" id="search" action="https://www.nhs.uk/search/" method="get" role="search">
-              <label class="nhsuk-u-visually-hidden" for="search-field">Search the NHS website</label>
-              <input class="nhsuk-search__input" id="search-field" name="search-field" type="search" placeholder="Search" autocomplete="off">
-              <button class="nhsuk-search__submit" type="submit">
-                <svg class="nhsuk-icon nhsuk-icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M19.71 18.29l-4.11-4.1a7 7 0 1 0-1.41 1.41l4.1 4.11a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 10a5 5 0 1 1 5 5 5 5 0 0 1-5-5z"></path>
-                </svg>
-                <span class="nhsuk-u-visually-hidden">Search</span>
-              </button>
-            </form>
+      <% if @searchbar_url %>
+        <div class="nhsuk-header__content" id="content-header">
+          <div class="nhsuk-header__search">
+            <div class="nhsuk-header__search-wrap" id="wrap-search">
+              <form class="nhsuk-header__search-form" id="search" action="<%= @searchbar_url %>" method="get" role="search">
+                <label class="nhsuk-u-visually-hidden" for="search-field">Search the NHS website</label>
+                <input class="nhsuk-search__input" id="search-field" name="search-field" type="search" placeholder="Search" autocomplete="off">
+                <button class="nhsuk-search__submit" type="submit">
+                  <svg class="nhsuk-icon nhsuk-icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M19.71 18.29l-4.11-4.1a7 7 0 1 0-1.41 1.41l4.1 4.11a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 10a5 5 0 1 1 5 5 5 5 0 0 1-5-5z"></path>
+                  </svg>
+                  <span class="nhsuk-u-visually-hidden">Search</span>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-
+      <% end %>
     </div>
 
     <%= render partial: 'nhsuk/navigation' %>
@@ -86,46 +86,33 @@
     </main>
   </div>
 
-  <footer role="contentinfo">
-    <div class="nhsuk-footer-container">
-      <div class="nhsuk-width-container">
-        <h2 class="nhsuk-u-visually-hidden">Support links</h2>
-        <div class="nhsuk-footer">
-
-          <ul class="nhsuk-footer__list">
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">NHS sites</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">About us</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Contact us</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Profile editor login</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Site map</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Accessibility statement</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Our policies</a>
-            </li>
-            <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
-              <a class="nhsuk-footer__list-item-link" href="#">Cookies</a>
-            </li>
-          </ul>
-          <div>
-            <p class="nhsuk-footer__copyright">&copy; NHS England</p>
-          </div>
+<footer role="contentinfo">
+  <div class="nhsuk-footer-container">
+    <div class="nhsuk-width-container">
+      <h2 class="nhsuk-u-visually-hidden">Support links</h2>
+      <div class="nhsuk-footer">
+        <ul class="nhsuk-footer__list">
+          <% if controller.footer_links.present? %>
+            <% controller.footer_links.each do |link| %>
+              <li class="nhsuk-footer__list-item">
+                <%= link_to link[:name],
+                    link[:href],
+                    { class: "nhsuk-footer__list-item-link" }.merge(link[:options] || {}) %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <div>
+          <p class="nhsuk-footer__copyright">
+            <% if controller.copyright_notice.present? %>
+              <%= controller.copyright_notice %>
+            <% end %>
+          </p>
         </div>
-
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
 </body>
 

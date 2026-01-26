@@ -74,12 +74,12 @@ module DesignSystemHelper
     will_paginate(collection, defaults.merge!(options))
   end
 
-  def ds_alert(message)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message)
+  def ds_alert(message = nil, &)
+    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message, &)
   end
 
-  def ds_notice(message)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message)
+  def ds_notice(message = nil, &)
+    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message, &)
   end
 
   def ds_heading(text, level: 2, **options)
@@ -107,5 +107,11 @@ module DesignSystemHelper
 
   def ds_callout(label, body)
     DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
+  end
+
+  def ds_details(summary_text, &)
+    raise ArgumentError unless block_given?
+
+    DesignSystem::Registry.builder(brand, 'details', self).render_details(summary_text, &)
   end
 end

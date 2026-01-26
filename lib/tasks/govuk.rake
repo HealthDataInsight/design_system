@@ -99,7 +99,7 @@ task :make_govuk, [:version] do |_t, args|
   temp_dir = Dir.mktmpdir("#{brand}-frontend")
   begin
     Dir.chdir(temp_dir) do
-      system("npm install #{brand}-frontend#{version ? "@#{version}" : ''}")
+      system("npm install #{brand}-frontend#{"@#{version}" if version}")
     end
 
     GovukHelpers.setup_directories(version, brand)

@@ -1,5 +1,16 @@
 <%= ds_alert("I am an alert")%>
 <%= ds_notice("I am a notice")%>
+
+<%# Example with block content %>
+<%= ds_alert do %>
+  <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
+<% end %>
+
+<%= ds_notice do %>
+  <strong>Notice with block:</strong>
+  <br>
+  You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
+<% end %>
 <%=
 ds_fixed_elements do |ds|
   ds.breadcrumb 'One', root_path
@@ -130,5 +141,18 @@ end
 <br/>
 <%= ds_heading 'Warning Callout' %>
 <%= ds_callout('School Message:', 'Half term break is over !!') %>
+
+
+<%= ds_heading 'Details' %>
+<%= ds_details('How to find your NHS number') do %>
+  <p>
+    You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:
+  </p>
+  <ul>
+    <li>hospital referral letters</li>
+    <li>appointment letters</li>
+  </ul>
+  <p>Ask your GP surgery for help if you cannot find your NHS number.</p>
+<% end %>
 
 
