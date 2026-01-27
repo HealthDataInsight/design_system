@@ -71,9 +71,9 @@
     <%= render partial: 'nhsuk/navigation' %>
   </header>
 
-  <%= yield :breadcrumbs %>
-
   <div class="nhsuk-width-container ">
+
+    <%= yield :breadcrumbs %>
 
     <main class="nhsuk-main-wrapper " id="maincontent" role="main">
       <%= render :partial => 'layouts/alert_and_notice' %>
