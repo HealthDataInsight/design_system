@@ -15,7 +15,7 @@ module DesignSystem
                       safe_buffer.concat(render_breadcrumb(breadcrumb))
                     end
                   end +
-                  content_for_back_link
+                    content_for_back_link
                 end
               end
             end
