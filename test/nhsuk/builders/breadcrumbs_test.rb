@@ -24,7 +24,7 @@ module DesignSystem
           # so to test the generated HTML, we need to copy it to the
           # output buffer.
           @output_buffer = @view_flow.get(:breadcrumbs)
-          assert_select("div.#{@brand}-width-container") do
+          assert_select("nav.#{@brand}-breadcrumb") do
             assert_select("ol.#{@brand}-breadcrumb__list", role: 'listz') do
               # Tests root_path
               assert_select("li.#{@brand}-breadcrumb__list-item") do
