@@ -16,9 +16,15 @@ module DesignSystem
 
         test 'rendering nhsuk notice' do
           @output_buffer = ds_notice('Important Notice')
-          assert_select 'div.nhsuk-inset-text' do
-            assert_select 'span', 'Information:'
-            assert_select 'p', 'Important Notice'
+
+          assert_select 'div.nhsuk-notification-banner' do
+            assert_select 'div.nhsuk-notification-banner__header' do
+              assert_select 'h2.nhsuk-notification-banner__title', 'Important'
+            end
+
+            assert_select 'div.nhsuk-notification-banner__content' do
+              assert_select 'p.nhsuk-notification-banner__heading', 'Important Notice'
+            end
           end
         end
 
@@ -26,11 +32,13 @@ module DesignSystem
           @output_buffer = ds_notice do
             '<b>Important Notice:<br> check link <a href="/"> here </a></b>'.html_safe
           end
-          assert_select 'div.nhsuk-inset-text' do
-            assert_select 'span', 'Information:'
-            assert_select 'p' do
-              assert_select 'b', text: 'Important Notice: check link  here' do
-                assert_select 'a', text: 'here'
+
+          assert_select 'div.nhsuk-notification-banner' do
+            assert_select 'div.nhsuk-notification-banner__content' do
+              assert_select 'p.nhsuk-notification-banner__heading' do
+                assert_select 'b', text: 'Important Notice: check link  here' do
+                  assert_select 'a', text: 'here'
+                end
               end
             end
           end
@@ -41,11 +49,12 @@ module DesignSystem
             '<strong>Notice:</strong> Block content with <a href="#">link</a>'.html_safe
           end
 
-          assert_select 'div.nhsuk-inset-text' do
-            assert_select 'span', 'Information:'
-            assert_select 'p' do
-              assert_select 'strong', 'Notice:'
-              assert_select 'a[href="#"]', 'link'
+          assert_select 'div.nhsuk-notification-banner' do
+            assert_select 'div.nhsuk-notification-banner__content' do
+              assert_select 'p.nhsuk-notification-banner__heading' do
+                assert_select 'strong', 'Notice:'
+                assert_select 'a[href="#"]', 'link'
+              end
             end
           end
         end
