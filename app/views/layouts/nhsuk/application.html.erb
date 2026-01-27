@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <link rel="preload" as="font" href="https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.woff2" type="font/woff2" crossorigin>
@@ -12,24 +11,17 @@
 
     <%= stylesheet_link_tag 'nhsuk', 'data-turbo-track': 'reload' %>
 
-    <script src="/design_system/static/nhsuk-frontend-10.3.1/nhsuk.min.js" defer></script>
-
-    <link rel="shortcut icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/apple-touch-icon-180x180.png">
-    <link rel="mask-icon" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/favicon.svg" color="#005eb8">
-    <link rel="icon" sizes="192x192" href="/design_system/static/nhsuk-frontend-10.3.1/favicons/favicon-192x192.png">
-    <meta name="msapplication-TileImage" content="/design_system/static/nhsuk-frontend-10.3.1/favicons/mediumtile-144x144.png">
-    <meta name="msapplication-TileColor" content="#005eb8">
-    <meta name="msapplication-square70x70logo" content="/design_system/static/nhsuk-frontend-10.3.1/favicons/smalltile-70x70.png">
-    <meta name="msapplication-square150x150logo" content="/design_system/static/nhsuk-frontend-10.3.1/favicons/mediumtile-150x150.png">
-    <meta name="msapplication-wide310x150logo" content="/design_system/static/nhsuk-frontend-10.3.1/favicons/widetile-310x150.png">
-    <meta name="msapplication-square310x310logo" content="/design_system/static/nhsuk-frontend-10.3.1/favicons/largetile-310x310.png">
+    <link rel="icon" href="/design_system/static/nhsuk-frontend-10.3.1/images/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/design_system/static/nhsuk-frontend-10.3.1/images/favicon.svg" sizes="any" type="image/svg+xml">
+    <link rel="mask-icon" href="/design_system/static/nhsuk-frontend-10.3.1/images/nhsuk-icon-mask.svg" color="#005eb8">
+    <link rel="apple-touch-icon" href="/design_system/static/nhsuk-frontend-10.3.1/images/nhsuk-icon-180.png">
+    <link rel="manifest" href="/design_system/static/nhsuk-frontend-10.3.1/manifest.json">
 
     <%= yield :head %>
   </head>
 <body class="" data-ds-brand="<%= brand %>" data-ds-layout="<%= @design_system_layout %>">
   <%= javascript_tag nonce: true do %>
-    document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+    document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' nhsuk-frontend-supported' : '');
   <% end %>
 
   <a class="nhsuk-skip-link" href="#maincontent">Skip to main content</a>
@@ -114,6 +106,11 @@
   </div>
 </footer>
 
+  <script type="module" src="/design_system/static/nhsuk-frontend-10.3.1/nhsuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '/design_system/static/nhsuk-frontend-10.3.1/nhsuk-frontend.min.js'
+    initAll()
+  </script>
 </body>
 
 </html>
