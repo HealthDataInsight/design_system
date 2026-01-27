@@ -22,18 +22,16 @@ module DesignSystem
           end
 
           def content_for_back_link
-            content_tag(:p, class: "#{brand}-breadcrumb__back") do
-              link_to(@breadcrumbs.last[:path],
-                      class: "#{brand}-breadcrumb__backlink",
-                      'aria-current': @context.current_page?(@breadcrumbs.last[:path]) ? 'page' : nil) do
-                content_tag(:span, 'Back to &nbsp;'.html_safe, class: "#{brand}-u-visually-hidden") +
-                  @breadcrumbs.last[:label]
-              end
+            link_to(@breadcrumbs.last[:path],
+                    class: "#{brand}-back-link",
+                    'aria-current': @context.current_page?(@breadcrumbs.last[:path]) ? 'page' : nil) do
+              content_tag(:span, 'Back to &nbsp;'.html_safe, class: "#{brand}-u-visually-hidden") +
+                @breadcrumbs.last[:label]
             end
           end
 
           def render_breadcrumb(breadcrumb)
-            content_tag(:li, class: "#{brand}-breadcrumb__item") do
+            content_tag(:li, class: "#{brand}-breadcrumb__list-item") do
               link_to(breadcrumb[:label],
                       breadcrumb[:path],
                       class: "#{brand}-breadcrumb__link",
