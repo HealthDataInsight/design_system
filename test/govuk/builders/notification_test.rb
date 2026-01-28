@@ -51,6 +51,20 @@ module DesignSystem
           end
         end
 
+        test 'rendering govuk notice with link inside the block' do
+          @output_buffer = ds_notice do
+            ds_link_to("link", "#")
+          end
+
+          assert_select 'div.govuk-notification-banner' do
+            assert_select 'div.govuk-notification-banner__content' do
+              assert_select 'p.govuk-notification-banner__heading' do
+                assert_select "a.govuk-notification-banner__link[href=\"#\"]", 'link'
+              end
+            end
+          end
+        end
+
         test 'rendering govuk alert with block' do
           @output_buffer = ds_alert do
             '<strong>Error:</strong> Check <a href="/help">help page</a>'.html_safe
