@@ -26,6 +26,15 @@ module DesignSystem
           if type && button_type_class_hash[type].present?
             button_type_class_hash[type]
           else
+            link_class
+          end
+        end
+
+        def link_class
+          case @context.instance_variable_get(:@link_context)
+          when :notification_banner
+            "#{brand}-notification-banner__link"
+          else
             "#{brand}-link"
           end
         end

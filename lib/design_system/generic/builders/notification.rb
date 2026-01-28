@@ -17,6 +17,8 @@ module DesignSystem
         end
 
         def render_notice(msg = nil, &)
+          @context.instance_variable_set(:@link_context, :notification_banner)
+
           content_to_display = block_given? ? capture(&) : msg
           content_tag(:div, class: "#{brand}-notification-banner", role: 'region',
                             'aria-labelledby': "#{brand}-notification-banner-title",
