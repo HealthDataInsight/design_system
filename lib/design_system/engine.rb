@@ -16,7 +16,7 @@ module DesignSystem
         urls: [
           "/design_system/static/design_system-#{DesignSystem::VERSION}",
           '/design_system/static/govuk-frontend-5.11.1',
-          '/design_system/static/nhsuk-frontend-9.6.4',
+          '/design_system/static/nhsuk-frontend-10.3.1',
           '/design_system/static/stimulus-3.2.2',
           '/design_system/static/tailwind-4.1.6'
         ],
