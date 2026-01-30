@@ -9,10 +9,10 @@ module DesignSystem
 
         def prep_style(name, options, html_options)
           html_options[:class] = "#{brand}-action-link"
-          
+
           link_to(options, html_options) do
             arrow_right_circle_icon +
-            content_tag(:span, name, class: "#{brand}-action-link__text")
+              content_tag(:span, name, class: "#{brand}-action-link__text")
           end
         end
 
