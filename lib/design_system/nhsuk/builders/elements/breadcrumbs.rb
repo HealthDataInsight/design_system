@@ -9,12 +9,12 @@ module DesignSystem
           def content_for_breadcrumbs
             content_for(:breadcrumbs) do
               content_tag(:nav, 'aria-label': 'Breadcrumb', class: "#{brand}-breadcrumb") do
-                  content_tag(:ol, class: "#{brand}-breadcrumb__list") do
-                    @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
-                      safe_buffer.concat(render_breadcrumb(breadcrumb))
-                    end
-                  end +
-                    content_for_back_link
+                content_tag(:ol, class: "#{brand}-breadcrumb__list") do
+                  @breadcrumbs.each_with_object(ActiveSupport::SafeBuffer.new) do |breadcrumb, safe_buffer|
+                    safe_buffer.concat(render_breadcrumb(breadcrumb))
+                  end
+                end +
+                  content_for_back_link
               end
             end
           end

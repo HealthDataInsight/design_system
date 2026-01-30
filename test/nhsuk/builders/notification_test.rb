@@ -46,13 +46,13 @@ module DesignSystem
 
         test 'rendering nhsuk notice with link inside the block' do
           @output_buffer = ds_notice do
-            ds_link_to("link", "#")
+            ds_link_to('link', '#')
           end
 
           assert_select 'div.nhsuk-notification-banner' do
             assert_select 'div.nhsuk-notification-banner__content' do
               assert_select 'p.nhsuk-notification-banner__heading' do
-                assert_select "a.nhsuk-notification-banner__link[href=\"#\"]", 'link'
+                assert_select 'a.nhsuk-notification-banner__link[href="#"]', 'link'
               end
             end
           end
