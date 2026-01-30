@@ -7,9 +7,9 @@ module DesignSystem
       class ActionLink < ::DesignSystem::Generic::Builders::ActionLink
         private
 
-        def prep_style(name, options, html_options, &)
+        def prep_style(name, options, html_options)
           html_options[:class] = "#{brand}-button"
-          link_to(name, options, html_options, &)
+          link_to(name, options, html_options)
         end
       end
     end
