@@ -137,6 +137,20 @@ module DesignSystem
             end
           end
 
+          test 'ds_check_box item ending with dot in value is not incorrectly translated' do
+            value_ending_with_dot = 'Made up dummy values with a full stop.'
+            @output_buffer = ds_form_with(model: DummyModel.new, builder: @builder, url: '/') do |f|
+              f.ds_check_box(:role, {}, value_ending_with_dot)
+            end
+
+            assert_select('form') do
+              assert_select("div.#{@brand}-checkboxes__item") do
+                label = assert_select("label.#{@brand}-label.#{@brand}-checkboxes__label").first
+                assert_equal value_ending_with_dot, label.text.strip
+              end
+            end
+          end
+
           test 'ds_collection_select' do
             @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
               f.ds_collection_select(:department_id, Department.all, :id, :title)
