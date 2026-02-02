@@ -5,12 +5,16 @@ module DesignSystem
     module Builders
       # This class is used to provide the generic fixed elements builder.
       class FixedElements < Base
+        include Elements::Backlink
         include Elements::Breadcrumbs
         include Elements::Form
         include Elements::Headings
 
         def render
+          raise ArgumentError, 'Cannot use both backlink and breadcrumbs' if @backlink && @breadcrumbs.present?
+
           content_for_breadcrumbs if @breadcrumbs.present?
+          content_for_backlink if @backlink.present?
 
           render_main_container do
             safe_buffer = ActiveSupport::SafeBuffer.new
