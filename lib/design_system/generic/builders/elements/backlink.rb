@@ -21,7 +21,7 @@ module DesignSystem
           end
 
           def render_backlink
-            link_to_unless_current(@label, @path, class: "#{brand}-back-link")
+            link_to(@label, @path, class: "#{brand}-back-link")
           end
         end
       end
