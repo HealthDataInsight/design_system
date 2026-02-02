@@ -405,12 +405,16 @@ module DesignSystem
         # If translation returns the humanized version of the value,
         # it means no translation was found, so return the original value
         # Extra condition: if value contains dots and translation is only the last part
-        if translation == value.to_s.humanize ||
-           (value.to_s.include?('.') && translation == value.to_s.split('.').last.humanize)
+        if translation == value.to_s.humanize || value_contains_dots?(value, translation)
           value.to_s
         else
           translation
         end
+      end
+
+      def value_contains_dots?(value, translation)
+        (value.to_s.include?('.') && translation == value.to_s.split('.').last.humanize) ||
+          (value.to_s.ends_with?('.') && translation.blank?)
       end
 
       # GOVUKDesignSystemFormBuilder::Base field_id method
