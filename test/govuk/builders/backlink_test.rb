@@ -42,7 +42,7 @@ module DesignSystem
           # backlink should not coexist with breadcrumbs
           @output_buffer = @view_flow.get(:breadcrumbs)
           assert_select("div.#{@brand}-breadcrumbs") do
-            assert_select("ol.#{@brand}-breadcrumbs__list", role: 'listz') do
+            assert_select("ol.#{@brand}-breadcrumbs__list") do
               assert_select("li.#{@brand}-breadcrumbs__list-item") do
                 assert_select("a.#{@brand}-breadcrumbs__link", href: root_url, text: 'One')
               end
