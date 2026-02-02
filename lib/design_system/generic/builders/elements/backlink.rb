@@ -20,8 +20,8 @@ module DesignSystem
             end
           end
 
-          def render_backlink(label = @label, path = @path)
-            content_tag(:a, label, href: path, class: "#{brand}-back-link")
+          def render_backlink
+            link_to_unless_current(@label, @path, class: "#{brand}-back-link")
           end
         end
       end
