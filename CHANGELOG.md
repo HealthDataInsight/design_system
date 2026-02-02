@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-02-02
+
 ### Changed
 
 - Updated NHSUK to 10.3.1
@@ -105,7 +107,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.11.0...HEAD
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.12.0...HEAD
+[0.12.0]: https://github.com/HealthDataInsight/design_system/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/HealthDataInsight/design_system/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/HealthDataInsight/design_system/compare/v0.9.5...v0.10.0
 [0.9.5]: https://github.com/HealthDataInsight/design_system/compare/v0.9.4...v0.9.5
