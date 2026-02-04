@@ -28,6 +28,44 @@ module DesignSystem
           end
         end
 
+        test 'rendering govuk notice with custom header' do
+          @output_buffer = ds_notice('Test content', header: 'Custom header')
+
+          assert_select 'div.govuk-notification-banner[role="region"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
+            assert_select 'div.govuk-notification-banner__header' do
+              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Custom header'
+            end
+          end
+        end
+
+        test 'rendering govuk notice with success type' do
+          @output_buffer = ds_notice('Test content', type: :success)
+
+          assert_select 'div.govuk-notification-banner.govuk-notification-banner--success[role="alert"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
+            assert_select 'div.govuk-notification-banner__header' do
+              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Success'
+            end
+
+            assert_select 'div.govuk-notification-banner__content' do
+              assert_select 'p.govuk-notification-banner__heading', 'Test content'
+            end
+          end
+        end
+
+        test 'rendering govuk notice with success type and custom header' do
+          @output_buffer = ds_notice('Test content', type: :success, header: 'Custom header')
+
+          assert_select 'div.govuk-notification-banner.govuk-notification-banner--success[role="alert"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
+            assert_select 'div.govuk-notification-banner__header' do
+              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Custom header'
+            end
+
+            assert_select 'div.govuk-notification-banner__content' do
+              assert_select 'p.govuk-notification-banner__heading', 'Test content'
+            end
+          end
+        end
+
         test 'rendering govuk alert' do
           @output_buffer = ds_alert('Test alert!')
 
