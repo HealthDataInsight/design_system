@@ -19,7 +19,11 @@ module DesignSystem
         def render_notice(msg = nil, header: nil, type: :information, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
-          type_config = notification_type_config(type)
+          if type && notification_type_hash.key?(type)
+            type_config = notification_type_hash[type]
+          else
+            raise ArgumentError, "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}"
+          end
           header ||= type_config[:header]
 
           content_to_display = block_given? ? capture(&) : msg
@@ -44,10 +48,6 @@ module DesignSystem
             content_tag(:p, content,
                         class: "#{brand}-notification-banner__heading")
           end
-        end
-
-        def notification_type_config(type)
-          notification_type_hash[type] || notification_type_hash[:information]
         end
 
         def notification_type_hash
