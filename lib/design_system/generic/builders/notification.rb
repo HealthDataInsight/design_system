@@ -19,16 +19,11 @@ module DesignSystem
         def render_notice(msg = nil, header: nil, type: :information, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
-          if type && notification_type_hash[type].present?
-            header_text, banner_class = notification_type_hash[type]
-          else
-            header_text, banner_class = notification_type_hash[:information]
-          end
-
-          header ||= header_text
+          type_config = notification_type_config(type)
+          header ||= type_config[:header]
 
           content_to_display = block_given? ? capture(&) : msg
-          content_tag(:div, class: banner_class, role: 'region',
+          content_tag(:div, class: type_config[:class], role: type_config[:role],
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
             banner_tile(header) + banner_content(content_to_display)
@@ -40,7 +35,7 @@ module DesignSystem
         def banner_tile(header)
           content_tag(:div, class: "#{brand}-notification-banner__header") do
             content_tag(:h2, header, class: "#{brand}-notification-banner__title",
-                                          id: "#{brand}-notification-banner-title")
+                                     id: "#{brand}-notification-banner-title")
           end
         end
 
@@ -51,10 +46,22 @@ module DesignSystem
           end
         end
 
+        def notification_type_config(type)
+          notification_type_hash[type] || notification_type_hash[:information]
+        end
+
         def notification_type_hash
           {
-            information: ['Important', "#{brand}-notification-banner"],
-            success: ['Success', "#{brand}-notification-banner #{brand}-notification-banner--success"]
+            information: {
+              header: 'Important',
+              class: "#{brand}-notification-banner",
+              role: 'region'
+            },
+            success: {
+              header: 'Success',
+              class: "#{brand}-notification-banner #{brand}-notification-banner--success",
+              role: 'alert'
+            }
           }
         end
       end
