@@ -19,15 +19,13 @@ module DesignSystem
         def render_notice(msg = nil, header: nil, type: :information, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
-          if type && notification_type_hash.key?(type)
-            type_config = notification_type_hash[type]
-          else
-            raise ArgumentError, "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}"
-          end
-          header ||= type_config[:header]
+          raise ArgumentError,
+                "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}" unless notification_type_hash.key?(type)
+
+          header ||= notification_type_hash.dig(type, :header)
 
           content_to_display = block_given? ? capture(&) : msg
-          content_tag(:div, class: type_config[:class], role: type_config[:role],
+          content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
             banner_tile(header) + banner_content(content_to_display)
