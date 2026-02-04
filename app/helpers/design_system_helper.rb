@@ -78,8 +78,8 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message, &)
   end
 
-  def ds_notice(message = nil, &)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message, &)
+  def ds_notice(message = nil, header: nil, type: :information, &)
+    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message, header:, type:, &)
   end
 
   def ds_heading(text, level: 2, **options)
