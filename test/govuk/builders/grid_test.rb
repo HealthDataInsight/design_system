@@ -84,11 +84,11 @@ module DesignSystem
           @output_buffer = ds_grid do |row|
             row.add_column(:two_thirds) do
               content_tag(:p, 'Outer two thirds content') +
-              ds_grid do |inner_row|
-                inner_row.add_column(:two_thirds) do
-                  content_tag(:p, 'Inner two thirds content')
+                ds_grid do |inner_row|
+                  inner_row.add_column(:two_thirds) do
+                    content_tag(:p, 'Inner two thirds content')
+                  end
                 end
-              end
             end
           end
 

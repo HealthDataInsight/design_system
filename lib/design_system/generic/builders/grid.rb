@@ -3,6 +3,7 @@
 module DesignSystem
   module Generic
     module Builders
+      # This class provides a generic grid builder.
       class Grid < Base
         include ActionView::Helpers::OutputSafetyHelper
 

@@ -2,6 +2,7 @@
 
 module DesignSystem
   module Components
+    # This class provides a grid component.
     class Grid
       attr_accessor :columns
 
@@ -26,7 +27,7 @@ module DesignSystem
 
       def validate_total_width!
         total = columns.sum { |col| width_to_fraction(col[:width]) }
-        raise ArgumentError, "Total grid width exceeds 100%" if total > 1
+        raise ArgumentError, 'Total grid width exceeds 100%' if total > 1
       end
 
       private
