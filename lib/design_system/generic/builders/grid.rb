@@ -29,7 +29,8 @@ module DesignSystem
             column_class = grid_class(column[:width])
             column_options = css_class_options_merge(column_options, [column_class])
 
-            content = capture(&column[:block]) if column[:block]
+            block = column[:block]
+            content = capture(&block) if block
             buffer.concat(content_tag(:div, content, **column_options))
           end
         end
