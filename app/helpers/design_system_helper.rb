@@ -119,9 +119,9 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'action_link', self).render_action_link(name, options, html_options)
   end
 
-  def ds_grid_row(options = {}, &)
+  def ds_grid(options = {}, &)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'grid', self).render_grid_row(options, &)
+    DesignSystem::Registry.builder(brand, 'grid', self).render_grid(options, &)
   end
 end
