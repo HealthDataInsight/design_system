@@ -6,9 +6,10 @@ module DesignSystem
       class Grid < Base
         include ActionView::Helpers::OutputSafetyHelper
 
-        def render_grid_row(options = {})
+        def render_grid(options = {})
           @grid = ::DesignSystem::Components::Grid.new
           yield @grid
+          @grid.validate_total_width!
 
           row_options = css_class_options_merge(options, ["#{brand}-grid-row"])
           content_tag(:div, **row_options) do
@@ -33,18 +34,7 @@ module DesignSystem
         end
 
         def grid_class(width)
-          width_name = case width
-                       when :full then 'full'
-                       when :one_half then 'one-half'
-                       when :two_thirds then 'two-thirds'
-                       when :one_third then 'one-third'
-                       when :three_quarters then 'three-quarters'
-                       when :one_quarter then 'one-quarter'
-                       else
-                         width.to_s.tr('_', '-')
-                       end
-
-          "#{brand}-grid-column-#{width_name}"
+          "#{brand}-grid-column-#{::DesignSystem::Components::Grid::WIDTHS[width][:class]}"
         end
       end
     end
