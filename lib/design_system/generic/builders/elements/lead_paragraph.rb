@@ -6,10 +6,10 @@ module DesignSystem
       module Elements
         # This mixin module is used to provide lead paragraphs.
         module LeadParagraph
-          def lead_paragraph(text = nil, &block)
+          def lead_paragraph(text = nil, &)
             raise ArgumentError, 'Lead paragraph can only be used once per page' if @lead_paragraph
 
-            @lead_paragraph = block_given? ? capture(&block) : text
+            @lead_paragraph = block_given? ? capture(&) : text
           end
 
           private
