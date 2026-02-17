@@ -5,6 +5,8 @@ module DesignSystem
     module Builders
       # This class provides generic methods to display paragraphs with typography styles.
       class Paragraph < Base
+        FONT_SIZES = %i[s].freeze
+
         def render_paragraph(text = nil, size: nil, **options, &block)
           content = block_given? ? capture(&block) : text
           return if content.blank?
@@ -13,8 +15,6 @@ module DesignSystem
         end
 
         private
-
-        FONT_SIZES = %i[s].freeze
 
         def classes(size)
           return "#{brand}-body" if size.nil?
