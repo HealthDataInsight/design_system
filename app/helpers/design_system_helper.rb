@@ -124,4 +124,8 @@ module DesignSystemHelper
 
     DesignSystem::Registry.builder(brand, 'grid', self).render_grid(options, &)
   end
+
+  def ds_paragraph(text = nil, size: nil, **options, &block)
+    DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
+  end
 end
