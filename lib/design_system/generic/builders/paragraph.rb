@@ -14,9 +14,11 @@ module DesignSystem
 
         private
 
+        FONT_SIZES = %i[s].freeze
+
         def classes(size)
           return "#{brand}-body" if size.nil?
-          raise ArgumentError, "Invalid size: #{size}" unless size.in?(%w[s l])
+          raise ArgumentError, "Invalid size: #{size}" unless size.in?(FONT_SIZES)
 
           "#{brand}-body-#{size}"
         end

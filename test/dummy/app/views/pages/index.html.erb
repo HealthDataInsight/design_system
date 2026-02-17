@@ -20,6 +20,8 @@ ds_fixed_elements do |ds|
 
   ds.main_heading 'Page#index heading', caption: 'Test page'
 
+  ds.lead_paragraph 'This is a lead paragraph'
+
   # ds.form @assistant
 end
 %>
@@ -188,6 +190,5 @@ end
 
 <br/>
 <%= ds_heading 'Paragraph' %>
-<%= ds_paragraph('This is a paragraph') %>
-<%= ds_paragraph('This is a paragraph', size: :s) %>
-<%= ds_paragraph('This is a paragraph', size: :l) %>
+<%= ds_paragraph('This is a normal paragraph') %>
+<%= ds_paragraph('This is a small paragraph', size: :s) %>
