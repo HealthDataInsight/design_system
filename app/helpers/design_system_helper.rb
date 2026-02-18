@@ -128,4 +128,8 @@ module DesignSystemHelper
   def ds_paragraph(text = nil, size: nil, **options, &block)
     DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
   end
+
+  def ds_inset_text(text = nil, **options, &block)
+    DesignSystem::Registry.builder(brand, 'inset_text', self).render_inset_text(text, **options, &block)
+  end
 end
