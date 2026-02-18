@@ -5,8 +5,8 @@ module DesignSystem
     module Builders
       # This generates html for rendering inset text for Nhsuk
       class InsetText < ::DesignSystem::Generic::Builders::InsetText
-        def render_inset_text(text = nil, **options, &block)
-          content = block_given? ? capture(&block) : text
+        def render_inset_text(text = nil, **options, &)
+          content = block_given? ? capture(&) : text
           return if content.blank?
 
           wrapped_content = block_given? ? content : content_tag(:p, content)
