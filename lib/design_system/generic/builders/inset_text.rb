@@ -9,7 +9,8 @@ module DesignSystem
           content = block_given? ? capture(&block) : text
           return if content.blank?
 
-          content_tag(:div, content, class: "#{brand}-inset-text", **options)
+          div_options = css_class_options_merge(options, ["#{brand}-inset-text"])
+          content_tag(:div, content, **div_options)
         end
       end
     end
