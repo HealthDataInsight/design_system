@@ -1,6 +1,7 @@
 <% controller.sidebar_sections.each do |section| %>
-  <%= ds_sidebar(section[:heading], type: :heading) %>
   <ol class="<%= brand %>-list">
+    <br/> 
+    <%= ds_sidebar(section[:heading], type: :heading) %>
     <% section[:items].each do |item| %>
       <%= ds_sidebar(item) %>
     <% end %>
