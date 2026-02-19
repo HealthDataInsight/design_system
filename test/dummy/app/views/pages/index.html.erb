@@ -1,23 +1,5 @@
-<%= ds_alert("I am an alert")%>
-<%= ds_notice("I am a notice")%>
-<%= ds_notice("I am a success notice", type: :success)%>
-
-<%# Example with block content %>
-<%= ds_alert do %>
-  <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
-<% end %>
-
-<%= ds_notice do %>
-  <strong>Notice with block:</strong>
-  <br>
-  You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
-<% end %>
 <%=
 ds_fixed_elements do |ds|
-  ds.breadcrumb 'One', root_path
-  ds.breadcrumb 'A Super Long Breadcrumb Name That Should Be Truncated', assistants_path
-  ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
-
   ds.main_heading 'Page#index heading', caption: 'Test page'
 
   ds.lead_paragraph 'This is a lead paragraph'
@@ -33,84 +15,7 @@ end
 <%= ds_heading 'h4', level: 4 %>
 <%= ds_heading 'h5', level: 5 %>
 
-<%= ds_heading 'Summary List' %>
-<%=
-ds_summary_list do |list|
-  list.add_row('Name', 'John Doe') do |row|
-    row.add_action('Root', path: root_path, hidden_text: 'name')
-    row.add_action('Change', hidden_text: 'name')
-  end
-  list.add_row('Age', 30) do |row|
-    row.add_action('View')
-  end
-  list.add_row('Email') do |row|
-    row.add_value('Enter email information', path: root_path)
-    row.add_action('View')
-  end
-  list.add_row('Contact') do |row|
-    row.add_value('0123456789')
-    row.add_value('john.doe@email.com')
-    row.add_action('View')
-  end
-end
-%>
-
-<%= ds_heading 'Table' %>
-<%=
-ds_table(data: { test: 'table' }) do |table|
-  table.caption = 'Table Caption'
-
-  table.add_column('Name', data: {'toggle': "table" , 'sort-name': "name" , 'sort-order': "desc", 'pagination':"false"} )
-  table.add_numeric_column('Age', data: { sortable: false })
-  table.add_column('Medication')
-  table.add_column('How much')
-
-  table.add_row do |row|
-    row.add_cell('John Doe', data: { id: 1 })
-    row.add_cell(30, data: { id: 2 })
-    row.add_cell('Ibuprofen')
-    row.add_cell('2 pills')
-  end
-  table.add_row 'John Doe', 25, 'Continuous combined hormone replacement therapy (HRT) tablets, capsules and patches', '2 pills'
-  table.add_row 'John Doe', 40, 'Ibuprofen', '2 pills'
-  table.add_row 'John Doe', 6, 'Ibuprofen', '1 pill'
-end
-%>
-
-<%= ds_heading 'Tab' %>
-<%=	
-ds_tab do |tab|
-  tab.title = 'Contents'
-  #(name, content, id, selected)
-  tab.add_tab_panel('Profile', nil, 'profile',selected: true) do
-	  ds_table do |table|
-		  table.caption = 'Profile'
-		  table.add_column('Name')
-		  table.add_column('Gender')
-		  table.add_numeric_column('Age')
-		  table.add_row 'Ryan', 'Male', 30
-	  end
-  end
-  tab.add_tab_panel('Dashboard','this is dashboard' ,'dashboard')
-  tab.add_tab_panel('Settings', 'this is settings','settings')
-  tab.add_tab_panel('Contacts', 'this is contacts', 'contacts')
-end
-  
-%>
-
-<%= ds_heading 'Buttons' %>
-<!--style=[secondary warning reverse] default is primary-->
-<%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
-
-<%= ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1 %>
-
-<%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
-
-<%= ds_heading 'Links' %>
-<%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
-<%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
-
-<%= ds_heading 'Assitants table', level: 3 %>
+<%= ds_heading 'Assitants table', level: 3, id: 'assistants-table' %>
 <%=
 ds_table do |table|
   table.caption = 'Assistants'
@@ -134,35 +39,7 @@ end
   <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
 </div>
 
-<%= ds_heading 'Pagination' %>
-<%= ds_pagination(@assistants) %>
-
-<br/>
-<%= ds_heading 'Panel' %>
-<%= ds_panel('Application confirmed', 'We have sent you a confirmation email') %>
-
-<br/>
-<%= ds_heading 'Warning Callout' %>
-<%= ds_callout('School Message:', 'Half term break is over !!') %>
-
-
-<%= ds_heading 'Details' %>
-<%= ds_details('How to find your NHS number') do %>
-  <p>
-    You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:
-  </p>
-  <ul>
-    <li>hospital referral letters</li>
-    <li>appointment letters</li>
-  </ul>
-  <p>Ask your GP surgery for help if you cannot find your NHS number.</p>
-<% end %>
-
-<%= ds_heading 'Action Link' %>
-<%= ds_action_link('Find your nearest A&E', '#') %>
-
-<br/>
-<%= ds_heading 'Grid System' %>
+<%= ds_heading 'Grid System', id: 'grid-system' %>
 <%=
 ds_grid do |row|
   row.add_column(:two_thirds) do %>

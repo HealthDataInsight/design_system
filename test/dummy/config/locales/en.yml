@@ -29,6 +29,10 @@
 #       enabled: "ON"
 
 en:
+  sidebar:
+    components:
+      "do-dont-lists": "Do and Don't lists"
+
   activerecord:
     attributes:
       assistant:

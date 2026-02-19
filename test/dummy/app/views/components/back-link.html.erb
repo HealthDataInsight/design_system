@@ -1,0 +1,11 @@
+<%= ds_heading 'Back Link', level: 1 %>
+
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Back Link'
+
+  ds.breadcrumb('Home', root_path)
+
+  ds.backlink 'Back to previous page', root_path
+end
+%>
