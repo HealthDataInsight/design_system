@@ -120,8 +120,12 @@
     <%= yield :breadcrumbs %>
     <%= yield :backlink %>
     <main class="govuk-main-wrapper" id="main-content">
-      <%= render :partial => 'layouts/alert_and_notice' %>
-      <%= yield %>
+      <% if content_for?(:main_content_wrapper) %>
+        <%= yield :main_content_wrapper %>
+      <% else %>
+        <%= render :partial => 'layouts/alert_and_notice' %>
+        <%= yield %>
+      <% end %>
     </main>
   </div>
   <footer class="govuk-footer">

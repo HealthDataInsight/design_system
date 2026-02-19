@@ -68,13 +68,16 @@
     <%= yield :backlink %>
 
     <main class="nhsuk-main-wrapper " id="maincontent" role="main">
-      <%= render :partial => 'layouts/alert_and_notice' %>
-      <div class="nhsuk-grid-row">
-        <div class="nhsuk-grid-column-full">
-          <%= yield %>
+      <% if content_for?(:main_content_wrapper) %>
+        <%= yield :main_content_wrapper %>
+      <% else %>
+        <%= render :partial => 'layouts/alert_and_notice' %>
+        <div class="nhsuk-grid-row">
+          <div class="nhsuk-grid-column-full">
+            <%= yield %>
+          </div>
         </div>
-      </div>
-
+      <% end %>
     </main>
   </div>
 
