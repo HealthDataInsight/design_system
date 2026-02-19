@@ -3,7 +3,7 @@
 require 'will_paginate/array'
 
 class ComponentsController < ApplicationController
-  layout 'with_sidebar'
+  layout 'two_column'
   before_action :set_sidebar_sections
 
   SIDEBAR_CONTENT = [
