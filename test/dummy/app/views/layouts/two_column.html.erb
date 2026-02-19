@@ -5,12 +5,12 @@
   <%= render partial: 'layouts/alert_and_notice' %>
   <%=
     ds_grid do |row|
-      row.add_column(:one_third) do %>
+      row.add_column(:one_quarter) do %>
         <nav class="<%= brand %>-list" aria-label="Section navigation">
           <%= render partial: 'shared/sidebar_navigation' %>
         </nav>
       <% end
-      row.add_column(:two_thirds) do %>
+      row.add_column(:three_quarters) do %>
         <%= main_content.html_safe %>
       <% end
     end
