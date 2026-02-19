@@ -18,3 +18,8 @@
 megalinter-reports/
 .rubocop-https---*
 .vscode/
+.claude/
+.cursor/
+.gemini/
+.github/
+openspec/
