@@ -2,7 +2,9 @@
 
 # Controller concern: build sidebar content in before_action (like navigation_items).
 # Layout renders controller.sidebar_sections via shared/_sidebar_navigation.html.erb
-# Reusable for any sidebar content; each controller sets its own sections in before_action.
+#
+# Usage: define SIDEBAR_CONTENT constant, implement sidebar_item_path(id), then:
+#   set_sidebar_sections => build_sidebar_from_sections(SIDEBAR_CONTENT)
 module SidebarSections
   extend ActiveSupport::Concern
 
@@ -24,12 +26,13 @@ module SidebarSections
     end
   end
 
-  # Label for sidebar item. Override sidebar_label_scope to use e.g. "sidebar.pages".
+  # Label for sidebar item. Uses I18n with default: id.humanize
   def sidebar_item_label(id)
-    I18n.t("sidebar.#{self.class.name.underscore}.#{id}", default: id.to_s.humanize)
+    I18n.t("sidebar.#{controller_name}.#{id}", default: id.to_s.humanize)
   end
 
+  # Path for sidebar item. Must be implemented by the including controller.
   def sidebar_item_path(id)
-    send("#{id}_path")
+    raise NotImplementedError, "#{self.class} must implement sidebar_item_path(id)"
   end
 end

@@ -55,10 +55,6 @@ class ComponentsController < ApplicationController
     build_sidebar_from_sections(SIDEBAR_CONTENT)
   end
 
-  # def sidebar_label_scope
-  #   "sidebar.components"
-  # end
-
   def sidebar_item_path(id)
     component_path(id)
   end

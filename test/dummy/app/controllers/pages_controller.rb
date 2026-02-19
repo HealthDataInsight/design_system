@@ -32,4 +32,18 @@ class PagesController < ApplicationController
   def form_handler
     redirect_to root_url
   end
+
+  private
+
+  def set_sidebar_sections
+    build_sidebar_from_sections(SIDEBAR_CONTENT)
+  end
+
+  def sidebar_item_path(id)
+    case id
+    when 'components' then components_path
+    when 'styles' then root_path
+    else root_path
+    end
+  end
 end
