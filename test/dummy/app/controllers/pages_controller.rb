@@ -3,6 +3,19 @@
 require 'will_paginate/array'
 # This is the pages controller
 class PagesController < ApplicationController
+  layout 'with_sidebar'
+  before_action :set_sidebar_sections
+
+  SIDEBAR_CONTENT = [
+    {
+      heading: 'Design',
+      items: %w[
+        styles
+        components
+      ]
+    }
+  ].freeze
+
   def index
     # Using an array to simulate records
     assistants = [

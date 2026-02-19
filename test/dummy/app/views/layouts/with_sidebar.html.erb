@@ -1,0 +1,20 @@
+<%# This layout extends application and adds a sidebar %>
+<% main_content = capture { yield } %>
+
+<% content_for :main_content_wrapper do %>
+  <%= render partial: 'layouts/alert_and_notice' %>
+  <%=
+    ds_grid do |row|
+      row.add_column(:one_third) do %>
+        <nav class="<%= brand %>-list" aria-label="Section navigation">
+          <%= render partial: 'shared/sidebar_navigation' %>
+        </nav>
+      <% end
+      row.add_column(:two_thirds) do %>
+        <%= main_content.html_safe %>
+      <% end
+    end
+  %>
+<% end %>
+
+<%= render template: 'layouts/application', locals: { ds_layout: 'application' } %>

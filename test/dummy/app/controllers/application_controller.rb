@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session if Rails.env.test?
 
   include DesignSystem::Branded
+  include SidebarSections
 
   before_action :add_navigation, :set_service_name, :set_footer_links, :searchbar_url
   helper_method :brand
