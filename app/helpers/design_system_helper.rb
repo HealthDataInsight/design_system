@@ -129,7 +129,7 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
   end
 
-  def ds_code(code, format: :html)
-    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, format: format)
+  def ds_code(code, language)
+    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, language)
   end
 end
