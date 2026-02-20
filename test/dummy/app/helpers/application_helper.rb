@@ -1,12 +1,6 @@
+require 'erb'
+
 module ApplicationHelper
-  # Renders a sidebar element - either a heading or a list item
-  # @param content [String, Array] Heading text or [label, path] array for item
-  # @param type [Symbol] :heading or :item (default: :item)
-  # @param level [Integer] Heading level when type is :heading (default: 5)
-  # @example
-  #   ds_sidebar('Design', type: :heading)
-  #   ds_sidebar(['Components', components_path])
-  #   ds_sidebar(['Buttons', component_path('buttons')])
   def ds_sidebar(content, type: :item, level: 4)
     case type
     when :heading
@@ -21,5 +15,31 @@ module ApplicationHelper
     else
       raise ArgumentError, "Unknown type: #{type}. Use :heading or :item"
     end
+  end   
+
+  def component_preview(&block)
+    erb_source = capture(&block)
+    html = render(inline: erb_source)
+
+    template = ERB.new(erb_source)
+    html_string = template.result(binding)
+
+    # html_string = html.instance_of?(ActiveSupport::SafeBuffer) ? html.to_str : html.to_s
+  
+    safe_buffer = ActiveSupport::SafeBuffer.new
+    safe_buffer << ds_heading('Input', level: 4)
+    safe_buffer << ds_code(erb_source)
+    safe_buffer << ds_heading('Output', level: 4)
+    safe_buffer << ds_tab do |tab|
+      tab.add_tab_panel('Rendered', nil, 'rendered', selected: true) do
+        html.html_safe
+      end
+
+      tab.add_tab_panel('HTML', nil, 'html') do
+        ds_code(html_string)
+      end
+    end
+    
+    safe_buffer
   end
 end

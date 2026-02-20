@@ -128,4 +128,8 @@ module DesignSystemHelper
   def ds_paragraph(text = nil, size: nil, **options, &block)
     DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
   end
+
+  def ds_code(code, format: :html)
+    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, format: format)
+  end
 end

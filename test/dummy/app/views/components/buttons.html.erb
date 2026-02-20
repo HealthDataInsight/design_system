@@ -1,7 +1,14 @@
-<%= ds_heading('Buttons', level: 1) %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Buttons', caption: 'Form elements'
+end
+%>
 
-<%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
+<%= ds_heading 'Primary buttons', level: 3 %>
 
-<%= ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1 %>
+<%= component_preview do %>
+  <%%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
+<% end %>
 
-<%= ds_button_tag 'Reset', type: 'reset', disabled: true %>
+<!-- ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1
+ds_button_tag 'Reset', type: 'reset', disabled: true  -->
