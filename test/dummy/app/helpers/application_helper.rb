@@ -18,11 +18,12 @@ module ApplicationHelper
     end
   end   
 
-  def component_preview(&block)
+  def component_preview(form_component: false, &block)
     erb_source = capture(&block)
     html = ERB.new(erb_source).result(binding)
+    html = extract_form_component(html) if form_component
     pretty_html = pretty_print_html(html)
-  
+
     safe_buffer = ActiveSupport::SafeBuffer.new
 
     safe_buffer << ds_heading('Input', level: 4)
@@ -41,7 +42,7 @@ module ApplicationHelper
         ds_code(pretty_html, 'xml')
       end
     end
-    
+
     safe_buffer
   end
 
@@ -50,5 +51,13 @@ module ApplicationHelper
   def pretty_print_html(html)
     fragment = Nokogiri::HTML.fragment(html)
     fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
+  end
+
+  def extract_form_component(html)
+    doc = Nokogiri::HTML.fragment(html)
+    form_group = doc.at_css('div.govuk-form-group')
+    return html unless form_group
+
+    form_group.to_html.html_safe
   end
 end
