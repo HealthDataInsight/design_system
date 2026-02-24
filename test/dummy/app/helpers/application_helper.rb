@@ -20,7 +20,8 @@ module ApplicationHelper
   end
 
   # Renders a component preview: Input tab (ERB snippet) and Output tab (Rendered + HTML).
-  # @param extract [Symbol, nil] when :form_group, only the first div.govuk-form-group is shown in output
+  # @param extract [Symbol, nil] when :form_group, only the content within the first div.#{brand}-form-group is shown in output
+  # When rendering erb code, send in your code without indentation to avoid extra whitespace.
   def component_preview(extract: nil, &block)
     erb_source = capture(&block)
     html = ERB.new(erb_source).result(binding)

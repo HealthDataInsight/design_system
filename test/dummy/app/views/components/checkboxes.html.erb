@@ -5,9 +5,9 @@ end
 %>
 
 <%= component_preview extract: :form_group do %>
-  <%%= ds_form_with(model: Assistant.new) do |f|
-    f.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: "Demo for ds_check_boxes_fieldset" do
-      f.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'Demo for checkbox item hint' }, true, false
-    end
-  end %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: "Demo for ds_check_boxes_fieldset" do
+    f.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'Demo for checkbox item hint' }, true, false
+  end
+end %>
 <% end %>
