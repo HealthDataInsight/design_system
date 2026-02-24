@@ -33,7 +33,12 @@ class ComponentsController < ApplicationController
 
   def show
     @component = params[:id]
-    
+
+    # Set @assistant for form components (checkboxes, etc.) so preview has a model
+    if %w[checkboxes].include?(@component)
+      @assistant = Assistant.new
+    end
+
     # Set @assistants for pagination component
     if @component == 'pagination'
       assistants = [
