@@ -48,7 +48,6 @@ class ComponentsController < ApplicationController
   end
 
   def set_component_preview_data
-    @assistant = Assistant.new if %w[checkboxes].include?(@component)
     return unless @component == 'pagination'
 
     @assistants = [
