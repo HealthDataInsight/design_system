@@ -125,11 +125,7 @@
   /* purposely ignored */
 }
 
-// Keep code inside its container: wrap long lines instead of overflowing
-pre code.hljs,
-.app-example-code code.hljs {
+pre code.hljs {
   display: block;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  white-space: pre;
 }

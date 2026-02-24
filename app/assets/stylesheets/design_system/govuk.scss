@@ -69,21 +69,26 @@
   cursor: pointer;
 }
 
-.app-example-code {
+.app-example__code {
   background-color: #f6f6f6;
-  padding: 10px;
-  width: 100%;
   box-sizing: border-box;
+  max-width: 100%;
   min-width: 0;
+  padding: 10px;
   position: relative;
-  padding-top: 2.25rem;
+  width: 100%;
 }
 
-.app-example-code pre {
+.app-example__scroll {
+  overflow-x: auto;
+}
+
+.app-example__code pre {
   margin: 0;
+  min-width: min-content;
 }
 
-.app-copy-button {
+.app-example__copy-button {
   @extend .govuk-button;
   @extend .govuk-button--inverse;
   font-size: 0.875rem;

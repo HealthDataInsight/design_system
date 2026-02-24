@@ -5,28 +5,30 @@
 // Use extreme caution when making any design system level style changes or additions here.
 @use 'hljs';
 
-.app-example-code {
+// Code example block: fixed gray box, only __scroll + content scroll (like GOV.UK app-example).
+.app-example__code {
   background-color: #f6f6f6;
-  padding: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  margin-left: 10px;
-  width: 100%;
   box-sizing: border-box;
+  max-width: 100%;
   min-width: 0;
+  padding: 10px;
   position: relative;
-  padding-top: 2.25rem;
+  width: 100%;
 }
 
-.app-example-code pre {
+.app-example__scroll {
+  overflow-x: auto;
+}
+
+.app-example__code pre {
   margin: 0;
+  min-width: min-content;
 }
 
-.app-copy-button {
+.app-example__copy-button {
   @extend .nhsuk-button;
   @extend .nhsuk-button--reverse;
-  font-size: 0.875rem;
-  line-height: 1.25;
+  @extend .nhsuk-button--small;
   margin: 0;
   position: absolute;
   top: 0.5rem;
