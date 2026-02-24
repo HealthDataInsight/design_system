@@ -2,6 +2,8 @@
 
 require 'will_paginate/array'
 
+# Renders design system component preview.
+# Sidebar is built from SIDEBAR_CONTENT; show action loads the component template and sets preview data.
 class ComponentsController < ApplicationController
   layout 'two_column'
   before_action :set_sidebar_sections
@@ -31,24 +33,9 @@ class ComponentsController < ApplicationController
 
   def index; end
 
-  def show
+  def show # :reek:InstanceVariableAssumption
     @component = params[:id]
-
-    # Set @assistant for form components (checkboxes, etc.) so preview has a model
-    if %w[checkboxes].include?(@component)
-      @assistant = Assistant.new
-    end
-
-    # Set @assistants for pagination component
-    if @component == 'pagination'
-      assistants = [
-        Assistant.new(title: '1'),
-        Assistant.new(title: '2'),
-        Assistant.new(title: '3')
-      ]
-      @assistants = assistants.paginate(page: params[:page], per_page: 1)
-    end
-    
+    set_component_preview_data
     render "components/#{@component}"
   rescue ActionView::MissingTemplate
     render 'components/default'
@@ -58,6 +45,17 @@ class ComponentsController < ApplicationController
 
   def set_sidebar_sections
     build_sidebar_from_sections(SIDEBAR_CONTENT)
+  end
+
+  def set_component_preview_data
+    @assistant = Assistant.new if %w[checkboxes].include?(@component)
+    return unless @component == 'pagination'
+
+    @assistants = [
+      Assistant.new(title: '1'),
+      Assistant.new(title: '2'),
+      Assistant.new(title: '3')
+    ].paginate(page: params[:page], per_page: 1)
   end
 
   def sidebar_item_path(id)

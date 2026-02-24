@@ -1,52 +1,54 @@
 require 'erb'
 require 'nokogiri'
 
+# Helpers for the dummy app: sidebar navigation, component preview (ERB + rendered output).
 module ApplicationHelper
-  def ds_sidebar(content, type: :item, level: 4)
+  def sidebar(content, type: :item, level: 4)
     case type
     when :heading
       ds_heading(content, level: level)
     when :item
       label, path = content.is_a?(Array) ? content : [content, nil]
       path ||= component_path(label.parameterize)
-      
+
       content_tag(:li, class: "#{brand}-list__item") do
         ds_link_to(label, path, class: "#{brand}-list__link")
       end
     else
       raise ArgumentError, "Unknown type: #{type}. Use :heading or :item"
     end
-  end   
+  end
 
-  def component_preview(form_component: false, &block)
+  # Renders a component preview: Input tab (ERB snippet) and Output tab (Rendered + HTML).
+  # @param extract [Symbol, nil] when :form_group, only the first div.govuk-form-group is shown in output
+  def component_preview(extract: nil, &block)
     erb_source = capture(&block)
     html = ERB.new(erb_source).result(binding)
-    html = extract_form_component(html) if form_component
+    html = extract_form_component(html) if extract == :form_group
     pretty_html = pretty_print_html(html)
 
     safe_buffer = ActiveSupport::SafeBuffer.new
-
     safe_buffer << ds_heading('Input', level: 4)
-    safe_buffer << ds_tab do |tab|
-      tab.add_tab_panel('ERB', nil, 'erb', selected: true) do
-        ds_code(erb_source.to_s, 'ruby')
-      end
-    end
-
+    safe_buffer << component_preview_input_tab(erb_source)
     safe_buffer << ds_heading('Output', level: 4)
-    safe_buffer << ds_tab do |tab|
-      tab.add_tab_panel('Rendered', nil, 'rendered', selected: true) do
-        html.html_safe
-      end
-      tab.add_tab_panel('HTML', nil, 'html') do
-        ds_code(pretty_html, 'xml')
-      end
-    end
-
+    safe_buffer << component_preview_output_tab(html, pretty_html)
     safe_buffer
   end
 
   private
+
+  def component_preview_input_tab(erb_source)
+    ds_tab do |tab|
+      tab.add_tab_panel('ERB', nil, 'erb', selected: true) { ds_code(erb_source.to_s, 'ruby') }
+    end
+  end
+
+  def component_preview_output_tab(html, pretty_html)
+    ds_tab do |tab|
+      tab.add_tab_panel('Rendered', nil, 'rendered', selected: true) { html.html_safe }
+      tab.add_tab_panel('HTML', nil, 'html') { ds_code(pretty_html, 'xml') }
+    end
+  end
 
   def pretty_print_html(html)
     fragment = Nokogiri::HTML.fragment(html)
