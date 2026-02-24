@@ -4,11 +4,27 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= ds_heading 'Primary buttons', level: 3 %>
-
+<%= ds_heading 'Start button', level: 3 %>
 <%= component_preview do %>
   <%%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
 <% end %>
 
-<!-- ds_button_tag 'Save and continue', style: 'primary', 'data-id': 1
-ds_button_tag 'Reset', type: 'reset', disabled: true  -->
+<%= ds_heading 'Primary button', level: 3 %>
+<%= component_preview do %>
+  <%%= ds_button_tag('Save and continue', style: 'primary', 'data-id': 1) %>
+<% end %>
+
+<%= ds_heading 'Secondary button', level: 3 %>
+<%= component_preview do %>
+  <%%= ds_button_tag('Find my location', style: 'secondary') %>
+<% end %>
+
+<%= ds_heading 'Warning button', level: 3 %>
+<%= component_preview do %>
+  <%%= ds_button_tag('Yes, delete', style: 'warning') %>
+<% end %>
+
+<%= ds_heading 'Disabled button', level: 3 %>
+<%= component_preview do %>
+  <%%= ds_button_tag('Reset', type: 'reset', disabled: true) %>
+<% end %>
