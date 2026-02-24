@@ -26,7 +26,11 @@ module ApplicationHelper
     safe_buffer = ActiveSupport::SafeBuffer.new
 
     safe_buffer << ds_heading('Input', level: 4)
-    safe_buffer << ds_code(erb_source, 'erb')
+    safe_buffer << ds_tab do |tab|
+      tab.add_tab_panel('ERB', nil, 'erb', selected: true) do
+        ds_code(erb_source.to_s, 'ruby')
+      end
+    end
 
     safe_buffer << ds_heading('Output', level: 4)
     safe_buffer << ds_tab do |tab|

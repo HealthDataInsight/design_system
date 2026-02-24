@@ -9,12 +9,17 @@
   // a gray background with no border
   background-color: #f6f6f6;
   padding: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  margin-left: 0;
-  margin-right: 0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
   width: 100%;
   box-sizing: border-box;
   min-width: 0;
-  overflow-x: auto;
+}
+
+.app-copy-button {
+  @extend .nhsuk-button;
+  @extend .nhsuk-button--reverse;
+  font-size: 0.875rem;
+  line-height: 1.25;
 }

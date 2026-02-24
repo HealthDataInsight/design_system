@@ -52274,6 +52274,32 @@ Controller.targets = [];
 Controller.outlets = [];
 Controller.values = {};
 
+// app/javascript/design_system/controllers/clipboard_controller.js
+var clipboard_controller_default = class extends Controller {
+  static targets = ["source", "buttonText"];
+  // Copies the selected text to the clipboard.
+  copy() {
+    if (navigator.clipboard && this.hasSourceTarget) {
+      const copytext = this.sourceTarget.value || this.sourceTarget.innerText;
+      navigator.clipboard.writeText(copytext).then(() => {
+        this.showCopiedMessage();
+      }).catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+    } else {
+      console.error("Clipboard API not available or source target missing");
+    }
+  }
+  showCopiedMessage() {
+    this.buttonTextTarget.textContent = "Copied!";
+    const resetInterval = 2e3;
+    const resetButtonText = () => {
+      this.buttonTextTarget.textContent = "Copy";
+    };
+    setTimeout(resetButtonText, resetInterval);
+  }
+};
+
 // node_modules/highlight.js/es/index.js
 var import_lib = __toESM(require_lib(), 1);
 var es_default = import_lib.default;
@@ -53109,6 +53135,7 @@ var Timeago = _Timeago;
 
 // app/javascript/design_system/index.js
 var registerControllers = (application) => {
+  application.register("ds--clipboard", clipboard_controller_default);
   application.register("ds--code-highlight", code_highlight_controller_default);
   application.register("ds--hello-world", hello_world_controller_default);
   application.register("ds--show-password", show_password_controller_default);
