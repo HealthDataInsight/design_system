@@ -70,14 +70,17 @@
 }
 
 .app-example-code {
-  // a gray background with no border
   background-color: #f6f6f6;
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
   min-width: 0;
   position: relative;
-  padding-top: 2.5rem;
+  padding-top: 2.25rem;
+}
+
+.app-example-code pre {
+  margin: 0;
 }
 
 .app-copy-button {
@@ -85,6 +88,7 @@
   @extend .govuk-button--inverse;
   font-size: 0.875rem;
   line-height: 1.25;
+  margin: 0;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
