@@ -57,9 +57,9 @@ module ApplicationHelper
 
   def extract_form_component(html)
     doc = Nokogiri::HTML.fragment(html)
-    form_group = doc.at_css('div.govuk-form-group')
+    form_group = doc.at_css("div.#{brand}-form-group")
     return html unless form_group
 
-    form_group.to_html.html_safe
+    form_group.to_xml(indent: 2).html_safe
   end
 end
