@@ -1,0 +1,13 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Error summary', caption: 'Form elements'
+end
+%>
+
+<%= component_preview do %>
+<%%= ds_form_with(model: @assistant) do |f|
+  f.ds_error_summary link_base_errors_to: :email
+  f.ds_text_field :title, width: 20
+  f.ds_email_field :email, width: 20
+end %>
+<% end %>

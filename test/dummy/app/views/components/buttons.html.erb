@@ -28,3 +28,17 @@ end
 <%= component_preview do %>
 <%%= ds_button_tag('Reset', type: 'reset', disabled: true) %>
 <% end %>
+
+<%= ds_heading 'Submit buttons (form)', level: 3 %>
+<%= component_preview do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_field_set_tag "Submit buttons" do
+    f.ds_submit
+    f.ds_submit "Draft", type: :secondary
+    f.ds_submit "Warning", type: :warning
+    f.ds_submit "Disabled", type: :secondary, disabled: true
+  end
+end %>
+<% end %>
+
+<!-- TODO: handle tab id in this page when multiple tab panels are used they should be unique -->

@@ -56,6 +56,7 @@ module ApplicationHelper
     fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
   end
 
+  # TODO: fix this to extract the form component correctly (handle modifiers like nhsuk-form-group--error)
   def extract_form_component(html)
     doc = Nokogiri::HTML.fragment(html)
     form_group = doc.at_css("div.#{brand}-form-group")
