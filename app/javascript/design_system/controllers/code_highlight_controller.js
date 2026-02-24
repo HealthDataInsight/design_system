@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import hljs from '/design_system/static/highlightjs-11.11.1/highlight.min.js'
+import hljs from 'highlight.js'
 
 // Connects to data-controller="code-highlight"
 export default class extends Controller {
