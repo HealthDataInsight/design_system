@@ -3,3 +3,16 @@
 @use 'nhsuk-frontend-10.3.1/components';
 
 // Use extreme caution when making any design system level style changes or additions here.
+@use 'hljs';
+
+.app-example-code {
+  // a gray background with no border
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
