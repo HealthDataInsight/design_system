@@ -71,7 +71,7 @@
 
 .app-example-code {
   // a gray background with no border
-  background-color: #f0f0f0;
+  background-color: #f6f6f6;
   padding: 10px;
   margin-bottom: 20px;
   margin-top: 20px;
@@ -79,4 +79,6 @@
   margin-right: 0;
   width: 100%;
   box-sizing: border-box;
+  min-width: 0;
+  overflow-x: auto;
 }

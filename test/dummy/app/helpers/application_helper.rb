@@ -1,4 +1,5 @@
 require 'erb'
+require 'nokogiri'
 
 module ApplicationHelper
   def ds_sidebar(content, type: :item, level: 4)
@@ -19,12 +20,8 @@ module ApplicationHelper
 
   def component_preview(&block)
     erb_source = capture(&block)
-    html = render(inline: erb_source)
-
-    template = ERB.new(erb_source)
-    html_string = template.result(binding)
-
-    # html_string = html.instance_of?(ActiveSupport::SafeBuffer) ? html.to_str : html.to_s
+    html = ERB.new(erb_source).result(binding)
+    pretty_html = pretty_print_html(html)
   
     safe_buffer = ActiveSupport::SafeBuffer.new
 
@@ -37,10 +34,17 @@ module ApplicationHelper
         html.html_safe
       end
       tab.add_tab_panel('HTML', nil, 'html') do
-        ds_code(html_string, 'html')
+        ds_code(pretty_html, 'xml')
       end
     end
     
     safe_buffer
+  end
+
+  private
+
+  def pretty_print_html(html)
+    fragment = Nokogiri::HTML.fragment(html)
+    fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
   end
 end
