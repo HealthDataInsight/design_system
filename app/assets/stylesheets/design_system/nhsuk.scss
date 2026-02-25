@@ -40,4 +40,27 @@
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 127, 59);
+  border-top-color: rgb(0, 127, 59);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: rgb(0, 127, 59);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: rgb(0, 127, 59);
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-color: rgb(0, 127, 59);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgb(0, 127, 59) 0px 4px 0px 0px;
+  outline-style: none;
+  font-family: "Frutiger W01";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
 }
