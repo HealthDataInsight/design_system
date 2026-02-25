@@ -1,8 +1,22 @@
-<%= ds_heading 'Action Link', level: 1 %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Action Link', caption: 'Navigation'
+  ds.breadcrumb 'Home', root_path
+  ds.breadcrumb 'Components', components_path
+  ds.lead_paragraph 'Use action links to help users get to the next stage of a journey quickly by signposting the start of a digital service.'
+end
+%>
 
-<%= ds_action_link('Find your nearest A&E', '#') %>
+<%= component_preview do %>
+<%%= ds_action_link('Find your nearest A&E', '#') %>
+<% end %>
 
-<%= ds_heading 'Links', level: 2 %>
+<%= ds_heading 'Text link', level: 3 %>
+<%= component_preview do %>
+<%%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
+<% end %>
 
-<%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
-<%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
+<%= ds_heading 'Button link', level: 3 %>
+<%= component_preview do %>
+<%%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
+<% end %>
