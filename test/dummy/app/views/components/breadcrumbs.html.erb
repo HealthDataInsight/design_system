@@ -1,9 +1,9 @@
 <%= ds_heading 'Breadcrumbs', level: 1 %>
 
-<%=
-ds_fixed_elements do |ds|
+<%= component_preview do %>
+<%%= ds_fixed_elements do |ds|
   ds.breadcrumb 'One', root_path
-  ds.breadcrumb 'A Super Long Breadcrumb Name That Should Be Truncated', assistants_path
-  ds.breadcrumb 'A Medium Long Breadcrumb', assistants_path
-end
-%>
+  ds.breadcrumb 'Two', assistants_path
+  ds.breadcrumb 'Three', assistants_path
+end %>
+<% end %>

@@ -26,7 +26,13 @@ class ComponentsController < ApplicationController
     {
       heading: 'Navigation',
       items: %w[
-        action-link back-link breadcrumbs card contents-list footer header pagination skip-link
+        action-link card contents-list footer header pagination skip-link
+      ]
+    },
+    {
+      heading: 'Fixed elements',
+      items: %w[
+        back-link breadcrumbs
       ]
     }
   ].freeze
