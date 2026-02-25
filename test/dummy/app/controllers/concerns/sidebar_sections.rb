@@ -6,6 +6,25 @@
 # Usage: define SIDEBAR_CONTENT constant, implement sidebar_item_path(id), then:
 #   set_sidebar_sections => build_sidebar_from_sections(SIDEBAR_CONTENT)
 module SidebarSections
+  # TODO: sidebar layout should be hidden with js for small screens
+  # .app-pane {
+  #   display: block;
+  # }
+  # .app-pane__side-bar {
+  #   display: none; /* hidden on small screens */
+  # }
+  # @media (min-width: 64rem) {
+  #   .app-pane {
+  #     display: grid;
+  #     grid-template-columns: 280px minmax(0, 1fr); /* sidebar + main */
+  #     column-gap: 2rem;
+  #   }
+
+  #   .app-pane__side-bar {
+  #     display: block;      /* only appears from this breakpoint up */
+  #     align-self: start;   /* sticks to top of the column */
+  #   }
+  # }
   extend ActiveSupport::Concern
 
   included do
