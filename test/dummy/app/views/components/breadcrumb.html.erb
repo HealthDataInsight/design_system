@@ -1,0 +1,17 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Breadcrumb', caption: 'Navigation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<% breadcrumb_demo = content_for(:breadcrumbs) %>
+
+<%= component_preview html: breadcrumb_demo do %>
+<%%= ds_fixed_elements do |ds|
+  ds.breadcrumb 'Home', root_path
+  ds.breadcrumb 'Components', components_path
+end %>
+<% end %>
