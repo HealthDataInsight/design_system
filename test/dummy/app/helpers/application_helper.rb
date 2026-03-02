@@ -19,45 +19,47 @@ module ApplicationHelper
     end
   end
 
-  # Renders a component preview: Input tab (ERB snippet) and Output tab (Rendered + HTML).
-  # @param extract [Symbol, nil] when :form_group, only the content within the first div.#{brand}-form-group is shown in output
-  # When rendering erb code, send in your code without indentation to avoid extra whitespace.
-  def component_preview(extract: nil, &block)
+  # Renders a component preview: Input tab (source code) and Output tab (rendered HTML + prettified markup).
+  #
+  # - erb_source:  String of ERB or Ruby to show in the "Input" tab. Defaults to the captured block.
+  # - html:        Raw HTML to use for the "Rendered" output. If omitted, we render the ERB in +erb_source+.
+  # - component:     When :form, only the first div.#{brand}-form-group is shown in the rendered output.
+  def component_preview(html: nil, component: nil, &block)
     erb_source = capture(&block)
-    html = render(inline: erb_source)
-    html = extract_form_component(html) if extract == :form_group
-    pretty_html = pretty_print_html(html)
+    html ||= render(inline: erb_source)
+    html = render_form_component(html) if component == :form
+    pretty_html = pretty_print(html)
 
     safe_buffer = ActiveSupport::SafeBuffer.new
-    safe_buffer << ds_heading('Input', level: 4)
-    safe_buffer << component_preview_input_tab(erb_source)
-    safe_buffer << ds_heading('Output', level: 4)
-    safe_buffer << component_preview_output_tab(html, pretty_html)
+    safe_buffer << render_input(erb_source)
+    safe_buffer << render_output(html, pretty_html)
     safe_buffer
   end
 
   private
 
-  def component_preview_input_tab(erb_source)
+  def render_input(erb_source)
+    ds_heading('Input', level: 4) +
     ds_tab do |tab|
-      tab.add_tab_panel('ERB', nil, 'erb', selected: true) { ds_code(erb_source.to_s, 'ruby') }
+      tab.add_tab_panel('ERB (Ruby)', nil, 'erb (ruby)', selected: true) { ds_code(erb_source.to_s, 'ruby') }
     end
   end
 
-  def component_preview_output_tab(html, pretty_html)
+  def render_output(html, pretty_html)
+    ds_heading('Output', level: 4) +
     ds_tab do |tab|
       tab.add_tab_panel('Rendered', nil, 'rendered', selected: true) { html.html_safe }
       tab.add_tab_panel('HTML', nil, 'html') { ds_code(pretty_html, 'xml') }
     end
   end
 
-  def pretty_print_html(html)
+  def pretty_print(html)
     fragment = Nokogiri::HTML.fragment(html)
     fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
   end
 
   # TODO: fix this to extract the form component correctly (handle modifiers like nhsuk-form-group--error)
-  def extract_form_component(html)
+  def render_form_component(html)
     doc = Nokogiri::HTML.fragment(html)
     form_group = doc.at_css("div.#{brand}-form-group")
     return html unless form_group
