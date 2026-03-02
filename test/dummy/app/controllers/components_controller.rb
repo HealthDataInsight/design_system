@@ -6,18 +6,21 @@ require 'will_paginate/array'
 # Sidebar is built from SIDEBAR_CONTENT; show action loads the component template and sets preview data.
 class ComponentsController < ApplicationController
   layout 'two_column'
+  before_action :set_component, :set_component_preview_data, only: :show
 
   def index; end
 
-  def show # :reek:InstanceVariableAssumption
-    @component = params[:id]
-    set_component_preview_data
+  def show
     render "components/#{@component}"
   rescue ActionView::MissingTemplate
     render 'components/default'
   end
 
   private
+
+  def set_component
+    @component = params[:id]
+  end
 
   def set_component_preview_data
     return unless @component == 'pagination'
