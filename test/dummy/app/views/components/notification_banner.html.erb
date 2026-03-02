@@ -1,0 +1,38 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Notification banner', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph "Use a notification banner to tell the user something they need to know that's not directly related to the page content."
+end
+%>
+
+<%= component_preview do %>
+<%%= ds_alert("I am an alert")%>
+<% end %>
+
+<%= component_preview do %>
+<%%= ds_notice("I am a notice")%>
+<% end %>
+
+<%= component_preview do %>
+<%%= ds_notice("I am a success notice", type: :success)%>
+<% end %>
+
+<%# TODO: fix rendering html within erb as string %>
+<%= ds_heading 'Example with block content', level: 3 %>
+<%= component_preview do %>
+<%%= ds_alert do %>
+  <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
+<%% end %>
+<% end %>
+
+<%= component_preview do %>
+<%%= ds_notice do %>
+  <strong>Notice with block:</strong>
+  <br>
+  You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
+<%% end %>
+<% end %>
