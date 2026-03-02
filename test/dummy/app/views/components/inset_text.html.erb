@@ -1,6 +1,6 @@
 <%=
 ds_fixed_elements do |ds|
-  ds.main_heading 'File upload', caption: 'Form elements'
+  ds.main_heading 'Details', caption: 'Content presentation'
 
   ds.breadcrumb('Home', root_path)
   ds.breadcrumb('Components', components_path)
@@ -8,7 +8,5 @@ end
 %>
 
 <%= component_preview component: :component do %>
-<%%= ds_form_with(model: Assistant.new) do |f|
-  f.ds_file_field :cv
-end %>
+<%%= ds_inset_text('This is a inset text') %>
 <% end %>

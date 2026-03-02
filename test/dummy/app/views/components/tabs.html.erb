@@ -1,6 +1,14 @@
-<%= ds_heading 'Tabs', level: 1 %>
-
 <%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Tabs', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<%= component_preview do %>
+<%%=
 ds_tab do |tab|
   tab.title = 'Contents'
   #(name, content, id, selected)
@@ -18,3 +26,4 @@ ds_tab do |tab|
   tab.add_tab_panel('Contacts', 'this is contacts', 'contacts')
 end
 %>
+<% end %>

@@ -1,6 +1,14 @@
-<%= ds_heading 'Table', level: 1 %>
-
 <%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Table', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<%= component_preview do %>
+<%%=
 ds_table(data: { test: 'table' }) do |table|
   table.caption = 'Table Caption'
 
@@ -20,3 +28,4 @@ ds_table(data: { test: 'table' }) do |table|
   table.add_row 'John Doe', 6, 'Ibuprofen', '1 pill'
 end
 %>
+<% end %>

@@ -1,4 +1,11 @@
-<%= ds_heading 'Details', level: 1 %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Details', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
 
 <%= ds_details('How to find your NHS number') do %>
   <p>

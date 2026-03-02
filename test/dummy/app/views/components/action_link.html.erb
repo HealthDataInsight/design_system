@@ -1,8 +1,10 @@
 <%=
 ds_fixed_elements do |ds|
   ds.main_heading 'Action Link', caption: 'Navigation'
-  ds.breadcrumb 'Home', root_path
-  ds.breadcrumb 'Components', components_path
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+  
   ds.lead_paragraph 'Use action links to help users get to the next stage of a journey quickly by signposting the start of a digital service.'
 end
 %>

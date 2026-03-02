@@ -1,6 +1,14 @@
-<%= ds_heading 'Summary List', level: 1 %>
-
 <%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Summary list', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<%= component_preview do %>
+<%%=
 ds_summary_list do |list|
   list.add_row('Name', 'John Doe') do |row|
     row.add_action('Root', path: root_path, hidden_text: 'name')
@@ -20,3 +28,4 @@ ds_summary_list do |list|
   end
 end
 %>
+<% end %>

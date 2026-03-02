@@ -1,3 +1,12 @@
-<%= ds_heading 'Warning Callout', level: 1 %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Warning callout', caption: 'Content presentation'
 
-<%= ds_callout('School Message:', 'Half term break is over !!') %>
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<%= component_preview do %>
+<%%= ds_callout('School Message:', 'Half term break is over !!') %>
+<% end %>

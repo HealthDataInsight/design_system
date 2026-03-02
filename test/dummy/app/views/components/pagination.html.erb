@@ -1,3 +1,12 @@
-<%= ds_heading 'Pagination', level: 1 %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Pagination', caption: 'Navigation'
 
-<%= ds_pagination(@assistants) %>
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+end
+%>
+
+<%= component_preview do %>
+<%%= ds_pagination(@assistants) %>
+<% end %>
