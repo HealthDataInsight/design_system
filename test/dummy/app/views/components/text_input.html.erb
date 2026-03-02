@@ -9,35 +9,35 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview component: :component do %>
+<%= component_preview id: 'text-input-basic', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30"
 end %>
 <% end %>
 
 <%= ds_heading 'Phone number input', level: 3 %>
-<%= component_preview component: :component do %>
+<%= component_preview id: 'text-input-phone', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_phone_field :phone, width: 20, hint: "Demo for ds_phone_field"
 end %>
 <% end %>
 
 <%= ds_heading 'Email input', level: 3 %>
-<%= component_preview component: :component do %>
+<%= component_preview id: 'text-input-email', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_email_field :email, width: 20, hint: "Demo for ds_email_field"
 end %>
 <% end %>
 
 <%= ds_heading 'URL input', level: 3 %>
-<%= component_preview component: :component do %>
+<%= component_preview id: 'text-input-url', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_url_field :website, hint: "Demo for ds_url_field"
 end %>
 <% end %>
 
 <%= ds_heading 'Number input', level: 3 %>
-<%= component_preview component: :component do %>
+<%= component_preview id: 'text-input-number', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_number_field :age, width: 3, hint: "Demo for ds_number_field"
 end %>

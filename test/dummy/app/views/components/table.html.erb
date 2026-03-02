@@ -9,7 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview do %>
+<%= component_preview id: 'table-basic' do %>
 <%%=
 ds_table(data: { test: 'table' }) do |table|
   table.caption = 'Table Caption'

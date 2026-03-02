@@ -8,32 +8,33 @@ module ApplicationHelper
   # - erb_source:  String of ERB or Ruby to show in the "Input" tab. Defaults to the captured block.
   # - html:        Raw HTML to use for the "Rendered" output. If omitted, we render the ERB in +erb_source+.
   # - component:   When :form, only the first div.#{brand}-form-group is shown in the rendered output.
-  def component_preview(html: nil, component: nil, &block)
+  # - id:          Optional semantic base id used for tab panel IDs.
+  def component_preview(html: nil, component: nil, id: nil, &block)
     erb_source = capture(&block)
     html ||= render(inline: erb_source)
     html = render_form_component(html) if component == :form
     pretty_html = pretty_print(html)
 
     safe_buffer = ActiveSupport::SafeBuffer.new
-    safe_buffer << render_input(erb_source)
-    safe_buffer << render_output(html, pretty_html)
+    safe_buffer << render_input(erb_source, id)
+    safe_buffer << render_output(html, pretty_html, id)
     safe_buffer
   end
 
   private
 
-  def render_input(erb_source)
+  def render_input(erb_source, id)
     ds_heading('Input', level: 4) +
     ds_tab do |tab|
-      tab.add_tab_panel('ERB (Ruby)', nil, 'erb (ruby)', selected: true) { ds_code(erb_source.to_s, 'ruby') }
+      tab.add_tab_panel('ERB (Ruby)', nil, "erb-#{id}", selected: true) { ds_code(erb_source.to_s, 'ruby') }
     end
   end
 
-  def render_output(html, pretty_html)
+  def render_output(html, pretty_html, id)
     ds_heading('Output', level: 4) +
     ds_tab do |tab|
-      tab.add_tab_panel('Rendered', nil, 'rendered', selected: true) { html.html_safe }
-      tab.add_tab_panel('HTML', nil, 'html') { ds_code(pretty_html, 'xml') }
+      tab.add_tab_panel('Rendered', nil, "rendered-#{id}", selected: true) { html.html_safe }
+      tab.add_tab_panel('HTML', nil, "html-#{id}") { ds_code(pretty_html, 'xml') }
     end
   end
 

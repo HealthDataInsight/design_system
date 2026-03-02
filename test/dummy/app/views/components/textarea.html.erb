@@ -9,7 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview component: :component do %>
+<%= component_preview id: 'textarea-basic', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_text_area :description, hint: "Demo for ds_text_area"
 end %>

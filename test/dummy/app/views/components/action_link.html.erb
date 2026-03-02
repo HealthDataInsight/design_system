@@ -9,16 +9,16 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview do %>
+<%= component_preview id: 'action-link-primary' do %>
 <%%= ds_action_link('Find your nearest A&E', '#') %>
 <% end %>
 
 <%= ds_heading 'Text link', level: 3 %>
-<%= component_preview do %>
+<%= component_preview id: 'action-link-text' do %>
 <%%= ds_link_to 'Back to manage assistants (default link style)', assistants_path %>
 <% end %>
 
 <%= ds_heading 'Button link', level: 3 %>
-<%= component_preview do %>
+<%= component_preview id: 'action-link-button' do %>
 <%%= ds_link_to 'Back to manage assistants (button link style - secondary)', assistants_path, type: :secondary_button %>
 <% end %>

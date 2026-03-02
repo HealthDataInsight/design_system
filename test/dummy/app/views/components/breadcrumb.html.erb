@@ -11,7 +11,7 @@ end
 
 <% breadcrumb_demo = content_for(:breadcrumbs) %>
 
-<%= component_preview html: breadcrumb_demo do %>
+<%= component_preview id: 'breadcrumb-basic', html: breadcrumb_demo do %>
 <%%= ds_fixed_elements do |ds|
   ds.breadcrumb 'Home', root_path
   ds.breadcrumb 'Components', components_path

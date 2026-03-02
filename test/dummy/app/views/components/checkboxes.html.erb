@@ -9,7 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview component: :form do %>
+<%= component_preview id: 'checkboxes-single', component: :form do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: 'Click to tick the box', legend: { size: 'm' } do
     f.ds_check_box :terms_agreed, { multiple: false, link_errors: true }, true, false
@@ -18,7 +18,7 @@ end %>
 <% end %>
 
 <%= ds_heading 'Checkbox items with hints', level: 3 %>
-<%= component_preview component: :form do %>
+<%= component_preview id: 'checkboxes-hint', component: :form do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_check_boxes_fieldset :terms_agreed, multiple: false, legend: { size: 'm' } do
     f.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'This is a item-level hint' }, true, false
@@ -39,7 +39,7 @@ end %>
 <% end %> -->
 
 <%= ds_heading "Smaller checkboxes", level: 3 %>
-<%= component_preview component: :component do %>
+<%= component_preview id: 'checkboxes-small', component: :component do %>
 <%%= ds_form_with(model: Assistant.new) do |f| %>
   <%%= f.ds_check_boxes_fieldset :desired_filling, multiple: true, small: true do %>
     <%%= f.ds_check_box :desired_filling, { multiple: true }, :pastrami %>
