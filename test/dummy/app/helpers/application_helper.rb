@@ -1,24 +1,8 @@
 require 'erb'
 require 'nokogiri'
 
-# Helpers for the dummy app: sidebar navigation, component preview (ERB + rendered output).
+# Helpers for the dummy app: component preview (ERB + rendered output).
 module ApplicationHelper
-  def sidebar(content, type: :item, level: 4)
-    case type
-    when :heading
-      ds_heading(content, level: level)
-    when :item
-      label, path = content.is_a?(Array) ? content : [content, nil]
-      path ||= component_path(label.parameterize)
-
-      content_tag(:li, class: "#{brand}-list__item") do
-        ds_link_to(label, path, class: "#{brand}-list__link")
-      end
-    else
-      raise ArgumentError, "Unknown type: #{type}. Use :heading or :item"
-    end
-  end
-
   # Renders a component preview: Input tab (source code) and Output tab (rendered HTML + prettified markup).
   #
   # - erb_source:  String of ERB or Ruby to show in the "Input" tab. Defaults to the captured block.

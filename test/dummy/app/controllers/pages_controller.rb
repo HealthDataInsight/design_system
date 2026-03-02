@@ -4,17 +4,6 @@ require 'will_paginate/array'
 # This is the pages controller
 class PagesController < ApplicationController
   layout 'two_column'
-  before_action :set_sidebar_sections
-
-  SIDEBAR_CONTENT = [
-    {
-      heading: 'Design',
-      items: %w[
-        styles
-        components
-      ]
-    }
-  ].freeze
 
   def index
     # Using an array to simulate records
@@ -31,19 +20,5 @@ class PagesController < ApplicationController
 
   def form_handler
     redirect_to root_url
-  end
-
-  private
-
-  def set_sidebar_sections
-    build_sidebar_from_sections(SIDEBAR_CONTENT)
-  end
-
-  def sidebar_item_path(id)
-    case id
-    when 'components' then components_path
-    when 'styles' then root_path
-    else root_path
-    end
   end
 end
