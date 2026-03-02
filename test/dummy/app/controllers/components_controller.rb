@@ -22,6 +22,7 @@ class ComponentsController < ApplicationController
     @component = params[:id]
   end
 
+  # TODO: review whether this is needed given we have it in the pages controller (but not using anymore)
   def set_component_preview_data
     return unless @component == 'pagination'
 

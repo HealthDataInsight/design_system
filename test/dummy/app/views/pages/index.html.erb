@@ -12,24 +12,6 @@ end
   <%= render partial: 'sidebar' %>
 <% end %>
 
-<%= ds_heading 'Paragraph Headings', id: "test-heading" %>
-<%= ds_heading 'h1', level: 1 %>
-<%= ds_heading 'h2' %>
-<%= ds_heading 'h3', level: 3 %>
-<%= ds_heading 'h4', level: 4 %>
-<%= ds_heading 'h5', level: 5 %>
-
-<%= ds_heading 'Assitants table', level: 3, id: 'assistants-table' %>
-<%=
-ds_table do |table|
-  table.caption = 'Assistants'
-  table.add_column('Title')
-  @assistants.each do |assistant|
-    table.add_row assistant.title
-  end
-end
-%>
-
 <%= ds_heading 'Stimulus controllers' %>
 <div data-controller="ds--hello-world">
   <label for="hello-world-name">Name</label>
@@ -68,8 +50,3 @@ ds_grid do |row|
   <% end
 end
 %>
-
-<br/>
-<%= ds_heading 'Paragraph' %>
-<%= ds_paragraph('This is a normal paragraph') %>
-<%= ds_paragraph('This is a small paragraph', size: :s) %>
