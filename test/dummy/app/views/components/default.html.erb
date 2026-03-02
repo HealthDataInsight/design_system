@@ -1,3 +1,11 @@
-<%= ds_heading(@component.humanize, level: 1) %>
+<%= 
+ds_fixed_elements do |ds|
+  ds.main_heading(@component.humanize)
+end
+%>
 
-<p>Component page for <%= @component.humanize %> - create <code>app/views/components/<%= @component %>.html.erb</code> to add content.</p>
+<%= ds_paragraph do %>
+  This component does not have a demo page yet.
+<% end %>
+
+<%# TODO: add Page not found Page to design system %>
