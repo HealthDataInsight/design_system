@@ -1,8 +1,11 @@
+<%= ds_notice do %>
+  Design System Gem (0.12.0) has been published.
+  <%= ds_link_to 'View on RubyGems', 'https://rubygems.org/gems/design_system' %>
+<% end %>
+
 <%=
 ds_fixed_elements do |ds|
-  ds.main_heading 'Page#index heading', caption: 'Test page'
-
-  ds.lead_paragraph 'This is a lead paragraph'
+  ds.main_heading 'Get started'
 
   # ds.form @assistant
 end
@@ -24,29 +27,3 @@ end
 <div>
   <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
 </div>
-
-<%= ds_heading 'Grid System', id: 'grid-system' %>
-<%=
-ds_grid do |row|
-  row.add_column(:two_thirds) do %>
-    <%= ds_heading 'Two-thirds outer grid', level: 3 %>
-    <%=
-    ds_grid do |inner_rows|
-      inner_rows.add_column(:one_half) do %>
-        <%= ds_heading 'Half grid', level: 4 %>
-        <p>This grid is nested.</p>
-      <% end
-      inner_rows.add_column(:one_half) do %>
-        <%= ds_heading 'Half grid', level: 4 %>
-        <p>This grid is nested.</p>
-      <% end
-    end
-    %>
-  <% end
-
-  row.add_column(:one_third) do %>
-    <%= ds_heading 'One-third outer grid', level: 3 %>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <% end
-end
-%>
