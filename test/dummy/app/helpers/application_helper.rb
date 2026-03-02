@@ -24,7 +24,7 @@ module ApplicationHelper
   # When rendering erb code, send in your code without indentation to avoid extra whitespace.
   def component_preview(extract: nil, &block)
     erb_source = capture(&block)
-    html = ERB.new(erb_source).result(binding)
+    html = render(inline: erb_source)
     html = extract_form_component(html) if extract == :form_group
     pretty_html = pretty_print_html(html)
 
