@@ -9,7 +9,9 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= ds_details('How to find your NHS number') do %>
+<%# TODO: fix rendering html within erb as string %>
+<%= component_preview do %>
+<%%= ds_details('How to find your NHS number') do %>
   <p>
     You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:
   </p>
@@ -18,4 +20,5 @@ end
     <li>appointment letters</li>
   </ul>
   <p>Ask your GP surgery for help if you cannot find your NHS number.</p>
+<%% end %>
 <% end %>
