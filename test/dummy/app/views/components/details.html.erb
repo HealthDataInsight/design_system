@@ -9,16 +9,14 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%# TODO: fix rendering html within erb as string %>
+<%# TODO: replace with ds_list %>
 <%= component_preview id: 'details-nhs-number' do %>
 <%%= ds_details('How to find your NHS number') do %>
-  <p>
-    You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:
-  </p>
+  <%%= ds_paragraph 'You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:' %>
   <ul>
     <li>hospital referral letters</li>
     <li>appointment letters</li>
   </ul>
-  <p>Ask your GP surgery for help if you cannot find your NHS number.</p>
+  <%%= ds_paragraph 'Ask your GP surgery for help if you cannot find your NHS number.' %>
 <%% end %>
 <% end %>
