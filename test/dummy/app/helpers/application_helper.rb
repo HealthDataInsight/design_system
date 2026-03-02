@@ -7,7 +7,7 @@ module ApplicationHelper
   #
   # - erb_source:  String of ERB or Ruby to show in the "Input" tab. Defaults to the captured block.
   # - html:        Raw HTML to use for the "Rendered" output. If omitted, we render the ERB in +erb_source+.
-  # - component:     When :form, only the first div.#{brand}-form-group is shown in the rendered output.
+  # - component:   When :form, only the first div.#{brand}-form-group is shown in the rendered output.
   def component_preview(html: nil, component: nil, &block)
     erb_source = capture(&block)
     html ||= render(inline: erb_source)
@@ -42,7 +42,6 @@ module ApplicationHelper
     fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
   end
 
-  # TODO: fix this to extract the form component correctly (handle modifiers like nhsuk-form-group--error)
   def render_form_component(html)
     doc = Nokogiri::HTML.fragment(html)
     form_group = doc.at_css("div.#{brand}-form-group")
