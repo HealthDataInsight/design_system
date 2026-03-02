@@ -1,3 +1,14 @@
-<%= ds_heading 'Panel', level: 1 %>
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Panel', caption: 'Content presentation'
 
-<%= ds_panel('Application confirmed', 'We have sent you a confirmation email') %>
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use a panel to highlight that users have done something successfully.'
+end
+%>
+
+<%= component_preview do %>
+<%%= ds_panel('Application confirmed', 'We have sent you a confirmation email') %>
+<% end %>
