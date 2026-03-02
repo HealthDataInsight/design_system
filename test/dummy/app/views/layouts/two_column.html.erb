@@ -3,18 +3,18 @@
 
 <% content_for :main_content_wrapper do %>
   <%= render partial: 'layouts/alert_and_notice' %>
-  <%=
-    ds_grid do |row|
-      row.add_column(:one_quarter) do %>
-        <nav class="<%= brand %>-list" aria-label="Section navigation">
-          <%= render partial: 'shared/sidebar' %>
-        </nav>
-      <% end
-      row.add_column(:three_quarters) do %>
-        <%= main_content.html_safe %>
-      <% end
-    end
-  %>
+  <%= ds_grid do |row| %>
+    <% row.add_column(:one_quarter) do %>
+      <nav aria-label="sidebar">
+        <% if lookup_context.exists?('sidebar', controller_name, true) %>
+          <%= render "#{controller_name}/sidebar" %>
+        <% end %>
+      </nav>
+    <% end %>
+    <% row.add_column(:three_quarters) do %>
+      <%= main_content.html_safe %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= render template: 'layouts/application', locals: { ds_layout: 'application' } %>

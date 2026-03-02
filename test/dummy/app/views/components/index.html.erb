@@ -7,3 +7,7 @@ ds_fixed_elements do |ds|
   ds.lead_paragraph 'Components are reusable elements of the user interface.'
 end
 %>
+
+<% content_for :sidebar do %>
+  <%= render partial: 'sidebar' %>
+<% end %>
