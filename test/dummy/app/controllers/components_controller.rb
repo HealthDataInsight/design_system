@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
-require 'will_paginate/array'
-
 # Renders design system component preview.
-# Sidebar is built from SIDEBAR_CONTENT; show action loads the component template and sets preview data.
 class ComponentsController < ApplicationController
   layout 'two_column'
   before_action :set_component, :set_component_preview_data, only: :show
@@ -26,10 +23,6 @@ class ComponentsController < ApplicationController
   def set_component_preview_data
     return unless @component == 'pagination'
 
-    @assistants = [
-      Assistant.new(title: '1'),
-      Assistant.new(title: '2'),
-      Assistant.new(title: '3')
-    ].paginate(page: params[:page], per_page: 1)
+    @assistants = demo_paginated_assistants
   end
 end
