@@ -9,11 +9,14 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview id: 'fieldset-basic' do %>
-<%%= ds_form_with(model: Assistant.new) do |f|
-  f.ds_field_set_tag "Input fields" do
-    f.ds_text_field :title, width: 20, hint: "Demo for ds_text_field", class: "#{brand}-input--width-30"
-    f.ds_email_field :email, width: 20, hint: "Demo for ds_email_field"
-  end
-end %>
+<%= component_preview id: 'fieldset-basic', component: :fieldset do %>
+<%%= ds_form_with(model: Assistant.new) do |f| %>
+  <%%= f.ds_field_set_tag "What are your contact details?" do %>
+    <%%= f.ds_text_field :name, width: 20 %>
+    <%%= f.ds_email_field :email, width: 20 %>
+    <%%= f.ds_phone_field :phone, width: 20 %>
+    <%%= f.ds_text_field :address, width: 20 %>
+    <%%= f.ds_text_field :postcode, width: 10 %>
+  <%% end %>
+<%% end %>
 <% end %>
