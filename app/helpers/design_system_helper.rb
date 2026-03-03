@@ -129,6 +129,10 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
   end
 
+  def ds_list(type: :default, **options, &block)
+    DesignSystem::Registry.builder(brand, 'list', self).render_list(type:, **options, &block)
+  end
+
   def ds_inset_text(text = nil, ...)
     DesignSystem::Registry.builder(brand, 'inset_text', self).render_inset_text(text, ...)
   end
