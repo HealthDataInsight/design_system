@@ -35,7 +35,7 @@ end
 <% end %>
 
 <%= ds_heading 'Submit buttons (form)', level: 3 %>
-<%= component_preview id: 'buttons-submit' do %>
+<%= component_preview id: 'buttons-submit', component: :fieldset do %>
 <%%= ds_form_with(model: Assistant.new, html: { onsubmit: 'return false;' }) do |f| %>
   <%%= f.ds_field_set_tag "Submit buttons" do %>
     <%%= f.ds_submit %>

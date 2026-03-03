@@ -10,11 +10,12 @@ end
 %>
 
 <%= component_preview id: 'tabs-basic' do %>
+<%# TODO: fix embedded tab %>
 <%%=
 ds_tab do |tab|
   tab.title = 'Contents'
   #(name, content, id, selected)
-  tab.add_tab_panel('Profile', nil, 'profile',selected: true) do
+  tab.add_tab_panel('Profile', nil, 'profile', selected: true) do
     ds_table do |table|
       table.caption = 'Profile'
       table.add_column('Name')
