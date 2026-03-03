@@ -1,4 +1,10 @@
 <ul class="<%= brand %>-list">
-  <li class="<%= brand %>-list__item"><%= ds_link_to('Layout', style_path('layout')) %></li>
-  <li class="<%= brand %>-list__item"><%= ds_link_to('Typography', style_path('typography')) %></li>
+  <%= ds_heading('Layout', level: 4) %>
+  <li class="<%= brand %>-list__item"><%= ds_link_to('Grid', style_path('grid')) %></li>
+
+  <br/>
+  <%= ds_heading('Typography', level: 4) %>
+  <li class="<%= brand %>-list__item"><%= ds_link_to('Headings', style_path('headings')) %></li>
+  <li class="<%= brand %>-list__item"><%= ds_link_to('Lists', style_path('lists')) %></li>
+  <li class="<%= brand %>-list__item"><%= ds_link_to('Paragraphs', style_path('paragraphs')) %></li>
 </ul>

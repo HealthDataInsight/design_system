@@ -1,15 +1,13 @@
 <%=
 ds_fixed_elements do |ds|
-  ds.main_heading 'Layout', caption: 'Styles'
+  ds.main_heading 'Grid system', caption: 'Layout'
 
   ds.breadcrumb('Home', root_path)
   ds.breadcrumb('Styles', styles_path)
 
-  ds.lead_paragraph 'Structure your page content and elements.'
+  ds.lead_paragraph "Use the grid system to lay out the content on your service's pages."
 end
 %>
-
-<%= ds_heading 'Grid system', level: 2 %>
 
 <%= ds_heading 'Full width', level: 3 %>
 <%= component_preview id: 'grid-full-width' do %>

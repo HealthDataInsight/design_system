@@ -1,15 +1,14 @@
 <%=
 ds_fixed_elements do |ds|
-  ds.main_heading 'Typography', caption: 'Styles'
+  ds.main_heading 'Headings', caption: 'Typography'
 
   ds.breadcrumb('Home', root_path)
   ds.breadcrumb('Styles', styles_path)
 
-  ds.lead_paragraph 'Fonts and typographic styles.'
+  ds.lead_paragraph "Use headings to consistently structure the content on your service's pages."
 end
 %>
 
-<%= ds_heading 'Default heading', id: "default-heading", level: 3 %>
 <%= component_preview id: 'default-heading' do %>
 <%%= ds_heading 'Default heading' %>
 <% end %>
@@ -21,12 +20,4 @@ end
 <%%= ds_heading 'h3', level: 3 %>
 <%%= ds_heading 'h4', level: 4 %>
 <%%= ds_heading 'h5', level: 5 %>
-<% end %>
-
-<br/>
-
-<%= ds_heading 'Paragraphs', level: 3 %>
-<%= component_preview id: 'paragraphs' do %>
-<%%= ds_paragraph('This is a standard body paragraph.') %>
-<%%= ds_paragraph('This is a smaller body paragraph.', size: :s) %>
 <% end %>
