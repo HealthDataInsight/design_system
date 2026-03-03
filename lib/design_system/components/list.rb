@@ -6,12 +6,13 @@ module DesignSystem
     class List
       attr_accessor :items
 
-      def initialize
+      def initialize(context)
+        @context = context
         @items = []
       end
 
-      def add_item(content = nil, &)
-        content = block_given? ? capture(&) : content
+      def add_item(content = nil, &block)
+        content = block_given? ? @context.capture(&block) : content
         return if content.blank?
 
         @items << content

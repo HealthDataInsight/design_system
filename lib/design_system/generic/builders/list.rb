@@ -6,8 +6,11 @@ module DesignSystem
       # Generic list builder.
       class List < Base
         # type: :bullet, :number
-        def render_list(type: :default, **options, &block)
+        def render_list(type: :default, **options)
           raise ArgumentError, 'block required' unless block_given?
+
+          @list = ::DesignSystem::Components::List.new(@context)
+          yield @list
 
           tag_name = type.to_sym == :number ? :ol : :ul
 
@@ -17,7 +20,11 @@ module DesignSystem
 
           options = css_class_options_merge(options, classes)
 
-          content_tag(tag_name, **options, &block)
+          content_tag(tag_name, **options) do
+            @list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, buffer|
+              buffer.concat(content_tag(:li, item))
+            end
+          end
         end
       end
     end
