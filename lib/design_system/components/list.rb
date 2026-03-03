@@ -4,18 +4,14 @@ module DesignSystem
   module Components
     # Simple list component used by the generic list builder.
     class List
-      attr_accessor :items
+      attr_reader :items
 
-      def initialize(context)
-        @context = context
+      def initialize
         @items = []
       end
 
       def add_item(content = nil, &block)
-        content = block_given? ? @context.capture(&block) : content
-        return if content.blank?
-
-        @items << content
+        @items << (block_given? ? block : content)
       end
     end
   end

@@ -9,7 +9,7 @@ module DesignSystem
         def render_list(type: :default, **options)
           raise ArgumentError, 'block required' unless block_given?
 
-          @list = ::DesignSystem::Components::List.new(@context)
+          @list = ::DesignSystem::Components::List.new
           yield @list
 
           tag_name = type.to_sym == :number ? :ol : :ul
@@ -21,9 +21,18 @@ module DesignSystem
           options = css_class_options_merge(options, classes)
 
           content_tag(tag_name, **options) do
-            @list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, buffer|
-              buffer.concat(content_tag(:li, item))
-            end
+            render_items
+          end
+        end
+
+        private
+
+        def render_items
+          @list.items.each_with_object(ActiveSupport::SafeBuffer.new) do |item, buffer|
+            content = item.is_a?(Proc) ? capture(&item) : item
+            next if content.blank?
+
+            buffer.concat(content_tag(:li, content))
           end
         end
       end
