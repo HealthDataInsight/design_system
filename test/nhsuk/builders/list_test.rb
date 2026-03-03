@@ -33,6 +33,16 @@ module DesignSystem
           end
         end
 
+        test 'renders a nhsuk unordered list with bullet style' do
+          @output_buffer = ds_list(type: :bullet) do |list|
+            list.add_item('Bullet 1')
+          end
+
+          assert_select("ul.#{@brand}-list.#{@brand}-list--bullet") do
+            assert_select 'li', text: 'Bullet 1'
+          end
+        end
+
         test 'renders a nhsuk list with block items' do
           @output_buffer = ds_list do |list|
             list.add_item do

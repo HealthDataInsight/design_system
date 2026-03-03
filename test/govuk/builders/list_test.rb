@@ -33,6 +33,16 @@ module DesignSystem
           end
         end
 
+        test 'renders a govuk list with number style' do
+          @output_buffer = ds_list(type: :number) do |list|
+            list.add_item('Number 1')
+          end
+
+          assert_select("ol.#{@brand}-list.#{@brand}-list--number") do
+            assert_select 'li', text: 'Number 1'
+          end
+        end
+
         test 'renders a govuk list with block items' do
           @output_buffer = ds_list do |list|
             list.add_item do
