@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Refurbished dummy app preview pages to mirror NHSUK and GOVUK design system websites
+- Refurbished preview pages to mirror NHSUK and GOVUK design system websites
 - Added `ds_code` to render a block of code
 - Added `ds_list` for plain lists, bullet lists, and numberedlists
 
