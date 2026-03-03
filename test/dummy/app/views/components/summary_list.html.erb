@@ -10,18 +10,17 @@ end
 %>
 
 <%= component_preview id: 'summary-list-basic' do %>
-<%# TODO: disable link (demo only) %>
 <%%=
 ds_summary_list do |list|
   list.add_row('Name', 'John Doe') do |row|
-    row.add_action('Root', path: root_path, hidden_text: 'name')
+    row.add_action('Root', path: '#', hidden_text: 'name')
     row.add_action('Change', hidden_text: 'name')
   end
   list.add_row('Age', 30) do |row|
     row.add_action('View')
   end
   list.add_row('Email') do |row|
-    row.add_value('Enter email information', path: root_path)
+    row.add_value('Enter email information', path: '#')
     row.add_action('View')
   end
   list.add_row('Contact') do |row|

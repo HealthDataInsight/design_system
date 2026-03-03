@@ -21,7 +21,6 @@ end
 <%%= ds_notice("I am a success notice", type: :success)%>
 <% end %>
 
-<%# TODO: fix rendering html within erb as string %>
 <%= ds_heading 'Example with block content', level: 3 %>
 <%= component_preview id: 'notification-banner-alert-block' do %>
 <%%= ds_alert do %>
@@ -33,6 +32,6 @@ end
 <%%= ds_notice do %>
   <strong>Notice with block:</strong>
   <br>
-  You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
+  You can include multiple elements and <%= ds_link_to 'demo', '#' %> link.
 <%% end %>
 <% end %>
