@@ -196,3 +196,26 @@ end
 <br/>
 <%= ds_heading 'Inset Text' %>
 <%= ds_inset_text('This is a inset text') %>
+
+<br/>
+<%= ds_heading 'List' %>
+
+<%= ds_list do |list|
+  list.add_item('Item 1')
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
+
+<%= ds_list(type: :bullet) do |list|
+  list.add_item('Item 1')
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
+
+<%= ds_list(type: :number) do |list|
+  list.add_item do
+    ds_link_to 'Item 1', '#'
+  end
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
