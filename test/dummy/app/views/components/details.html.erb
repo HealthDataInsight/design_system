@@ -9,14 +9,13 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%# TODO: replace with ds_list %>
 <%= component_preview id: 'details-nhs-number' do %>
 <%%= ds_details('How to find your NHS number') do %>
   <%%= ds_paragraph 'You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:' %>
-  <ul>
-    <li>hospital referral letters</li>
-    <li>appointment letters</li>
-  </ul>
+  <%%= ds_list(type: :bullet) do |list|
+    list.add_item('hospital referral letters')
+    list.add_item('appointment letters')
+  end %>
   <%%= ds_paragraph 'Ask your GP surgery for help if you cannot find your NHS number.' %>
 <%% end %>
 <% end %>
