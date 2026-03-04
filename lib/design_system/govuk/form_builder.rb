@@ -389,9 +389,9 @@ module DesignSystem
 
       def translated_label(method)
         # We need to retrieve the label translation in the same way as Tags::Label
-        content ||= ActionView::Helpers::Tags::Translator.
-                    new(object, object_name, method, scope: 'helpers.label').
-                    translate
+        content ||= ActionView::Helpers::Tags::Translator
+                    .new(object, object_name, method, scope: 'helpers.label')
+                    .translate
         content || method.humanize
       end
 
@@ -399,9 +399,12 @@ module DesignSystem
         # This method is used to translate the label for a given value
         # Example: assign an alternative name for checkbox items
         method_and_value = "#{method}.#{value}"
-        translation = ActionView::Helpers::Tags::Translator.
-                      new(object, object_name, method_and_value, scope: 'helpers.options').
-                      translate
+        translation = ActionView::Helpers::Tags::Translator
+                      .new(object, object_name, method_and_value, scope: 'helpers.options')
+                      .translate
+
+        return value.to_s if translation.nil?
+
         # If translation returns the humanized version of the value,
         # it means no translation was found, so return the original value
         # Extra condition: if value contains dots and translation is only the last part
