@@ -1,0 +1,25 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Paragraphs', caption: 'Typography'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Styles', styles_path)
+
+  ds.lead_paragraph "Use paragraphs to display text on your service's pages."
+end
+%>
+
+<%= ds_heading 'Body', level: 3 %>
+<%= component_preview id: 'paragraphs' do %>
+<%%= ds_paragraph('This is a standard body paragraph.') %>
+<%%= ds_paragraph('This is a smaller body paragraph.', size: :s) %>
+<% end %>
+
+<%= ds_heading 'Lead paragraph', level: 3 %>
+<%= ds_paragraph "A lead paragraph is an introductory paragraph that you can use at the top of a page to summarise the content. You should only use it once per page." %>
+<% lead_paragraph_demo = content_for(:lead_paragraph) %>
+<%= component_preview id: 'lead-paragraph', html: lead_paragraph_demo do %>
+<%%= ds_fixed_elements do |ds|
+  ds.lead_paragraph 'Fonts and typographic styles.'
+end %>
+<% end %>

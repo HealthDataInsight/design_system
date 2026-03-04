@@ -1,0 +1,49 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Checkboxes', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use checkboxes to let users select 1 or more options on a form.'
+end
+%>
+
+<%= component_preview id: 'checkboxes-single', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_check_boxes_fieldset :terms_agreed, multiple: false, hint: 'Click to tick the box', legend: { size: 'm' } do
+    f.ds_check_box :terms_agreed, { multiple: false, link_errors: true }, true, false
+  end
+end %>
+<% end %>
+
+<%= ds_heading 'Checkbox items with hints', level: 3 %>
+<%= component_preview id: 'checkboxes-hint', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_check_boxes_fieldset :terms_agreed, multiple: false, legend: { size: 'm' } do
+    f.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'This is a item-level hint' }, true, false
+  end
+end %>
+<% end %>
+
+<%#= ds_heading "Add an option for 'none'", level: 3 %>
+<%#= ds_inset_text 'TODO: check if we already support this' %>
+<!-- <%= component_preview component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f| %>
+  <%%= f.ds_check_boxes_fieldset :desired_filling, multiple: true do %>
+    <%%= f.ds_check_box :desired_filling, {}, :pastrami %>
+    <%%= f.ds_check_box :desired_filling, {}, :cheddar %>
+    <%%= f.ds_check_box :desired_filling, { exclusive: true }, 'None of these apply to me' %>
+  <%% end %>
+<%% end %>
+<% end %> -->
+
+<%= ds_heading "Smaller checkboxes", level: 3 %>
+<%= component_preview id: 'checkboxes-small', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f| %>
+  <%%= f.ds_check_boxes_fieldset :desired_filling, multiple: true, small: true do %>
+    <%%= f.ds_check_box :desired_filling, { multiple: true }, :pastrami %>
+    <%%= f.ds_check_box :desired_filling, { multiple: true }, :cheddar %>
+  <%% end %>
+<%% end %>
+<% end %>

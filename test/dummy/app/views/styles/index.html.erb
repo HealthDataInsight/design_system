@@ -1,0 +1,13 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Styles'
+
+  ds.breadcrumb('Home', root_path)
+
+  ds.lead_paragraph "Make your service look like other #{brand.upcase} services with these tested styles"
+end
+%>
+
+<% content_for :sidebar do %>
+  <%= render partial: 'styles/sidebar' %>
+<% end %>

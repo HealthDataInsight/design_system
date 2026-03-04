@@ -3,3 +3,64 @@
 @use 'nhsuk-frontend-10.3.1/components';
 
 // Use extreme caution when making any design system level style changes or additions here.
+@use 'hljs';
+
+// Code example block: fixed gray box, only __scroll + content scroll (like GOV.UK app-example).
+.app-example__code {
+  background-color: #f6f6f6;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  padding: 10px;
+  padding-top: 2.75rem;
+  position: relative;
+  width: 100%;
+}
+
+.app-example__scroll {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.app-example__code pre {
+  margin: 0;
+  min-width: min-content;
+}
+
+.app-example__copy-button {
+  @extend .nhsuk-button;
+  @extend .nhsuk-button--reverse;
+  @extend .nhsuk-button--small;
+  margin: 0;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 127, 59);
+  border-top-color: rgb(0, 127, 59);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: rgb(0, 127, 59);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: rgb(0, 127, 59);
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-color: rgb(0, 127, 59);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-radius: 3px;
+  box-shadow: rgb(0, 127, 59) 0px 4px 0px 0px;
+  outline-style: none;
+  font-family: "Frutiger W01";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+}

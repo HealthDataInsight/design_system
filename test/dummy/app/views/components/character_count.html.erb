@@ -1,0 +1,16 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Character count', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Help users know how much text they can enter when there is a limit on the number of characters.'
+end
+%>
+
+<%= component_preview id: 'character-count-basic', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_text_area :description, hint: "Demo for ds_text_area with character count", max_chars: 200
+end %>
+<% end %>

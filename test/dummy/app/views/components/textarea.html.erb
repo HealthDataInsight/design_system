@@ -1,0 +1,16 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Textarea', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use textarea to let users enter more than 1 line of text.'
+end
+%>
+
+<%= component_preview id: 'textarea-basic', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_text_area :description, hint: "Demo for ds_text_area"
+end %>
+<% end %>

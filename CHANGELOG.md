@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Refurbished preview pages to mirror NHSUK and GOVUK design system websites
+- Added `ds_code` to render a block of code
 - Added `ds_list` for plain lists, bullet lists, and numberedlists
+- Added `ds_paragraph` for creating a normal `<p>` body paragraph, and `lead_paragraph` to `fixed_elements` for creating a page-top introductory paragraph
+- Added `ds_inset_text` for differentiating a block of text (e.g. quotes) from the surrounding content
+- Added `ds_grid` for building grid layout
+
+### Fixed
+
+- Fixed the broken cypress test for the footer
 
 ## [0.12.0] - 2026-02-02
 

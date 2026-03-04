@@ -1,0 +1,47 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Buttons', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use buttons to help users carry out an action on a page like starting an application or saving their progress.'
+end
+%>
+
+<%= ds_heading 'Start button', level: 3 %>
+<%= component_preview id: 'buttons-start' do %>
+<%%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
+<% end %>
+
+<%= ds_heading 'Primary button', level: 3 %>
+<%= component_preview id: 'buttons-primary' do %>
+<%%= ds_button_tag('Save and continue', style: 'primary', 'data-id': 1) %>
+<% end %>
+
+<%= ds_heading 'Secondary button', level: 3 %>
+<%= component_preview id: 'buttons-secondary' do %>
+<%%= ds_button_tag('Find my location', style: 'secondary') %>
+<% end %>
+
+<%= ds_heading 'Warning button', level: 3 %>
+<%= component_preview id: 'buttons-warning' do %>
+<%%= ds_button_tag('Yes, delete', style: 'warning') %>
+<% end %>
+
+<%= ds_heading 'Disabled button', level: 3 %>
+<%= component_preview id: 'buttons-disabled' do %>
+<%%= ds_button_tag('Reset', type: 'reset', disabled: true) %>
+<% end %>
+
+<%= ds_heading 'Submit buttons (form)', level: 3 %>
+<%= component_preview id: 'buttons-submit', component: :fieldset do %>
+<%%= ds_form_with(model: Assistant.new, html: { onsubmit: 'return false;' }) do |f| %>
+  <%%= f.ds_field_set_tag "Submit buttons" do %>
+    <%%= f.ds_submit %>
+    <%%= f.ds_submit "Draft", type: :secondary %>
+    <%%= f.ds_submit "Warning", type: :warning %>
+    <%%= f.ds_submit "Disabled", type: :secondary, disabled: true %>
+  <%% end %>
+<%% end %>
+<% end %>
