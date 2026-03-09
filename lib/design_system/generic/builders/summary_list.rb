@@ -3,6 +3,7 @@
 module DesignSystem
   module Generic
     module Builders
+      # This class provides generic summary list.
       class SummaryList < Base
         include ActionView::Helpers::OutputSafetyHelper
 
@@ -38,7 +39,7 @@ module DesignSystem
 
         def render_value(row)
           content_tag(:dd, class: "#{brand}-summary-list__value") do
-            if row[:values].nil? || row[:values].empty?
+            if row[:values].blank?
               ''
             elsif row[:values].length == 1
               row[:values].first[:content]
@@ -50,7 +51,7 @@ module DesignSystem
 
         def render_actions(row)
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
-            if row[:actions].nil? || row[:actions].empty?
+            if row[:actions].blank?
               ''
             elsif row[:actions].length == 1
               render_action(row[:actions].first)

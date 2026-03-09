@@ -3,6 +3,7 @@
 module DesignSystem
   module Nhsuk
     module Builders
+      # This class provides NHSUK Summary List.
       class SummaryList < ::DesignSystem::Generic::Builders::SummaryList
         private
 

@@ -3,6 +3,7 @@
 module DesignSystem
   module Govuk
     module Builders
+      # This class provides GOVUK Summary List.
       class SummaryList < ::DesignSystem::Generic::Builders::SummaryList
         private
 
@@ -19,7 +20,7 @@ module DesignSystem
 
         def render_value(row)
           content_tag(:dd, class: 'govuk-summary-list__value') do
-            if row[:values].nil? || row[:values].empty?
+            if row[:values].blank?
               ''
             elsif row[:values].length == 1
               wrap_value(row[:values].first)
