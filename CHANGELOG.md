@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `ds_list` for plain lists, bullet lists, and numberedlists
 
+### Fixed
+
+- Fixed `ds_summary_list` incompatibility issue with additional options like `target`
+
 ## [0.12.0] - 2026-02-02
 
 ### Changed
