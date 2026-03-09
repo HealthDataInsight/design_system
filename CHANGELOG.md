@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed `ds_summary_list` incompatibility issue with additional options like `target`
+- Fixed `ds_summary_list` formatting issue when a row is absent with values
 
 ## [0.12.0] - 2026-02-02
 
