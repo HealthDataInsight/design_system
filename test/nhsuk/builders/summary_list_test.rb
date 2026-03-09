@@ -63,14 +63,29 @@ module DesignSystem
                         text: /View definition/)
         end
 
-        test 'raises error when renders a mixture of items with and without actions' do
-          assert_raises(ArgumentError, 'A mix of rows with and without actions is not supported for nhsuk style.') do
-            ds_summary_list do |list|
-              list.add_row(key: 'Item with action') do |row|
-                row.add_action('Edit', { path: '/edit' })
-              end
-              list.add_row(key: 'Item without action')
+        test 'renders an empty action cell when actions are empty' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row('Age', 30)
+          end
+
+          assert_select("div.#{@brand}-summary-list__row") do
+            assert_select("dt.#{@brand}-summary-list__key", text: 'Age')
+            assert_select("dd.#{@brand}-summary-list__value", text: '30')
+            assert_select("dd.#{@brand}-summary-list__actions", text: '')
+          end
+        end
+
+        test 'renders an empty value cell when values are nil' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row(key: 'Age') do |row|
+              row.add_action('View', { path: '/view' })
             end
+          end
+
+          assert_select("div.#{@brand}-summary-list__row") do
+            assert_select("dt.#{@brand}-summary-list__key", text: 'Age')
+            assert_select("dd.#{@brand}-summary-list__value", text: '')
+            assert_select("dd.#{@brand}-summary-list__actions a[href='/view']", text: 'View')
           end
         end
       end
