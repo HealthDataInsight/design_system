@@ -18,10 +18,10 @@ module DesignSystem
         end
 
         def render_value(row)
-          return if row[:values].nil? || row[:values].empty?
-
           content_tag(:dd, class: 'govuk-summary-list__value') do
-            if row[:values].length == 1
+            if row[:values].nil? || row[:values].empty?
+              ''
+            elsif row[:values].length == 1
               wrap_value(row[:values].first)
             else
               row[:values].map { |value| wrap_value(value) }.join.html_safe

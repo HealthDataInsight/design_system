@@ -37,10 +37,10 @@ module DesignSystem
         end
 
         def render_value(row)
-          return if row[:values].nil? || row[:values].empty?
-
           content_tag(:dd, class: "#{brand}-summary-list__value") do
-            if row[:values].length == 1
+            if row[:values].nil? || row[:values].empty?
+              ''
+            elsif row[:values].length == 1
               row[:values].first[:content]
             else
               row[:values].map { |value| content_tag(:p, value[:content], class: "#{brand}-body") }.join.html_safe
@@ -49,10 +49,10 @@ module DesignSystem
         end
 
         def render_actions(row)
-          return if row[:actions].nil? || row[:actions].empty?
-
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
-            if row[:actions].length == 1
+            if row[:actions].nil? || row[:actions].empty?
+              ''
+            elsif row[:actions].length == 1
               render_action(row[:actions].first)
             else
               content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
