@@ -65,8 +65,12 @@ module DesignSystem
         end
 
         def render_action(action)
-          link_to(action[:options][:path] || '#', class: "#{brand}-link") do
-            safe_join([action[:content], render_hidden_text(action[:options][:hidden_text])])
+          options = action[:options].dup
+          path = options.delete(:path) || '#'
+          hidden_text = options.delete(:hidden_text)
+
+          link_to(path, { class: "#{brand}-link" }.merge(options)) do
+            safe_join([action[:content], render_hidden_text(hidden_text)])
           end
         end
 

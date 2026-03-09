@@ -51,6 +51,18 @@ module DesignSystem
           assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/delete']", text: 'Delete')
         end
 
+        test 'renders an action with custom html options' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row(key: 'Definition') do |row|
+              row.add_action('View definition', path: '#definition', hidden_text: 'of the cohort',
+                                                target: 'data-cohort')
+            end
+          end
+
+          assert_select("dd.#{@brand}-summary-list__actions a.#{@brand}-link[target='data-cohort']",
+                        text: /View definition/)
+        end
+
         test 'raises error when renders a mixture of items with and without actions' do
           assert_raises(ArgumentError, 'A mix of rows with and without actions is not supported for nhsuk style.') do
             ds_summary_list do |list|
