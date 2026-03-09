@@ -7,17 +7,6 @@ module DesignSystem
       class SummaryList < ::DesignSystem::Generic::Builders::SummaryList
         private
 
-        def render_row(row)
-          row_classes = ['govuk-summary-list__row']
-          row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].blank?
-
-          content_tag(:div, class: row_classes.join(' ')) do
-            [render_key(row),
-             render_value(row),
-             render_actions(row)].compact.join.html_safe
-          end
-        end
-
         def render_value(row)
           content_tag(:dd, class: 'govuk-summary-list__value') do
             if row[:values].blank?

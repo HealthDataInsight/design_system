@@ -68,7 +68,7 @@ module DesignSystem
             list.add_row('Age', 30)
           end
 
-          assert_select("div.#{@brand}-summary-list__row") do
+          assert_select("div.#{@brand}-summary-list__row.#{@brand}-summary-list__row--no-actions") do
             assert_select("dt.#{@brand}-summary-list__key", text: 'Age')
             assert_select("dd.#{@brand}-summary-list__value", text: '30')
             assert_select("dd.#{@brand}-summary-list__actions", text: '', count: 0)

@@ -26,7 +26,10 @@ module DesignSystem
         end
 
         def render_row(row)
-          content_tag(:div, class: "#{brand}-summary-list__row") do
+          row_classes = ["#{brand}-summary-list__row"]
+          row_classes << "#{brand}-summary-list__row--no-actions" if row[:actions].blank?
+
+          content_tag(:div, class: row_classes.join(' ')) do
             [render_key(row),
              render_value(row),
              render_actions(row)].compact.join.html_safe
