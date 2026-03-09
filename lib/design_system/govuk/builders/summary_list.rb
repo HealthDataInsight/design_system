@@ -9,7 +9,7 @@ module DesignSystem
 
         def render_row(row)
           row_classes = ['govuk-summary-list__row']
-          row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].empty?
+          row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].blank?
 
           content_tag(:div, class: row_classes.join(' ')) do
             [render_key(row),

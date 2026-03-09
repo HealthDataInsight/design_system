@@ -50,10 +50,10 @@ module DesignSystem
         end
 
         def render_actions(row)
+          return if row[:actions].blank?
+
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
-            if row[:actions].blank?
-              ''
-            elsif row[:actions].length == 1
+            if row[:actions].length == 1
               render_action(row[:actions].first)
             else
               content_tag(:ul, class: "#{brand}-summary-list__actions-list") do
