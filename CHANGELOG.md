@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-03-11
+
 ### Added
 
 - Added `ds_list` for plain lists, bullet lists, and numberedlists
@@ -16,9 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed `ds_summary_list` incompatibility issue with additional options like `target`
+- Fixed issue in `ds_summary_list` where additional HTML options (such as `target`) were not supported, and resolved formatting problems when a row contained no values
 - Fixed the broken cypress test for the footer
-- Fixed `ds_summary_list` formatting issue when a row has no values
 
 ### Changed
 
@@ -124,7 +125,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.12.0...HEAD
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/HealthDataInsight/design_system/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/HealthDataInsight/design_system/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/HealthDataInsight/design_system/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/HealthDataInsight/design_system/compare/v0.9.5...v0.10.0
