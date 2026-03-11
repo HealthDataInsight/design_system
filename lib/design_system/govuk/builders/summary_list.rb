@@ -3,25 +3,15 @@
 module DesignSystem
   module Govuk
     module Builders
+      # This class provides GOVUK Summary List.
       class SummaryList < ::DesignSystem::Generic::Builders::SummaryList
         private
 
-        def render_row(row)
-          row_classes = ['govuk-summary-list__row']
-          row_classes << 'govuk-summary-list__row--no-actions' if row[:actions].empty?
-
-          content_tag(:div, class: row_classes.join(' ')) do
-            [render_key(row),
-             render_value(row),
-             render_actions(row)].compact.join.html_safe
-          end
-        end
-
         def render_value(row)
-          return if row[:values].nil? || row[:values].empty?
-
           content_tag(:dd, class: 'govuk-summary-list__value') do
-            if row[:values].length == 1
+            if row[:values].blank?
+              ''
+            elsif row[:values].length == 1
               wrap_value(row[:values].first)
             else
               row[:values].map { |value| wrap_value(value) }.join.html_safe
