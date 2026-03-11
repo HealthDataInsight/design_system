@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed `ds_summary_list` incompatibility issue with additional options like `target`
 - Fixed the broken cypress test for the footer
+- Fixed `ds_summary_list` formatting issue when a row has no values
+
+### Changed
+
+- `ds_summary_list` for NHSUK now supports mixed rows with and without actions
 
 ## [0.12.0] - 2026-02-02
 
