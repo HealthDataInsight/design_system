@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `ds_summary_list` for NHSUK now supports mixed rows with and without actions
+- `ds_notice` now works with success banner and custom banner text
 
 ## [0.12.0] - 2026-02-02
 
