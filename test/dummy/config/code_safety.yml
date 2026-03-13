@@ -1692,10 +1692,6 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
-  public/design_system/static/design_system-0.12.0/design_system.js:
-    comments:
-    reviewed_by: timgentry
-    safe_revision: ac3aea4bf157413b18a2123320a6c3d3bc75789c
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
