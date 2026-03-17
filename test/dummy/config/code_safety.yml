@@ -55,7 +55,7 @@ file safety:
   CHANGELOG.md:
     comments:
     reviewed_by: timgentry
-    safe_revision: 35a32ae4ab0b059775268e8d0c4a980ad3eaabb8
+    safe_revision: 2d25137b24f6d572632bbcb20e29af56b7611be5
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -67,7 +67,7 @@ file safety:
   Gemfile.lock:
     comments:
     reviewed_by: timgentry
-    safe_revision: 35a32ae4ab0b059775268e8d0c4a980ad3eaabb8
+    safe_revision: 2d25137b24f6d572632bbcb20e29af56b7611be5
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
@@ -1667,7 +1667,7 @@ file safety:
   lib/design_system/version.rb:
     comments:
     reviewed_by: timgentry
-    safe_revision: 35a32ae4ab0b059775268e8d0c4a980ad3eaabb8
+    safe_revision: 2d25137b24f6d572632bbcb20e29af56b7611be5
   lib/tasks/design_system_tasks.rake:
     comments:
     reviewed_by: shilpigoeldev
@@ -1690,8 +1690,8 @@ file safety:
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
   public/design_system/static/design_system-0.13.2/design_system.js:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 2d25137b24f6d572632bbcb20e29af56b7611be5
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
@@ -2358,8 +2358,8 @@ file safety:
     safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
   test/nhsuk/builders/grid_test.rb:
     comments:
-    reviewed_by:
-    safe_revision:
+    reviewed_by: timgentry
+    safe_revision: 1bb9ecffea2d62d6ea7931feb15b415899504c84
   test/nhsuk/builders/headings_test.rb:
     comments:
     reviewed_by: shilpigoeldev
