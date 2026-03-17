@@ -1612,10 +1612,6 @@ file safety:
     comments:
     reviewed_by: shilpigoeldev
     safe_revision: c60905ea0eea26f732189a5d93a4181c270cf91d
-  lib/design_system/nhsuk/builders/grid_test.rb:
-    comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: c60905ea0eea26f732189a5d93a4181c270cf91d
   lib/design_system/nhsuk/builders/heading.rb:
     comments:
     reviewed_by: timgentry
@@ -1692,10 +1688,10 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: cbe855bc549f64f2340c3d49271bfd446dc01315
-  public/design_system/static/design_system-0.13.1/design_system.js:
+  public/design_system/static/design_system-0.13.2/design_system.js:
     comments:
-    reviewed_by: timgentry
-    safe_revision: 35a32ae4ab0b059775268e8d0c4a980ad3eaabb8
+    reviewed_by:
+    safe_revision:
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
@@ -2360,6 +2356,10 @@ file safety:
     comments:
     reviewed_by: timgentry
     safe_revision: 299af683c671b20e17cb517fa1930e3a31997b20
+  test/nhsuk/builders/grid_test.rb:
+    comments:
+    reviewed_by:
+    safe_revision:
   test/nhsuk/builders/headings_test.rb:
     comments:
     reviewed_by: shilpigoeldev
