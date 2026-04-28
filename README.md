@@ -80,7 +80,40 @@ bundle exec rake js:build
 
 ## Contributing
 
-Contribution directions go here.
+### Setting up
+
+This project uses [mise](https://mise.jdx.dev/) to manage Ruby. With mise installed, run `mise install` from the project root to install the Ruby version pinned in `.ruby-version`. Then install the gems:
+
+```bash
+bundle install
+```
+
+To run the dummy app or the accessibility workflows locally, also install the dummy app's Node packages:
+
+```bash
+cd test/dummy && npm install
+```
+
+### Running the tests
+
+```bash
+bin/rails test
+```
+
+The suite runs against the dummy app at `test/dummy`. On a fresh checkout the test helper compiles Dart Sass automatically on the first run; subsequent runs are fast.
+
+### Running the dummy app
+
+```bash
+cd test/dummy
+bin/dev
+```
+
+This starts the Rails server alongside `dartsass:watch`, so styles rebuild as you edit.
+
+### CI
+
+`bin/rails test` runs on every push and pull request via the `Test` workflow. Accessibility (`wcag2aa`, `wcag2aaa`) and inclusive-language checks run separately.
 
 Created using:
 
