@@ -17,8 +17,7 @@ end
 end %>
 <% end %>
 
-<%= ds_heading 'Bulleted lists', level: 3 %>
-<%= component_preview id: 'lists-bullet' do %>
+<%= component_preview heading: 'Bulleted lists', id: 'lists-bullet' do %>
 <%%= ds_list(type: :bullet) do |list|
   list.add_item('Item 1')
   list.add_item('Item 2')
@@ -26,8 +25,7 @@ end %>
 end %>
 <% end %>
 
-<%= ds_heading 'Numbered lists', level: 3 %>
-<%= component_preview id: 'lists-number' do %>
+<%= component_preview heading: 'Numbered lists', id: 'lists-number' do %>
 <%%= ds_list(type: :number) do |list|
   list.add_item('Item 1')
   list.add_item('Item 2')

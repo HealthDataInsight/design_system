@@ -17,8 +17,7 @@ end
 end %>
 <% end %>
 
-<%= ds_heading 'Checkbox items with hints', level: 3 %>
-<%= component_preview id: 'checkboxes-hint', component: :form_group do %>
+<%= component_preview heading: 'Checkbox items with hints', id: 'checkboxes-hint', component: :form_group do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_check_boxes_fieldset :terms_agreed, multiple: false, legend: { size: 'm' } do
     f.ds_check_box :terms_agreed, { multiple: false, link_errors: true, hint: 'This is a item-level hint' }, true, false
@@ -38,8 +37,7 @@ end %>
 <%% end %>
 <% end %> -->
 
-<%= ds_heading "Smaller checkboxes", level: 3 %>
-<%= component_preview id: 'checkboxes-small', component: :form_group do %>
+<%= component_preview heading: "Smaller checkboxes", id: 'checkboxes-small', component: :form_group do %>
 <%%= ds_form_with(model: Assistant.new) do |f| %>
   <%%= f.ds_check_boxes_fieldset :desired_filling, multiple: true, small: true do %>
     <%%= f.ds_check_box :desired_filling, { multiple: true }, :pastrami %>

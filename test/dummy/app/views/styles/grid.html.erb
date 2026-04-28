@@ -9,8 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= ds_heading 'Full width', level: 3 %>
-<%= component_preview id: 'grid-full-width' do %>
+<%= component_preview heading: 'Full width', id: 'grid-full-width' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:full) do %>
     <%%= ds_paragraph 'Full width column.' %>
@@ -18,8 +17,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'One-half', level: 3 %>
-<%= component_preview id: 'grid-one-half' do %>
+<%= component_preview heading: 'One-half', id: 'grid-one-half' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_half) do %>
     <%%= ds_paragraph 'One-half column.' %>
@@ -27,8 +25,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'Two-thirds', level: 3 %>
-<%= component_preview id: 'grid-two-thirds' do %>
+<%= component_preview heading: 'Two-thirds', id: 'grid-two-thirds' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:two_thirds) do %>
     <%%= ds_paragraph 'Two-thirds column.' %>
@@ -36,8 +33,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'One-third', level: 3 %>
-<%= component_preview id: 'grid-one-third' do %>
+<%= component_preview heading: 'One-third', id: 'grid-one-third' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_third) do %>
     <%%= ds_paragraph 'One-third column.' %>
@@ -45,8 +41,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'Three-quarters', level: 3 %>
-<%= component_preview id: 'grid-three-quarters' do %>
+<%= component_preview heading: 'Three-quarters', id: 'grid-three-quarters' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:three_quarters) do %>
     <%%= ds_paragraph 'Three-quarters column.' %>
@@ -54,8 +49,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'One-quarter', level: 3 %>
-<%= component_preview id: 'grid-one-quarter' do %>
+<%= component_preview heading: 'One-quarter', id: 'grid-one-quarter' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_quarter) do %>
     <%%= ds_paragraph 'One-quarter column.' %>
@@ -63,8 +57,7 @@ end
 <%% end %>
 <% end %>
 
-<%= ds_heading 'Nested grids', level: 3 %>
-<%= component_preview id: 'grid-nested' do %>
+<%= component_preview heading: 'Nested grids', id: 'grid-nested' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:two_thirds) do %>
     <%%= ds_heading 'Two-thirds column', level: 4 %>

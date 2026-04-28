@@ -21,8 +21,7 @@ end
 <%%= ds_notice("I am a success notice", type: :success)%>
 <% end %>
 
-<%= ds_heading 'Example with block content', level: 3 %>
-<%= component_preview id: 'notification-banner-alert-block' do %>
+<%= component_preview heading: 'Example with block content', id: 'notification-banner-alert-block' do %>
 <%%= ds_alert do %>
   <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
 <%% end %>

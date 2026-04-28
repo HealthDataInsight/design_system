@@ -9,15 +9,13 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= ds_heading 'Collection radio buttons', level: 3 %>
-<%= component_preview id: 'radios-collection', component: :form_group do %>
+<%= component_preview heading: 'Collection radio buttons', id: 'radios-collection', component: :form_group do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_collection_radio_buttons :colour, Assistant::COLOURS, :id, :title, { hint_method: :description, hint: "Demo for ds_collection_radio_buttons" }, { small: true, inline: true }
 end %>
 <% end %>
 
-<%= ds_heading 'Radio buttons fieldset', level: 3 %>
-<%= component_preview id: 'radios-fieldset', component: :form_group do %>
+<%= component_preview heading: 'Radio buttons fieldset', id: 'radios-fieldset', component: :form_group do %>
 <%%= ds_form_with(model: Assistant.new) do |f|
   f.ds_radio_buttons_fieldset :lunch_option, hint: "Demo for ds_radio_buttons_fieldset" do
     f.ds_radio_button :lunch_option, "Salad", link_errors: true

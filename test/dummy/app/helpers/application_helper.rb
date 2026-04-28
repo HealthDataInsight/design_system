@@ -3,7 +3,7 @@ require 'nokogiri'
 
 # Helpers for the dummy app: component preview (ERB + rendered output).
 module ApplicationHelper
-  def component_preview(html: nil, component: nil, id: nil, &block)
+  def component_preview(heading: nil, level: 3, html: nil, component: nil, id: nil, &block)
     erb_source = capture(&block)
     display_source = hide_demo_attributes(erb_source)
 
@@ -12,6 +12,7 @@ module ApplicationHelper
     pretty_html = pretty_print(html)
 
     safe_buffer = ActiveSupport::SafeBuffer.new
+    safe_buffer << ds_heading(heading, level: level) if heading
     safe_buffer << render_input(display_source, id)
     safe_buffer << render_output(html, pretty_html, id)
     safe_buffer

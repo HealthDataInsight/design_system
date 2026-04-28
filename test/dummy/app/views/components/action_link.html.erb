@@ -13,12 +13,10 @@ end
 <%%= ds_action_link('Find your nearest A&E', '#') %>
 <% end %>
 
-<%= ds_heading 'Text link', level: 3 %>
-<%= component_preview id: 'action-link-text' do %>
+<%= component_preview heading: 'Text link', id: 'action-link-text' do %>
 <%%= ds_link_to 'Back to manage assistants (default link style)', '#' %>
 <% end %>
 
-<%= ds_heading 'Button link', level: 3 %>
-<%= component_preview id: 'action-link-button' do %>
+<%= component_preview heading: 'Button link', id: 'action-link-button' do %>
 <%%= ds_link_to 'Back to manage assistants (button link style - secondary)', '#', type: :secondary_button %>
 <% end %>

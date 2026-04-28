@@ -9,8 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= ds_heading 'Body', level: 3 %>
-<%= component_preview id: 'paragraphs' do %>
+<%= component_preview heading: 'Body', id: 'paragraphs' do %>
 <%%= ds_paragraph('This is a standard body paragraph.') %>
 <%%= ds_paragraph('This is a smaller body paragraph.', size: :s) %>
 <% end %>
