@@ -1,0 +1,18 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Back link', caption: 'Navigation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use back links to help users go back to the previous page in a multi-page transaction.'
+end
+%>
+
+<% backlink_demo = link_to('Back to home', root_path, class: "#{brand}-back-link") %>
+
+<%= component_preview id: 'back-link-basic', html: backlink_demo do %>
+<%%= ds_fixed_elements do |ds|
+  ds.backlink 'Back to home', '#'
+end %>
+<% end %>

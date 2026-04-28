@@ -1,0 +1,32 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Tabs', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'The tabs component lets users navigate between related sections of content, displaying 1 section at a time.'
+end
+%>
+
+<%= component_preview id: 'tabs-basic' do %>
+<%# TODO: fix embedded tab %>
+<%%=
+ds_tab do |tab|
+  tab.title = 'Contents'
+  #(name, content, id, selected)
+  tab.add_tab_panel('Profile', nil, 'profile', selected: true) do
+    ds_table do |table|
+      table.caption = 'Profile'
+      table.add_column('Name')
+      table.add_column('Gender')
+      table.add_numeric_column('Age')
+      table.add_row 'Ryan', 'Male', 30
+    end
+  end
+  tab.add_tab_panel('Dashboard','this is dashboard' ,'dashboard')
+  tab.add_tab_panel('Settings', 'this is settings','settings')
+  tab.add_tab_panel('Contacts', 'this is contacts', 'contacts')
+end
+%>
+<% end %>

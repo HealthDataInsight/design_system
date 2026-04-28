@@ -1,0 +1,21 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Details', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Make a page easier to scan by letting users reveal more detailed information only if they need it.'
+end
+%>
+
+<%= component_preview id: 'details-nhs-number' do %>
+<%%= ds_details('How to find your NHS number') do %>
+  <%%= ds_paragraph 'You can find your NHS number by logging in to the NHS App or on any document the NHS has sent you, such as your:' %>
+  <%%= ds_list(type: :bullet) do |list|
+    list.add_item('hospital referral letters')
+    list.add_item('appointment letters')
+  end %>
+  <%%= ds_paragraph 'Ask your GP surgery for help if you cannot find your NHS number.' %>
+<%% end %>
+<% end %>

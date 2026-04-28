@@ -4,6 +4,7 @@
 
 require_relative 'govuk/builders/button'
 require_relative 'govuk/builders/callout'
+require_relative 'govuk/builders/code'
 require_relative 'govuk/builders/details'
 require_relative 'govuk/builders/fixed_elements'
 require_relative 'govuk/builders/heading'
