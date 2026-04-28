@@ -1,0 +1,44 @@
+---
+name: "Test"
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  test:
+    name: Run Rails tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up mise
+        uses: jdx/mise-action@v2
+        with:
+          cache: true
+
+      - name: Cache Ruby gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-ruby-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-ruby-
+
+      - name: Install Ruby dependencies
+        run: |
+          bundle config set --local path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Prepare the database
+        run: bin/rails db:setup
+
+      - name: Run Rails tests
+        run: bin/rails test
