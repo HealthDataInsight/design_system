@@ -12,6 +12,13 @@ ActiveRecord::Migrator.migrations_paths = [File.expand_path('../test/dummy/db/mi
 require 'rails/test_help'
 require 'mocha/minitest'
 
+builds_dir = File.expand_path('dummy/app/assets/builds', __dir__)
+expected_builds = %w[application.css govuk.css nhsuk.css]
+unless expected_builds.all? { |f| File.exist?(File.join(builds_dir, f)) }
+  silence_warnings { Rails.application.load_tasks }
+  Rake::Task['dartsass:build'].invoke
+end
+
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
   ActiveSupport::TestCase.fixture_paths = [File.expand_path('fixtures', __dir__)]
