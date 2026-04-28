@@ -2,6 +2,7 @@
 
 module DesignSystem
   module Components
+    # This class provides a summary list component.
     class SummaryList
       attr_accessor :rows
 
@@ -23,6 +24,7 @@ module DesignSystem
       end
     end
 
+    # This class provides a builder for a summary list row.
     class SummaryListRowBuilder
       attr_reader :row
 

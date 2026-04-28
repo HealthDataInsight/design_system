@@ -3,6 +3,7 @@
 module DesignSystem
   module Generic
     module Builders
+      # This class provides generic summary list.
       class SummaryList < Base
         include ActionView::Helpers::OutputSafetyHelper
 
@@ -25,7 +26,10 @@ module DesignSystem
         end
 
         def render_row(row)
-          content_tag(:div, class: "#{brand}-summary-list__row") do
+          row_classes = ["#{brand}-summary-list__row"]
+          row_classes << "#{brand}-summary-list__row--no-actions" if row[:actions].blank?
+
+          content_tag(:div, class: row_classes.join(' ')) do
             [render_key(row),
              render_value(row),
              render_actions(row)].compact.join.html_safe
@@ -37,10 +41,10 @@ module DesignSystem
         end
 
         def render_value(row)
-          return if row[:values].nil? || row[:values].empty?
-
           content_tag(:dd, class: "#{brand}-summary-list__value") do
-            if row[:values].length == 1
+            if row[:values].blank?
+              ''
+            elsif row[:values].length == 1
               row[:values].first[:content]
             else
               row[:values].map { |value| content_tag(:p, value[:content], class: "#{brand}-body") }.join.html_safe
@@ -49,7 +53,7 @@ module DesignSystem
         end
 
         def render_actions(row)
-          return if row[:actions].nil? || row[:actions].empty?
+          return if row[:actions].blank?
 
           content_tag(:dd, class: "#{brand}-summary-list__actions") do
             if row[:actions].length == 1
@@ -65,8 +69,12 @@ module DesignSystem
         end
 
         def render_action(action)
-          link_to(action[:options][:path] || '#', class: "#{brand}-link") do
-            safe_join([action[:content], render_hidden_text(action[:options][:hidden_text])])
+          options = action[:options].dup
+          path = options.delete(:path) || '#'
+          hidden_text = options.delete(:hidden_text)
+
+          link_to(path, { class: "#{brand}-link" }.merge(options)) do
+            safe_join([action[:content], render_hidden_text(hidden_text)])
           end
         end
 
