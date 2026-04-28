@@ -37,8 +37,5 @@ jobs:
           bundle config set --local path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - name: Prepare the database
-        run: bin/rails db:setup
-
       - name: Run Rails tests
         run: bin/rails test
