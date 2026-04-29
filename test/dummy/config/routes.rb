@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   root 'pages#index'
   post 'form-handler', to: 'pages#form_handler'
 
-  resources :styles, only: %i[index show], param: :id
-  resources :components, only: %i[index show], param: :id
+  resources :styles, only: %i[index show], param: :style
+  resources :components, only: %i[index show], param: :component
 
   resources :assistants
 end
