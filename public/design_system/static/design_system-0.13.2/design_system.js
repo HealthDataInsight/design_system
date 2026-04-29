@@ -52313,8 +52313,12 @@ var code_highlight_controller_default = class extends Controller {
 
 // app/javascript/design_system/controllers/hello_world_controller.js
 var hello_world_controller_default = class extends Controller {
+  static targets = ["name", "greeting"];
   connect() {
     console.log("Hello from the Design System!");
+  }
+  greet() {
+    this.greetingTarget.textContent = `Hello, ${this.nameTarget.value}!`;
   }
 };
 
