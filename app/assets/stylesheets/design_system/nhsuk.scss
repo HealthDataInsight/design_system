@@ -7,11 +7,14 @@
 
 // Code example block: fixed gray box, only __scroll + content scroll (like GOV.UK app-example).
 .app-example__code {
-  background-color: #f6f6f6;
+  background-color: #f0f4f5;
+  border: 4px solid transparent;
+  margin: -4px;
+  margin-bottom: 28px;
   box-sizing: border-box;
   max-width: 100%;
   min-width: 0;
-  padding: 10px;
+  padding: 0;
   padding-top: 2.75rem;
   position: relative;
   width: 100%;
@@ -32,35 +35,21 @@
   min-width: min-content;
 }
 
+.app-example__code pre code.hljs {
+  background: transparent;
+}
+
 .app-example__copy-button {
   @extend .nhsuk-button;
-  @extend .nhsuk-button--reverse;
+  @extend .nhsuk-button--secondary-solid;
   @extend .nhsuk-button--small;
+
+  // Copy button positioning (based on NHS "code" button placement).
   margin: 0;
+  margin-bottom: 4px;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 127, 59);
-  border-top-color: rgb(0, 127, 59);
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-right-color: rgb(0, 127, 59);
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-bottom-color: rgb(0, 127, 59);
-  border-bottom-style: solid;
-  border-bottom-width: 0px;
-  border-left-color: rgb(0, 127, 59);
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-radius: 3px;
-  box-shadow: rgb(0, 127, 59) 0px 4px 0px 0px;
-  outline-style: none;
-  font-family: "Frutiger W01";
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: center;
-  text-decoration: none;
+  right: 16px;
+  top: 16px;
+  width: auto;
+  z-index: 1;
 }
