@@ -34,7 +34,7 @@ class ComponentPreviewTest < ActionView::TestCase
   test 'level: has no effect when heading: is omitted' do
     result = component_preview(level: 1, id: 'demo') { '<p>Hi</p>' }
 
-    refute_match %r{<h1[^>]*>}, result
+    refute_match(/<h1[^>]*>/, result)
   end
 
   test 'block content appears in both the source and rendered panes' do
