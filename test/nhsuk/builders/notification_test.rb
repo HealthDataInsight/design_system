@@ -54,6 +54,14 @@ module DesignSystem
           end
         end
 
+        test 'rendering nhsuk notice with content heading default tag' do
+          @output_buffer = ds_notice('Body', content_heading: { text: 'Important Notice' })
+
+          assert_select 'div.nhsuk-notification-banner__content' do
+            assert_select 'h3.nhsuk-notification-banner__heading', 'Important Notice'
+          end
+        end
+
         test 'rejecting invalid content heading tag' do
           error = assert_raises(ArgumentError) do
             ds_notice('Body', content_heading: { text: 'Heading', tag: :div })

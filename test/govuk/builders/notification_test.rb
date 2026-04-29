@@ -47,10 +47,18 @@ module DesignSystem
         end
 
         test 'rendering govuk notice with content heading and body (msg)' do
-          @output_buffer = ds_notice('Important Notice', content_heading: { text: 'Important Notice', tag: :h1 })
+          @output_buffer = ds_notice('Important Notice', content_heading: { text: 'Important Notice', tag: :p })
 
           assert_select 'div.govuk-notification-banner__content' do
-            assert_select 'h1.govuk-notification-banner__heading', 'Important Notice'
+            assert_select 'p.govuk-notification-banner__heading', 'Important Notice'
+          end
+        end
+
+        test 'rendering govuk notice with content heading default tag' do
+          @output_buffer = ds_notice('Body', content_heading: { text: 'Important Notice' })
+
+          assert_select 'div.govuk-notification-banner__content' do
+            assert_select 'h3.govuk-notification-banner__heading', 'Important Notice'
           end
         end
 

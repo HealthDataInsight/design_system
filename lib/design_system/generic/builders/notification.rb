@@ -29,12 +29,10 @@ module DesignSystem
 
           content_body = block_given? ? capture(&) : msg
 
-          validate_content_heading_tag!(content_heading)
-
           content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
-            banner_tile(header) + banner_content(content_heading, content_body)
+            banner_tile(header) + banner_content(content_body, content_heading:)
           end
         end
 
@@ -47,28 +45,20 @@ module DesignSystem
           end
         end
 
-        def banner_content(content_heading, content_body)
+        def banner_content(content_body, content_heading: {})
           content_tag(:div, class: "#{brand}-notification-banner__content") do
             content = []
 
-            if content_heading[:text].present?
-              content << content_tag(content_heading[:tag], content_heading[:text],
-                                     class: "#{brand}-notification-banner__heading")
+            if content_heading.present? && content_heading[:text].present?
+              tag = content_heading[:tag] || :h3
+              raise ArgumentError, "Invalid content_heading tag: #{tag}.}" unless tag.in?(%i[h3 p])
+
+              content << content_tag(tag, content_heading[:text], class: "#{brand}-notification-banner__heading")
             end
             content << content_body if content_body.present?
 
             safe_join(content)
           end
-        end
-
-        def validate_content_heading_tag!(content_heading)
-          tag = content_heading&.[](:tag)
-          return if tag.blank?
-
-          allowed = %i[p h1 h2 h3 h4 h5 h6]
-          return if allowed.include?(tag.to_sym)
-
-          raise ArgumentError, "Invalid content_heading tag: #{tag}. Must be one of: #{allowed.join(', ')}"
         end
 
         def notification_type_hash

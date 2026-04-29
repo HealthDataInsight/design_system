@@ -7,9 +7,11 @@
   <strong>Alert with block:</strong> This is a more complex alert with <a href="#">a link</a> and formatted content.
 <% end %>
 
-<%= ds_notice(type: :success, content_heading: { text: 'Notice with block', tag: :h3 }) do %>
+<%= ds_notice(type: :success, content_heading: { text: 'Notice with block' }) do %>
   You can include multiple elements and <%= ds_link_to 'demo', assistants_path %> link.
 <% end %>
+
+<%= ds_notice(content_heading: { text: 'The service will be unavaialble from 8pm to 9pm on Thursday 1 January 2025.', tag: :p }) %>
 
 <%=
 ds_fixed_elements do |ds|
