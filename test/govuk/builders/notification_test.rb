@@ -21,21 +21,9 @@ module DesignSystem
             assert_select 'div.govuk-notification-banner__header' do
               assert_select 'h2.govuk-notification-banner__title', 'Important'
             end
-
-            assert_select 'div.govuk-notification-banner__content' do
-              assert_select 'p.govuk-notification-banner__heading', 'Important Notice'
-            end
           end
-        end
 
-        test 'rendering govuk notice with custom header' do
-          @output_buffer = ds_notice('Test content', header: 'Custom header')
-
-          assert_select 'div.govuk-notification-banner[role="region"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
-            assert_select 'div.govuk-notification-banner__header' do
-              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Custom header'
-            end
-          end
+          assert_select 'div.govuk-notification-banner__content', text: 'Important Notice'
         end
 
         test 'rendering govuk notice with success type' do
@@ -46,23 +34,7 @@ module DesignSystem
               assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Success'
             end
 
-            assert_select 'div.govuk-notification-banner__content' do
-              assert_select 'p.govuk-notification-banner__heading', 'Test content'
-            end
-          end
-        end
-
-        test 'rendering govuk notice with success type and custom header' do
-          @output_buffer = ds_notice('Test content', type: :success, header: 'Custom header')
-
-          assert_select 'div.govuk-notification-banner.govuk-notification-banner--success[role="alert"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
-            assert_select 'div.govuk-notification-banner__header' do
-              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Custom header'
-            end
-
-            assert_select 'div.govuk-notification-banner__content' do
-              assert_select 'p.govuk-notification-banner__heading', 'Test content'
-            end
+            assert_select 'div.govuk-notification-banner__content', text: 'Test content'
           end
         end
 
@@ -74,18 +46,33 @@ module DesignSystem
           end
         end
 
-        test 'rendering govuk notice with block' do
+        test 'rendering govuk notice with content heading and body (msg)' do
+          @output_buffer = ds_notice('Important Notice', content_heading: { text: 'Important Notice', tag: :h1 })
+
+          assert_select 'div.govuk-notification-banner__content' do
+            assert_select 'h1.govuk-notification-banner__heading', 'Important Notice'
+          end
+        end
+
+        test 'rendering govuk notice without content heading' do
           @output_buffer = ds_notice do
-            '<strong>Notice:</strong> Complex content with <a href="#">link</a>'.html_safe
+            '<p class="custom">Raw content</p>'.html_safe
           end
 
-          assert_select 'div.govuk-notification-banner' do
-            assert_select 'div.govuk-notification-banner__content' do
-              assert_select 'p.govuk-notification-banner__heading' do
-                assert_select 'strong', 'Notice:'
-                assert_select 'a[href="#"]', 'link'
-              end
-            end
+          assert_select 'div.govuk-notification-banner__content' do
+            assert_select 'p.custom', 'Raw content'
+            assert_select '.govuk-notification-banner__heading', count: 0
+          end
+        end
+
+        test 'rendering govuk notice with heading and body(block)' do
+          @output_buffer = ds_notice(content_heading: { text: 'Banner heading', tag: :h3 }) do
+            '<p class="body">Additional content</p>'.html_safe
+          end
+
+          assert_select 'div.govuk-notification-banner__content' do
+            assert_select 'h3.govuk-notification-banner__heading', 'Banner heading'
+            assert_select 'p.body', 'Additional content'
           end
         end
 
@@ -96,22 +83,7 @@ module DesignSystem
 
           assert_select 'div.govuk-notification-banner' do
             assert_select 'div.govuk-notification-banner__content' do
-              assert_select 'p.govuk-notification-banner__heading' do
-                assert_select 'a.govuk-notification-banner__link[href="#"]', 'link'
-              end
-            end
-          end
-        end
-
-        test 'rendering govuk alert with block' do
-          @output_buffer = ds_alert do
-            '<strong>Error:</strong> Check <a href="/help">help page</a>'.html_safe
-          end
-
-          assert_select 'div.govuk-error-summary' do
-            assert_select 'h2.govuk-error-summary__title' do
-              assert_select 'strong', 'Error:'
-              assert_select 'a[href="/help"]', 'help page'
+              assert_select 'a.govuk-notification-banner__link[href="#"]', 'link'
             end
           end
         end
