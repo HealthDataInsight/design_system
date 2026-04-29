@@ -54,6 +54,14 @@ module DesignSystem
           end
         end
 
+        test 'rejecting invalid content heading tag' do
+          error = assert_raises(ArgumentError) do
+            ds_notice('Body', content_heading: { text: 'Heading', tag: :div })
+          end
+
+          assert_match(/Invalid content_heading tag/i, error.message)
+        end
+
         test 'rendering nhsuk notice without content heading' do
           @output_buffer = ds_notice do
             '<p class="custom">Raw content</p>'.html_safe
