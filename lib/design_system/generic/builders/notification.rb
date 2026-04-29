@@ -29,6 +29,8 @@ module DesignSystem
 
           content_body = block_given? ? capture(&) : msg
 
+          validate_content_heading_tag!(content_heading)
+
           content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
@@ -57,6 +59,16 @@ module DesignSystem
 
             safe_join(content)
           end
+        end
+
+        def validate_content_heading_tag!(content_heading)
+          tag = content_heading&.[](:tag)
+          return if tag.blank?
+
+          allowed = %i[p h1 h2 h3 h4 h5 h6]
+          return if allowed.include?(tag.to_sym)
+
+          raise ArgumentError, "Invalid content_heading tag: #{tag}. Must be one of: #{allowed.join(', ')}"
         end
 
         def notification_type_hash
