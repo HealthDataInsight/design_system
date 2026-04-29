@@ -16,19 +16,20 @@ module DesignSystem
           end
         end
 
-        def render_notice(msg = nil, header: nil, type: :information, &)
+        def render_notice(msg = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
           raise ArgumentError,
                 "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}" unless notification_type_hash.key?(type)
 
-          header ||= notification_type_hash.dig(type, :header)
+          header = notification_type_hash.dig(type, :header)
 
-          content_to_display = block_given? ? capture(&) : msg
+          content_body = block_given? ? capture(&) : msg
+
           content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
-            banner_tile(header) + banner_content(content_to_display)
+            banner_tile(header) + banner_content(content_heading, content_body)
           end
         end
 
@@ -41,10 +42,14 @@ module DesignSystem
           end
         end
 
-        def banner_content(content)
+        def banner_content(content_heading, content_body)
           content_tag(:div, class: "#{brand}-notification-banner__content") do
-            content_tag(:p, content,
-                        class: "#{brand}-notification-banner__heading")
+            content = []
+            
+            content << content_tag(content_heading[:tag], content_heading[:text], class: "#{brand}-notification-banner__heading") if content_heading[:text].present?
+            content << content_body if content_body.present?
+
+            content.join.html_safe
           end
         end
 
