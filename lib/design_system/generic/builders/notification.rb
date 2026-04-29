@@ -5,6 +5,7 @@ module DesignSystem
     module Builders
       # This class provides generic methods to display notifications.
       class Notification < Base
+        include ActionView::Helpers::OutputSafetyHelper
         include ActionView::Helpers::SanitizeHelper
 
         def render_alert(msg = nil, &)
@@ -19,8 +20,10 @@ module DesignSystem
         def render_notice(msg = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
-          raise ArgumentError,
-                "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}" unless notification_type_hash.key?(type)
+          unless notification_type_hash.key?(type)
+            raise ArgumentError,
+                  "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}"
+          end
 
           header = notification_type_hash.dig(type, :header)
 
@@ -45,11 +48,14 @@ module DesignSystem
         def banner_content(content_heading, content_body)
           content_tag(:div, class: "#{brand}-notification-banner__content") do
             content = []
-            
-            content << content_tag(content_heading[:tag], content_heading[:text], class: "#{brand}-notification-banner__heading") if content_heading[:text].present?
+
+            if content_heading[:text].present?
+              content << content_tag(content_heading[:tag], content_heading[:text],
+                                     class: "#{brand}-notification-banner__heading")
+            end
             content << content_body if content_body.present?
 
-            content.join.html_safe
+            safe_join(content)
           end
         end
 
