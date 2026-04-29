@@ -7,7 +7,7 @@ class StylesController < ApplicationController
   def index; end
 
   def show
-    @style = params[:id]
+    @style = params[:style]
     render "styles/#{@style}"
   rescue ActionView::MissingTemplate
     render 'styles/default'
