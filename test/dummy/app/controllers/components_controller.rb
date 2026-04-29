@@ -16,7 +16,7 @@ class ComponentsController < ApplicationController
   private
 
   def set_component
-    @component = params[:id]
+    @component = params[:component]
   end
 
   def set_component_preview_data
