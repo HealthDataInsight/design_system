@@ -5,6 +5,7 @@ module DesignSystem
     module Builders
       # This class provides generic methods to display notifications.
       class Notification < Base
+        include ActionView::Helpers::OutputSafetyHelper
         include ActionView::Helpers::SanitizeHelper
 
         def render_alert(msg = nil, &)
@@ -16,19 +17,22 @@ module DesignSystem
           end
         end
 
-        def render_notice(msg = nil, header: nil, type: :information, &)
+        def render_notice(msg = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &)
           @context.instance_variable_set(:@link_context, :notification_banner)
 
-          raise ArgumentError,
-                "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}" unless notification_type_hash.key?(type)
+          unless notification_type_hash.key?(type)
+            raise ArgumentError,
+                  "Invalid notification type: #{type}. Must be one of: #{notification_type_hash.keys.join(', ')}"
+          end
 
-          header ||= notification_type_hash.dig(type, :header)
+          header = notification_type_hash.dig(type, :header)
 
-          content_to_display = block_given? ? capture(&) : msg
+          content_body = block_given? ? capture(&) : msg
+
           content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
                             'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
-            banner_tile(header) + banner_content(content_to_display)
+            banner_tile(header) + banner_content(content_body, content_heading:)
           end
         end
 
@@ -41,10 +45,19 @@ module DesignSystem
           end
         end
 
-        def banner_content(content)
+        def banner_content(content_body, content_heading: {})
           content_tag(:div, class: "#{brand}-notification-banner__content") do
-            content_tag(:p, content,
-                        class: "#{brand}-notification-banner__heading")
+            content = []
+
+            if content_heading.present? && content_heading[:text].present?
+              tag = content_heading[:tag] || :h3
+              raise ArgumentError, "Invalid content_heading tag: #{tag}.}" unless tag.in?(%i[h3 p])
+
+              content << content_tag(tag, content_heading[:text], class: "#{brand}-notification-banner__heading")
+            end
+            content << content_body if content_body.present?
+
+            safe_join(content)
           end
         end
 
