@@ -14,7 +14,9 @@ end
 <% end %>
 
 <%= component_preview id: 'notification-banner-notice' do %>
-<%%= ds_notice("I am a notice")%>
+<%%= ds_notice content_heading: { text: 'Please be aware', tag: :p } do %>
+  I am a notice.
+<%% end %>
 <% end %>
 
 <%= component_preview id: 'notification-banner-success' do %>
