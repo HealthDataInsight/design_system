@@ -1,0 +1,22 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Fieldset', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use a fieldset to group related form inputs.'
+end
+%>
+
+<%= component_preview id: 'fieldset-basic', component: :fieldset do %>
+<%%= ds_form_with(model: Assistant.new) do |f| %>
+  <%%= f.ds_field_set_tag "What are your contact details?" do %>
+    <%%= f.ds_text_field :name, width: 20 %>
+    <%%= f.ds_email_field :email, width: 20 %>
+    <%%= f.ds_phone_field :phone, width: 20 %>
+    <%%= f.ds_text_field :address, width: 20 %>
+    <%%= f.ds_text_field :postcode, width: 10 %>
+  <%% end %>
+<%% end %>
+<% end %>

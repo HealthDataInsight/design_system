@@ -1,0 +1,14 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Warning callout', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use a warning callout to help users identify and understand warning content on the page, even if they do not read the whole page.'
+end
+%>
+
+<%= component_preview id: 'warning-callout-basic' do %>
+<%%= ds_callout('School Message:', 'Half term break is over !!') %>
+<% end %>

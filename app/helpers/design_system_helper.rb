@@ -136,4 +136,8 @@ module DesignSystemHelper
   def ds_inset_text(text = nil, ...)
     DesignSystem::Registry.builder(brand, 'inset_text', self).render_inset_text(text, ...)
   end
+
+  def ds_code(code, language)
+    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, language)
+  end
 end

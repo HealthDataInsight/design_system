@@ -1,0 +1,14 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Pagination', caption: 'Navigation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use pagination to help users navigate forwards and backwards through a series of pages.'
+end
+%>
+
+<%= component_preview id: 'pagination-basic' do %>
+<%%= ds_pagination(@assistants) %>
+<% end %>

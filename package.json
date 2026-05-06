@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@stimulus-components/timeago": "^5.0.2",
-    "date-fns": "^4.1.0"
+    "date-fns": "^4.1.0",
+    "highlight.js": "^11.11.1"
   },
   "devDependencies": {
     "esbuild": "^0.25.5"

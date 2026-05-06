@@ -5,6 +5,7 @@
 );
 
 // Use extreme caution when making any design system level style changes or additions here.
+@use 'hljs';
 
 .app-header-layout {
   display: flex;
@@ -66,4 +67,41 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.app-example__code {
+  background-color: #f6f6f6;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  padding: 10px;
+  padding-top: 2.75rem;
+  position: relative;
+  width: 100%;
+}
+
+.app-example__scroll {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.app-example__code pre {
+  margin: 0;
+  min-width: min-content;
+}
+
+.app-example__copy-button {
+  @extend .govuk-button;
+  @extend .govuk-button--inverse;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  margin: 0;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }

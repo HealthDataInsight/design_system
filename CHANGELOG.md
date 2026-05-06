@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Refurbished the preview pages in the dummy app
+- Added `ds_code` to render a block of code" this part is at wrong place I suppose
+
 ## [0.14.0] - 2026-05-01
 
 ### Fixed

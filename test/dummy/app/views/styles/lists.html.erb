@@ -1,0 +1,34 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Lists', caption: 'Typography'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Styles', styles_path)
+
+  ds.lead_paragraph "Use lists to make blocks of text easier to read, and to break information into manageable chunks."
+end
+%>
+
+<%= component_preview id: 'lists' do %>
+<%%= ds_list do |list|
+  list.add_item('Item 1')
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
+<% end %>
+
+<%= component_preview heading: 'Bulleted lists', id: 'lists-bullet' do %>
+<%%= ds_list(type: :bullet) do |list|
+  list.add_item('Item 1')
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
+<% end %>
+
+<%= component_preview heading: 'Numbered lists', id: 'lists-number' do %>
+<%%= ds_list(type: :number) do |list|
+  list.add_item('Item 1')
+  list.add_item('Item 2')
+  list.add_item('Item 3')
+end %>
+<% end %>

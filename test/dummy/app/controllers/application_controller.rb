@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'will_paginate/array'
+
 # This is the application controller
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session if Rails.env.test?
@@ -36,5 +38,13 @@ class ApplicationController < ActionController::Base
 
   def searchbar_url
     @searchbar_url = nil # Default is nil (hidden)
+  end
+
+  def demo_paginated_assistants
+    [
+      Assistant.new(title: '1'),
+      Assistant.new(title: '2'),
+      Assistant.new(title: '3')
+    ].paginate(page: params[:page], per_page: 1)
   end
 end

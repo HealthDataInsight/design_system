@@ -1,0 +1,22 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Select', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use select to let users choose an option from a long list but only use it as a last resort.'
+end
+%>
+
+<%= component_preview heading: 'Collection select', id: 'select-collection', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_collection_select :role_id, Role.all, :id, :title, hint: "Demo for ds_collection_select", prompt: "Please select", include_blank: false
+end %>
+<% end %>
+
+<%= component_preview heading: 'Select (options_for_select)', id: 'select-options', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_select :department_id, options_for_select(Department.all.map { |d| [d.title, d.id] }), prompt: "Please select", include_blank: false, hint: "Demo for ds_select", label: { size: 'm', caption: { text: 'Label size default to nil. If you want to customise it, you can do so here.' } }
+end %>
+<% end %>

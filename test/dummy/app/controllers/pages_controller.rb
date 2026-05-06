@@ -1,19 +1,11 @@
 # frozen_string_literal: true
 
-require 'will_paginate/array'
 # This is the pages controller
 class PagesController < ApplicationController
-  def index
-    # Using an array to simulate records
-    assistants = [
-      Assistant.new(title: '1'),
-      Assistant.new(title: '2'),
-      Assistant.new(title: '3')
-    ]
+  layout 'two_column'
 
-    # Paginate the array
-    @assistants = assistants.paginate(page: params[:page], per_page: 1)
-    flash.now.notice = 'Alerts and notices have been added'
+  def index
+    @assistants = demo_paginated_assistants
   end
 
   def form_handler

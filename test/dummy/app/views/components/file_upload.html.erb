@@ -1,0 +1,16 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'File upload', caption: 'Form elements'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Help users select and upload a file.'
+end
+%>
+
+<%= component_preview id: 'file-upload-basic', component: :form_group do %>
+<%%= ds_form_with(model: Assistant.new) do |f|
+  f.ds_file_field :cv
+end %>
+<% end %>
