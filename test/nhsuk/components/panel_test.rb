@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk panel builder
+    module Components
+      # This tests the nhsuk panel component
       class PanelTest < ActionView::TestCase
         include DesignSystemHelper
 

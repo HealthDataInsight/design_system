@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk panel builder
+    module Components
+      # This tests the govuk panel component
       class PanelTest < ActionView::TestCase
         include DesignSystemHelper
 
