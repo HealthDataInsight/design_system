@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refurbished the preview pages in the dummy app
 - Added `ds_code` to render a block of code" this part is at wrong place I suppose
 
+### Changed
+
+- Migrated `ds_panel` from a PORO builder to a ViewComponent (no API change)
+
 ## [0.14.0] - 2026-05-01
 
 ### Fixed
