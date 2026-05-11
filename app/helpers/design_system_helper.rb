@@ -109,10 +109,11 @@ module DesignSystemHelper
     DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
   end
 
-  def ds_details(summary_text, &)
+  def ds_details(summary_text, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'details', self).render_details(summary_text, &)
+    component = DesignSystem::Registry.component(brand, :details).new(summary_text)
+    render(component) { capture(&block) }
   end
 
   def ds_action_link(name = nil, options = nil, html_options = nil)

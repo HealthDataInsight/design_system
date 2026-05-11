@@ -5,7 +5,6 @@
 require_relative 'generic/builders/button'
 require_relative 'generic/builders/callout'
 require_relative 'generic/builders/code'
-require_relative 'generic/builders/details'
 require_relative 'generic/builders/fixed_elements'
 require_relative 'generic/builders/grid'
 require_relative 'generic/builders/heading'

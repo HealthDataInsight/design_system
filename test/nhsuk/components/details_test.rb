@@ -4,7 +4,7 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
+    module Components
       class DetailsTest < ActionView::TestCase
         include DesignSystemHelper
 

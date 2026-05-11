@@ -4,7 +4,7 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
+    module Components
       class DetailsTest < ActionView::TestCase
         include DesignSystemHelper
 
