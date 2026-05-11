@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk callout builder
+    module Components
+      # This tests the govuk callout component
       class CalloutTest < ActionView::TestCase
         include DesignSystemHelper
 

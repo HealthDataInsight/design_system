@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk callout builder
+    module Components
+      # This tests the nhsuk callout component
       class CalloutTest < ActionView::TestCase
         include DesignSystemHelper
 

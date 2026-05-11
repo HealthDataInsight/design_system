@@ -106,7 +106,7 @@ module DesignSystemHelper
   end
 
   def ds_callout(label, body)
-    DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
+    render DesignSystem::Registry.component(brand, :callout).new(label:, body:)
   end
 
   def ds_details(summary_text, &block)
