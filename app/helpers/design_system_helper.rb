@@ -53,7 +53,7 @@ module DesignSystemHelper
   end
 
   def ds_start_button(text, href = '#', options = {})
-    DesignSystem::Registry.builder(brand, 'button', self).render_start_button(text, href, options)
+    render DesignSystem::Registry.component(brand, :start_button).new(text, href, options)
   end
 
   def ds_button_tag(content_or_options = nil, options = nil, &)
