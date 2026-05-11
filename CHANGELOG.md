@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Migrated `ds_panel` from a PORO builder to a ViewComponent (no API change)
+- Migrated `ds_panel`, `ds_callout`, `ds_details`, `ds_heading`, `ds_action_link`, `ds_start_button`, and `ds_list` from PORO builders to ViewComponents (no API change).
 
 ## [0.14.0] - 2026-05-01
 
