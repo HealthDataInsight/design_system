@@ -1,17 +1,17 @@
 require 'test_helper'
 
 module DesignSystem
-  module Nhsuk
-    module Builders
+  module Govuk
+    module Components
       class ListTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'nhsuk'
+          @brand = 'govuk'
           @controller.stubs(:brand).returns(@brand)
         end
 
-        test 'renders a basic nhsuk list with items' do
+        test 'renders a basic govuk list with items' do
           @output_buffer = ds_list do |list|
             list.add_item('Item 1')
             list.add_item('Item 2')
@@ -23,17 +23,7 @@ module DesignSystem
           end
         end
 
-        test 'renders a nhsuk ordered list with number style' do
-          @output_buffer = ds_list(type: :number) do |list|
-            list.add_item('First')
-          end
-
-          assert_select("ol.#{@brand}-list.#{@brand}-list--number") do
-            assert_select 'li', text: 'First'
-          end
-        end
-
-        test 'renders a nhsuk unordered list with bullet style' do
+        test 'renders a govuk list with bullet style' do
           @output_buffer = ds_list(type: :bullet) do |list|
             list.add_item('Bullet 1')
           end
@@ -43,7 +33,17 @@ module DesignSystem
           end
         end
 
-        test 'renders a nhsuk list with block items' do
+        test 'renders a govuk list with number style' do
+          @output_buffer = ds_list(type: :number) do |list|
+            list.add_item('Number 1')
+          end
+
+          assert_select("ol.#{@brand}-list.#{@brand}-list--number") do
+            assert_select 'li', text: 'Number 1'
+          end
+        end
+
+        test 'renders a govuk list with block items' do
           @output_buffer = ds_list do |list|
             list.add_item do
               content_tag(:span, 'Block item', class: 'block-item')

@@ -131,7 +131,11 @@ module DesignSystemHelper
   end
 
   def ds_list(type: :default, **options, &block)
-    DesignSystem::Registry.builder(brand, 'list', self).render_list(type:, **options, &block)
+    raise ArgumentError, 'block required' unless block_given?
+
+    list_data = ::DesignSystem::Components::List.new
+    block.call(list_data)
+    render ::DesignSystem::Registry.component(brand, :list).new(list: list_data, type:, **options)
   end
 
   def ds_inset_text(text = nil, ...)
