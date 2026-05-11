@@ -117,7 +117,7 @@ module DesignSystemHelper
   end
 
   def ds_action_link(name = nil, options = nil, html_options = nil)
-    DesignSystem::Registry.builder(brand, 'action_link', self).render_action_link(name, options, html_options)
+    render DesignSystem::Registry.component(brand, :action_link).new(name, options, html_options)
   end
 
   def ds_grid(options = {}, &)

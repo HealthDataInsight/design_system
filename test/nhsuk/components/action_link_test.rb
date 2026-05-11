@@ -3,22 +3,25 @@
 require 'test_helper'
 
 module DesignSystem
-  module Govuk
-    module Builders
-      # This tests the govuk action link builder
+  module Nhsuk
+    module Components
+      # This tests the nhsuk action link component
       class ActionLinkTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
+          @brand = 'nhsuk'
           @controller.stubs(:brand).returns(@brand)
           @assistant = assistants(:one)
         end
 
-        test 'rendering govuk action link' do
+        test 'rendering nhsuk action link' do
           @output_buffer = ds_action_link('Find your nearest A&E', assistant_path(@assistant))
 
-          assert_select("a.#{@brand}-button", href: assistant_path(@assistant), text: 'Find your nearest A&E')
+          assert_select("a.#{@brand}-action-link", href: assistant_path(@assistant)) do
+            assert_select("svg.#{@brand}-icon")
+            assert_select("span.#{@brand}-action-link__text", text: 'Find your nearest A&E')
+          end
         end
       end
     end
