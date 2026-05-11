@@ -83,7 +83,7 @@ module DesignSystemHelper
   end
 
   def ds_heading(text, level: 2, **options)
-    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level:, **options)
+    render DesignSystem::Registry.component(brand, :heading).new(text, level:, **options)
   end
 
   def ds_timeago(date, refresh_interval: 60_000, format: :long)

@@ -2,9 +2,9 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhs headings builder
-      class HeadingsTest < ActionView::TestCase
+    module Components
+      # This tests the nhs heading component
+      class HeadingTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do

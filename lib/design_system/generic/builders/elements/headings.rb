@@ -15,8 +15,9 @@ module DesignSystem
             safe_buffer = ActiveSupport::SafeBuffer.new
 
             safe_buffer.concat(render_caption) if @caption
-            safe_buffer.concat(DesignSystem::Registry.builder(brand, 'heading', self).render_heading(@main_heading,
-                                                                                                     level: 1))
+            safe_buffer.concat(
+              DesignSystem::Registry.component(brand, :heading).new(@main_heading, level: 1).render_in(@context)
+            )
 
             safe_buffer
           end
