@@ -23,13 +23,19 @@ module DesignSystem
       end
 
       def form_builder(brand)
+        raise ArgumentError, "Unknown brand: #{brand}" unless registered?(brand)
+
         "DesignSystem::#{brand.camelcase}::FormBuilder".constantize
+      end
+
+      def registered?(brand)
+        Array(design_systems).include?(brand)
       end
 
       private
 
       def namespaced_builder_klass(brand, klass_name)
-        raise ArgumentError, "Unknown brand: #{brand}" unless design_systems.include?(brand)
+        raise ArgumentError, "Unknown brand: #{brand}" unless registered?(brand)
 
         "DesignSystem::#{brand.camelize}::Builders::#{klass_name.camelize}".constantize
       end

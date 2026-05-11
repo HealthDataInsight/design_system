@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def brand
     session[:brand] ||= 'nhsuk'
-    session[:brand] = params[:brand] if params[:brand]
+    session[:brand] = params[:brand] if DesignSystem::Registry.registered?(params[:brand])
     session[:brand]
   end
 
