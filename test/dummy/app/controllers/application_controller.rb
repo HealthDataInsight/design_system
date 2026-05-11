@@ -4,8 +4,6 @@ require 'will_paginate/array'
 
 # This is the application controller
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session if Rails.env.test?
-
   include DesignSystem::Branded
 
   before_action :add_navigation, :set_service_name, :set_footer_links, :searchbar_url
@@ -22,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def brand
     session[:brand] ||= 'nhsuk'
-    session[:brand] = params[:brand] if params[:brand]
+    session[:brand] = params[:brand] if DesignSystem::Registry.registered?(params[:brand])
     session[:brand]
   end
 
