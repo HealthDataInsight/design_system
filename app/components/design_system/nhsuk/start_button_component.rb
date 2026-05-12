@@ -1,6 +1,6 @@
 module DesignSystem
   module Nhsuk
-    class StartButtonComponent < DesignSystem::Govuk::StartButtonComponent
+    class StartButtonComponent < DesignSystem::Generic::StartButtonComponent
     end
   end
 end
