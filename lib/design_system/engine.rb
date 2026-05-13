@@ -1,5 +1,6 @@
 require 'action_dispatch/middleware/remote_ip'
 require 'stimulus-rails'
+require 'view_component'
 
 module DesignSystem
   # This is the main engine class for the design system.

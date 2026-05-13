@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
 require_relative 'nhsuk/builders/button'
-require_relative 'nhsuk/builders/callout'
 require_relative 'nhsuk/builders/code'
 require_relative 'nhsuk/builders/fixed_elements'
-require_relative 'nhsuk/builders/details'
-require_relative 'nhsuk/builders/heading'
 require_relative 'nhsuk/builders/link'
-require_relative 'nhsuk/builders/list'
 require_relative 'nhsuk/builders/notification'
 require_relative 'nhsuk/builders/pagination_renderer'
-require_relative 'nhsuk/builders/panel'
 require_relative 'nhsuk/builders/paragraph'
 require_relative 'nhsuk/builders/summary_list'
 require_relative 'nhsuk/builders/tab'

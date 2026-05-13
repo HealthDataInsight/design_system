@@ -22,6 +22,18 @@ module DesignSystem
         klass.new(context)
       end
 
+      # Resolves a per-brand component class. The component is responsible for
+      # rendering — call `render(component(brand, :panel).new(...))` from a
+      # helper. Coexists with `builder` during the gradual migration from
+      # PORO builders to ViewComponents.
+      def component(brand, name)
+        raise ArgumentError, "Unknown brand: #{brand}" unless registered?(brand)
+
+        klass_name = "DesignSystem::#{brand.camelize}::#{name.to_s.camelize}Component"
+        klass_name.safe_constantize ||
+          raise(ArgumentError, "Unknown component: #{name} for brand #{brand}")
+      end
+
       def form_builder(brand)
         raise ArgumentError, "Unknown brand: #{brand}" unless registered?(brand)
 

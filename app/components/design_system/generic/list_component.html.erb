@@ -1,0 +1,7 @@
+<%= content_tag(tag_name, **list_options) do %>
+  <% list.items.each do |item| %>
+    <% item_content = item.is_a?(Proc) ? capture(&item) : item %>
+    <% next if item_content.blank? %>
+    <%= content_tag(:li, item_content) %>
+  <% end %>
+<% end %>

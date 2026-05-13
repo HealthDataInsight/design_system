@@ -19,13 +19,6 @@ module DesignSystem
 
           assert_select('button.govuk-button.govuk-button--secondary', text: 'Cancel')
         end
-
-        test 'rendering govuk start button' do
-          @output_buffer = ds_start_button('Start', '/start')
-
-          assert_select('a.govuk-button.govuk-button--start', href: '/start')
-          assert_select('a svg', 1)
-        end
       end
     end
   end

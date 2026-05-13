@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'govuk_design_system_formbuilder', '~> 5.11.0'
   spec.add_dependency 'rails', '>= 7.0.8.5'
   spec.add_dependency 'stimulus-rails', '~> 1.3'
+  spec.add_dependency 'view_component', '~> 4.0'
   spec.add_dependency 'will_paginate', '~> 4.0.1'
   spec.add_dependency 'zeitwerk', '~> 2.6'
 

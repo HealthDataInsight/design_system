@@ -53,7 +53,7 @@ module DesignSystemHelper
   end
 
   def ds_start_button(text, href = '#', options = {})
-    DesignSystem::Registry.builder(brand, 'button', self).render_start_button(text, href, options)
+    render DesignSystem::Registry.component(brand, :start_button).new(text, href, options)
   end
 
   def ds_button_tag(content_or_options = nil, options = nil, &)
@@ -83,7 +83,7 @@ module DesignSystemHelper
   end
 
   def ds_heading(text, level: 2, **options)
-    DesignSystem::Registry.builder(brand, 'heading', self).render_heading(text, level:, **options)
+    render DesignSystem::Registry.component(brand, :heading).new(text, level:, **options)
   end
 
   def ds_timeago(date, refresh_interval: 60_000, format: :long)
@@ -102,21 +102,22 @@ module DesignSystemHelper
   end
 
   def ds_panel(title, body)
-    DesignSystem::Registry.builder(brand, 'panel', self).render_panel(title, body)
+    render DesignSystem::Registry.component(brand, :panel).new(title:, body:)
   end
 
   def ds_callout(label, body)
-    DesignSystem::Registry.builder(brand, 'callout', self).render_callout(label, body)
+    render DesignSystem::Registry.component(brand, :callout).new(label:, body:)
   end
 
-  def ds_details(summary_text, &)
+  def ds_details(summary_text, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'details', self).render_details(summary_text, &)
+    component = DesignSystem::Registry.component(brand, :details).new(summary_text)
+    render(component) { capture(&block) }
   end
 
   def ds_action_link(name = nil, options = nil, html_options = nil)
-    DesignSystem::Registry.builder(brand, 'action_link', self).render_action_link(name, options, html_options)
+    render DesignSystem::Registry.component(brand, :action_link).new(name, options, html_options)
   end
 
   def ds_grid(options = {}, &)
@@ -130,7 +131,11 @@ module DesignSystemHelper
   end
 
   def ds_list(type: :default, **options, &block)
-    DesignSystem::Registry.builder(brand, 'list', self).render_list(type:, **options, &block)
+    raise ArgumentError, 'block required' unless block_given?
+
+    list_data = ::DesignSystem::Components::List.new
+    block.call(list_data)
+    render ::DesignSystem::Registry.component(brand, :list).new(list: list_data, type:, **options)
   end
 
   def ds_inset_text(text = nil, ...)

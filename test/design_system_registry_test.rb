@@ -17,6 +17,31 @@ class DesignSystemRegistryTest < ActiveSupport::TestCase
     assert_equal 2, @registry.design_systems.count
   end
 
+  test 'component returns the Govuk view component class' do
+    assert_equal DesignSystem::Govuk::PanelComponent,
+                 @registry.component('govuk', :panel)
+  end
+
+  test 'component returns the Nhsuk view component class' do
+    assert_equal DesignSystem::Nhsuk::PanelComponent,
+                 @registry.component('nhsuk', :panel)
+  end
+
+  test 'component accepts a string name' do
+    assert_equal DesignSystem::Govuk::PanelComponent,
+                 @registry.component('govuk', 'panel')
+  end
+
+  test 'component raises ArgumentError for an unknown brand' do
+    error = assert_raises(ArgumentError) { @registry.component('not_a_brand', :panel) }
+    assert_match(/Unknown brand/, error.message)
+  end
+
+  test 'component raises ArgumentError for an unknown component' do
+    error = assert_raises(ArgumentError) { @registry.component('govuk', :not_a_component) }
+    assert_match(/Unknown component/, error.message)
+  end
+
   test 'registered? returns true for registered brands' do
     assert @registry.registered?('govuk')
     assert @registry.registered?('nhsuk')
