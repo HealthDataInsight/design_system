@@ -54,6 +54,8 @@ module DesignSystem
               tag(:span, title, class: "#{brand}-pagination__title") +
               tag(:span, text, class: "#{brand}-u-visually-hidden"),
               class: "#{brand}-pagination__link disabled",
+              role: 'link',
+              'aria-disabled': 'true',
               'aria-label': aria_label)
         end
 

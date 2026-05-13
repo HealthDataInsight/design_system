@@ -1,5 +1,6 @@
 [
   "http://localhost:3000/",
   "http://localhost:3000/assistants",
-  "http://localhost:3000/assistants/new"
+  "http://localhost:3000/assistants/new",
+  "http://localhost:3000/components/pagination"
 ]
