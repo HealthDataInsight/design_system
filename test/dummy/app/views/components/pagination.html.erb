@@ -9,6 +9,8 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= component_reference 'pagination', '/components/pagination' %>
+
 <%= component_preview id: 'pagination-basic' do %>
 <%%= ds_pagination(@assistants) %>
 <% end %>

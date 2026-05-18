@@ -9,6 +9,15 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= 
+case brand
+when 'nhsuk' then
+  component_reference 'paragraphs', '/styles/typography#paragraphs'
+when 'govuk' then
+  component_reference 'paragraphs', '/styles/paragraphs/'
+end
+%>
+
 <%= component_preview heading: 'Body', id: 'paragraphs' do %>
 <%%= ds_paragraph('This is a standard body paragraph.') %>
 <%%= ds_paragraph('This is a smaller body paragraph.', size: :s) %>

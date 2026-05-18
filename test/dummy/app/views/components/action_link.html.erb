@@ -9,6 +9,13 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= 
+case brand
+when 'nhsuk' then
+  component_reference 'action link', '/components/action-link'
+end
+%>
+
 <%= component_preview id: 'action-link-primary' do %>
 <%%= ds_action_link('Find your nearest A&E', '#') %>
 <% end %>

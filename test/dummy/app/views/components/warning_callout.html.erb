@@ -9,6 +9,15 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= 
+case brand
+when 'nhsuk' then
+  component_reference 'warning callout', '/components/warning-callout'
+when 'govuk' then
+  component_reference 'warning callout', '/components/warning-text'
+end
+%>
+
 <%= component_preview id: 'warning-callout-basic' do %>
 <%%= ds_callout('School Message:', 'Half term break is over !!') %>
 <% end %>

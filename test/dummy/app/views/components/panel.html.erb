@@ -9,6 +9,8 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= component_reference 'panel', '/components/panel' %>
+
 <%= component_preview id: 'panel-basic' do %>
 <%%= ds_panel('Application confirmed', 'We have sent you a confirmation email') %>
 <% end %>

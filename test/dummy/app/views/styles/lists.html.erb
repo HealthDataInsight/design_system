@@ -9,6 +9,15 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= 
+case brand
+when 'nhsuk' then
+  component_reference 'lists', '/styles/typography#lists'
+when 'govuk' then
+  component_reference 'lists', '/styles/lists/'
+end
+%>
+
 <%= component_preview id: 'lists' do %>
 <%%= ds_list do |list|
   list.add_item('Item 1')

@@ -9,6 +9,15 @@ ds_fixed_elements do |ds|
 end
 %>
 
+<%= 
+case brand
+when 'nhsuk' then
+  component_reference 'grid', '/styles/layout#grid'
+when 'govuk' then
+  component_reference 'grid', '/styles/layout/#using-the-grid-system'
+end
+%>
+
 <%= component_preview heading: 'Full width', id: 'grid-full-width' do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:full) do %>
