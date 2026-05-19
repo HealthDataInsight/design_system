@@ -9,15 +9,6 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%=
-case brand
-when 'nhsuk' then
-  component_reference 'notification banner', '/components/notification-banners'
-when 'govuk' then
-  component_reference 'notification banner', '/components/notification-banner'
-end
-%>
-
 <%= component_preview id: 'notification-banner-alert' do %>
 <%%= ds_alert("I am an alert")%>
 <% end %>

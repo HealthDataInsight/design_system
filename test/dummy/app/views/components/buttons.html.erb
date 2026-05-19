@@ -9,15 +9,6 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%=
-case brand
-when 'nhsuk' then
-  component_reference 'buttons', '/components/buttons'
-when 'govuk' then
-  component_reference 'button', '/components/button'
-end
-%>
-
 <%= component_preview heading: 'Start button', id: 'buttons-start' do %>
 <%%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
 <% end %>

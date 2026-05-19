@@ -9,15 +9,6 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= 
-case brand
-when 'nhsuk' then
-  component_reference 'headings', '/styles/typography#headings'
-when 'govuk' then
-  component_reference 'headings', '/styles/headings/'
-end
-%>
-
 <%= component_preview id: 'default-heading' do %>
 <%%= ds_heading 'Default heading' %>
 <% end %>

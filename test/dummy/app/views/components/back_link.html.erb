@@ -11,8 +11,6 @@ end
 
 <% backlink_demo = link_to('Back to home', root_path, class: "#{brand}-back-link") %>
 
-<%= component_reference 'back link', '/components/back-link' %>
-
 <%= component_preview id: 'back-link-basic', html: backlink_demo do %>
 <%%= ds_fixed_elements do |ds|
   ds.backlink 'Back to home', '#'
