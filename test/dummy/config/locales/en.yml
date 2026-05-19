@@ -49,6 +49,10 @@ en:
         website: What is your website?
     errors:
       title: There is a problem
+  design_system:
+    brands:
+      govuk: GOV.UK
+      nhsuk: NHS
   helpers:
     fieldset:
       legend: Fieldset heading

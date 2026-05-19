@@ -21,20 +21,13 @@ module ApplicationHelper
   def component_reference(component, relative_url)
     ds_inset_text do
       ds_paragraph do
-        ds_link_to("View documentation for #{design_system_brand_name} #{component}", design_system_base_url + relative_url)
+        ds_link_to("View documentation for #{t("design_system.brands.#{brand}", default: brand.upcase)
+      } #{component}", design_system_base_url + relative_url)
       end
     end
   end
 
   private
-
-  def design_system_brand_name
-    case brand
-    when 'nhsuk' then 'NHS'
-    when 'govuk' then 'GOV.UK'
-    else brand.upcase
-    end
-  end
 
   def design_system_base_url
     case brand
