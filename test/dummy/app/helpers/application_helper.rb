@@ -21,21 +21,12 @@ module ApplicationHelper
   def component_reference(component, relative_url)
     ds_inset_text do
       ds_paragraph do
-        ds_link_to("View documentation for #{t("design_system.brands.#{brand}", default: brand.upcase)
-      } #{component}", design_system_base_url + relative_url)
+        ds_link_to("View documentation for #{t("design_system.#{brand}.name")} #{component}", t("design_system.#{brand}.base_url") + relative_url)
       end
     end
   end
 
   private
-
-  def design_system_base_url
-    case brand
-    when 'nhsuk' then 'https://service-manual.nhs.uk/design-system'
-    when 'govuk' then 'https://design-system.service.gov.uk'
-    else raise "Base URL for #{brand} not found"
-    end
-  end
 
   def hide_demo_attributes(erb_source)
     source = erb_source.to_s

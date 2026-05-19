@@ -50,9 +50,12 @@ en:
     errors:
       title: There is a problem
   design_system:
-    brands:
-      govuk: GOV.UK
-      nhsuk: NHS
+    govuk:
+      base_url: https://design-system.service.gov.uk/
+      name: GOV.UK
+    nhsuk:
+      base_url: https://service-manual.nhs.uk/design-system
+      name: NHS
   helpers:
     fieldset:
       legend: Fieldset heading
