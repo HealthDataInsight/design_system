@@ -17,6 +17,18 @@ when 'govuk' then
 end
 %>
 
+<%= component_preview heading: 'Start button', id: 'buttons-start' do %>
+<%%= ds_start_button('Start now', '#', {'data-scrollable': 'Y'}) %>
+<% end %>
+
+<%= component_preview heading: 'Primary button', id: 'buttons-primary' do %>
+<%%= ds_button_tag('Save and continue', style: 'primary', 'data-id': 1) %>
+<% end %>
+
+<%= component_preview heading: 'Secondary button', id: 'buttons-secondary' do %>
+<%%= ds_button_tag('Find my location', style: 'secondary') %>
+<% end %>
+
 <%= component_preview heading: 'Warning button', id: 'buttons-warning' do %>
 <%%= ds_button_tag('Yes, delete', style: 'warning') %>
 <% end %>
