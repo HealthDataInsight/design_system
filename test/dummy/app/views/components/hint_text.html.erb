@@ -9,7 +9,8 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= case brand
+<%=
+case brand
 when 'nhsuk' then
   component_reference 'hint text', '/components/hint-text'
 end
