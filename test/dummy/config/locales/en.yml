@@ -50,11 +50,51 @@ en:
     errors:
       title: There is a problem
   design_system:
+    shared_component_paths: &shared_component_paths
+      back_link: components/back-link
+      breadcrumb: components/breadcrumbs
+      character_count: components/character-count
+      checkboxes: components/checkboxes
+      date_input: components/date-input
+      details: components/details
+      fieldset: components/fieldset
+      file_upload: components/file-upload
+      inset_text: components/inset-text
+      pagination: components/pagination
+      panel: components/panel
+      password_input: components/password-input
+      radios: components/radios
+      select: components/select
+      summary_list: components/summary-list
+      table: components/table
+      tabs: components/tabs
+      textarea: components/textarea
+      text_input: components/text-input
     govuk:
       base_url: https://design-system.service.gov.uk/
+      components:
+        <<: *shared_component_paths
+        buttons: components/button
+        notification_banner: components/notification-banner
+        warning_callout: components/warning-text
+        grid: styles/layout/#using-the-grid-system
+        headings: styles/headings/
+        lists: styles/lists/
+        paragraphs: styles/paragraphs/
       name: GOV.UK
     nhsuk:
-      base_url: https://service-manual.nhs.uk/design-system
+      base_url: https://service-manual.nhs.uk/design-system/
+      components:
+        <<: *shared_component_paths
+        action_link: components/action-link
+        buttons: components/buttons
+        hint_text: components/hint-text
+        notification_banner: components/notification-banners
+        warning_callout: components/warning-callout
+        grid: styles/layout#grid
+        headings: styles/typography#headings
+        lists: styles/typography#lists
+        paragraphs: styles/typography#paragraphs
       name: NHS
   helpers:
     fieldset:

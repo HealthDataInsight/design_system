@@ -42,4 +42,29 @@ class ComponentPreviewTest < ActionView::TestCase
 
     assert_operator result.scan('Round-trip me').size, :>=, 2
   end
+
+  test 'renders brand documentation link once from locale using @component' do
+    @component = 'buttons'
+    first = component_preview(id: 'demo-a') { '<p>One</p>' }
+    second = component_preview(id: 'demo-b') { '<p>Two</p>' }
+
+    assert_includes first, 'View documentation for GOV.UK button'
+    assert_includes first, 'design-system.service.gov.uk/components/button'
+    refute_includes second, 'View documentation for'
+  end
+
+  test 'reference_key overrides @component for locale lookup' do
+    @component = 'buttons'
+    result = component_preview(reference_key: 'tabs', id: 'demo') { '<p>Hi</p>' }
+
+    assert_includes result, 'View documentation for GOV.UK tabs'
+    refute_includes result, 'components/button'
+  end
+
+  test 'omits documentation link when locale has no entry for current brand' do
+    @component = 'action_link'
+    result = component_preview(id: 'demo') { '<p>Hi</p>' }
+
+    refute_includes result, 'View documentation for'
+  end
 end
