@@ -65,22 +65,23 @@ en:
           reference_url: https://service-manual.nhs.uk/design-system/components/back-link
         breadcrumb:
           heading: Breadcrumb
-          reference_url: https://service-manual.nhs.uk/design-system/components/breadcrumb
+          reference_url: https://service-manual.nhs.uk/design-system/components/breadcrumbs
         buttons_start:
           heading: Start button
-          reference_url: https://service-manual.nhs.uk/design-system/components/button
         buttons_primary:
           heading: Primary button
-          reference_url: https://service-manual.nhs.uk/design-system/components/button
+          reference_url: https://service-manual.nhs.uk/design-system/components/buttons#primary-buttons
         buttons_secondary:
           heading: Secondary button
-          reference_url: https://service-manual.nhs.uk/design-system/components/button#secondary
+          reference_url: https://service-manual.nhs.uk/design-system/components/buttons#secondary-buttons
         buttons_warning:
           heading: Warning button
-          reference_url: https://service-manual.nhs.uk/design-system/components/button#warning
+          reference_url: https://service-manual.nhs.uk/design-system/components/buttons#warning-buttons
+        buttons_disabled:
+          heading: Disabled button
+          reference_url: https://service-manual.nhs.uk/design-system/components/buttons#disabled-buttons
         buttons_submit:
           heading: Submit buttons (form)
-          reference_url: https://service-manual.nhs.uk/design-system/components/button#submit
         character_count: 
           heading: Character count
           reference_url: https://service-manual.nhs.uk/design-system/components/character-count
@@ -113,13 +114,12 @@ en:
           reference_url: https://service-manual.nhs.uk/design-system/components/inset-text
         notification_banner_alert: 
           heading: Notification Alert
-          reference_url: https://service-manual.nhs.uk/design-system/components/notification-banner
         notification_banner_notice: 
           heading: Notification Notice
-          reference_url: https://service-manual.nhs.uk/design-system/components/notification-banner
+          reference_url: https://service-manual.nhs.uk/design-system/components/notification-banners
         notification_banner_success: 
           heading: Notification Success
-          reference_url: https://service-manual.nhs.uk/design-system/components/notification-banner
+          reference_url: https://service-manual.nhs.uk/design-system/components/notification-banners#using-the-success-banner
         notification_banner_alert_block: 
           heading: Notification Alert with block
         notification_banner_notice_block: 
@@ -138,13 +138,11 @@ en:
           reference_url: https://service-manual.nhs.uk/design-system/components/radios
         radios_fieldset: 
           heading: Radio buttons fieldset
-          reference_url: https://service-manual.nhs.uk/design-system/components/radios
         select_collection: 
           heading: Collection select
           reference_url: https://service-manual.nhs.uk/design-system/components/select
         select_options: 
           heading: Select (options_for_select)
-          reference_url: https://service-manual.nhs.uk/design-system/components/select
         summary_list: 
           heading: Summary list
           reference_url: https://service-manual.nhs.uk/design-system/components/summary-list
@@ -154,21 +152,18 @@ en:
         tabs: 
           heading: Tabs
           reference_url: https://service-manual.nhs.uk/design-system/components/tabs
-        text_input_basic: 
+        text_input: 
           heading: Text input
           reference_url: https://service-manual.nhs.uk/design-system/components/text-input
         text_input_phone: 
           heading: Phone number input
-          reference_url: https://service-manual.nhs.uk/design-system/components/text-input
         text_input_email: 
           heading: Email input
-          reference_url: https://service-manual.nhs.uk/design-system/components/text-input
         text_input_url: 
           heading: URL input
-          reference_url: https://service-manual.nhs.uk/design-system/components/text-input
         text_input_number: 
           heading: Number input
-          reference_url: https://service-manual.nhs.uk/design-system/components/text-input
+          reference_url: https://service-manual.nhs.uk/design-system/components/text-input#asking-for-numbers
         textarea: 
           heading: Textarea
           reference_url: https://service-manual.nhs.uk/design-system/components/textarea
@@ -180,64 +175,195 @@ en:
           reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_one_half: 
           heading: One-half
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_two_thirds: 
           heading: Two-thirds
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_one_third: 
           heading: One-third
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_three_quarters: 
           heading: Three-quarters
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_one_quarter: 
           heading: One-quarter
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         grid_nested: 
           heading: Nested grids
-          reference_url: https://service-manual.nhs.uk/design-system/styles/layout#grid
         headings: 
           heading: Headings
           reference_url: https://service-manual.nhs.uk/design-system/styles/typography#headings
         headings_levels: 
           heading: Heading levels
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#headings
         lists: 
           heading: Lists
           reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lists
         lists_bullet: 
           heading: Bulleted lists
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lists
+          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#bulleted-lists
         lists_number: 
           heading: Numbered lists
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lists
+          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#numbered-lists
         paragraphs: 
           heading: Body
           reference_url: https://service-manual.nhs.uk/design-system/styles/typography#paragraphs
+        paragraphs_lead:
+          heading: Lead paragraph
+          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lead-paragraph
     govuk:
       name: GOV.UK
-      components:
-        buttons: 
-          heading: Buttons
-          reference_url: https://design-system.service.gov.uk/components/button
-        notification_banner: 
-          heading: Notification Banner
+      component_previews:
+        action_link:
+          heading: Action link
+        action_link_text:
+          heading: Text link
+        action_link_button:
+          heading: Button link
+        back_link:
+          heading: Back link
+          reference_url: https://design-system.service.gov.uk/components/back-link
+        breadcrumb:
+          heading: Breadcrumb
+          reference_url: https://design-system.service.gov.uk/components/breadcrumbs
+        buttons_start:
+          heading: Start button
+          reference_url: https://design-system.service.gov.uk/components/button/#start-buttons
+        buttons_primary:
+          heading: Primary button
+          reference_url: https://design-system.service.gov.uk/components/button/#default-buttons
+        buttons_secondary:
+          heading: Secondary button
+          reference_url: https://design-system.service.gov.uk/components/button/#secondary-buttons
+        buttons_warning:
+          heading: Warning button
+          reference_url: https://design-system.service.gov.uk/components/button/#warning-buttons
+        buttons_disabled:
+          heading: Disabled button
+          reference_url: https://design-system.service.gov.uk/components/button/#disabled-buttons
+        buttons_submit:
+          heading: Submit buttons (form)
+        character_count:
+          heading: Character count
+          reference_url: https://design-system.service.gov.uk/components/character-count
+        checkboxes:
+          heading: Checkboxes
+          reference_url: https://design-system.service.gov.uk/components/checkboxes
+        checkboxes_hint:
+          heading: Checkbox items with hints
+        checkboxes_small:
+          heading: Smaller checkboxes
+          reference_url: https://design-system.service.gov.uk/components/checkboxes/#smaller-checkboxes
+        date_input:
+          heading: Date input
+          reference_url: https://design-system.service.gov.uk/components/date-input
+        details:
+          heading: Details
+          reference_url: https://design-system.service.gov.uk/components/details
+        fieldset:
+          heading: Fieldset
+          reference_url: https://design-system.service.gov.uk/components/fieldset
+        file_upload:
+          heading: File upload
+          reference_url: https://design-system.service.gov.uk/components/file-upload
+        hint_text:
+          heading: Hint text
+        inset_text:
+          heading: Inset text
+          reference_url: https://design-system.service.gov.uk/components/inset-text
+        notification_banner_alert:
+          heading: Notification Alert
+        notification_banner_notice:
+          heading: Notification Notice
           reference_url: https://design-system.service.gov.uk/components/notification-banner
-        warning_callout: 
-          heading: Warning Callout
+        notification_banner_success:
+          heading: Notification Success
+          reference_url: https://design-system.service.gov.uk/components/notification-banner/#reacting-to-something-the-user-has-done
+        notification_banner_alert_block:
+          heading: Notification Alert with block
+        notification_banner_notice_block:
+          heading: Notification Notice with block
+        pagination:
+          heading: Pagination
+          reference_url: https://design-system.service.gov.uk/components/pagination
+        panel:
+          heading: Panel
+          reference_url: https://design-system.service.gov.uk/components/panel
+        password_input:
+          heading: Password input
+          reference_url: https://design-system.service.gov.uk/components/password-input
+        radios:
+          heading: Collection radio buttons
+          reference_url: https://design-system.service.gov.uk/components/radios
+        radios_fieldset:
+          heading: Radio buttons fieldset
+        select:
+          heading: Collection select
+          reference_url: https://design-system.service.gov.uk/components/select
+        select_options:
+          heading: Select (options_for_select)
+        summary_list:
+          heading: Summary list
+          reference_url: https://design-system.service.gov.uk/components/summary-list
+        table:
+          heading: Table
+          reference_url: https://design-system.service.gov.uk/components/table
+        tabs:
+          heading: Tabs
+          reference_url: https://design-system.service.gov.uk/components/tabs
+        text_input:
+          heading: Text input
+          reference_url: https://design-system.service.gov.uk/components/text-input
+        text_input_phone:
+          heading: Phone number input
+        text_input_email:
+          heading: Email input
+        text_input_url:
+          heading: URL input
+        text_input_number:
+          heading: Number input
+          reference_url: https://design-system.service.gov.uk/components/text-input/#numbers
+        textarea:
+          heading: Textarea
+          reference_url: https://design-system.service.gov.uk/components/textarea
+        warning_callout:
+          heading: Warning callout
           reference_url: https://design-system.service.gov.uk/components/warning-text
-        grid: 
-          heading: Grid
-          reference_url: https://design-system.service.gov.uk/styles/layout/#using-the-grid-system
-        headings: 
+        grid_full_width:
+          heading: Full width
+          reference_url: https://design-system.service.gov.uk/styles/layout/#full-width
+        grid_one_half:
+          heading: One-half
+          reference_url: https://design-system.service.gov.uk/styles/layout/#one-half
+        grid_two_thirds:
+          heading: Two-thirds
+          reference_url: https://design-system.service.gov.uk/styles/layout/#two-thirds
+        grid_one_third:
+          heading: One-third
+          reference_url: https://design-system.service.gov.uk/styles/layout/#one-third
+        grid_three_quarters:
+          heading: Three-quarters
+          reference_url: https://design-system.service.gov.uk/styles/layout/#three-quarters
+        grid_one_quarter:
+          heading: One-quarter
+          reference_url: https://design-system.service.gov.uk/styles/layout/#one-quarter
+        grid_nested:
+          heading: Nested grids
+          reference_url: https://design-system.service.gov.uk/styles/layout/#nested-grids
+        headings:
           heading: Headings
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#headings
-        lists: 
+          reference_url: https://design-system.service.gov.uk/styles/headings/
+        headings_levels:
+          heading: Heading levels
+        lists:
           heading: Lists
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lists
-        paragraphs: 
-          heading: Paragraphs
-          reference_url: https://service-manual.nhs.uk/design-system/styles/typography#paragraphs
+          reference_url: https://design-system.service.gov.uk/styles/lists/
+        lists_bullet:
+          heading: Bulleted lists
+          reference_url: https://design-system.service.gov.uk/styles/lists/#bulleted-lists
+        lists_number:
+          heading: Numbered lists
+          reference_url: https://design-system.service.gov.uk/styles/lists/#numbered-lists
+        paragraphs:
+          heading: Body
+          reference_url: https://design-system.service.gov.uk/styles/paragraphs/
+        paragraphs_lead:
+          heading: Lead paragraph
+          reference_url: https://design-system.service.gov.uk/styles/paragraphs/#lead-paragraph
   helpers:
     fieldset:
       legend: Fieldset heading
