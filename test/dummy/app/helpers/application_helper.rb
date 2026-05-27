@@ -3,19 +3,22 @@ require 'nokogiri'
 
 # Helpers for the dummy app: component preview (ERB + rendered output).
 module ApplicationHelper
-  def component_preview(heading: nil, level: 3, html: nil, component: nil, id: nil, reference_key: nil, &block)
+  def component_preview(key = nil, html: nil, fragment: nil, &block)
+    key = key || @component || @style
+    heading, reference_url = component_preview_config(key)
+    id = key.to_s.tr('_', '-')
+
     safe_buffer = ActiveSupport::SafeBuffer.new
-    reference = component_reference(reference_key)
-    safe_buffer << reference if reference
+    safe_buffer << ds_heading(heading, level: 3) if heading.present?
+    safe_buffer << render_reference(reference_url) if reference_url.present?
 
     erb_source = capture(&block)
     display_source = hide_demo_attributes(erb_source)
 
     html ||= render(inline: erb_source)
-    html = extract_component(html, component) if component
+    html = extract_html_fragment(html, fragment) if fragment
     pretty_html = pretty_print(html)
 
-    safe_buffer << ds_heading(heading, level: level) if heading
     safe_buffer << render_input(display_source, id)
     safe_buffer << render_output(html, pretty_html, id)
     safe_buffer
@@ -23,23 +26,17 @@ module ApplicationHelper
 
   private
 
-  def component_reference(reference_key = nil)
-    return if @_component_reference_rendered
+  def component_preview_config(key)
+    entry = t("design_system.#{brand}.component_previews.#{key}", default: nil)
+    return {} unless entry.is_a?(Hash)
 
-    reference_key ||= @component || @style
-    return unless reference_key
+    [entry[:heading], entry[:reference_url]]
+  end
 
-    path = t("design_system.#{brand}.components.#{reference_key}", default: nil)
-    return unless path.is_a?(String) && path.present?
-
-    @_component_reference_rendered = true
-
-    url = URI.join(t("design_system.#{brand}.base_url"), path).to_s
-    name = reference_key.to_s.tr('_', ' ')
-
+  def render_reference(reference_url)
     ds_inset_text do
       ds_paragraph do
-        ds_link_to("View documentation for #{t("design_system.#{brand}.name")} #{name}", url)
+        ds_link_to("View documentation", reference_url)
       end
     end
   end
@@ -52,10 +49,10 @@ module ApplicationHelper
     # Add other hacks to remove as needed.
   end
 
-  def extract_component(html, component)
+  def extract_html_fragment(html, fragment)
     doc = Nokogiri::HTML.fragment(html)
 
-    target_tag = case component
+    target_tag = case fragment
                  when :form_group
                    "div.#{brand}-form-group"
                  when :fieldset
