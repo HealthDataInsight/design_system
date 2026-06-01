@@ -9,7 +9,7 @@ module DesignSystem
           options = prep_button_options(content_or_options, options)
 
           if block_given?
-            button_tag(options = nil, &)
+            button_tag(nil, &)
           else
             button_tag(content_or_options, options)
           end

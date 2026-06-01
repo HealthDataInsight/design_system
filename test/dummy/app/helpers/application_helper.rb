@@ -28,7 +28,7 @@ module ApplicationHelper
 
   def component_preview_config(key)
     entry = t("design_system.#{brand}.component_previews.#{key}", default: nil)
-    return {} unless entry.is_a?(Hash)
+    return [nil, nil] unless entry.is_a?(Hash)
 
     [entry[:heading], entry[:reference_url]]
   end
@@ -36,7 +36,7 @@ module ApplicationHelper
   def render_reference(reference_url)
     ds_inset_text do
       ds_paragraph do
-        ds_link_to("View documentation", reference_url)
+        ds_link_to('View documentation', reference_url)
       end
     end
   end
