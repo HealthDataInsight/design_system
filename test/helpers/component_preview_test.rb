@@ -10,36 +10,51 @@ class ComponentPreviewTest < ActionView::TestCase
     controller.stubs(brand: 'govuk')
   end
 
-  test 'omits the heading by default' do
-    result = component_preview(id: 'demo') { '<p>Hi</p>' }
+  test 'omits the heading when locale has no entry for key' do
+    result = component_preview(:nonexistent_preview) { '<p>Hi</p>' }
 
-    refute_includes result, 'Custom heading XYZ'
-    assert_includes result, 'erb-demo'
-    assert_includes result, 'rendered-demo'
+    refute_match %r{<h3[^>]*>.*</h3>}m, result
+    assert_includes result, 'erb-nonexistent-preview'
+    assert_includes result, 'rendered-nonexistent-preview'
   end
 
-  test 'heading: renders the heading at level 3 by default' do
-    result = component_preview(heading: 'Custom heading XYZ', id: 'demo') { '<p>Hi</p>' }
+  test 'heading from locale renders at level 3' do
+    result = component_preview(:buttons_primary) { '<p>Hi</p>' }
 
-    assert_match %r{<h3[^>]*>.*Custom heading XYZ.*</h3>}m, result
+    assert_match %r{<h3[^>]*>.*Primary button.*</h3>}m, result
+    refute_match %r{<h2[^>]*>.*Primary button.*</h2>}m, result
   end
 
-  test 'level: overrides the default heading level' do
-    result = component_preview(heading: 'Custom heading XYZ', level: 2, id: 'demo') { '<p>Hi</p>' }
+  test 'derives id from locale key' do
+    result = component_preview(:action_link_text) { '<p>Hi</p>' }
 
-    assert_match %r{<h2[^>]*>.*Custom heading XYZ.*</h2>}m, result
-    refute_match %r{<h3[^>]*>.*Custom heading XYZ.*</h3>}m, result
+    assert_includes result, 'erb-action-link-text'
+    assert_includes result, 'rendered-action-link-text'
   end
 
-  test 'level: has no effect when heading: is omitted' do
-    result = component_preview(level: 1, id: 'demo') { '<p>Hi</p>' }
+  test 'defaults to @component for locale key and id' do
+    @component = 'action_link'
+    result = component_preview { '<p>Hi</p>' }
 
-    refute_match(/<h1[^>]*>/, result)
+    assert_includes result, 'erb-action-link'
   end
 
   test 'block content appears in both the source and rendered panes' do
-    result = component_preview(id: 'demo') { '<p>Round-trip me</p>' }
+    result = component_preview(:buttons_primary) { '<p>Round-trip me</p>' }
 
     assert_operator result.scan('Round-trip me').size, :>=, 2
+  end
+
+  test 'renders documentation link when locale has reference_url' do
+    result = component_preview(:buttons_start) { '<p>One</p>' }
+
+    assert_includes result, 'View documentation'
+    assert_includes result, 'design-system.service.gov.uk/components/button'
+  end
+
+  test 'omits documentation link when locale has no reference_url' do
+    result = component_preview(:action_link_text) { '<p>Hi</p>' }
+
+    refute_includes result, 'View documentation'
   end
 end

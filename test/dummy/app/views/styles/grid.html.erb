@@ -9,7 +9,7 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview heading: 'Full width', id: 'grid-full-width' do %>
+<%= component_preview :grid_full_width do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:full) do %>
     <%%= ds_paragraph 'Full width column.' %>
@@ -17,7 +17,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'One-half', id: 'grid-one-half' do %>
+<%= component_preview :grid_one_half do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_half) do %>
     <%%= ds_paragraph 'One-half column.' %>
@@ -25,7 +25,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'Two-thirds', id: 'grid-two-thirds' do %>
+<%= component_preview :grid_two_thirds do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:two_thirds) do %>
     <%%= ds_paragraph 'Two-thirds column.' %>
@@ -33,7 +33,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'One-third', id: 'grid-one-third' do %>
+<%= component_preview :grid_one_third do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_third) do %>
     <%%= ds_paragraph 'One-third column.' %>
@@ -41,7 +41,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'Three-quarters', id: 'grid-three-quarters' do %>
+<%= component_preview :grid_three_quarters do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:three_quarters) do %>
     <%%= ds_paragraph 'Three-quarters column.' %>
@@ -49,7 +49,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'One-quarter', id: 'grid-one-quarter' do %>
+<%= component_preview :grid_one_quarter do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:one_quarter) do %>
     <%%= ds_paragraph 'One-quarter column.' %>
@@ -57,7 +57,7 @@ end
 <%% end %>
 <% end %>
 
-<%= component_preview heading: 'Nested grids', id: 'grid-nested' do %>
+<%= component_preview :grid_nested do %>
 <%%= ds_grid do |row| %>
   <%% row.add_column(:two_thirds) do %>
     <%%= ds_heading 'Two-thirds column', level: 4 %>
