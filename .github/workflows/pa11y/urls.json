@@ -1,5 +1,11 @@
 [
   "http://localhost:3000/",
   "http://localhost:3000/assistants",
-  "http://localhost:3000/assistants/new"
+  "http://localhost:3000/components",
+  "http://localhost:3000/styles",
+  "http://localhost:3000/components/back_link",
+  "http://localhost:3000/components/breadcrumb",
+  "http://localhost:3000/components/pagination",
+  "http://localhost:3000/components/inset_text",
+  "http://localhost:3000/styles/lists"
 ]
