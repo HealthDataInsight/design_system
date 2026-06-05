@@ -3,22 +3,43 @@ require 'nokogiri'
 
 # Helpers for the dummy app: component preview (ERB + rendered output).
 module ApplicationHelper
-  def component_preview(heading: nil, level: 3, html: nil, component: nil, id: nil, &block)
+  def component_preview(key = nil, html: nil, fragment: nil, &block)
+    key = key || @component || @style
+    heading, reference_url = component_preview_config(key)
+    id = key.to_s.tr('_', '-')
+
+    safe_buffer = ActiveSupport::SafeBuffer.new
+    safe_buffer << ds_heading(heading, level: 3) if heading.present?
+    safe_buffer << render_reference(reference_url) if reference_url.present?
+
     erb_source = capture(&block)
     display_source = hide_demo_attributes(erb_source)
 
     html ||= render(inline: erb_source)
-    html = extract_component(html, component) if component
+    html = extract_html_fragment(html, fragment) if fragment
     pretty_html = pretty_print(html)
 
-    safe_buffer = ActiveSupport::SafeBuffer.new
-    safe_buffer << ds_heading(heading, level: level) if heading
     safe_buffer << render_input(display_source, id)
     safe_buffer << render_output(html, pretty_html, id)
     safe_buffer
   end
 
   private
+
+  def component_preview_config(key)
+    entry = t("design_system.#{brand}.component_previews.#{key}", default: nil)
+    return [nil, nil] unless entry.is_a?(Hash)
+
+    [entry[:heading], entry[:reference_url]]
+  end
+
+  def render_reference(reference_url)
+    ds_inset_text do
+      ds_paragraph do
+        ds_link_to('View documentation', reference_url)
+      end
+    end
+  end
 
   def hide_demo_attributes(erb_source)
     source = erb_source.to_s
@@ -28,10 +49,10 @@ module ApplicationHelper
     # Add other hacks to remove as needed.
   end
 
-  def extract_component(html, component)
+  def extract_html_fragment(html, fragment)
     doc = Nokogiri::HTML.fragment(html)
 
-    target_tag = case component
+    target_tag = case fragment
                  when :form_group
                    "div.#{brand}-form-group"
                  when :fieldset

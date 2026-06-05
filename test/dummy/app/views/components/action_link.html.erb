@@ -4,19 +4,19 @@ ds_fixed_elements do |ds|
 
   ds.breadcrumb('Home', root_path)
   ds.breadcrumb('Components', components_path)
-  
+
   ds.lead_paragraph 'Use action links to help users get to the next stage of a journey quickly by signposting the start of a digital service.'
 end
 %>
 
-<%= component_preview id: 'action-link-primary' do %>
+<%= component_preview do %>
 <%%= ds_action_link('Find your nearest A&E', '#') %>
 <% end %>
 
-<%= component_preview heading: 'Text link', id: 'action-link-text' do %>
+<%= component_preview :action_link_text do %>
 <%%= ds_link_to 'Back to manage assistants (default link style)', '#' %>
 <% end %>
 
-<%= component_preview heading: 'Button link', id: 'action-link-button' do %>
+<%= component_preview :action_link_button do %>
 <%%= ds_link_to 'Back to manage assistants (button link style - secondary)', '#', type: :secondary_button %>
 <% end %>
