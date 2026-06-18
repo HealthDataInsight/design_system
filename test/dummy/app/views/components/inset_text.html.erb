@@ -1,6 +1,6 @@
 <%=
 ds_fixed_elements do |ds|
-  ds.main_heading 'Details', caption: 'Content presentation'
+  ds.main_heading 'Inset text', caption: 'Content presentation'
 
   ds.breadcrumb('Home', root_path)
   ds.breadcrumb('Components', components_path)
@@ -9,6 +9,6 @@ ds_fixed_elements do |ds|
 end
 %>
 
-<%= component_preview id: 'inset-text-basic', component: :component do %>
+<%= component_preview do %>
 <%%= ds_inset_text('This is a inset text') %>
 <% end %>
