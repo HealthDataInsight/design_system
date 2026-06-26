@@ -13,6 +13,8 @@ Rails.application.routes.draw do
                      constraints: { style: /[a-z0-9_-]+/ }
   resources :components, only: %i[index show], param: :component,
                          constraints: { component: /[a-z0-9_-]+/ }
+  resources :utilities, only: %i[index show], param: :utility,
+                        constraints: { utility: /[a-z0-9_-]+/ }
 
   resources :assistants
 end
