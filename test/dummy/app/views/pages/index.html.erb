@@ -1,12 +1,16 @@
-<%= ds_notice content_heading: { text: "Design System Gem (#{DesignSystem::VERSION}) has been published." } do %>
-  <%= ds_link_to 'View on RubyGems', 'https://rubygems.org/gems/design_system' %>
+<%= ds_notice content_heading: { text: "Design System gem (v#{DesignSystem::VERSION}) is published" } do %>
+  <%= ds_paragraph do %>
+    <%= ds_link_to 'View on RubyGems', 'https://rubygems.org/gems/design_system', target: '_blank', rel: 'noopener' %> &middot;
+    <%= ds_link_to 'GitHub repository', 'https://github.com/HealthDataInsight/design_system', target: '_blank', rel: 'noopener' %> &middot;
+    <%= ds_link_to 'Changelog', 'https://github.com/HealthDataInsight/design_system/blob/main/CHANGELOG.md', target: '_blank', rel: 'noopener' %>
+  <% end %>
 <% end %>
 
 <%=
 ds_fixed_elements do |ds|
   ds.main_heading 'Get started'
 
-  # ds.form @assistant
+  ds.lead_paragraph 'This site is a living catalogue of everything the Design System gem can render. Browse it to find the markup you need, then copy it straight into your service.'
 end
 %>
 
@@ -14,16 +18,32 @@ end
   <%= render partial: 'sidebar' %>
 <% end %>
 
-<%= ds_heading 'Stimulus controllers' %>
-<div data-controller="ds--hello-world">
-  <label for="hello-world-name">Name</label>
-  <input type="text" id="hello-world-name" data-ds--hello-world-target="name">
-  <button data-action="click->ds--hello-world#greet">Greet</button>
-  <p data-ds--hello-world-target="greeting"></p>
-</div>
+<%= ds_paragraph 'Today you build each NHS and GOVUK service by hand in HTML and Bootstrap, keeping branding and accessibility right yourself. This gem does that work for you: write a few Rails helpers and get accessible, compliant markup, rendered the same way every time.' %>
+<%= ds_paragraph 'One set of ds_ helpers serves every brand. Use the GOV.UK and NHS links in the header to see the same code render in each design system.' %>
 
-</br>
+<%= ds_heading "What's included" %>
+<%= ds_paragraph "You are previewing the #{t("design_system.#{brand}.name")} design system. It is built on these versions:" %>
 
-<div>
-  <p>This page got rendered <%= ds_timeago(Time.now, refresh_interval: 30000) %></p>
-</div>
+<%= ds_summary_list do |list|
+  list.add_row('GOV.UK Frontend', "v#{frontend_version('govuk')}")
+  list.add_row('NHS UK Frontend', "v#{frontend_version('nhsuk')}")
+  list.add_row('Design System gem', "v#{DesignSystem::VERSION}")
+end %>
+
+<%= ds_heading 'How this site is organised' %>
+<%= ds_paragraph 'Everything is grouped the same way the design systems group their own guidance, so you can find things the way you already think about them.' %>
+
+<%= ds_list(type: :bullet) do |list|
+  list.add_item { safe_join([ds_link_to('Styles', styles_path), ': the look every page shares, including layout and typography.']) }
+  list.add_item { safe_join([ds_link_to('Components', components_path), ': reusable interface pieces, grouped into form elements, content presentation and navigation.']) }
+  list.add_item { safe_join([ds_link_to('Utilities', utilities_path), ': JavaScript behaviours and helpers, such as Stimulus controllers and time ago.']) }
+end %>
+
+<%= ds_heading 'See it all together', level: 3 %>
+<%= ds_inset_text 'This whole site is built with the gem. Every heading, form, table, link and footer you see is rendered by the same ds_ helpers you would use, in both brands.' %>
+<%= ds_paragraph do %>
+  <%= ds_link_to 'Manage assistants', assistants_path %> is a complete worked example: a multi-field form with validation, built entirely from ds_ helpers.
+<% end %>
+
+<%= ds_heading 'How to use the examples' %>
+<%= ds_paragraph 'Open any page and each example shows the ERB you write, the rendered result, and the HTML it produces. Copy the ERB into your own views, and follow the documentation links through to the official GOV.UK and NHS guidance.' %>

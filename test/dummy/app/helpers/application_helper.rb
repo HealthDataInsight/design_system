@@ -3,6 +3,16 @@ require 'nokogiri'
 
 # Helpers for the dummy app: component preview (ERB + rendered output).
 module ApplicationHelper
+  # Bundled frontend version for a brand (e.g. "5.11.1" for govuk), read from the
+  # gem's stylesheet directory name so it stays accurate when frontends are updated.
+  def frontend_version(brand_name)
+    pattern = DesignSystem::Engine.root.join("app/assets/stylesheets/design_system/#{brand_name}-frontend-*")
+    dir = Dir.glob(pattern).first
+    return unless dir
+
+    File.basename(dir).delete_prefix("#{brand_name}-frontend-")
+  end
+
   def component_preview(key = nil, html: nil, fragment: nil, &block)
     key = key || @component || @style
     heading, reference_url = component_preview_config(key)

@@ -1,0 +1,14 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Time ago', caption: 'JavaScript'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Utilities', utilities_path)
+
+  ds.lead_paragraph 'Use ds_timeago to show a timestamp as a relative time (for example "5 minutes ago") that updates itself in the browser.'
+end
+%>
+
+<%= component_preview :timeago do %>
+<%%= ds_timeago(Time.now, refresh_interval: 30000) %>
+<% end %>

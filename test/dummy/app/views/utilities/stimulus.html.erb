@@ -1,0 +1,19 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Stimulus controllers', caption: 'JavaScript'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Utilities', utilities_path)
+
+  ds.lead_paragraph 'The gem ships Stimulus controllers. Register them once in your importmap, then wire elements up with data-controller attributes.'
+end
+%>
+
+<%= component_preview :stimulus do %>
+<div data-controller="ds--hello-world">
+  <label for="hello-world-name">Name</label>
+  <input type="text" id="hello-world-name" data-ds--hello-world-target="name">
+  <%%= ds_button_tag('Greet', 'data-action': 'click->ds--hello-world#greet') %>
+  <p data-ds--hello-world-target="greeting"></p>
+</div>
+<% end %>

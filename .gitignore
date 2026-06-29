@@ -18,3 +18,4 @@
 megalinter-reports/
 .rubocop-https---*
 .vscode/
+.gstack/
