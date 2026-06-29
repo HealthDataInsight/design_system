@@ -205,6 +205,10 @@ en:
         paragraphs_lead:
           heading: Lead paragraph
           reference_url: https://service-manual.nhs.uk/design-system/styles/typography#lead-paragraph
+        stimulus:
+          heading: Stimulus controller
+        timeago:
+          heading: Time ago
     govuk:
       name: GOV.UK
       component_previews:
@@ -364,6 +368,10 @@ en:
         paragraphs_lead:
           heading: Lead paragraph
           reference_url: https://design-system.service.gov.uk/styles/paragraphs/#lead-paragraph
+        stimulus:
+          heading: Stimulus controller
+        timeago:
+          heading: Time ago
   helpers:
     fieldset:
       legend: Fieldset heading

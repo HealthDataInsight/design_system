@@ -1,0 +1,13 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Utilities'
+
+  ds.breadcrumb('Home', root_path)
+
+  ds.lead_paragraph 'JavaScript behaviours and helpers that add interactivity to your pages, ready to use out of the box.'
+end
+%>
+
+<% content_for :sidebar do %>
+  <%= render partial: 'utilities/sidebar' %>
+<% end %>
