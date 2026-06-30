@@ -9,7 +9,7 @@ module DesignSystem
           content_tag(:div, class: 'app-example__code', data: { controller: 'ds--clipboard' }) do
             content_tag(:button, 'Copy', class: 'app-example__copy-button',
                                          data: { action: 'click->ds--clipboard#copy', 'ds--clipboard-target': 'buttonText' }) +
-              content_tag(:div, class: 'app-example__scroll') do
+              content_tag(:div, class: 'app-example__scroll', tabindex: 0) do
                 content_tag(:pre, data: { 'ds--clipboard-target': 'source' }) do
                   content_tag(:code, code, data: { controller: 'ds--code-highlight' },
                                            class: "hljs language-#{language}")

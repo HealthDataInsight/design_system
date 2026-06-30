@@ -28,6 +28,11 @@
   overflow-x: auto;
   overflow-y: auto;
   padding: 0.5rem;
+
+  &:focus {
+    outline: 3px solid #fd0;
+    outline-offset: 2px;
+  }
 }
 
 .app-example__code pre {
@@ -36,7 +41,7 @@
 }
 
 .app-example__code pre code.hljs {
-  background: transparent;
+  background: #f0f4f5;
 }
 
 .app-example__copy-button {
