@@ -13,6 +13,10 @@ class Assistant < ApplicationRecord
     Colour.new('blue', 'Blue', 'Violets are... purple?')
   ].freeze
 
+  # Virtual attribute used only to demo ds_hidden_field with show_text, so it has its own
+  # element id instead of colliding with the :title text field on the same form.
+  attr_accessor :reference_code
+
   serialize :desired_filling, coder: YAML
 
   # Rails now adds presence validation to associations automatically but usually govuk-form-builder set relationships by assigning values to the foreign key column.

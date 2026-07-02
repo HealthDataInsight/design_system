@@ -55,7 +55,10 @@ module ApplicationHelper
     source = erb_source.to_s
 
     # Strip hacks like html: { onsubmit: 'return false;' } that are used to prevent form submission.
-    source.gsub(/,\s*html:\s*\{\s*onsubmit:\s*'return false;'\s*\}/, '')
+    source = source.gsub(/,\s*html:\s*\{\s*onsubmit:\s*'return false;'\s*\}/, '')
+    # Strip demo-only scope: overrides that exist only to keep element ids unique when the same
+    # component is previewed more than once on a page.
+    source.gsub(/,\s*scope:\s*:\w+/, '')
     # Add other hacks to remove as needed.
   end
 
