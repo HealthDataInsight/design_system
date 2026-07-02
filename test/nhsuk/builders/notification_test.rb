@@ -29,9 +29,9 @@ module DesignSystem
         test 'rendering nhsuk notice with success type' do
           @output_buffer = ds_notice('Test content', type: :success)
 
-          assert_select 'div.nhsuk-notification-banner.nhsuk-notification-banner--success[role="alert"][aria-labelledby="nhsuk-notification-banner-title"][data-module="nhsuk-notification-banner"]' do
+          assert_select 'div.nhsuk-notification-banner.nhsuk-notification-banner--success[role="alert"][aria-labelledby^="nhsuk-notification-banner-title-"][data-module="nhsuk-notification-banner"]' do
             assert_select 'div.nhsuk-notification-banner__header' do
-              assert_select 'h2.nhsuk-notification-banner__title[id="nhsuk-notification-banner-title"]', 'Success'
+              assert_select 'h2.nhsuk-notification-banner__title[id^="nhsuk-notification-banner-title-"]', 'Success'
             end
 
             assert_select 'div.nhsuk-notification-banner__content', text: 'Test content'
