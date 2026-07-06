@@ -10,13 +10,10 @@ module DesignSystem
 
         def render_alert(msg = nil, &)
           content_to_display = block_given? ? capture(&) : msg
-          # Unique id per instance so multiple alerts on one page keep valid,
-          # non-duplicated aria-labelledby references.
-          title_id = "error-summary-title-#{SecureRandom.hex(4)}"
-          content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': title_id, role: 'alert',
+          content_tag(:div, class: "#{brand}-error-summary", 'aria-labelledby': 'error-summary-title', role: 'alert',
                             tabindex: '-1') do
             content_tag(:h2, content_to_display,
-                        class: "#{brand}-error-summary__title", id: title_id)
+                        class: "#{brand}-error-summary__title", id: 'error-summary-title')
           end
         end
 
@@ -32,22 +29,19 @@ module DesignSystem
 
           content_body = block_given? ? capture(&) : msg
 
-          # Unique id per instance so multiple notices on one page keep valid,
-          # non-duplicated aria-labelledby references.
-          title_id = "#{brand}-notification-banner-title-#{SecureRandom.hex(4)}"
           content_tag(:div, class: notification_type_hash.dig(type, :class), role: notification_type_hash.dig(type, :role),
-                            'aria-labelledby': title_id,
+                            'aria-labelledby': "#{brand}-notification-banner-title",
                             'data-module': "#{brand}-notification-banner") do
-            banner_tile(header, title_id) + banner_content(content_body, content_heading:)
+            banner_tile(header) + banner_content(content_body, content_heading:)
           end
         end
 
         private
 
-        def banner_tile(header, title_id)
+        def banner_tile(header)
           content_tag(:div, class: "#{brand}-notification-banner__header") do
             content_tag(:h2, header, class: "#{brand}-notification-banner__title",
-                                     id: title_id)
+                                     id: "#{brand}-notification-banner-title")
           end
         end
 

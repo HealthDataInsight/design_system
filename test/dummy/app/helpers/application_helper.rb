@@ -29,6 +29,12 @@ module ApplicationHelper
     html = extract_html_fragment(html, fragment) if fragment
     pretty_html = pretty_print(html)
 
+    # The rendered preview is what pa11y/axe scans. Because a page can preview the same
+    # component more than once, prefix element ids (and their references) per preview so the
+    # live DOM stays free of duplicate ids. pretty_html above keeps the original ids so the
+    # displayed code sample is unchanged.
+    html = uniquify_ids(html, id)
+
     safe_buffer << render_input(display_source, id)
     safe_buffer << render_output(html, pretty_html, id)
     safe_buffer
@@ -55,10 +61,7 @@ module ApplicationHelper
     source = erb_source.to_s
 
     # Strip hacks like html: { onsubmit: 'return false;' } that are used to prevent form submission.
-    source = source.gsub(/,\s*html:\s*\{\s*onsubmit:\s*'return false;'\s*\}/, '')
-    # Strip demo-only scope: overrides that exist only to keep element ids unique when the same
-    # component is previewed more than once on a page.
-    source.gsub(/,\s*scope:\s*:\w+/, '')
+    source.gsub(/,\s*html:\s*\{\s*onsubmit:\s*'return false;'\s*\}/, '')
     # Add other hacks to remove as needed.
   end
 
@@ -86,6 +89,30 @@ module ApplicationHelper
     end
 
     fragment.children.map { |child| child.to_xml(indent: 2) }.join("\n")
+  end
+
+  # Prefix every element id in +html+ with +prefix+ and update the attributes that reference
+  # those ids, so labels and aria-* associations keep resolving. Keeps a page free of duplicate
+  # ids when the same component is previewed more than once.
+  def uniquify_ids(html, prefix)
+    doc = Nokogiri::HTML.fragment(html)
+
+    id_map = {}
+    doc.css('[id]').each do |node|
+      new_id = "#{prefix}-#{node['id']}"
+      id_map[node['id']] = new_id
+      node['id'] = new_id
+    end
+    return html if id_map.empty?
+
+    %w[for aria-labelledby aria-describedby aria-controls aria-owns aria-details headers].each do |attr|
+      doc.css("[#{attr}]").each do |node|
+        node[attr] = node[attr].split(/\s+/).map { |ref| id_map[ref] || ref }.join(' ')
+      end
+    end
+
+    # Returned as a plain String; render_output marks it html_safe when it embeds the preview.
+    doc.to_html
   end
 
   def render_input(display_source, id)
