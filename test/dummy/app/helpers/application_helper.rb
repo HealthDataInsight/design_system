@@ -96,23 +96,49 @@ module ApplicationHelper
   # ids when the same component is previewed more than once.
   def uniquify_ids(html, prefix)
     doc = Nokogiri::HTML.fragment(html)
-
-    id_map = {}
-    doc.css('[id]').each do |node|
-      new_id = "#{prefix}-#{node['id']}"
-      id_map[node['id']] = new_id
-      node['id'] = new_id
-    end
+    id_map = prefix_element_ids(doc, prefix)
     return html if id_map.empty?
 
-    %w[for aria-labelledby aria-describedby aria-controls aria-owns aria-details headers].each do |attr|
+    remap_single_idrefs(doc, id_map)
+    remap_idref_lists(doc, id_map)
+    remap_anchor_hrefs(doc, id_map)
+
+    # Returned as a plain String; render_output marks it html_safe when it embeds the preview.
+    doc.to_html
+  end
+
+  # Rewrite every id to be prefixed and return { old_id => new_id }.
+  def prefix_element_ids(doc, prefix)
+    doc.css('[id]').each_with_object({}) do |node, map|
+      new_id = "#{prefix}-#{node['id']}"
+      map[node['id']] = new_id
+      node['id'] = new_id
+    end
+  end
+
+  # Single-idref attributes: the whole value is one id (a demo value like "Jacket potato"
+  # can even contain spaces), so map it as a whole rather than splitting.
+  def remap_single_idrefs(doc, id_map)
+    %w[for list aria-activedescendant].each do |attr|
+      doc.css("[#{attr}]").each { |node| node[attr] = id_map[node[attr]] || node[attr] }
+    end
+  end
+
+  # Space-separated idref lists (aria-labelledby, aria-describedby, ...).
+  def remap_idref_lists(doc, id_map)
+    %w[aria-labelledby aria-describedby aria-controls aria-owns aria-details headers].each do |attr|
       doc.css("[#{attr}]").each do |node|
         node[attr] = node[attr].split(/\s+/).map { |ref| id_map[ref] || ref }.join(' ')
       end
     end
+  end
 
-    # Returned as a plain String; render_output marks it html_safe when it embeds the preview.
-    doc.to_html
+  # In-page anchors (e.g. tab links, whose aria-controls is derived from the href by JS).
+  def remap_anchor_hrefs(doc, id_map)
+    doc.css('a[href^="#"]').each do |node|
+      target = node['href'].delete_prefix('#')
+      node['href'] = "##{id_map[target]}" if id_map.key?(target)
+    end
   end
 
   def render_input(display_source, id)
