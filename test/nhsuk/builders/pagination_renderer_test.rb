@@ -29,9 +29,13 @@ module DesignSystem
           assert_select('nav.nhsuk-pagination') do
             assert_select('ul.nhsuk-list.nhsuk-pagination__list') do
               assert_select('li.nhsuk-pagination-item--previous') do
-                assert_select '[aria-label=?]', 'Previous Page' do
+                # Disabled prev/next is a role-less <span>, so it carries no aria-label
+                # (prohibited there); its accessible name comes from the title text.
+                assert_select 'span.nhsuk-pagination__link.disabled' do
                   assert_select 'span.nhsuk-pagination__title', text: 'Previous'
                 end
+                # Regression guard: the disabled control must not carry an aria-label.
+                assert_select 'span.nhsuk-pagination__link.disabled[aria-label]', false
               end
             end
           end

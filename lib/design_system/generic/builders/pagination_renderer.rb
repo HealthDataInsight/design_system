@@ -49,12 +49,13 @@ module DesignSystem
                 'aria-label': aria_label)
         end
 
-        def disabled_link_with_title(text, title, aria_label = nil)
+        def disabled_link_with_title(text, title, _aria_label = nil)
+          # No aria-label here: it is prohibited on a role-less <span>. The visible
+          # title plus the visually-hidden text already provide an accessible name.
           tag(:span,
               tag(:span, title, class: "#{brand}-pagination__title") +
               tag(:span, text, class: "#{brand}-u-visually-hidden"),
-              class: "#{brand}-pagination__link disabled",
-              'aria-label': aria_label)
+              class: "#{brand}-pagination__link disabled")
         end
 
         # SVG for the "Previous" icon

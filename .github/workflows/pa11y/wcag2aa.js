@@ -1,5 +1,22 @@
 const urls = require('./urls.json')
 
+// Pages where axe reports a false-positive color-contrast issue: the NHS radio/checkbox
+// control is drawn with a ::before/::after pseudo element on the label, so axe cannot
+// determine the label's background and bails out. The label text itself passes AA.
+// Revisit this ignore whenever the nhsuk/govuk frontend gems are bumped (see the tracking
+// ticket) in case a newer axe/component version resolves it.
+const contrastFalsePositivePaths = [
+  '/assistants/new',
+  '/components/checkboxes',
+  '/components/radios'
+]
+
+const urlsWithIgnores = urls.map((url) =>
+  contrastFalsePositivePaths.some((path) => url.endsWith(path))
+    ? { url, ignore: ['color-contrast'] }
+    : url
+)
+
 module.exports = {
   defaults: {
     chromeLaunchConfig: {
@@ -15,5 +32,5 @@ module.exports = {
     ],
     standard: 'WCAG2AA'
   },
-  urls
+  urls: urlsWithIgnores
 }
