@@ -51,6 +51,11 @@ namespace :js do
   end
 end
 
+desc 'Deploy to Heroku'
+task :deploy_to_heroku do
+  sh 'git push heroku main'
+end
+
 desc 'Deploy the gem to RubyGems.org'
 task :deploy_to_rubygems do
   # Raise an error if the static files are not built
