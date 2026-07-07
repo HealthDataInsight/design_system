@@ -34,6 +34,8 @@ module DesignSystem
                 assert_select 'span.nhsuk-pagination__link.disabled' do
                   assert_select 'span.nhsuk-pagination__title', text: 'Previous'
                 end
+                # Regression guard: the disabled control must not carry an aria-label.
+                assert_select 'span.nhsuk-pagination__link.disabled[aria-label]', false
               end
             end
           end
