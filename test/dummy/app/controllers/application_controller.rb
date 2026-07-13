@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private
 
   def assistant_demo_enabled?
-    !Rails.env.production?
+    Rails.application.routes.named_routes.key?(:assistants)
   end
 
   def add_navigation
