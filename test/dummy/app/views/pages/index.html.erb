@@ -41,8 +41,10 @@ end %>
 
 <%= ds_heading 'See it all together', level: 3 %>
 <%= ds_inset_text 'This whole site is built with the gem. Every heading, form, table, link and footer you see is rendered by the same ds_ helpers you would use, in both brands.' %>
-<%= ds_paragraph do %>
-  <%= ds_link_to 'Manage assistants', assistants_path %> is a complete worked example: a multi-field form with validation, built entirely from ds_ helpers.
+<% if assistant_demo_enabled? %>
+  <%= ds_paragraph do %>
+    <%= ds_link_to 'Manage assistants', assistants_path %> is a complete worked example: a multi-field form with validation, built entirely from ds_ helpers.
+  <% end %>
 <% end %>
 
 <%= ds_heading 'How to use the examples' %>

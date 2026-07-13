@@ -7,12 +7,18 @@ class ApplicationController < ActionController::Base
   include DesignSystem::Branded
 
   before_action :add_navigation, :set_service_name, :set_footer_links, :searchbar_url
-  helper_method :brand
+  helper_method :brand, :assistant_demo_enabled?
 
   private
 
+  def assistant_demo_enabled?
+    !Rails.env.production?
+  end
+
   def add_navigation
-    add_navigation_item('Manage Assistants', assistants_path, icon: 'users')
+    if assistant_demo_enabled?
+      add_navigation_item('Manage Assistants', assistants_path, icon: 'users')
+    end
 
     add_navigation_item('GOV.UK', url_for(brand: 'govuk'), icon: 'ellipsis-horizontal-circle')
     add_navigation_item('NHS', url_for(brand: 'nhsuk'), icon: 'ellipsis-horizontal-circle')
