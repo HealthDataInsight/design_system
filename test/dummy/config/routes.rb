@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   resources :utilities, only: %i[index show], param: :utility,
                         constraints: { utility: /[a-z0-9_-]+/ }
 
-  resources :assistants
+  resources :assistants unless Rails.env.production?
 end

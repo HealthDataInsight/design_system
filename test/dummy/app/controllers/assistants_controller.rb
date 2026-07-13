@@ -1,4 +1,5 @@
 class AssistantsController < ApplicationController
+  before_action :ensure_assistant_demo_enabled!
   before_action :set_assistant, only: %i[show edit update destroy]
   before_action :all_departments, only: %i[new edit create update]
 
@@ -45,6 +46,12 @@ class AssistantsController < ApplicationController
   end
 
   private
+
+  def ensure_assistant_demo_enabled!
+    return if assistant_demo_enabled?
+
+    raise ActionController::RoutingError, 'Not Found'
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_assistant
