@@ -64,4 +64,10 @@ class AssistantsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to assistants_url
   end
+
+  test 'returns not found when assistant demo is disabled' do
+    ApplicationController.any_instance.stubs(:assistant_demo_enabled?).returns(false)
+    get assistants_url
+    assert_response :not_found
+  end
 end
