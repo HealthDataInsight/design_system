@@ -130,7 +130,7 @@
   </div>
   <footer class="govuk-footer">
     <div class="govuk-width-container">
-      <% if controller.govuk_footer_crown_visible? %>
+      <% if controller.govuk_footer_elements? %>
       <svg
         focusable="false"
         role="presentation"
@@ -166,7 +166,7 @@
               <% end %>
             <% end %>
           </ul>
-          <% if controller.govuk_footer_licence_visible? %>
+          <% if controller.govuk_footer_elements? %>
           <svg
             aria-hidden="true"
             focusable="false"
@@ -187,13 +187,13 @@
               rel="license">Open Government Licence v3.0</a>, except where otherwise stated
           </span>
           <% end %>
-          <% if controller.copyright_notice.present? && !controller.govuk_footer_copyright_logo_visible? %>
+          <% if controller.copyright_notice.present? && !controller.govuk_footer_elements? %>
             <div class="govuk-footer__meta-custom">
               <%= controller.copyright_notice %>
             </div>
           <% end %>
         </div>
-        <% if controller.copyright_notice.present? && controller.govuk_footer_copyright_logo_visible? %>
+        <% if controller.copyright_notice.present? && controller.govuk_footer_elements? %>
           <div class="govuk-footer__meta-item">
             <span class="govuk-footer__link govuk-footer__copyright-logo">
               <%= controller.copyright_notice %>
