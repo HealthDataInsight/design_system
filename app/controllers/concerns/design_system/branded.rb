@@ -7,12 +7,18 @@ module DesignSystem
       attr_reader :navigation_items
       attr_reader :footer_links
       attr_accessor :copyright_notice
+      attr_writer :govuk_footer_elements
 
       helper DesignSystemHelper
     end
 
     def brand
       raise NotImplementedError, 'You need to implement #brand in your ApplicationController'
+    end
+
+    # Hide the GOV.UK footer's Crown emblem, Open Government Licence and copyright logo if it is not yet a verified GOV.UK product
+    def govuk_footer_elements?
+      @govuk_footer_elements != :hidden
     end
 
     def add_navigation_item(label, path, options = {})

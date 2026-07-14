@@ -33,9 +33,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_footer_links
-    add_footer_link('Custom Link', '#', target: '_blank', rel: 'noopener')
-    add_footer_link('Another Link', '#')
-    self.copyright_notice = '© NHS England 2025'
+    self.govuk_footer_elements = :hidden
+    add_footer_link('Download the RubyGem', 'https://rubygems.org/gems/design_system', target: '_blank', rel: 'noopener')
+    add_footer_link('View the source on GitHub', 'https://github.com/HealthDataInsight/design_system', target: '_blank', rel: 'noopener')
+    add_footer_link('Get in touch', 'https://github.com/HealthDataInsight/design_system/issues', target: '_blank', rel: 'noopener')
+    self.copyright_notice = '© Health Data Insight CIC 2026'
   end
 
   def searchbar_url
