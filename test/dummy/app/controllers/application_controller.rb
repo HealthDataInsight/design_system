@@ -29,10 +29,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_footer_links
-    add_footer_link('Github', 'https://github.com/HealthDataInsight/design_system', target: '_blank', rel: 'noopener')
-    add_footer_link('Ruby Gem', 'https://rubygems.org/gems/design_system')
-    add_footer_link('Health Data Insight CIC', 'https://healthdatainsight.org.uk/')
-    self.copyright_notice = 'Design System © 2026 Health Data Insight CIC'
+    self.govuk_footer_crown = :hidden
+    self.govuk_footer_licence = :hidden
+    self.govuk_footer_copyright_logo = :hidden
+    add_footer_link('Download the RubyGem', 'https://rubygems.org/gems/design_system', target: '_blank', rel: 'noopener')
+    add_footer_link('View the source on GitHub', 'https://github.com/HealthDataInsight/design_system', target: '_blank', rel: 'noopener')
+    add_footer_link('Get in touch', 'https://github.com/HealthDataInsight/design_system/issues', target: '_blank', rel: 'noopener')
+    self.copyright_notice = '© Health Data Insight CIC 2026'
   end
 
   def searchbar_url
