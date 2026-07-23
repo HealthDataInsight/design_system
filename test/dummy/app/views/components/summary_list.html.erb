@@ -32,3 +32,29 @@ ds_summary_list do |list|
 end
 %>
 <% end %>
+
+<%= component_preview :card_actions do %>
+<%%=
+ds_summary_card(
+  title: 'Karen Francis',
+  actions: [
+    { text: 'Cancel', href: '#', hidden_text: ' (Karen Francis)' },
+    { text: 'Reschedule', href: '#', hidden_text: ' (Karen Francis)' }
+  ]
+) do
+  ds_summary_list do |list|
+    list.add_row('Name', 'Karen Francis') do |row|
+      row.add_action('Change', hidden_text: ' name (Karen Francis)')
+    end
+    list.add_row('Appointment date', '15 March 2027') do |row|
+      row.add_action('Change', hidden_text: ' date of birth (Karen Francis)')
+    end
+    list.add_row('Contact details') do |row|
+      row.add_value('07700 900362')
+      row.add_value('karen.francis@example.com')
+      row.add_action('Change', hidden_text: ' contact details (Karen Francis)')
+    end
+  end
+end
+%>
+<% end %>
