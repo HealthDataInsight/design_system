@@ -145,7 +145,7 @@ en:
           heading: Select (options_for_select)
         summary_card:
           heading: Summary card
-          reference_url: https://service-manual.nhs.uk/design-system/components/card
+          reference_url: https://service-manual.nhs.uk/design-system/components/summary-list#card-actions
         summary_list:
           heading: Summary list
           reference_url: https://service-manual.nhs.uk/design-system/components/summary-list
@@ -305,7 +305,7 @@ en:
           heading: Select (options_for_select)
         summary_card:
           heading: Summary card
-          reference_url: https://design-system.service.gov.uk/components/summary-list
+          reference_url: https://design-system.service.gov.uk/components/summary-list/#summary-cards
         summary_list:
           heading: Summary list
           reference_url: https://design-system.service.gov.uk/components/summary-list
