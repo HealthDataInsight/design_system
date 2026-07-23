@@ -41,6 +41,23 @@ module DesignSystem
           end
         end
 
+        test 'rendering govuk summary card with a row action linking to a url' do
+          @output_buffer = ds_summary_card(title: 'University of Gloucestershire') do
+            ds_summary_list do |list|
+              list.add_row('Course', 'English (3DMD)') do |row|
+                row.add_action('Change', path: '/choices/1/edit',
+                                         hidden_text: ' course (University of Gloucestershire)')
+              end
+            end
+          end
+
+          assert_select 'div.govuk-summary-card__content dl.govuk-summary-list' do
+            assert_select 'dd.govuk-summary-list__actions a.govuk-link[href="/choices/1/edit"]', text: /Change/
+            assert_select 'dd.govuk-summary-list__actions a.govuk-link span.govuk-visually-hidden',
+                          text: 'course (University of Gloucestershire)'
+          end
+        end
+
         test 'rendering govuk summary card without actions omits the list' do
           @output_buffer = ds_summary_card(title: 'No actions') { 'Body' }
 

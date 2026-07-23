@@ -41,6 +41,22 @@ module DesignSystem
           end
         end
 
+        test 'rendering nhsuk summary card with a row action linking to a url' do
+          @output_buffer = ds_summary_card(title: 'Karen Francis') do
+            ds_summary_list do |list|
+              list.add_row('Name', 'Karen Francis') do |row|
+                row.add_action('Change', path: '/patients/1/edit', hidden_text: ' name (Karen Francis)')
+              end
+            end
+          end
+
+          assert_select 'div.nhsuk-card__content dl.nhsuk-summary-list' do
+            assert_select 'dd.nhsuk-summary-list__actions a.nhsuk-link[href="/patients/1/edit"]', text: /Change/
+            assert_select 'dd.nhsuk-summary-list__actions a.nhsuk-link span.nhsuk-u-visually-hidden',
+                          text: 'name (Karen Francis)'
+          end
+        end
+
         test 'rendering nhsuk summary card without actions omits the list' do
           @output_buffer = ds_summary_card(title: 'No actions') { 'Body' }
 
