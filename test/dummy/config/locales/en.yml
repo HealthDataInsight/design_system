@@ -143,7 +143,7 @@ en:
           reference_url: https://service-manual.nhs.uk/design-system/components/select
         select_options:
           heading: Select (options_for_select)
-        card_actions:
+        summary_card:
           heading: Card actions
           reference_url: https://service-manual.nhs.uk/design-system/components/summary-list#card-actions
         summary_list:
@@ -303,7 +303,7 @@ en:
           reference_url: https://design-system.service.gov.uk/components/select
         select_options:
           heading: Select (options_for_select)
-        card_actions:
+        summary_card:
           heading: Card actions
           reference_url: https://design-system.service.gov.uk/components/summary-list/#summary-cards
         summary_list:
