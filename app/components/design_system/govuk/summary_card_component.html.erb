@@ -1,0 +1,15 @@
+<div class="<%= brand %>-summary-card">
+  <div class="<%= brand %>-summary-card__title-wrapper">
+    <%= content_tag("h#{heading_level}", title, class: "#{brand}-summary-card__title") %>
+    <% if actions.any? %>
+      <ul class="<%= brand %>-summary-card__actions">
+        <% actions.each do |action| %>
+          <li class="<%= brand %>-summary-card__action"><%= render_action(action) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="<%= brand %>-summary-card__content">
+    <%= content %>
+  </div>
+</div>

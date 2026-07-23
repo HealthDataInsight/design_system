@@ -1,0 +1,36 @@
+<%=
+ds_fixed_elements do |ds|
+  ds.main_heading 'Summary card', caption: 'Content presentation'
+
+  ds.breadcrumb('Home', root_path)
+  ds.breadcrumb('Components', components_path)
+
+  ds.lead_paragraph 'Use the summary card to visually group and separate multiple summary lists, each with an optional title and actions.'
+end
+%>
+
+<%= component_preview do %>
+<%%=
+ds_summary_card(
+  title: 'Karen Francis',
+  actions: [
+    { text: 'Cancel', href: '#', hidden_text: ' (Karen Francis)' },
+    { text: 'Reschedule', href: '#', hidden_text: ' (Karen Francis)' }
+  ]
+) do
+  ds_summary_list do |list|
+    list.add_row('Name', 'Karen Francis') do |row|
+      row.add_action('Change', hidden_text: ' name (Karen Francis)')
+    end
+    list.add_row('Appointment date', '15 March 2027') do |row|
+      row.add_action('Change', hidden_text: ' date of birth (Karen Francis)')
+    end
+    list.add_row('Contact details') do |row|
+      row.add_value('07700 900362')
+      row.add_value('karen.francis@example.com')
+      row.add_action('Change', hidden_text: ' contact details (Karen Francis)')
+    end
+  end
+end
+%>
+<% end %>

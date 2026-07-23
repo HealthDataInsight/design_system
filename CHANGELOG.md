@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added `ds_summary_card` to group a titled summary list (or any content) with optional actions, rendered brand-agnostically as an NHS UK card or a GOV.UK summary card
 - Refurbished the preview pages in the dummy app
 - Reworked the dummy app home page into a "Get started" guide that orients developers around the site's Styles, Components and Utilities sections, shows the bundled GOV.UK and NHS UK Frontend versions, and links to the gem, repository and changelog
 - Added a Utilities section to the dummy app for JavaScript behaviours (Stimulus controllers and time ago)

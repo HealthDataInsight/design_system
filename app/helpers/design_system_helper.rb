@@ -105,6 +105,11 @@ module DesignSystemHelper
     render DesignSystem::Registry.component(brand, :panel).new(title:, body:)
   end
 
+  def ds_summary_card(title:, actions: [], heading_level: 2, &block)
+    component = DesignSystem::Registry.component(brand, :summary_card).new(title:, actions:, heading_level:)
+    render(component) { block ? capture(&block) : nil }
+  end
+
   def ds_callout(label, body)
     render DesignSystem::Registry.component(brand, :callout).new(label:, body:)
   end
