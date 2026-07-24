@@ -1,6 +1,6 @@
 <div class="<%= brand %>-card">
   <div class="<%= brand %>-card__heading-container">
-    <%= content_tag("h#{heading_level}", title, class: "#{brand}-card__heading #{brand}-heading-m") %>
+    <%= render heading_component %>
     <% if actions.any? %>
       <ul class="<%= brand %>-card__actions">
         <% actions.each do |action| %>

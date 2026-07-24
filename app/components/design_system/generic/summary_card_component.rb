@@ -17,6 +17,12 @@ module DesignSystem
 
       attr_reader :title, :actions, :heading_level
 
+      # Reuses the shared heading component (as ds_heading does) so the card
+      # title stays consistent with the rest of the library.
+      def heading_component
+        DesignSystem::Registry.component(brand, :heading).new(title, level: heading_level, class: title_class)
+      end
+
       def render_action(action)
         link_to(action[:href] || '#', class: "#{brand}-link") do
           safe_join([action[:text], render_hidden_text(action[:hidden_text])])
@@ -24,6 +30,10 @@ module DesignSystem
       end
 
       private
+
+      def title_class
+        "#{brand}-card__heading #{brand}-heading-m"
+      end
 
       def render_hidden_text(hidden_text)
         return '' if hidden_text.blank?
