@@ -25,10 +25,6 @@ module DesignSystem
 
       private
 
-      def title_class
-        "#{brand}-card__heading #{brand}-heading-m"
-      end
-
       def render_hidden_text(hidden_text)
         return '' if hidden_text.blank?
 

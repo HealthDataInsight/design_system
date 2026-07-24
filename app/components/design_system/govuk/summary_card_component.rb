@@ -5,10 +5,6 @@ module DesignSystem
     class SummaryCardComponent < DesignSystem::Generic::SummaryCardComponent
       private
 
-      def title_class
-        "#{brand}-summary-card__title"
-      end
-
       def visually_hidden_class
         "#{brand}-visually-hidden"
       end
