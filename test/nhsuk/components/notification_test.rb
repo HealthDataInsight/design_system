@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk notification builder
+    module Components
+      # This tests the nhsuk notification component
       class NotificationTest < ActionView::TestCase
         include DesignSystemHelper
 

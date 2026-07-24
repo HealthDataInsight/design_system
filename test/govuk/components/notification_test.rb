@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk notification builder
+    module Components
+      # This tests the govuk notification component
       class NotificationTest < ActionView::TestCase
         include DesignSystemHelper
 

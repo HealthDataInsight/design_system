@@ -3,47 +3,47 @@
 require 'test_helper'
 
 module DesignSystem
-  module Govuk
-    module Builders
-      # This tests the govuk link builder
+  module Nhsuk
+    module Components
+      # This tests the nhsuk link component
       class LinkTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
+          @brand = 'nhsuk'
           @controller.stubs(:brand).returns(@brand)
           @assistant = assistants(:one)
         end
 
-        test 'rendering govuk link' do
+        test 'rendering nhsuk link' do
           @output_buffer = ds_link_to(@assistant)
 
           assert_select("a.#{@brand}-link", href: assistant_path(@assistant))
         end
 
-        test 'rendering govuk button link' do
+        test 'rendering nhsuk button link' do
           @output_buffer = ds_link_to('All assistants', assistants_path, type: :button)
 
           assert_select("a.#{@brand}-button", href: assistants_path)
         end
 
-        test 'rendering govuk button link with options' do
+        test 'rendering nhsuk button link with options' do
           @output_buffer = ds_link_to('Edit assistants', edit_assistant_path(@assistant), method: :patch, type: :secondary_button)
 
           assert_select("a.#{@brand}-button.#{@brand}-button--secondary", href: edit_assistant_path(@assistant))
         end
 
-        test 'rendering govuk button link with url and block' do
+        test 'rendering nhsuk button link with url and block' do
           @output_buffer = ds_link_to('https://example.com', type: :reverse_button) do
             content_tag(:span, 'Show assistant')
           end
 
-          assert_select("a.#{@brand}-button.#{@brand}-button--inverse", href: 'https://example.com') do
+          assert_select("a.#{@brand}-button.#{@brand}-button--reverse", href: 'https://example.com') do
             assert_select('span', text: 'Show assistant')
           end
         end
 
-        test 'rendering govuk button link with active record model and block' do
+        test 'rendering nhsuk button link with active record model and block' do
           @output_buffer = ds_link_to @assistant, type: :warning_button do
             content_tag(:span, 'Show assistant')
           end

@@ -56,12 +56,14 @@ module DesignSystemHelper
     render DesignSystem::Registry.component(brand, :start_button).new(text, href, options)
   end
 
-  def ds_button_tag(content_or_options = nil, options = nil, &)
-    DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
+  def ds_button_tag(content_or_options = nil, options = nil, &block)
+    component = DesignSystem::Registry.component(brand, :button).new(content_or_options, options)
+    render(component) { block ? capture(&block) : nil }
   end
 
-  def ds_link_to(name = nil, options = nil, html_options = nil, &)
-    DesignSystem::Registry.builder(brand, 'link', self).render_link_to(name, options, html_options, &)
+  def ds_link_to(name = nil, options = nil, html_options = nil, &block)
+    component = DesignSystem::Registry.component(brand, :link).new(name, options, html_options, link_context: @link_context)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_pagination(collection = nil, options = {})
@@ -74,12 +76,15 @@ module DesignSystemHelper
     will_paginate(collection, defaults.merge!(options))
   end
 
-  def ds_alert(message = nil, &)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message, &)
+  def ds_alert(message = nil, &block)
+    component = DesignSystem::Registry.component(brand, :alert).new(message)
+    render(component) { block ? capture(&block) : nil }
   end
 
-  def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message, type:, content_heading:, &)
+  def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &block)
+    @link_context = :notification_banner
+    component = DesignSystem::Registry.component(brand, :notice).new(message:, type:, content_heading:)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_heading(text, level: 2, **options)
