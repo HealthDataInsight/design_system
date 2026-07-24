@@ -21,6 +21,8 @@ module DesignSystem
           assert_select("div.#{@brand}-summary-list__row")
           assert_select("dt.#{@brand}-summary-list__key", text: 'X')
           assert_select("dd.#{@brand}-summary-list__value", text: 'Y')
+          # A single value renders inline, not wrapped in a govuk-body paragraph.
+          assert_select("dd.#{@brand}-summary-list__value p", count: 0)
         end
 
         test 'renders multiple value in a summary list' do
