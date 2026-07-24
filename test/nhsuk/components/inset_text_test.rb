@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk inset text builder
+    module Components
+      # This tests the nhsuk inset text component
       class InsetTextTest < ActionView::TestCase
         include DesignSystemHelper
 
@@ -42,6 +42,12 @@ module DesignSystem
             assert_select 'span.nhsuk-u-visually-hidden', text: /Information:/
             assert_select 'p', 'Test content'
           end
+        end
+
+        test 'renders nothing without content' do
+          @output_buffer = ds_inset_text
+
+          assert_select 'div.nhsuk-inset-text', count: 0
         end
       end
     end

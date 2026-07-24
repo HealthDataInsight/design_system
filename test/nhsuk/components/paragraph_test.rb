@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk paragraph builder
+    module Components
+      # This tests the nhsuk paragraph component
       class ParagraphTest < ActionView::TestCase
         include DesignSystemHelper
 
@@ -18,33 +20,28 @@ module DesignSystem
           assert_select("p.#{@brand}-body", text: 'This is a normal paragraph')
         end
 
-        test 'rendering nhsuk default paragraph heading' do
+        test 'rendering nhsuk small paragraph' do
           @output_buffer = ds_paragraph('This is a small paragraph', size: :s)
 
           assert_select("p.#{@brand}-body-s", text: 'This is a small paragraph')
         end
 
+        test 'rendering nhsuk paragraph with a block' do
+          @output_buffer = ds_paragraph { 'Block paragraph' }
+
+          assert_select("p.#{@brand}-body", text: 'Block paragraph')
+        end
+
         test 'rendering nhsuk paragraph with invalid size' do
           assert_raises(ArgumentError) do
-            ds_paragraph('This is a paragraph', size: :m)
+            @output_buffer = ds_paragraph('This is a paragraph', size: :m)
           end
         end
 
-        test 'rendering nhsuk lead paragraph' do
-          @output_buffer = ds_fixed_elements do |ds|
-            ds.lead_paragraph('This is a lead paragraph')
-          end
+        test 'renders nothing without content' do
+          @output_buffer = ds_paragraph
 
-          assert_select("p.#{@brand}-body-l", text: 'This is a lead paragraph')
-        end
-
-        test 'rendering multiple nhsuk lead paragraphs' do
-          assert_raises(ArgumentError) do
-            ds_fixed_elements do |ds|
-              ds.lead_paragraph('This is a lead paragraph')
-              ds.lead_paragraph('This is another lead paragraph')
-            end
-          end
+          assert_select("p.#{@brand}-body", count: 0)
         end
       end
     end

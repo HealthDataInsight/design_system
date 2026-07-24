@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk inset text builder
+    module Components
+      # This tests the govuk inset text component
       class InsetTextTest < ActionView::TestCase
         include DesignSystemHelper
 
@@ -35,6 +35,12 @@ module DesignSystem
           @output_buffer = ds_inset_text('Test content', id: 'test-id', class: 'custom-class')
 
           assert_select 'div.govuk-inset-text.custom-class#test-id', text: 'Test content'
+        end
+
+        test 'renders nothing without content' do
+          @output_buffer = ds_inset_text
+
+          assert_select 'div.govuk-inset-text', count: 0
         end
       end
     end
