@@ -2,8 +2,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk summary list builder
+    module Components
+      # This tests the nhsuk summary list component
       class SummaryListTest < ActionView::TestCase
         include DesignSystemHelper
 

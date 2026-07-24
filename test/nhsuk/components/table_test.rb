@@ -2,7 +2,7 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
+    module Components
       # This tests the govuk headings builder
       class TableTest < ActionView::TestCase
         include DesignSystemHelper

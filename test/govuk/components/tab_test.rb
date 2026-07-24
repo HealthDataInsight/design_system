@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk tab builder
+    module Components
+      # This tests the govuk tab component
       class TabTest < ActionView::TestCase
         include DesignSystemHelper
 

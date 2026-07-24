@@ -2,8 +2,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk summary list builder
+    module Components
+      # This tests the govuk summary list component
       class SummaryListTest < ActionView::TestCase
         include DesignSystemHelper
 

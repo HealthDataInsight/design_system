@@ -34,22 +34,28 @@ module DesignSystemHelper
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 
-  def ds_table(options = {}, &)
+  def ds_table(options = {}, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'table', self).render_table(options, &)
+    table = ::DesignSystem::Components::Table.new
+    block.call(table)
+    render ::DesignSystem::Registry.component(brand, :table).new(table:, **options)
   end
 
-  def ds_summary_list(&)
+  def ds_summary_list(&block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'summary_list', self).render_summary_list(&)
+    summary_list = ::DesignSystem::Components::SummaryList.new
+    block.call(summary_list)
+    render ::DesignSystem::Registry.component(brand, :summary_list).new(summary_list:)
   end
 
-  def ds_tab(&)
+  def ds_tab(&block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'tab', self).render_tabs(&)
+    tab = ::DesignSystem::Components::Tab.new(self)
+    block.call(tab)
+    render ::DesignSystem::Registry.component(brand, :tab).new(tab:)
   end
 
   def ds_start_button(text, href = '#', options = {})
@@ -62,7 +68,8 @@ module DesignSystemHelper
   end
 
   def ds_link_to(name = nil, options = nil, html_options = nil, &block)
-    component = DesignSystem::Registry.component(brand, :link).new(name, options, html_options, link_context: @link_context)
+    klass = DesignSystem::Registry.component(brand, :link)
+    component = klass.new(name, options, html_options, link_context: @link_context)
     render(component) { block ? capture(&block) : nil }
   end
 
@@ -130,10 +137,12 @@ module DesignSystemHelper
     render DesignSystem::Registry.component(brand, :action_link).new(name, options, html_options)
   end
 
-  def ds_grid(options = {}, &)
+  def ds_grid(options = {}, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'grid', self).render_grid(options, &)
+    grid = ::DesignSystem::Components::Grid.new
+    block.call(grid)
+    render ::DesignSystem::Registry.component(brand, :grid).new(grid:, **options)
   end
 
   def ds_paragraph(text = nil, size: nil, **options, &block)

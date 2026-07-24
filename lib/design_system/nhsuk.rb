@@ -3,9 +3,6 @@
 require_relative 'nhsuk/builders/code'
 require_relative 'nhsuk/builders/fixed_elements'
 require_relative 'nhsuk/builders/pagination_renderer'
-require_relative 'nhsuk/builders/summary_list'
-require_relative 'nhsuk/builders/tab'
-require_relative 'nhsuk/builders/table'
 
 require_relative 'nhsuk/form_builder'
 

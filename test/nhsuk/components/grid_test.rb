@@ -2,8 +2,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk grid builder
+    module Components
+      # This tests the nhsuk grid component
       class GridTest < ActionView::TestCase
         include DesignSystemHelper
 

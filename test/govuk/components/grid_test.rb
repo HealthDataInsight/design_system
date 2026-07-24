@@ -2,8 +2,8 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk grid builder
+    module Components
+      # This tests the govuk grid component
       class GridTest < ActionView::TestCase
         include DesignSystemHelper
 

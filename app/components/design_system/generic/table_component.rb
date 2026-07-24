@@ -1,0 +1,73 @@
+module DesignSystem
+  module Generic
+    # Table rendered by ds_table. Wraps a caption, header row and body rows
+    # built via the Table data object. Brands override the markup and classes
+    # via subclasses.
+    class TableComponent < DesignSystem::BaseComponent
+      def initialize(table:, **options)
+        super()
+        @table = table
+        @options = options
+      end
+
+      attr_reader :options
+
+      def call
+        content_tag(:div, **options) do
+          table_content
+        end
+      end
+
+      private
+
+      def table_content
+        content_tag :table do
+          safe_buffer = ActiveSupport::SafeBuffer.new
+          safe_buffer.concat(content_tag(:caption, @table.caption)) if @table.caption
+          safe_buffer.concat(render_headers)
+          safe_buffer.concat(render_rows)
+          safe_buffer
+        end
+      end
+
+      def render_headers
+        content_tag :thead do
+          content_tag :tr do
+            @table.columns.each_with_object(ActiveSupport::SafeBuffer.new) do |header, header_buffer|
+              options = cell_numeric?(header) ? header[:options].merge(align: 'right') : header[:options]
+              header_buffer.concat(content_tag(:th, header[:content], options))
+            end
+          end
+        end
+      end
+
+      def render_rows
+        content_tag :tbody do
+          @table.rows.each_with_object(ActiveSupport::SafeBuffer.new) do |row, rows_buffer|
+            rows_buffer.concat(content_tag(:tr) do
+              row.each_with_object(ActiveSupport::SafeBuffer.new) do |cell, cell_buffer|
+                options = cell_numeric?(cell) ? cell[:options].merge(align: 'right') : cell[:options]
+                cell_buffer.concat(content_tag(:td, cell_content(cell), options))
+              end
+            end)
+          end
+        end
+      end
+
+      def cell_content(cell)
+        if cell[:content].is_a?(Numeric)
+          cell[:content].to_s
+        elsif cell[:content].is_a?(Proc)
+          capture(&cell[:content])
+        else
+          cell[:content]
+        end
+      end
+
+      # This method is for table component to identify if cell is numeric type
+      def cell_numeric?(cell)
+        cell[:options][:type] == 'numeric'
+      end
+    end
+  end
+end
