@@ -8,14 +8,15 @@ module DesignSystem
     # hidden_text is appended in a visually hidden span to give the link an
     # accessible, unambiguous name (e.g. " (Karen Francis)").
     class SummaryCardComponent < DesignSystem::BaseComponent
-      def initialize(title:, actions: [], heading_level: 2)
+      include DesignSystemHelper
+
+      def initialize(title:, actions: [])
         super()
         @title = title
         @actions = Array(actions)
-        @heading_level = heading_level.to_i
       end
 
-      attr_reader :title, :actions, :heading_level
+      attr_reader :title, :actions
 
       def render_action(action)
         link_to(action[:href] || '#', class: "#{brand}-link") do

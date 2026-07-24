@@ -1,6 +1,6 @@
 <div class="<%= brand %>-summary-card">
   <div class="<%= brand %>-summary-card__title-wrapper">
-    <%= helpers.ds_heading(title, level: heading_level, class: "#{brand}-summary-card__title") %>
+    <%= ds_heading(title, class: "#{brand}-summary-card__title") %>
     <% if actions.any? %>
       <ul class="<%= brand %>-summary-card__actions">
         <% actions.each do |action| %>
