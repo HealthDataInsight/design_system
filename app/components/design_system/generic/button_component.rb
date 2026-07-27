@@ -14,9 +14,16 @@ module DesignSystem
 
       def call
         button_options = prep_button_options(content_or_options, options)
-
+        style = button_options.delete('style')
+        button_options['aria-disabled'] = true if button_options['disabled']
+      
+        button_options = css_class_options_merge(button_options, ["#{brand}-button"]) do |classes|
+          style_class = style_class_hash[style]
+          classes << style_class if style_class
+        end
+      
         if content.present?
-          button_tag(nil) { content }
+          button_tag(button_options) { content }
         else
           button_tag(content_or_options, button_options)
         end
@@ -31,8 +38,15 @@ module DesignSystem
           options ||= {}
         end
 
-        { 'name' => 'button', 'type' => 'submit',
-          'data-module' => "#{brand}-button" }.merge!(options.stringify_keys)
+        { 'data-module' => "#{brand}-button" }.merge!(options.stringify_keys)
+      end
+
+      def style_class_hash
+        {
+          'secondary' => "#{brand}-button--secondary",
+          'warning' => "#{brand}-button--warning",
+          'reverse' => "#{brand}-button--inverse"
+        }
       end
     end
   end

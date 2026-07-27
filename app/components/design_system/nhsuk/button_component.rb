@@ -1,6 +1,6 @@
 module DesignSystem
   module Nhsuk
-    class ButtonComponent < DesignSystem::Govuk::ButtonComponent
+    class ButtonComponent < DesignSystem::Generic::ButtonComponent
     end
   end
 end
