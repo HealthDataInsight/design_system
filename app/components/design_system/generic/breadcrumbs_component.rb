@@ -1,7 +1,7 @@
 module DesignSystem
   module Generic
     # Breadcrumb trail rendered into the :breadcrumbs content_for slot by the
-    # fixed-elements builder. Brands override the markup via subclasses.
+    # fixed-elements builder. Brands own the markup via their own templates.
     class BreadcrumbsComponent < DesignSystem::BaseComponent
       def initialize(breadcrumbs:)
         super()
@@ -10,9 +10,8 @@ module DesignSystem
 
       attr_reader :breadcrumbs
 
-      def call
-        safe_join(breadcrumbs.map { |breadcrumb| link_to_unless_current(breadcrumb[:label], breadcrumb[:path]) },
-                  ' > ')
+      def current_page_aria(breadcrumb)
+        helpers.current_page?(breadcrumb[:path]) ? 'page' : nil
       end
     end
   end

@@ -4,14 +4,13 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk breadcrumbs builder
+    module Components
+      # This tests the govuk breadcrumbs component
       class BreadcrumbsTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
-          @controller.stubs(:brand).returns(@brand)
+          @controller.stubs(:brand).returns('govuk')
         end
 
         test 'rendering govuk breadcrumbs' do
@@ -24,15 +23,13 @@ module DesignSystem
           # so to test the generated HTML, we need to copy it to the
           # output buffer.
           @output_buffer = @view_flow.get(:breadcrumbs)
-          assert_select("div.#{@brand}-breadcrumbs") do
-            assert_select("ol.#{@brand}-breadcrumbs__list", role: 'listz') do
-              # Tests root_path
-              assert_select("li.#{@brand}-breadcrumbs__list-item") do
-                assert_select("a.#{@brand}-breadcrumbs__link", href: root_url)
+          assert_select("nav.govuk-breadcrumbs[aria-label='Breadcrumb']") do
+            assert_select("ol.govuk-breadcrumbs__list") do
+              assert_select("li.govuk-breadcrumbs__list-item") do
+                assert_select("a.govuk-breadcrumbs__link", href: root_url)
               end
-
-              assert_select("li.#{@brand}-breadcrumbs__list-item") do
-                assert_select("a.#{@brand}-breadcrumbs__link", href: rails_health_check_path, text: 'Somewhere else')
+              assert_select("li.govuk-breadcrumbs__list-item") do
+                assert_select("a.govuk-breadcrumbs__link", href: rails_health_check_path, text: 'Somewhere else')
               end
             end
           end
