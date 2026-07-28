@@ -1,0 +1,15 @@
+<% success = type == :success %>
+<div class="<%= brand %>-notification-banner<%= " #{brand}-notification-banner--success" if success %>"
+     role="<%= success ? 'alert' : 'region' %>"
+     aria-labelledby="<%= brand %>-notification-banner-title"
+     data-module="<%= brand %>-notification-banner">
+  <div class="<%= brand %>-notification-banner__header">
+    <h2 class="<%= brand %>-notification-banner__title" id="<%= brand %>-notification-banner-title"><%= success ? 'Success' : 'Important' %></h2>
+  </div>
+  <div class="<%= brand %>-notification-banner__content">
+    <% if heading_text.present? %>
+      <%= content_tag(heading_tag, heading_text, class: "#{brand}-notification-banner__heading") %>
+    <% end %>
+    <%= body %>
+  </div>
+</div>

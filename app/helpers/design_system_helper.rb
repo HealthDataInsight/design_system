@@ -90,7 +90,7 @@ module DesignSystemHelper
 
   def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &block)
     @link_context = :notification_banner
-    component = DesignSystem::Registry.component(brand, :notice).new(message:, type:, content_heading:)
+    component = DesignSystem::Registry.component(brand, :notification).new(message:, type:, content_heading:)
     render(component) { block ? capture(&block) : nil }
   end
 

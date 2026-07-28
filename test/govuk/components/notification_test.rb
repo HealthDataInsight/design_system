@@ -10,16 +10,15 @@ module DesignSystem
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
-          @controller.stubs(:brand).returns(@brand)
+          @controller.stubs(:brand).returns('govuk')
         end
 
         test 'rendering govuk notice' do
           @output_buffer = ds_notice('Important Notice')
 
-          assert_select 'div.govuk-notification-banner' do
+          assert_select 'div.govuk-notification-banner[role="region"][aria-labelledby="govuk-notification-banner-title"][data-module="govuk-notification-banner"]' do
             assert_select 'div.govuk-notification-banner__header' do
-              assert_select 'h2.govuk-notification-banner__title', 'Important'
+              assert_select 'h2.govuk-notification-banner__title[id="govuk-notification-banner-title"]', 'Important'
             end
           end
 
@@ -38,13 +37,6 @@ module DesignSystem
           end
         end
 
-        test 'rendering govuk alert' do
-          @output_buffer = ds_alert('Test alert!')
-
-          assert_select 'div.govuk-error-summary' do
-            assert_select 'h2.govuk-error-summary__title', 'Test alert!'
-          end
-        end
 
         test 'rendering govuk notice with content heading and body (msg)' do
           @output_buffer = ds_notice('Important Notice', content_heading: { text: 'Important Notice', tag: :p })
@@ -101,6 +93,14 @@ module DesignSystem
             assert_select 'div.govuk-notification-banner__content' do
               assert_select 'a.govuk-notification-banner__link[href="#"]', 'link'
             end
+          end
+        end
+
+        test 'rendering govuk alert' do
+          @output_buffer = ds_alert('Test alert!')
+
+          assert_select 'div.govuk-error-summary' do
+            assert_select 'h2.govuk-error-summary__title', 'Test alert!'
           end
         end
       end

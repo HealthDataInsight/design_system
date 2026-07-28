@@ -17,7 +17,7 @@ module DesignSystem
         test 'rendering nhsuk notice' do
           @output_buffer = ds_notice('Important Notice')
 
-          assert_select 'div.nhsuk-notification-banner' do
+          assert_select 'div.nhsuk-notification-banner[role="region"][aria-labelledby="nhsuk-notification-banner-title"][data-module="nhsuk-notification-banner"]' do
             assert_select 'div.nhsuk-notification-banner__header' do
               assert_select 'h2.nhsuk-notification-banner__title', 'Important'
             end
@@ -35,14 +35,6 @@ module DesignSystem
             end
 
             assert_select 'div.nhsuk-notification-banner__content', text: 'Test content'
-          end
-        end
-
-        test 'rendering nhsuk alert' do
-          @output_buffer = ds_alert('Test alert!')
-
-          assert_select 'div.nhsuk-error-summary' do
-            assert_select 'h2.nhsuk-error-summary__title', 'Test alert!'
           end
         end
 
@@ -101,6 +93,14 @@ module DesignSystem
             assert_select 'div.nhsuk-notification-banner__content' do
               assert_select 'a.nhsuk-notification-banner__link[href="#"]', 'link'
             end
+          end
+        end
+
+        test 'rendering nhsuk alert' do
+          @output_buffer = ds_alert('Test alert!')
+
+          assert_select 'div.nhsuk-error-summary' do
+            assert_select 'h2.nhsuk-error-summary__title', 'Test alert!'
           end
         end
       end
