@@ -25,16 +25,16 @@ module DesignSystem
           # output buffer.
           @output_buffer = @view_flow.get(:breadcrumbs)
           assert_select("nav.nhsuk-breadcrumb[aria-label='Breadcrumb']") do
-            assert_select("ol.nhsuk-breadcrumb__list") do
-              assert_select("li.nhsuk-breadcrumb__list-item") do
-                assert_select("a.nhsuk-breadcrumb__link", href: root_url)
+            assert_select('ol.nhsuk-breadcrumb__list') do
+              assert_select('li.nhsuk-breadcrumb__list-item') do
+                assert_select('a.nhsuk-breadcrumb__link', href: root_url)
               end
-              assert_select("li.nhsuk-breadcrumb__list-item") do
-                assert_select("a.nhsuk-breadcrumb__link", href: rails_health_check_path, text: 'Somewhere else')
+              assert_select('li.nhsuk-breadcrumb__list-item') do
+                assert_select('a.nhsuk-breadcrumb__link', href: rails_health_check_path, text: 'Somewhere else')
               end
             end
-            assert_select("a.nhsuk-back-link", href: '#') do
-              assert_select("span.nhsuk-u-visually-hidden", text: 'Back to') do
+            assert_select('a.nhsuk-back-link', href: '#') do
+              assert_select('span.nhsuk-u-visually-hidden', text: 'Back to') do
                 'Current page'
               end
             end

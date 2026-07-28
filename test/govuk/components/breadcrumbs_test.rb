@@ -24,12 +24,12 @@ module DesignSystem
           # output buffer.
           @output_buffer = @view_flow.get(:breadcrumbs)
           assert_select("nav.govuk-breadcrumbs[aria-label='Breadcrumb']") do
-            assert_select("ol.govuk-breadcrumbs__list") do
-              assert_select("li.govuk-breadcrumbs__list-item") do
-                assert_select("a.govuk-breadcrumbs__link", href: root_url)
+            assert_select('ol.govuk-breadcrumbs__list') do
+              assert_select('li.govuk-breadcrumbs__list-item') do
+                assert_select('a.govuk-breadcrumbs__link', href: root_url)
               end
-              assert_select("li.govuk-breadcrumbs__list-item") do
-                assert_select("a.govuk-breadcrumbs__link", href: rails_health_check_path, text: 'Somewhere else')
+              assert_select('li.govuk-breadcrumbs__list-item') do
+                assert_select('a.govuk-breadcrumbs__link', href: rails_health_check_path, text: 'Somewhere else')
               end
             end
           end
