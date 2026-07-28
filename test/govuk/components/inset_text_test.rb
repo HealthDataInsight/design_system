@@ -14,21 +14,21 @@ module DesignSystem
           @controller.stubs(:brand).returns(@brand)
         end
 
+        test 'raises without text or block' do
+          assert_raises(ArgumentError) { ds_inset_text }
+        end
+
+        test 'raises when both text and block are given' do
+          assert_raises(ArgumentError) do
+            ds_inset_text('Fallback') { 'Block content' }
+          end
+        end
+
         test 'rendering govuk inset text with text parameter' do
           @output_buffer = ds_inset_text('You can report any suspected side effect using the Yellow Card safety scheme.')
 
           assert_select 'div.govuk-inset-text',
                         text: /You can report any suspected side effect using the Yellow Card safety scheme/
-        end
-
-        test 'rendering govuk inset text with block' do
-          @output_buffer = ds_inset_text do
-            content_tag(:p, 'You can report any suspected side effect using the Yellow Card safety scheme.')
-          end
-
-          assert_select 'div.govuk-inset-text' do
-            assert_select 'p', 'You can report any suspected side effect using the Yellow Card safety scheme.'
-          end
         end
 
         test 'rendering govuk inset text with html options' do
@@ -37,10 +37,13 @@ module DesignSystem
           assert_select 'div.govuk-inset-text.custom-class#test-id', text: 'Test content'
         end
 
-        test 'renders nothing without content' do
-          @output_buffer = ds_inset_text
+        test 'rendering govuk inset text with block' do
+          @output_buffer = ds_inset_text do
+            'You can report any suspected side effect using the Yellow Card safety scheme.'
+          end
 
-          assert_select 'div.govuk-inset-text', count: 0
+          assert_select 'div.govuk-inset-text',
+                        text: /You can report any suspected side effect using the Yellow Card safety scheme/
         end
       end
     end
