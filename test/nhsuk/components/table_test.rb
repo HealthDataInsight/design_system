@@ -72,6 +72,7 @@ module DesignSystem
             assert_select('td.nhsuk-table__cell.nhsuk-table__cell--numeric[role="cell"]',
                           text: /Max 3 times in 24 hours/)
           end
+          assert_select('[type="numeric"]', count: 0)
         end
 
         test 'rendering nhsuk cells with block content and responsive headings' do

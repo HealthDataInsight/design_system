@@ -63,6 +63,7 @@ module DesignSystem
             assert_select('td.govuk-table__cell.govuk-table__cell--numeric', text: '£85')
             assert_select('td.govuk-table__cell.govuk-table__cell--numeric', text: '£95')
           end
+          assert_select('[type="numeric"]', count: 0)
         end
 
         test 'rendering govuk cells with block content' do

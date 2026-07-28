@@ -9,8 +9,8 @@
       <tr class="<%= brand %>-table__row" role="row">
         <% table.columns.each do |column| %>
           <%= content_tag(:th, cell_content(column),
-                          **column[:options].merge(scope: 'col', class: header_classes(column),
-                                                   role: 'columnheader')) %>
+                          **html_cell_options(column, scope: 'col', class: header_classes(column),
+                                              role: 'columnheader')) %>
         <% end %>
       </tr>
     </thead>
@@ -19,16 +19,16 @@
         <tr class="<%= brand %>-table__row" role="row">
           <% row.each_with_index do |cell, index| %>
             <% if index.zero? %>
-              <%= content_tag(:th, **cell[:options].merge(scope: 'row', class: header_classes(cell),
-                                                          role: 'rowheader')) do %>
+              <%= content_tag(:th, **html_cell_options(cell, scope: 'row', class: header_classes(cell),
+                                                       role: 'rowheader')) do %>
                 <%= content_tag(:span, table.columns[index][:content],
                                 class: "#{brand}-table-responsive__heading",
                                 aria: { hidden: true }) %>
                 <%= cell_content(cell) %>
               <% end %>
             <% else %>
-              <%= content_tag(:td, **cell[:options].merge(class: data_cell_classes(cell),
-                                                          role: 'cell')) do %>
+              <%= content_tag(:td, **html_cell_options(cell, class: data_cell_classes(cell),
+                                                       role: 'cell')) do %>
                 <%= content_tag(:span, table.columns[index][:content],
                                 class: "#{brand}-table-responsive__heading",
                                 aria: { hidden: true }) %>

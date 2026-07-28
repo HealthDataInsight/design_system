@@ -1,6 +1,6 @@
 module DesignSystem
   module Generic
-    # Notification banner rendered by ds_notification. Shows an "Important"/"Success"
+    # Notification banner rendered by ds_notice. Shows an "Important"/"Success"
     # header followed by a content area with an optional heading and the
     # message (or block) body.
     class NotificationComponent < DesignSystem::BaseComponent

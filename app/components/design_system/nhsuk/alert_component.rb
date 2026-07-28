@@ -1,6 +1,6 @@
 module DesignSystem
   module Nhsuk
-    class AlertComponent < DesignSystem::Govuk::AlertComponent
+    class AlertComponent < DesignSystem::Generic::AlertComponent
     end
   end
 end

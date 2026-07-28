@@ -26,10 +26,8 @@ module DesignSystem
         cell[:options][:type] == 'numeric'
       end
 
-      def cell_options(cell)
-        opts = cell[:options].dup
-        opts = opts.merge(align: 'right') if cell_numeric?(cell)
-        opts
+      def html_cell_options(cell, **extra)
+        cell[:options].except(:type).merge(extra)
       end
 
       def header_classes(cell)

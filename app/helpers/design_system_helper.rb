@@ -160,7 +160,12 @@ module DesignSystemHelper
 
   def ds_inset_text(text = nil, **options, &block)
     component = DesignSystem::Registry.component(brand, :inset_text).new(text:, **options)
-    render(component) { block ? capture(&block) : nil }
+    output = if block
+               render(component) { capture(&block) }
+             else
+               render(component)
+             end
+    output.presence
   end
 
   def ds_code(code, language)

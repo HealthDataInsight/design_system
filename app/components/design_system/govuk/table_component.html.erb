@@ -7,7 +7,7 @@
       <tr class="<%= brand %>-table__row" role="row">
         <% table.columns.each do |column| %>
           <%= content_tag(:th, cell_content(column),
-                          **column[:options].merge(scope: 'col', class: header_classes(column))) %>
+                          **html_cell_options(column, scope: 'col', class: header_classes(column))) %>
         <% end %>
       </tr>
     </thead>
@@ -17,10 +17,10 @@
           <% row.each_with_index do |cell, index| %>
             <% if index.zero? %>
               <%= content_tag(:th, cell_content(cell),
-                              **cell[:options].merge(scope: 'row', class: header_classes(cell))) %>
+                              **html_cell_options(cell, scope: 'row', class: header_classes(cell))) %>
             <% else %>
               <%= content_tag(:td, cell_content(cell),
-                              **cell[:options].merge(class: data_cell_classes(cell))) %>
+                              **html_cell_options(cell, class: data_cell_classes(cell))) %>
             <% end %>
           <% end %>
         </tr>
