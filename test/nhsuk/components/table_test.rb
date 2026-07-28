@@ -1,100 +1,112 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module DesignSystem
   module Nhsuk
     module Components
-      # This tests the govuk headings builder
+      # Asserts NHS UK responsive table markup.
       class TableTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
-          @brand = 'nhsuk'
-          @controller.stubs(:brand).returns(@brand)
+          @controller.stubs(:brand).returns('nhsuk')
         end
 
-        test 'rendering nhsuk table' do
+        test 'rendering nhsuk responsive table structure with caption and column headers' do
           @output_buffer = ds_table do |table|
-            table.caption = 'X and Y'
-            table.add_column('X')
+            table.caption = 'Skin symptoms and possible causes'
+            table.add_column('Skin symptoms')
+            table.add_column('Possible cause')
+            table.add_row('Blisters on lips or around the mouth', 'Cold sores')
           end
 
-          assert_select("table.#{@brand}-table-responsive")
-          assert_select("caption.#{@brand}-table__caption", text: 'X and Y')
-          assert_select 'th:nth-child(1)', 'X'
+          assert_select('table.nhsuk-table-responsive[role="table"]') do
+            assert_select('caption.nhsuk-table__caption', text: 'Skin symptoms and possible causes')
+
+            assert_select('thead.nhsuk-table__head[role="rowgroup"]') do
+              assert_select('tr.nhsuk-table__row[role="row"]') do
+                assert_select('th.nhsuk-table__header[scope="col"][role="columnheader"]',
+                              text: 'Skin symptoms')
+                assert_select('th.nhsuk-table__header[scope="col"][role="columnheader"]',
+                              text: 'Possible cause')
+              end
+            end
+
+            assert_select('tbody.nhsuk-table__body') do
+              assert_select('tr.nhsuk-table__row[role="row"]') do
+                assert_select('th.nhsuk-table__header[scope="row"][role="rowheader"]',
+                              text: /Blisters on lips or around the mouth/) do
+                  assert_select('span.nhsuk-table-responsive__heading[aria-hidden="true"]',
+                                text: 'Skin symptoms')
+                end
+                assert_select('td.nhsuk-table__cell[role="cell"]', text: /Cold sores/) do
+                  assert_select('span.nhsuk-table-responsive__heading[aria-hidden="true"]',
+                                text: 'Possible cause')
+                end
+              end
+            end
+          end
         end
 
-        test 'rendering nhsuk cells with block and options' do
+        test 'rendering nhsuk numeric columns with numeric modifiers' do
           @output_buffer = ds_table do |table|
-            table.add_column('X')
-            table.add_column('Y')
+            table.caption = 'Ibuprofen liquid dosages for children'
+            table.add_column('Age')
+            table.add_numeric_column('How much?')
+            table.add_numeric_column('How often?')
+            table.add_row('3 to 5 months', '2.5ml', 'Max 3 times in 24 hours')
+          end
+
+          assert_select('thead.nhsuk-table__head') do
+            assert_select('th.nhsuk-table__header[scope="col"]', text: 'Age')
+            assert_select('th.nhsuk-table__header.nhsuk-table__header--numeric[scope="col"]',
+                          text: 'How much?')
+            assert_select('th.nhsuk-table__header.nhsuk-table__header--numeric[scope="col"]',
+                          text: 'How often?')
+          end
+
+          assert_select('tbody.nhsuk-table__body tr.nhsuk-table__row') do
+            assert_select('th.nhsuk-table__header[scope="row"][role="rowheader"]', text: /3 to 5 months/)
+            assert_select('td.nhsuk-table__cell.nhsuk-table__cell--numeric[role="cell"]', text: /2.5ml/)
+            assert_select('td.nhsuk-table__cell.nhsuk-table__cell--numeric[role="cell"]',
+                          text: /Max 3 times in 24 hours/)
+          end
+        end
+
+        test 'rendering nhsuk cells with block content and responsive headings' do
+          @output_buffer = ds_table do |table|
+            table.add_column('Name')
+            table.add_column('Notes')
             table.add_row do |row|
-              row.add_cell do
-                content_tag(:span, 'Bold Text', class: 'bold')
-              end
-              row.add_cell({ type: 'numeric' }) do
-                content_tag(:p, 5, class: 'foo')
-              end
+              row.add_cell { content_tag(:span, 'Bold Text', class: 'bold') }
+              row.add_cell { content_tag(:p, 'Normal Text', class: 'normal') }
             end
           end
 
-          assert_select 'table' do
-            assert_select 'tbody' do
-              assert_select 'tr' do
-                assert_select 'td' do
-                  assert_select 'span.bold', text: 'Bold Text'
-                end
-                assert_select 'td[type="numeric"]' do
-                  assert_select 'p.foo', text: '5'
-                end
-              end
+          assert_select('tbody.nhsuk-table__body tr.nhsuk-table__row') do
+            assert_select('th.nhsuk-table__header[scope="row"][role="rowheader"]') do
+              assert_select('span.nhsuk-table-responsive__heading[aria-hidden="true"]', text: 'Name')
+              assert_select('span.bold', text: 'Bold Text')
+            end
+            assert_select('td.nhsuk-table__cell[role="cell"]') do
+              assert_select('span.nhsuk-table-responsive__heading[aria-hidden="true"]', text: 'Notes')
+              assert_select('p.normal', text: 'Normal Text')
             end
           end
         end
 
-        test 'rendering nhsuk cells with content' do
+        test 'rendering nhsuk cells with html options' do
           @output_buffer = ds_table do |table|
-            table.add_column('X')
-            table.add_column('Y')
+            table.add_column('Name')
+            table.add_column('Notes')
             table.add_row do |row|
-              row.add_cell(
-                content_tag(:span, 'Bold Text', class: 'bold')
-              )
-              row.add_cell(
-                content_tag(:p, 5, class: 'foo'),
-                { id: 'foo' }
-              )
+              row.add_cell('Alice')
+              row.add_cell('Extra', { id: 'notes-cell' })
             end
           end
 
-          assert_select 'table' do
-            assert_select 'tbody' do
-              assert_select 'tr' do
-                assert_select 'td' do
-                  assert_select 'span.bold', text: 'Bold Text'
-                end
-                assert_select 'td[id="foo"]' do
-                  assert_select 'p.foo', text: '5'
-                end
-              end
-            end
-          end
-        end
-
-        test 'rendering nhsuk cells with numbers' do
-          @output_buffer = ds_table do |table|
-            table.add_numeric_column('X')
-            table.add_numeric_column('Y')
-            table.add_row(100, (5.0 / 3).round(2))
-          end
-
-          assert_select 'table' do
-            assert_select 'tbody' do
-              assert_select 'tr' do
-                assert_select 'td:nth-child(1)', text: 'X100'
-                assert_select 'td:nth-child(2)', text: 'Y1.67'
-              end
-            end
-          end
+          assert_select('td.nhsuk-table__cell#notes-cell[role="cell"]', text: /Extra/)
         end
       end
     end
