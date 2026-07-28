@@ -21,8 +21,12 @@ module DesignSystem
         body.present?
       end
 
-      # The content to display: a captured block takes precedence over the
-      # text argument.
+      def call
+        content_tag(:p, body, **paragraph_options)
+      end
+
+      private
+
       def body
         content.presence || text
       end
@@ -30,8 +34,6 @@ module DesignSystem
       def paragraph_options
         { class: classes }.merge(options)
       end
-
-      private
 
       def classes
         return "#{brand}-body" if size.nil?
