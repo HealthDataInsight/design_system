@@ -56,8 +56,9 @@ module DesignSystemHelper
     render DesignSystem::Registry.component(brand, :start_button).new(text, href, options)
   end
 
-  def ds_button_tag(content_or_options = nil, options = nil, &)
-    DesignSystem::Registry.builder(brand, 'button', self).render_button(content_or_options, options, &)
+  def ds_button_tag(content_or_options = nil, options = nil, &block)
+    component = DesignSystem::Registry.component(brand, :button).new(content_or_options, options)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_link_to(name = nil, options = nil, html_options = nil, &)
