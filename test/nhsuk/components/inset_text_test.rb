@@ -14,10 +14,14 @@ module DesignSystem
           @controller.stubs(:brand).returns(@brand)
         end
 
-        test 'renders nothing without content' do
-          @output_buffer = ds_inset_text
+        test 'raises without text or block' do
+          assert_raises(ArgumentError) { ds_inset_text }
+        end
 
-          assert_select 'div.nhsuk-inset-text', count: 0
+        test 'raises when both text and block are given' do
+          assert_raises(ArgumentError) do
+            ds_inset_text('Fallback') { 'Block content' }
+          end
         end
 
         test 'rendering nhsuk inset text with text parameter' do
