@@ -95,6 +95,15 @@ module DesignSystem
           end
         end
 
+        test 'link context does not leak after notice' do
+          notice_html = ds_notice { ds_link_to('inside', '#') }
+          assert_match(/govuk-notification-banner__link/, notice_html)
+
+          link_html = ds_link_to('outside', '#')
+          assert_match(/govuk-link/, link_html)
+          assert_no_match(/govuk-notification-banner__link/, link_html)
+        end
+
         test 'rendering govuk alert' do
           @output_buffer = ds_alert('Test alert!')
 

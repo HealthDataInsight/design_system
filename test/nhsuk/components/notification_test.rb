@@ -96,6 +96,15 @@ module DesignSystem
           end
         end
 
+        test 'link context does not leak after notice' do
+          notice_html = ds_notice { ds_link_to('inside', '#') }
+          assert_match(/nhsuk-notification-banner__link/, notice_html)
+
+          link_html = ds_link_to('outside', '#')
+          assert_match(/nhsuk-link/, link_html)
+          assert_no_match(/nhsuk-notification-banner__link/, link_html)
+        end
+
         test 'rendering nhsuk alert' do
           @output_buffer = ds_alert('Test alert!')
 

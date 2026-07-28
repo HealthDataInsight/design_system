@@ -89,9 +89,12 @@ module DesignSystemHelper
   end
 
   def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &block)
+    previous_link_context = @link_context
     @link_context = :notification_banner
     component = DesignSystem::Registry.component(brand, :notification).new(message:, type:, content_heading:)
     render(component) { block ? capture(&block) : nil }
+  ensure
+    @link_context = previous_link_context
   end
 
   def ds_heading(text, level: 2, **options)
