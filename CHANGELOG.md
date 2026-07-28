@@ -18,12 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrated `ds_panel`, `ds_callout`, `ds_details`, `ds_heading`, `ds_action_link`, `ds_start_button`, and `ds_list` from PORO builders to ViewComponents (no API change).
-- Migrated `ds_button_tag` from a PORO builder to a ViewComponent (no API change).
+- Migrated `ds_button_tag`, `ds_inset_text` from a PORO builder to a ViewComponent (no API change).
 
 ### Fixed
 
 - Fixed radio fieldset preview components to correctly display multiple options.
 - Fixed GOV.UK `ds_summary_list` to render a single value inline instead of wrapping it in a `govuk-body` paragraph, matching the GOV.UK summary list markup (multi-value rows still use paragraphs).
+- Fixed `ds_inset_text` to accept EITHER a text OR a block.
 
 ## [0.14.0] - 2026-05-01
 
