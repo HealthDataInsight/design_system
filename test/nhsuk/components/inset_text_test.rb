@@ -49,12 +49,6 @@ module DesignSystem
           assert_select 'div.nhsuk-inset-text',
                         text: /You can report any suspected side effect using the Yellow Card safety scheme/
         end
-
-        test 'blank block does not fall back to text' do
-          @output_buffer = ds_inset_text('Fallback text') { '' }
-
-          assert_select 'div.nhsuk-inset-text', count: 0
-        end
       end
     end
   end

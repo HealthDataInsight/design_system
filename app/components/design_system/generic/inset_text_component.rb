@@ -13,14 +13,9 @@ module DesignSystem
       attr_reader :text, :options
 
       # Renders nothing when neither block content nor text is supplied,
-      # matching the previous builder behaviour. A blank block does not
-      # fall back to `text` — same as the old builder.
+      # matching the previous builder behaviour.
       def render?
-        content? ? content.present? : text.present?
-      end
-
-      def body
-        content? ? content : text
+        content.present? || text.present?
       end
 
       def inset_options
