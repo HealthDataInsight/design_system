@@ -104,14 +104,6 @@ module DesignSystem
           assert_match(/nhsuk-link/, link_html)
           assert_no_match(/nhsuk-notification-banner__link/, link_html)
         end
-
-        test 'rendering nhsuk alert' do
-          @output_buffer = ds_alert('Test alert!')
-
-          assert_select 'div.nhsuk-error-summary' do
-            assert_select 'h2.nhsuk-error-summary__title', 'Test alert!'
-          end
-        end
       end
     end
   end

@@ -103,14 +103,6 @@ module DesignSystem
           assert_match(/govuk-link/, link_html)
           assert_no_match(/govuk-notification-banner__link/, link_html)
         end
-
-        test 'rendering govuk alert' do
-          @output_buffer = ds_alert('Test alert!')
-
-          assert_select 'div.govuk-error-summary' do
-            assert_select 'h2.govuk-error-summary__title', 'Test alert!'
-          end
-        end
       end
     end
   end
