@@ -4,14 +4,20 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
-      # This tests the govuk inset text builder
+    module Components
+      # This tests the govuk inset text component
       class InsetTextTest < ActionView::TestCase
         include DesignSystemHelper
 
         setup do
           @brand = 'govuk'
           @controller.stubs(:brand).returns(@brand)
+        end
+
+        test 'renders nothing without content' do
+          @output_buffer = ds_inset_text
+
+          assert_select 'div.govuk-inset-text', count: 0
         end
 
         test 'rendering govuk inset text with text parameter' do
@@ -21,20 +27,19 @@ module DesignSystem
                         text: /You can report any suspected side effect using the Yellow Card safety scheme/
         end
 
-        test 'rendering govuk inset text with block' do
-          @output_buffer = ds_inset_text do
-            content_tag(:p, 'You can report any suspected side effect using the Yellow Card safety scheme.')
-          end
-
-          assert_select 'div.govuk-inset-text' do
-            assert_select 'p', 'You can report any suspected side effect using the Yellow Card safety scheme.'
-          end
-        end
-
         test 'rendering govuk inset text with html options' do
           @output_buffer = ds_inset_text('Test content', id: 'test-id', class: 'custom-class')
 
           assert_select 'div.govuk-inset-text.custom-class#test-id', text: 'Test content'
+        end
+
+        test 'rendering govuk inset text with block' do
+          @output_buffer = ds_inset_text do
+            'You can report any suspected side effect using the Yellow Card safety scheme.'
+          end
+
+          assert_select 'div.govuk-inset-text',
+                        text: /You can report any suspected side effect using the Yellow Card safety scheme/
         end
       end
     end

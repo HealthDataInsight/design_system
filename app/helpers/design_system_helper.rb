@@ -144,8 +144,9 @@ module DesignSystemHelper
     render ::DesignSystem::Registry.component(brand, :list).new(list: list_data, type:, **options)
   end
 
-  def ds_inset_text(text = nil, ...)
-    DesignSystem::Registry.builder(brand, 'inset_text', self).render_inset_text(text, ...)
+  def ds_inset_text(text = nil, **options, &block)
+    component = DesignSystem::Registry.component(brand, :inset_text).new(text:, **options)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_code(code, language)
