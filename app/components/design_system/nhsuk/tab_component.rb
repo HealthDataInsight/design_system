@@ -1,6 +1,6 @@
 module DesignSystem
   module Nhsuk
-    class TabComponent < DesignSystem::Govuk::TabComponent
+    class TabComponent < DesignSystem::Generic::TabComponent
     end
   end
 end

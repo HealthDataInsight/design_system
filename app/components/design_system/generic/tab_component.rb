@@ -1,7 +1,7 @@
 module DesignSystem
   module Generic
-    # Base tab component. Brands implement the markup; the generic component
-    # is abstract.
+    # Tabs rendered by ds_tab: a list of tab links followed by their panels,
+    # with the selected panel visible. Brand subclasses inherit unchanged.
     class TabComponent < DesignSystem::BaseComponent
       def initialize(tab:)
         super()
@@ -9,10 +9,6 @@ module DesignSystem
       end
 
       attr_reader :tab
-
-      def call
-        raise 'Subclass needs to implement brand specific rendering'
-      end
     end
   end
 end
