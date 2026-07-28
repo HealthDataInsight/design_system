@@ -37,7 +37,6 @@ module DesignSystem
           end
         end
 
-
         test 'rendering govuk notice with content heading and body (msg)' do
           @output_buffer = ds_notice('Important Notice', content_heading: { text: 'Important Notice', tag: :p })
 

@@ -38,8 +38,8 @@ module DesignSystem
               content_tag(:p, 'Full width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-full" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-full' do
               assert_select 'p', text: 'Full width content'
             end
           end
@@ -51,8 +51,8 @@ module DesignSystem
               content_tag(:p, 'One-half width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-one-half" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-one-half' do
               assert_select 'p', text: 'One-half width content'
             end
           end
@@ -64,8 +64,8 @@ module DesignSystem
               content_tag(:p, 'One-third width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-one-third" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-one-third' do
               assert_select 'p', text: 'One-third width content'
             end
           end
@@ -77,8 +77,8 @@ module DesignSystem
               content_tag(:p, 'Two-thirds width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-two-thirds" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-two-thirds' do
               assert_select 'p', text: 'Two-thirds width content'
             end
           end
@@ -90,8 +90,8 @@ module DesignSystem
               content_tag(:p, 'One-quarter width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-one-quarter" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-one-quarter' do
               assert_select 'p', text: 'One-quarter width content'
             end
           end
@@ -103,8 +103,8 @@ module DesignSystem
               content_tag(:p, 'Three-quarters width content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-three-quarters" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-three-quarters' do
               assert_select 'p', text: 'Three-quarters width content'
             end
           end
@@ -119,11 +119,11 @@ module DesignSystem
               content_tag(:p, 'One third content')
             end
           end
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-two-thirds" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-two-thirds' do
               assert_select 'p', text: 'Two thirds content'
             end
-            assert_select "div.govuk-grid-column-one-third" do
+            assert_select 'div.govuk-grid-column-one-third' do
               assert_select 'p', text: 'One third content'
             end
           end
@@ -155,11 +155,11 @@ module DesignSystem
             end
           end
 
-          assert_select "div.govuk-grid-row" do
-            assert_select "div.govuk-grid-column-two-thirds" do
+          assert_select 'div.govuk-grid-row' do
+            assert_select 'div.govuk-grid-column-two-thirds' do
               assert_select 'p', text: 'Outer two thirds content'
-              assert_select "div.govuk-grid-row" do
-                assert_select "div.govuk-grid-column-two-thirds" do
+              assert_select 'div.govuk-grid-row' do
+                assert_select 'div.govuk-grid-column-two-thirds' do
                   assert_select 'p', text: 'Inner two thirds content'
                 end
               end

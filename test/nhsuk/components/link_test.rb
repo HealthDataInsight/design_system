@@ -17,19 +17,19 @@ module DesignSystem
         test 'rendering nhsuk link' do
           @output_buffer = ds_link_to(@assistant)
 
-          assert_select("a.nhsuk-link", href: assistant_path(@assistant))
+          assert_select('a.nhsuk-link', href: assistant_path(@assistant))
         end
 
         test 'rendering nhsuk button link' do
           @output_buffer = ds_link_to('All assistants', assistants_path, type: :button)
 
-          assert_select("a.nhsuk-button", href: assistants_path)
+          assert_select('a.nhsuk-button', href: assistants_path)
         end
 
         test 'rendering nhsuk button link with options' do
           @output_buffer = ds_link_to('Edit assistants', edit_assistant_path(@assistant), method: :patch, type: :secondary_button)
 
-          assert_select("a.nhsuk-button.nhsuk-button--secondary", href: edit_assistant_path(@assistant))
+          assert_select('a.nhsuk-button.nhsuk-button--secondary', href: edit_assistant_path(@assistant))
         end
 
         test 'rendering nhsuk button link with url and block' do
@@ -37,7 +37,7 @@ module DesignSystem
             content_tag(:span, 'Show assistant')
           end
 
-          assert_select("a.nhsuk-button.nhsuk-button--reverse", href: 'https://example.com') do
+          assert_select('a.nhsuk-button.nhsuk-button--reverse', href: 'https://example.com') do
             assert_select('span', text: 'Show assistant')
           end
         end
@@ -47,7 +47,7 @@ module DesignSystem
             content_tag(:span, 'Show assistant')
           end
 
-          assert_select("a.nhsuk-button.nhsuk-button--warning", href: 'https://example.com') do
+          assert_select('a.nhsuk-button.nhsuk-button--warning', href: 'https://example.com') do
             assert_select('span', text: 'Show assistant')
           end
         end
