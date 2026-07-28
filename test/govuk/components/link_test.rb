@@ -10,27 +10,26 @@ module DesignSystem
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
-          @controller.stubs(:brand).returns(@brand)
+          @controller.stubs(:brand).returns('govuk')
           @assistant = assistants(:one)
         end
 
         test 'rendering govuk link' do
           @output_buffer = ds_link_to(@assistant)
 
-          assert_select("a.#{@brand}-link", href: assistant_path(@assistant))
+          assert_select("a.govuk-link", href: assistant_path(@assistant))
         end
 
         test 'rendering govuk button link' do
           @output_buffer = ds_link_to('All assistants', assistants_path, type: :button)
 
-          assert_select("a.#{@brand}-button", href: assistants_path)
+          assert_select("a.govuk-button", href: assistants_path)
         end
 
         test 'rendering govuk button link with options' do
           @output_buffer = ds_link_to('Edit assistants', edit_assistant_path(@assistant), method: :patch, type: :secondary_button)
 
-          assert_select("a.#{@brand}-button.#{@brand}-button--secondary", href: edit_assistant_path(@assistant))
+          assert_select("a.govuk-button.govuk-button--secondary", href: edit_assistant_path(@assistant))
         end
 
         test 'rendering govuk button link with url and block' do
@@ -38,7 +37,7 @@ module DesignSystem
             content_tag(:span, 'Show assistant')
           end
 
-          assert_select("a.#{@brand}-button.#{@brand}-button--inverse", href: 'https://example.com') do
+          assert_select("a.govuk-button.govuk-button--inverse", href: 'https://example.com') do
             assert_select('span', text: 'Show assistant')
           end
         end
@@ -48,7 +47,7 @@ module DesignSystem
             content_tag(:span, 'Show assistant')
           end
 
-          assert_select("a.#{@brand}-button.#{@brand}-button--warning", href: 'https://example.com') do
+          assert_select("a.govuk-button.govuk-button--warning", href: 'https://example.com') do
             assert_select('span', text: 'Show assistant')
           end
         end
