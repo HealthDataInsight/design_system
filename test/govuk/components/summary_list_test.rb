@@ -8,8 +8,7 @@ module DesignSystem
         include DesignSystemHelper
 
         setup do
-          @brand = 'govuk'
-          @controller.stubs(:brand).returns(@brand)
+          @controller.stubs(:brand).returns('govuk')
         end
 
         test 'renders a basic govuk summary list' do
@@ -17,12 +16,12 @@ module DesignSystem
             list.add_row(key: 'X', value: 'Y')
           end
 
-          assert_select("dl.#{@brand}-summary-list")
-          assert_select("div.#{@brand}-summary-list__row")
-          assert_select("dt.#{@brand}-summary-list__key", text: 'X')
-          assert_select("dd.#{@brand}-summary-list__value", text: 'Y')
+          assert_select("dl.govuk-summary-list")
+          assert_select("div.govuk-summary-list__row")
+          assert_select("dt.govuk-summary-list__key", text: 'X')
+          assert_select("dd.govuk-summary-list__value", text: 'Y')
           # A single value renders inline, not wrapped in a govuk-body paragraph.
-          assert_select("dd.#{@brand}-summary-list__value p", count: 0)
+          assert_select("dd.govuk-summary-list__value p", count: 0)
         end
 
         test 'renders multiple value in a summary list' do
@@ -33,9 +32,9 @@ module DesignSystem
             end
           end
 
-          assert_select("dt.#{@brand}-summary-list__key", text: 'X')
-          assert_select("dd.#{@brand}-summary-list__value p", text: 'Y')
-          assert_select("dd.#{@brand}-summary-list__value p", text: 'Z')
+          assert_select("dt.govuk-summary-list__key", text: 'X')
+          assert_select("dd.govuk-summary-list__value p", text: 'Y')
+          assert_select("dd.govuk-summary-list__value p", text: 'Z')
         end
 
         test 'renders a summary list with a linked value' do
@@ -45,8 +44,23 @@ module DesignSystem
             end
           end
 
-          assert_select("dd.#{@brand}-summary-list__value a.#{@brand}-link", text: 'Visit')
-          assert_select("dd.#{@brand}-summary-list__value a[href='https://example.com']")
+          assert_select('dd.govuk-summary-list__value', text: 'Visit') do
+            assert_select('a.govuk-link[href="https://example.com"]')
+          end
+        end
+
+        test 'renders a summary list with an action and hidden text' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row(key: 'Actions') do |row|
+              row.add_action('Edit', { path: '/edit', hidden_text: 'this record' })
+            end
+          end
+
+          assert_select('dd.govuk-summary-list__actions') do
+            assert_select("a.govuk-link[href='/edit']") do
+              assert_select('span.govuk-visually-hidden', text: 'this record')
+            end
+          end
         end
 
         test 'renders multiple actions in a summary list' do
@@ -58,10 +72,10 @@ module DesignSystem
             end
           end
 
-          assert_select("dd.#{@brand}-summary-list__actions")
-          assert_select("ul.#{@brand}-summary-list__actions-list")
-          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/edit']", text: 'Edit')
-          assert_select("li.#{@brand}-summary-list__actions-list-item a[href='/delete']", text: 'Delete')
+          assert_select("dd.govuk-summary-list__actions")
+          assert_select("ul.govuk-summary-list__actions-list")
+          assert_select("li.govuk-summary-list__actions-list-item a[href='/edit']", text: 'Edit')
+          assert_select("li.govuk-summary-list__actions-list-item a[href='/delete']", text: 'Delete')
         end
 
         test 'renders an action with custom html options' do
@@ -72,8 +86,20 @@ module DesignSystem
             end
           end
 
-          assert_select("dd.#{@brand}-summary-list__actions a.#{@brand}-link[target='data-cohort']",
+          assert_select("dd.govuk-summary-list__actions a.govuk-link[target='data-cohort']",
                         text: /View definition/)
+        end
+
+        test 'renders without actions' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row('Age', 30)
+          end
+
+          assert_select("div.govuk-summary-list__row.govuk-summary-list__row--no-actions") do
+            assert_select("dt.govuk-summary-list__key", text: 'Age')
+            assert_select("dd.govuk-summary-list__value", text: '30')
+            assert_select("dd.govuk-summary-list__actions", text: '', count: 0)
+          end
         end
 
         test 'renders an empty value cell when values are nil' do
@@ -83,22 +109,10 @@ module DesignSystem
             end
           end
 
-          assert_select("div.#{@brand}-summary-list__row") do
-            assert_select("dt.#{@brand}-summary-list__key", text: 'Age')
-            assert_select("dd.#{@brand}-summary-list__value", text: '')
-            assert_select("dd.#{@brand}-summary-list__actions a[href='/view']", text: 'View')
-          end
-        end
-
-        test 'renders without actions' do
-          @output_buffer = ds_summary_list do |list|
-            list.add_row('Age', 30)
-          end
-
-          assert_select("div.#{@brand}-summary-list__row.#{@brand}-summary-list__row--no-actions") do
-            assert_select("dt.#{@brand}-summary-list__key", text: 'Age')
-            assert_select("dd.#{@brand}-summary-list__value", text: '30')
-            assert_select("dd.#{@brand}-summary-list__actions", text: '', count: 0)
+          assert_select("div.govuk-summary-list__row") do
+            assert_select("dt.govuk-summary-list__key", text: 'Age')
+            assert_select("dd.govuk-summary-list__value", text: '')
+            assert_select("dd.govuk-summary-list__actions a[href='/view']", text: 'View')
           end
         end
       end

@@ -5,6 +5,10 @@ module DesignSystem
     class SummaryListComponent < DesignSystem::Generic::SummaryListComponent
       private
 
+      def value_paragraph_class
+        nil
+      end
+
       def render_hidden_text(hidden_text)
         return '' if hidden_text.blank?
 

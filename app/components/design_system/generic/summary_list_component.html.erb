@@ -1,0 +1,21 @@
+<dl class="<%= brand %>-summary-list">
+  <% summary_list.rows.each do |row| %>
+    <div class="<%= brand %>-summary-list__row<%= " #{brand}-summary-list__row--no-actions" if row[:actions].blank? %>">
+      <dt class="<%= brand %>-summary-list__key"><%= row[:key][:content] %></dt>
+      <dd class="<%= brand %>-summary-list__value"><%= value_content(row) %></dd>
+      <% if row[:actions].present? %>
+        <dd class="<%= brand %>-summary-list__actions">
+          <% if row[:actions].length == 1 %>
+            <%= render_action(row[:actions].first) %>
+          <% else %>
+            <ul class="<%= brand %>-summary-list__actions-list">
+              <% row[:actions].each do |action| %>
+                <li class="<%= brand %>-summary-list__actions-list-item"><%= render_action(action) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </dd>
+      <% end %>
+    </div>
+  <% end %>
+</dl>
