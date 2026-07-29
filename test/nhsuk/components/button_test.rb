@@ -16,7 +16,6 @@ module DesignSystem
 
         test 'rendering default nhsuk button' do
           @output_buffer = ds_button_tag('Continue')
-
           assert_select('button[class="nhsuk-button"]', text: 'Continue')
           assert_select('button[data-module="nhsuk-button"]')
           assert_select('button[type="submit"]')

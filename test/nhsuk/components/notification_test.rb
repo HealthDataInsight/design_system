@@ -1,0 +1,110 @@
+# frozen_string_literal: true
+
+require 'test_helper'
+
+module DesignSystem
+  module Nhsuk
+    module Components
+      # This tests the nhsuk notification component
+      class NotificationTest < ActionView::TestCase
+        include DesignSystemHelper
+
+        setup do
+          @brand = 'nhsuk'
+          @controller.stubs(:brand).returns(@brand)
+        end
+
+        test 'rendering nhsuk notice' do
+          @output_buffer = ds_notice('Important Notice')
+
+          assert_select 'div.nhsuk-notification-banner[role="region"][aria-labelledby="nhsuk-notification-banner-title"][data-module="nhsuk-notification-banner"]' do
+            assert_select 'div.nhsuk-notification-banner__header' do
+              assert_select 'h2.nhsuk-notification-banner__title', 'Important'
+            end
+
+            assert_select 'div.nhsuk-notification-banner__content', text: 'Important Notice'
+          end
+        end
+
+        test 'rendering nhsuk notice with success type' do
+          @output_buffer = ds_notice('Test content', type: :success)
+
+          assert_select 'div.nhsuk-notification-banner.nhsuk-notification-banner--success[role="alert"][aria-labelledby="nhsuk-notification-banner-title"][data-module="nhsuk-notification-banner"]' do
+            assert_select 'div.nhsuk-notification-banner__header' do
+              assert_select 'h2.nhsuk-notification-banner__title[id="nhsuk-notification-banner-title"]', 'Success'
+            end
+
+            assert_select 'div.nhsuk-notification-banner__content', text: 'Test content'
+          end
+        end
+
+        test 'rendering nhsuk notice with content heading and body (msg)' do
+          @output_buffer = ds_notice('Body', content_heading: { text: 'Important Notice', tag: :p })
+
+          assert_select 'div.nhsuk-notification-banner__content' do
+            assert_select 'p.nhsuk-notification-banner__heading', 'Important Notice'
+          end
+        end
+
+        test 'rendering nhsuk notice with content heading default tag' do
+          @output_buffer = ds_notice('Body', content_heading: { text: 'Important Notice' })
+
+          assert_select 'div.nhsuk-notification-banner__content' do
+            assert_select 'h3.nhsuk-notification-banner__heading', 'Important Notice'
+          end
+        end
+
+        test 'rejecting invalid content heading tag' do
+          error = assert_raises(ArgumentError) do
+            ds_notice('Body', content_heading: { text: 'Heading', tag: :div })
+          end
+
+          assert_match(/Invalid content_heading tag/i, error.message)
+        end
+
+        test 'rendering nhsuk notice without content heading' do
+          @output_buffer = ds_notice do
+            '<p class="custom">Raw content</p>'.html_safe
+          end
+
+          assert_select 'div.nhsuk-notification-banner__content' do
+            assert_select 'p.custom', 'Raw content'
+            assert_select '.nhsuk-notification-banner__heading', count: 0
+          end
+        end
+
+        test 'rendering nhsuk notice with heading and body(block)' do
+          @output_buffer = ds_notice(content_heading: { text: 'Banner heading', tag: :h3 }) do
+            '<p class="body">Additional content</p>'.html_safe
+          end
+
+          assert_select 'div.nhsuk-notification-banner__content' do
+            assert_select 'h3.nhsuk-notification-banner__heading', 'Banner heading'
+            assert_select 'p.body', 'Additional content'
+          end
+        end
+
+        test 'rendering nhsuk notice with link inside the block' do
+          @output_buffer = ds_notice do
+            ds_link_to('link', '#')
+          end
+
+          assert_select 'div.nhsuk-notification-banner' do
+            assert_select 'div.nhsuk-notification-banner__content' do
+              assert_select 'a.nhsuk-notification-banner__link[href="#"]', 'link'
+            end
+          end
+        end
+
+        test 'link context does not leak after notice' do
+          notice_html = ds_notice { ds_link_to('inside', '#') }
+          assert_match(/nhsuk-notification-banner__link/, notice_html)
+
+          link_html = ds_link_to('outside', '#')
+          assert_match(/nhsuk-link/, link_html)
+          assert_no_match(/nhsuk-notification-banner__link/, link_html)
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,16 @@
+<nav aria-label="Breadcrumb" class="<%= brand %>-breadcrumb">
+  <ol class="<%= brand %>-breadcrumb__list">
+    <% breadcrumbs.each do |breadcrumb| %>
+      <li class="<%= brand %>-breadcrumb__list-item">
+        <%= link_to breadcrumb[:label], breadcrumb[:path],
+                    class: "#{brand}-breadcrumb__link",
+                    'aria-current': current_page_aria(breadcrumb) %>
+      </li>
+    <% end %>
+  </ol>
+  <%= link_to breadcrumbs.last[:path],
+              class: "#{brand}-back-link",
+              'aria-current': current_page_aria(breadcrumbs.last) do %>
+    <span class="<%= brand %>-u-visually-hidden">Back to</span> <%= breadcrumbs.last[:label] %>
+  <% end %>
+</nav>

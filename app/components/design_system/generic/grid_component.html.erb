@@ -1,0 +1,5 @@
+<%= content_tag(:div, **row_options) do %>
+  <% grid.columns.each do |column| %>
+    <%= content_tag(:div, column[:block] ? capture(&column[:block]) : nil, **column_options(column)) %>
+  <% end %>
+<% end %>

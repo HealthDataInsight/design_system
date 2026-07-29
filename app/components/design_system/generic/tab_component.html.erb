@@ -1,0 +1,21 @@
+<div class="<%= brand %>-tabs" data-module="<%= brand %>-tabs">
+  <% if tab.title %>
+    <h2 class="<%= brand %>-tabs__title"><%= tab.title %></h2>
+  <% end %>
+
+  <% if tab.tabs.present? %>
+    <ul class="<%= brand %>-tabs__list">
+      <% tab.tabs.each do |name, _content, id, selected| %>
+        <li class="<%= brand %>-tabs__list-item<%= " #{brand}-tabs__list-item--selected" if selected %>">
+          <a class="<%= brand %>-tabs__tab" href="#<%= id %>"><%= name %></a>
+        </li>
+      <% end %>
+    </ul>
+
+    <% tab.tabs.each do |_name, content, id, selected| %>
+      <div class="<%= brand %>-tabs__panel<%= " #{brand}-tabs__panel--hidden" unless selected %>" id="<%= id %>">
+        <%= content %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

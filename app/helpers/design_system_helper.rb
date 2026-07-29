@@ -34,22 +34,28 @@ module DesignSystemHelper
     render(template: "layouts/#{brand}/#{design_system_layout}")
   end
 
-  def ds_table(options = {}, &)
+  def ds_table(options = {}, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'table', self).render_table(options, &)
+    table = ::DesignSystem::Components::Table.new
+    block.call(table)
+    render ::DesignSystem::Registry.component(brand, :table).new(table:, **options)
   end
 
-  def ds_summary_list(&)
+  def ds_summary_list(&block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'summary_list', self).render_summary_list(&)
+    summary_list = ::DesignSystem::Components::SummaryList.new
+    block.call(summary_list)
+    render ::DesignSystem::Registry.component(brand, :summary_list).new(summary_list:)
   end
 
-  def ds_tab(&)
+  def ds_tab(&block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'tab', self).render_tabs(&)
+    tab = ::DesignSystem::Components::Tab.new(self)
+    block.call(tab)
+    render ::DesignSystem::Registry.component(brand, :tab).new(tab:)
   end
 
   def ds_start_button(text, href = '#', options = {})
@@ -61,8 +67,10 @@ module DesignSystemHelper
     render(component) { block ? capture(&block) : nil }
   end
 
-  def ds_link_to(name = nil, options = nil, html_options = nil, &)
-    DesignSystem::Registry.builder(brand, 'link', self).render_link_to(name, options, html_options, &)
+  def ds_link_to(name = nil, options = nil, html_options = nil, &block)
+    klass = DesignSystem::Registry.component(brand, :link)
+    component = klass.new(name, options, html_options, link_context: @link_context)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_pagination(collection = nil, options = {})
@@ -75,12 +83,18 @@ module DesignSystemHelper
     will_paginate(collection, defaults.merge!(options))
   end
 
-  def ds_alert(message = nil, &)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_alert(message, &)
+  def ds_alert(message = nil, &block)
+    component = DesignSystem::Registry.component(brand, :alert).new(message)
+    render(component) { block ? capture(&block) : nil }
   end
 
-  def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &)
-    DesignSystem::Registry.builder(brand, 'notification', self).render_notice(message, type:, content_heading:, &)
+  def ds_notice(message = nil, type: :information, content_heading: { text: nil, tag: :h3 }, &block)
+    previous_link_context = @link_context
+    @link_context = :notification_banner
+    component = DesignSystem::Registry.component(brand, :notification).new(message:, type:, content_heading:)
+    render(component) { block ? capture(&block) : nil }
+  ensure
+    @link_context = previous_link_context
   end
 
   def ds_heading(text, level: 2, **options)
@@ -126,14 +140,17 @@ module DesignSystemHelper
     render DesignSystem::Registry.component(brand, :action_link).new(name, options, html_options)
   end
 
-  def ds_grid(options = {}, &)
+  def ds_grid(options = {}, &block)
     raise ArgumentError unless block_given?
 
-    DesignSystem::Registry.builder(brand, 'grid', self).render_grid(options, &)
+    grid = ::DesignSystem::Components::Grid.new
+    block.call(grid)
+    render ::DesignSystem::Registry.component(brand, :grid).new(grid:, **options)
   end
 
   def ds_paragraph(text = nil, size: nil, **options, &block)
-    DesignSystem::Registry.builder(brand, 'paragraph', self).render_paragraph(text, size:, **options, &block)
+    component = DesignSystem::Registry.component(brand, :paragraph).new(text:, size:, **options)
+    render(component) { block ? capture(&block) : nil }
   end
 
   def ds_list(type: :default, **options, &block)
@@ -144,8 +161,14 @@ module DesignSystemHelper
     render ::DesignSystem::Registry.component(brand, :list).new(list: list_data, type:, **options)
   end
 
-  def ds_inset_text(text = nil, ...)
-    DesignSystem::Registry.builder(brand, 'inset_text', self).render_inset_text(text, ...)
+  def ds_inset_text(text = nil, **options, &block)
+    component = DesignSystem::Registry.component(brand, :inset_text).new(text:, **options)
+    output = if block
+               render(component) { capture(&block) }
+             else
+               render(component)
+             end
+    output.presence
   end
 
   def ds_code(code, language)

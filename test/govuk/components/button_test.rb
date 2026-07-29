@@ -16,7 +16,6 @@ module DesignSystem
 
         test 'rendering default govuk button' do
           @output_buffer = ds_button_tag('Continue')
-
           assert_select('button[class="govuk-button"]', text: 'Continue')
           assert_select('button[data-module="govuk-button"]')
           assert_select('button[type="submit"]')

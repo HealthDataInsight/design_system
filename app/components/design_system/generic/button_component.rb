@@ -16,12 +16,10 @@ module DesignSystem
         button_options = prep_button_options(content_or_options, options)
         style = button_options.delete('style')
         button_options['aria-disabled'] = true if button_options['disabled']
-
         button_options = css_class_options_merge(button_options, ["#{brand}-button"]) do |classes|
           style_class = style_class_hash[style]
           classes << style_class if style_class
         end
-
         if content.present?
           button_tag(button_options) { content }
         else

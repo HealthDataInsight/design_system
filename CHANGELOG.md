@@ -13,12 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refurbished the preview pages in the dummy app
 - Reworked the dummy app home page into a "Get started" guide that orients developers around the site's Styles, Components and Utilities sections, shows the bundled GOV.UK and NHS UK Frontend versions, and links to the gem, repository and changelog
 - Added a Utilities section to the dummy app for JavaScript behaviours (Stimulus controllers and time ago)
-- Added `ds_code` to render a block of code" this part is at wrong place I suppose
+- Added `ds_code` to render a block of code
 
 ### Changed
 
 - Migrated `ds_panel`, `ds_callout`, `ds_details`, `ds_heading`, `ds_action_link`, `ds_start_button`, and `ds_list` from PORO builders to ViewComponents (no API change).
-- Migrated `ds_button_tag` from a PORO builder to a ViewComponent (no API change).
+- Migrated `ds_button_tag`, `ds_inset_text`, `ds_grid`, `ds_link_to`, `ds_notice`, `ds_alert`, breadcrumbs (via fixed-elements), `ds_paragraph`, `ds_summary_list`, `ds_tab`, and `ds_table` from PORO builders to ViewComponents (no API change).
+- Updated component tests to better mirror the NHS/GOVUK guidelines.
 
 ### Fixed
 

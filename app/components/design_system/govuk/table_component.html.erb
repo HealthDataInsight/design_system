@@ -1,0 +1,30 @@
+<%= content_tag(:div, **options) do %>
+  <table class="<%= brand %>-table">
+    <% if table.caption %>
+      <caption class="<%= brand %>-table__caption <%= brand %>-table__caption--m"><%= table.caption %></caption>
+    <% end %>
+    <thead class="<%= brand %>-table__head" role="rowgroup">
+      <tr class="<%= brand %>-table__row" role="row">
+        <% table.columns.each do |column| %>
+          <%= content_tag(:th, cell_content(column),
+                          **html_cell_options(column, scope: 'col', class: header_classes(column))) %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="<%= brand %>-table__body">
+      <% table.rows.each do |row| %>
+        <tr class="<%= brand %>-table__row" role="row">
+          <% row.each_with_index do |cell, index| %>
+            <% if index.zero? %>
+              <%= content_tag(:th, cell_content(cell),
+                              **html_cell_options(cell, scope: 'row', class: header_classes(cell))) %>
+            <% else %>
+              <%= content_tag(:td, cell_content(cell),
+                              **html_cell_options(cell, class: data_cell_classes(cell))) %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
