@@ -8,7 +8,9 @@ module DesignSystem
     class FixedElements
       attr_reader :backlink_config, :breadcrumbs, :main_heading_config, :lead_paragraph_content, :form_object
 
-      def initialize(view_context = nil)
+      # A view context is required: lead_paragraph captures block content
+      # through it.
+      def initialize(view_context)
         @view_context = view_context
         @breadcrumbs = []
       end
