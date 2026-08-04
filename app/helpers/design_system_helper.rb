@@ -10,15 +10,16 @@ module DesignSystemHelper
 
   # This method provides access to the current design system adapter
   def ds_fixed_elements
-    instance = DesignSystem::Registry.builder(brand, 'fixed_elements', self)
+    fixed_elements = ::DesignSystem::Components::FixedElements.new(self)
+    yield fixed_elements if block_given?
 
-    if block_given?
-      yield instance
-
-      instance.render
-    else
-      instance
+    if fixed_elements.backlink? && fixed_elements.breadcrumbs?
+      raise ArgumentError, 'Cannot use both backlink and breadcrumbs'
     end
+
+    assign_fixed_element_slots(fixed_elements)
+
+    render DesignSystem::Registry.component(brand, :fixed_elements).new(fixed_elements:)
   end
 
   def ds_form_builder
@@ -172,6 +173,24 @@ module DesignSystemHelper
   end
 
   def ds_code(code, language)
-    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, language)
+    render DesignSystem::Registry.component(brand, :code).new(code:, language:)
+  end
+
+  private
+
+  # Backlink and breadcrumbs are placed in their own page slots via
+  # content_for, which must run on the view (not inside the component, whose
+  # content_for writes to a separate output flow).
+  def assign_fixed_element_slots(fixed_elements)
+    if fixed_elements.breadcrumbs?
+      content_for(:breadcrumbs) do
+        render DesignSystem::Registry.component(brand, :breadcrumbs).new(breadcrumbs: fixed_elements.breadcrumbs)
+      end
+    end
+
+    return unless fixed_elements.backlink?
+
+    config = fixed_elements.backlink_config
+    content_for(:backlink) { link_to(config[:label], config[:path], class: "#{brand}-back-link") }
   end
 end

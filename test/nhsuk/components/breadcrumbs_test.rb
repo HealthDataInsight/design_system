@@ -20,10 +20,9 @@ module DesignSystem
             ds.breadcrumb('Current page', '#')
           end
 
-          # Breadcrumbs are rendered with content_for(:breadcrumbs),
-          # so to test the generated HTML, we need to copy it to the
-          # output buffer.
-          @output_buffer = @view_flow.get(:breadcrumbs)
+          # Breadcrumbs are placed in the content_for(:breadcrumbs) slot, so
+          # point the assertion at that slot's HTML.
+          @rendered = @view_flow.get(:breadcrumbs)
           assert_select("nav.nhsuk-breadcrumb[aria-label='Breadcrumb']") do
             assert_select('ol.nhsuk-breadcrumb__list') do
               assert_select('li.nhsuk-breadcrumb__list-item') do
