@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-08-11
+
 ### Added
 
 - Added `ds_summary_card` to group a titled summary list (or any content) with optional actions, rendered brand-agnostically as an NHS UK card or a GOV.UK summary card
@@ -162,7 +164,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.14.0...HEAD
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.15.0...HEAD
+[0.15.0]: https://github.com/HealthDataInsight/design_system/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/HealthDataInsight/design_system/compare/v0.13.2...v0.14.0
 [0.13.2]: https://github.com/HealthDataInsight/design_system/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/HealthDataInsight/design_system/compare/v0.13.0...v0.13.1
