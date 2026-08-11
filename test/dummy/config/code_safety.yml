@@ -62,8 +62,8 @@ file safety:
     safe_revision: a0da9e620faad4e2a850cc698a8eba2f3de85ef1
   CHANGELOG.md:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: f9f5584e4f6aad10b752d1de91dedeca03d7d11a
+    reviewed_by: filisliu
+    safe_revision: f04214a393265aee42f7638af8168c7fcfb586c3
   CODE_OF_CONDUCT.md:
     comments:
     reviewed_by: timgentry
@@ -74,8 +74,8 @@ file safety:
     safe_revision: 1d22ca944498cda7dc94d11e398684ae63c8024f
   Gemfile.lock:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: da577cbe1b515b3117aafc22990d3e7c7b2e2c2d
+    reviewed_by: filisliu
+    safe_revision: f04214a393265aee42f7638af8168c7fcfb586c3
   MIT-LICENSE:
     comments:
     reviewed_by: timgentry
@@ -1826,8 +1826,8 @@ file safety:
     safe_revision: da577cbe1b515b3117aafc22990d3e7c7b2e2c2d
   lib/design_system/version.rb:
     comments:
-    reviewed_by: timgentry
-    safe_revision: 992cb3f56905cffffde8ef4ac6143e4178bb2ed1
+    reviewed_by: filisliu
+    safe_revision: f04214a393265aee42f7638af8168c7fcfb586c3
   lib/tasks/design_system_tasks.rake:
     comments:
     reviewed_by: shilpigoeldev
@@ -1848,10 +1848,10 @@ file safety:
     comments:
     reviewed_by: shilpigoeldev
     safe_revision: b5da62147e9c19fa87b020d6e21ae57f9bd10020
-  public/design_system/static/design_system-0.14.0/design_system.js:
+  public/design_system/static/design_system-0.15.0/design_system.js:
     comments:
-    reviewed_by: shilpigoeldev
-    safe_revision: b5da62147e9c19fa87b020d6e21ae57f9bd10020
+    reviewed_by: filisliu
+    safe_revision: f04214a393265aee42f7638af8168c7fcfb586c3
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
