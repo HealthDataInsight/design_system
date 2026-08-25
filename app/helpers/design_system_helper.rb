@@ -8,10 +8,8 @@ module DesignSystemHelper
     controller.send(:brand)
   end
 
-  # This method provides access to the current design system adapter.
-  # Without a block, returns the collector instance (callers can configure
-  # it and call `render` themselves). With a block, yields the collector
-  # and renders.
+  # Fixed page elements. Without a block, returns the collector (configure
+  # then call `render`). With a block, yields the collector and renders.
   def ds_fixed_elements
     fixed_elements = ::DesignSystem::Components::FixedElements.new(self)
     return fixed_elements unless block_given?

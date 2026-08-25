@@ -25,6 +25,16 @@ class DesignSystemHelperTest < ActionView::TestCase
     assert_equal 'govuk', instance.brand
   end
 
+  test 'ds_fixed_elements without a block can be configured and rendered' do
+    controller.stubs(brand: 'govuk')
+
+    instance = ds_fixed_elements
+    instance.main_heading 'Headings'
+    @output_buffer = instance.render
+
+    assert_select('h1.govuk-heading-xl', text: 'Headings')
+  end
+
   test 'ds_fixed_elements responds to block' do
     block_excuted = false
 
