@@ -12,7 +12,7 @@ module DesignSystem
     # markup. Backlink/breadcrumbs use content_for on the view context
     # (not inside the component, whose content_for uses a separate flow).
     class FixedElements
-      attr_reader :backlink_config, :breadcrumbs, :main_heading_config, :lead_paragraph_content, :form_object
+      attr_reader :backlink, :breadcrumbs, :main_heading_config, :lead_paragraph_content, :form_object
 
       delegate :brand, to: :@view_context
 
@@ -22,7 +22,7 @@ module DesignSystem
       end
 
       def backlink(label, path)
-        @backlink_config = { label: label || 'Back', path: }
+        @backlink = { label: label || 'Back', path: }
       end
 
       def breadcrumb(label, path)
@@ -43,16 +43,8 @@ module DesignSystem
         @form_object = object
       end
 
-      def backlink?
-        !@backlink_config.nil?
-      end
-
-      def breadcrumbs?
-        @breadcrumbs.any?
-      end
-
       def render
-        raise ArgumentError, 'Cannot use both backlink and breadcrumbs' if backlink? && breadcrumbs?
+        raise ArgumentError, 'Cannot use both backlink and breadcrumbs' if @backlink.present? && @breadcrumbs.present?
 
         assign_slots
         render_component(:fixed_elements, fixed_elements: self)
@@ -61,13 +53,12 @@ module DesignSystem
       private
 
       def assign_slots
-        @view_context.content_for(:breadcrumbs) { render_component(:breadcrumbs, breadcrumbs:) } if breadcrumbs?
+        @view_context.content_for(:breadcrumbs) { render_component(:breadcrumbs, breadcrumbs:) } if @breadcrumbs.any?
 
-        return unless backlink?
+        return unless @backlink.present?
 
-        config = backlink_config
         @view_context.content_for(:backlink) do
-          @view_context.link_to(config[:label], config[:path], class: "#{brand}-back-link")
+          @view_context.link_to(@backlink[:label], @backlink[:path], class: "#{brand}-back-link")
         end
       end
 
