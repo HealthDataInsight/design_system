@@ -8,18 +8,16 @@ module DesignSystemHelper
     controller.send(:brand)
   end
 
-  # This method provides access to the current design system adapter
+  # This method provides access to the current design system adapter.
+  # Without a block, returns the collector instance (callers can configure
+  # it and call `render` themselves). With a block, yields the collector
+  # and renders.
   def ds_fixed_elements
     fixed_elements = ::DesignSystem::Components::FixedElements.new(self)
-    yield fixed_elements if block_given?
+    return fixed_elements unless block_given?
 
-    if fixed_elements.backlink? && fixed_elements.breadcrumbs?
-      raise ArgumentError, 'Cannot use both backlink and breadcrumbs'
-    end
-
-    assign_fixed_element_slots(fixed_elements)
-
-    render DesignSystem::Registry.component(brand, :fixed_elements).new(fixed_elements:)
+    yield fixed_elements
+    fixed_elements.render
   end
 
   def ds_form_builder
@@ -174,23 +172,5 @@ module DesignSystemHelper
 
   def ds_code(code, language)
     render DesignSystem::Registry.component(brand, :code).new(code:, language:)
-  end
-
-  private
-
-  # Backlink and breadcrumbs are placed in their own page slots via
-  # content_for, which must run on the view (not inside the component, whose
-  # content_for writes to a separate output flow).
-  def assign_fixed_element_slots(fixed_elements)
-    if fixed_elements.breadcrumbs?
-      content_for(:breadcrumbs) do
-        render DesignSystem::Registry.component(brand, :breadcrumbs).new(breadcrumbs: fixed_elements.breadcrumbs)
-      end
-    end
-
-    return unless fixed_elements.backlink?
-
-    config = fixed_elements.backlink_config
-    content_for(:backlink) { link_to(config[:label], config[:path], class: "#{brand}-back-link") }
   end
 end

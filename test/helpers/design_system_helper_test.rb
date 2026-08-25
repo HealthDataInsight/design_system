@@ -16,6 +16,15 @@ class DesignSystemHelperTest < ActionView::TestCase
     assert_equal 'geoff', brand
   end
 
+  test 'ds_fixed_elements returns correct instance' do
+    controller.stubs(brand: 'govuk')
+
+    instance = ds_fixed_elements
+
+    assert_instance_of DesignSystem::Components::FixedElements, instance
+    assert_equal 'govuk', instance.brand
+  end
+
   test 'ds_fixed_elements responds to block' do
     block_excuted = false
 
