@@ -8,17 +8,14 @@ module DesignSystemHelper
     controller.send(:brand)
   end
 
-  # This method provides access to the current design system adapter
+  # Fixed page elements. Without a block, returns the collector (configure
+  # then call `render`). With a block, yields the collector and renders.
   def ds_fixed_elements
-    instance = DesignSystem::Registry.builder(brand, 'fixed_elements', self)
+    fixed_elements = ::DesignSystem::Components::FixedElements.new(self)
+    return fixed_elements unless block_given?
 
-    if block_given?
-      yield instance
-
-      instance.render
-    else
-      instance
-    end
+    yield fixed_elements
+    fixed_elements.render
   end
 
   def ds_form_builder
@@ -172,6 +169,6 @@ module DesignSystemHelper
   end
 
   def ds_code(code, language)
-    DesignSystem::Registry.builder(brand, 'code', self).render_code(code, language)
+    render DesignSystem::Registry.component(brand, :code).new(code:, language:)
   end
 end

@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Migrated `ds_panel`, `ds_callout`, `ds_details`, `ds_heading`, `ds_action_link`, `ds_start_button`, and `ds_list` from PORO builders to ViewComponents (no API change).
 - Migrated `ds_button_tag`, `ds_inset_text`, `ds_grid`, `ds_link_to`, `ds_notice`, `ds_alert`, breadcrumbs (via fixed-elements), `ds_paragraph`, `ds_summary_list`, `ds_tab`, and `ds_table` from PORO builders to ViewComponents (no API change).
+- Migrated `ds_code` and `ds_fixed_elements` (backlink, breadcrumbs, main heading, lead paragraph and form) from PORO builders to ViewComponents (no API change).
 - Updated component tests to better mirror the NHS/GOVUK guidelines.
 
 ### Fixed

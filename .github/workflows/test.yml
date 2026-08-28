@@ -32,9 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ruby-
 
+      # Use system SQLite3 libraries to avoid compilation errors in CI
       - name: Install Ruby dependencies
         run: |
           bundle config set --local path vendor/bundle
+          bundle config set --local build.sqlite3 --enable-system-libraries
           bundle install --jobs 4 --retry 3
 
       - name: Run Rails tests
