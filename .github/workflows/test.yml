@@ -32,6 +32,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ruby-
 
+      # Use system SQLite3 libraries to avoid compilation errors in CI
       - name: Install Ruby dependencies
         run: |
           bundle config set --local path vendor/bundle
