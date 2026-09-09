@@ -1848,10 +1848,6 @@ file safety:
     comments:
     reviewed_by: shilpigoeldev
     safe_revision: b5da62147e9c19fa87b020d6e21ae57f9bd10020
-  public/design_system/static/design_system-0.15.0/design_system.js:
-    comments:
-    reviewed_by: filisliu
-    safe_revision: f04214a393265aee42f7638af8168c7fcfb586c3
   public/design_system/static/govuk-frontend-5.11.1/fonts/bold-affa96571d-v2.woff:
     comments:
     reviewed_by: timgentry
