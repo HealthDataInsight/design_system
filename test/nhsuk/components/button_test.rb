@@ -40,7 +40,7 @@ module DesignSystem
         test 'rendering reverse nhsuk button' do
           @output_buffer = ds_button_tag('Save', style: 'reverse')
 
-          assert_select('button.nhsuk-button.nhsuk-button--inverse', text: 'Save')
+          assert_select('button.nhsuk-button.nhsuk-button--reverse', text: 'Save')
           assert_select('button[data-module="nhsuk-button"]')
           assert_select('button[type="submit"]')
         end
