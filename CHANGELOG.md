@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Migrated `ds_code` and `ds_fixed_elements` (backlink, breadcrumbs, main heading, lead paragraph and form) from PORO builders to ViewComponents (no API change).
+
 ## [0.15.1] - 2026-09-09
 
 ### Changed

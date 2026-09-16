@@ -4,7 +4,7 @@ require 'test_helper'
 
 module DesignSystem
   module Govuk
-    module Builders
+    module Components
       # This tests the govuk lead paragraph fixed element
       class LeadParagraphTest < ActionView::TestCase
         include DesignSystemHelper

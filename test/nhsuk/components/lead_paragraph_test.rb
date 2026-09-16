@@ -4,7 +4,7 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
+    module Components
       # This tests the nhsuk lead paragraph fixed element
       class LeadParagraphTest < ActionView::TestCase
         include DesignSystemHelper

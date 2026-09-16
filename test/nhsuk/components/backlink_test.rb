@@ -4,8 +4,8 @@ require 'test_helper'
 
 module DesignSystem
   module Nhsuk
-    module Builders
-      # This tests the nhsuk back link builder
+    module Components
+      # This tests the nhsuk back link fixed element
       class BacklinkTest < ActionView::TestCase
         include DesignSystemHelper
 
@@ -20,7 +20,7 @@ module DesignSystem
             ds.backlink nil, assistant_path(@assistant)
           end
 
-          @output_buffer = @view_flow.get(:backlink)
+          @rendered = @view_flow.get(:backlink)
           assert_select("a.#{@brand}-back-link", href: assistant_path(@assistant), text: 'Back')
         end
 
@@ -29,7 +29,7 @@ module DesignSystem
             ds.backlink 'Custom text', assistant_path(@assistant)
           end
 
-          @output_buffer = @view_flow.get(:backlink)
+          @rendered = @view_flow.get(:backlink)
           assert_select("a.#{@brand}-back-link", href: assistant_path(@assistant), text: 'Custom text')
         end
 
