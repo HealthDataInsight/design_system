@@ -22,7 +22,7 @@ module DesignSystemHelper
     DesignSystem::Registry.form_builder(brand)
   end
 
-  def ds_form_with(model: nil, scope: nil, url: nil, format: nil, **options, &)
+  def ds_form_with(model: false, scope: nil, url: nil, format: nil, **options, &)
     form_with(model:, scope:, url:, format:, builder: ds_form_builder, **options, &)
   end
 
