@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrated `ds_code` and `ds_fixed_elements` (backlink, breadcrumbs, main heading, lead paragraph and form) from PORO builders to ViewComponents (no API change).
+- Test suite now runs in CI against Rails 7.1, 7.2 and 8.0, confirming support across those versions.
+
+### Fixed
+
+- Fixed `ds_form_with` raising `ArgumentError: Passed nil to the :model argument` on Rails 8.0 when called without a model (e.g. with only a `url:`).
+- Fixed `ds_check_box` rendering a mangled label (e.g. `Role/made up...`) on Rails 7.2+ for values containing or ending with a dot and having no custom translation; the literal value is now shown.
 
 ## [0.15.1] - 2026-09-09
 
