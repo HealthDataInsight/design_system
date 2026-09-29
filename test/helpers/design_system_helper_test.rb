@@ -58,4 +58,15 @@ class DesignSystemHelperTest < ActionView::TestCase
     assert_includes result, 'data-timeago-add-suffix-value="true"'
     assert_includes result, "title=\"#{content}\""
   end
+
+  test 'ds_form_with builds a form from a url with no model' do
+    controller.stubs(brand: 'govuk')
+
+    @output_buffer = ds_form_with(url: '/reset_password') do |f|
+      f.ds_submit('Submit')
+    end
+
+    assert_select('form[action="/reset_password"]')
+    assert_select('form button', text: 'Submit')
+  end
 end
