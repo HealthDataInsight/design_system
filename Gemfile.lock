@@ -395,6 +395,8 @@ DEPENDENCIES
   dartsass-rails (~> 0.5)
   design_system!
   importmap-rails (~> 2.1)
+  json (< 3)
+  minitest (< 6)
   mocha (~> 2.2.0)
   ndr_dev_support (~> 7.3)
   puma (>= 6.4.3)

@@ -1,5 +1,7 @@
 .DS_Store
 /.bundle/
+# Lockfiles for the per-Rails-version gemfiles are generated per CI run, not committed.
+/gemfiles/*.lock
 /coverage/
 /doc/
 /log/*.log

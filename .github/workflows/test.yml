@@ -13,8 +13,19 @@ permissions: read-all
 
 jobs:
   test:
-    name: Run Rails tests
+    name: Rails tests (${{ matrix.gemfile }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # One entry per supported Rails line. Each gemfile pins its own
+        # rails/sqlite3 and reuses gemfiles/common.rb for the shared dev/test gems.
+        gemfile:
+          - gemfiles/Gemfile.rails71
+          - gemfiles/Gemfile.rails72
+          - gemfiles/Gemfile.rails80
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,8 +39,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-ruby-${{ hashFiles('Gemfile.lock') }}
+          key: ${{ runner.os }}-ruby-${{ matrix.gemfile }}-${{ hashFiles(matrix.gemfile, 'gemfiles/common.rb', 'design_system.gemspec') }}
           restore-keys: |
+            ${{ runner.os }}-ruby-${{ matrix.gemfile }}-
             ${{ runner.os }}-ruby-
 
       # Use system SQLite3 libraries to avoid compilation errors in CI
@@ -41,3 +53,15 @@ jobs:
 
       - name: Run Rails tests
         run: bin/rails test
+
+  # Aggregate job so branch protection can depend on a single check that stays
+  # agnostic of the matrix dimensions.
+  test_matrix:
+    name: Test matrix result
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Check matrix status
+        if: ${{ needs.test.result != 'success' }}
+        run: exit 1
