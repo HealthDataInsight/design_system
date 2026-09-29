@@ -20,7 +20,7 @@ gem 'json', '< 3'
 # (railties' line_filtering passes an extra argument to Minitest::Runnable#run).
 gem 'minitest', '< 6'
 
-gem 'dartsass-rails', '~> 0.5'
+gem 'dartsass-rails', '~> 0.5.1'
 gem 'importmap-rails', '~> 2.1'
 gem 'ndr_dev_support', '~> 7.3'
 
