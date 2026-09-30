@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restored GOV.UK and NHS.UK header home-logo links to `href="/"` (reverting the 0.15.0 change to `main_app.root_path`, which broke consumer apps that use the shared header without overriding it).
+
 ## [0.15.2] - 2026-09-30
 
 ### Changed
