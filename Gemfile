@@ -11,7 +11,8 @@ eval_gemfile 'gemfiles/common.rb'
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
 
-# This Gemfile is the default local/development bundle and tracks the latest
-# supported Rails line. The gemfiles/ directory holds the other Rails versions
-# exercised by CI. Rails 8.0+ requires sqlite3 >= 2.1.
+# This Gemfile is the default local/development bundle. It tracks Rails 8.0 —
+# the version consumer apps are standardising on. The gemfiles/ directory holds
+# the other Rails versions exercised by CI. Rails 8.0+ requires sqlite3 >= 2.1.
+gem 'rails', '~> 8.0.0'
 gem 'sqlite3', '~> 2.1'
