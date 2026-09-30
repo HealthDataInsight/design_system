@@ -69,7 +69,9 @@ module DesignSystem
                 assert_equal 'assistant[desired_filling][]', input['name']
                 assert_equal '', input['value']
                 assert_equal 'hidden', input['type']
-                assert_equal 'off', input['autocomplete']
+                # NB: the hidden field's `autocomplete="off"` is a Rails framework detail
+                # (Rails 8.1 drops it by default via remove_hidden_field_autocomplete), so
+                # it isn't asserted here.
 
                 assert_select("div.#{@brand}-checkboxes[data-module='#{@brand}-checkboxes']") do
                   assert_select("div.#{@brand}-checkboxes__item") do

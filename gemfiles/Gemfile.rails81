@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+# Gem runtime dependencies.
+gemspec path: '..'
+
+# Shared development and test dependencies.
+eval_gemfile 'common.rb'
+
+gem 'rails', '~> 8.1.0'
+# Rails 8.1's SQLite3 adapter requires sqlite3 >= 2.1.
+gem 'sqlite3', '~> 2.1'

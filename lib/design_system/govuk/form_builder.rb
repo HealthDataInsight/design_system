@@ -397,27 +397,30 @@ module DesignSystem
 
       def translated_label_for_value(method, value)
         # This method is used to translate the label for a given value
-        # Example: assign an alternative name for checkbox items
+        # Example: assign an alternative name for checkbox items via
+        # `helpers.options.<model>.<method>.<value>`.
         method_and_value = "#{method}.#{value}"
         translation = ActionView::Helpers::Tags::Translator
                       .new(object, object_name, method_and_value, scope: 'helpers.options')
                       .translate
 
-        return value.to_s if translation.nil?
-
-        # If translation returns the humanized version of the value,
-        # it means no translation was found, so return the original value
-        # Extra condition: if value contains dots and translation is only the last part
-        if translation == value.to_s.humanize || value_contains_dots?(value, translation)
+        # When no translation exists, ActionView's Translator falls back to
+        # `human_attribute_name`, whose output for dotted values differs between
+        # Rails versions (e.g. Rails 7.2+ returns "Role/made up..." for values
+        # ending in a dot). Recompute that exact fallback and, when the Translator
+        # returned it, use the literal value instead of the mangled humanization.
+        if translation.blank? || translation == human_attribute_name_fallback(method_and_value)
           value.to_s
         else
           translation
         end
       end
 
-      def value_contains_dots?(value, translation)
-        (value.to_s.include?('.') && translation == value.to_s.split('.').last.humanize) ||
-          (value.to_s.ends_with?('.') && translation.blank?)
+      def human_attribute_name_fallback(method_and_value)
+        model = object.respond_to?(:to_model) ? object.to_model : nil
+        return unless model && model.class.respond_to?(:human_attribute_name)
+
+        model.class.human_attribute_name(method_and_value)
       end
 
       # GOVUKDesignSystemFormBuilder::Base field_id method
