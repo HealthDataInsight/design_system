@@ -10,6 +10,7 @@ module DesignSystem
       attr_writer :govuk_footer_elements
 
       helper DesignSystemHelper
+      helper_method :ds_root_path
     end
 
     def brand
@@ -29,6 +30,15 @@ module DesignSystem
     def add_footer_link(name, href, options = {})
       @footer_links ||= []
       @footer_links << { name:, href:, options: }
+    end
+
+    private
+
+    # The path the header logo/homepage link points to. Defaults to the host
+    # app's root_path; host apps can override this (e.g. if they name their
+    # home route something other than :root).
+    def ds_root_path
+      main_app.root_path
     end
   end
 end
