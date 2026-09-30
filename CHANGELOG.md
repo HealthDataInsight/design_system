@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Migrated `ds_code` and `ds_fixed_elements` (backlink, breadcrumbs, main heading, lead paragraph and form) from PORO builders to ViewComponents (no API change).
-- Test suite now runs in CI against Rails 7.1, 7.2 and 8.0, confirming support across those versions.
+- Raised the minimum supported Rails to 7.2 (dropped Rails < 7.2, which is end-of-life).
+- Test suite now runs in CI against Rails 7.2, 8.0 and 8.1, confirming support across those versions.
 
 ### Fixed
 

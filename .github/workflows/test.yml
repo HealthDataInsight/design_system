@@ -21,9 +21,9 @@ jobs:
         # One entry per supported Rails line. Each gemfile pins its own
         # rails/sqlite3 and reuses gemfiles/common.rb for the shared dev/test gems.
         gemfile:
-          - gemfiles/Gemfile.rails71
           - gemfiles/Gemfile.rails72
           - gemfiles/Gemfile.rails80
+          - gemfiles/Gemfile.rails81
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
