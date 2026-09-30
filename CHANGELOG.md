@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.2] - 2026-09-30
+
 ### Changed
 
 - Migrated `ds_code` and `ds_fixed_elements` (backlink, breadcrumbs, main heading, lead paragraph and form) from PORO builders to ViewComponents (no API change).
@@ -181,7 +183,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added FormBuilders to with Rails signatures (where possible)
 - Supports multiple layouts
 
-[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.15.1...HEAD
+[unreleased]: https://github.com/HealthDataInsight/design_system/compare/v0.15.2...HEAD
+[0.15.2]: https://github.com/HealthDataInsight/design_system/compare/v0.15.1...v0.15.2
 [0.15.1]: https://github.com/HealthDataInsight/design_system/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/HealthDataInsight/design_system/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/HealthDataInsight/design_system/compare/v0.13.2...v0.14.0
