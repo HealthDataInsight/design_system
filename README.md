@@ -48,6 +48,23 @@ import { registerControllers } from 'design_system/controllers'
 registerControllers(application)
 ```
 
+## Customising the header logo link
+
+The brand header logo (the NHS/GOV.UK homepage link) points to your app's
+`root_path` by default. If your home page is served by a route that isn't named
+`:root`, override `ds_root_path`. Define it as a private method anywhere in your
+controller's ancestry — directly in the controller, or in a concern that pulls in
+`DesignSystem::Branded` — and it will take precedence over the default:
+
+```ruby
+def ds_root_path
+  main_app.dashboard_path
+end
+```
+
+`ds_root_path` is exposed as a helper method, so it's available to both the
+bundled layouts and your own views.
+
 ## Updating Frontends
 
 ### GOVUK Frontend (currently v5.11.1)

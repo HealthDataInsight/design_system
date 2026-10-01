@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `ds_root_path`, an overridable helper method controlling where the brand header logo links (defaults to the consuming application's `root_path`), so apps whose home page isn't named `:root` can point it elsewhere.
+
 ## [0.15.2] - 2026-09-30
 
 ### Changed
