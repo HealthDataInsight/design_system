@@ -1840,7 +1840,7 @@ file safety:
     comments:
     reviewed_by: shilpigoeldev
     safe_revision: b5da62147e9c19fa87b020d6e21ae57f9bd10020
-  public/design_system/static/design_system-0.15.2/design_system.js:
+  public/design_system/static/design_system-0.16.0/design_system.js:
     comments:
     reviewed_by: timgentry
     safe_revision: e79821d318d0221f7f426a184b5f7f3c158a83a8
