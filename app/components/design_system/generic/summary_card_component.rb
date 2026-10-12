@@ -10,10 +10,11 @@ module DesignSystem
     class SummaryCardComponent < DesignSystem::BaseComponent
       include DesignSystemHelper
 
-      def initialize(title:, actions: [])
+      def initialize(title:, actions: [], heading: {})
         super()
         @title = title
         @actions = Array(actions)
+        @heading_options = Hash.try_convert(heading) || {}
       end
 
       attr_reader :title, :actions
@@ -25,6 +26,12 @@ module DesignSystem
       end
 
       private
+
+      def default_heading_level = 2
+
+      def heading_level
+        @heading_options.symbolize_keys.fetch(:level, default_heading_level)
+      end
 
       def render_hidden_text(hidden_text)
         return '' if hidden_text.blank?

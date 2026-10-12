@@ -66,6 +66,16 @@ module DesignSystem
             assert_select 'div.nhsuk-card__content', text: /Body/
           end
         end
+
+        test 'rendering nhsuk summary card with specified heading level' do
+          @output_buffer = ds_summary_card(title: 'Karen Francis', heading: { level: 3 })
+
+          assert_select 'div.nhsuk-card' do
+            assert_select 'div.nhsuk-card__heading-container' do
+              assert_select 'h3.nhsuk-card__heading.nhsuk-heading-m', 'Karen Francis'
+            end
+          end
+        end
       end
     end
   end
