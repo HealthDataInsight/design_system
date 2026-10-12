@@ -47,12 +47,12 @@ module DesignSystem
           if page == current_page
             tag(:li,
                 tag(:a, page, class: 'govuk-link govuk-pagination__link', href: '#',
-                              aria: { label: "Page #{page}", current: 'page' }),
+                              'aria-label': "Page #{page}", 'aria-current': 'page'),
                 class: 'govuk-pagination__item govuk-pagination__item--current')
           else
             tag(:li,
                 tag(:a, page, class: 'govuk-link govuk-pagination__link', href: url(page),
-                              aria: { label: "Page #{page}" }),
+                              'aria-label': "Page #{page}"),
                 class: 'govuk-pagination__item')
           end
         end
