@@ -37,6 +37,13 @@ module DesignSystem
 
         private
 
+        # GOV.UK renders the gap between page numbers as a list item with the
+        # ellipses modifier, not will_paginate's default bare <span class="gap">,
+        # which would be an invalid child of <ul class="govuk-pagination__list">.
+        def gap
+          tag(:li, '&ctdot;', class: 'govuk-pagination__item govuk-pagination__item--ellipses')
+        end
+
         def link_with_prev_title(_text, target, aria_label)
           tag(:a,
               govuk_icon('previous') + tag(:span,
