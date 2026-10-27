@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Fixed the GOVUK `PaginationRenderer` rendering the gap between page numbers as a bare `span`, which was an invalid
-  child of the pagination list and displayed no visible ellipsis. It now renders the GOV.UK ellipses list item.
+- Fixed the GOVUK `PaginationRenderer` rendering the gap between page numbers as a bare `span`, which is not a
+  permitted child of the pagination list and displayed no visible ellipsis. It now renders the GOV.UK ellipses list
+  item.
 - Fixed an issue with the GOVUK `PaginationRenderer` that resulted in ARIA attributes being emitted as a stringified
   Ruby hash in the generated HTML.
 - Updated `ds_summary_card` to allow a card's title heading level to be specified via constructor options.
