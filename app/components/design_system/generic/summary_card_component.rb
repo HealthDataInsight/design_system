@@ -10,13 +10,14 @@ module DesignSystem
     class SummaryCardComponent < DesignSystem::BaseComponent
       include DesignSystemHelper
 
-      def initialize(title:, actions: [])
+      def initialize(title:, actions: [], heading_level: 2)
         super()
         @title = title
         @actions = Array(actions)
+        @heading_level = heading_level
       end
 
-      attr_reader :title, :actions
+      attr_reader :title, :actions, :heading_level
 
       def render_action(action)
         link_to(action[:href] || '#', class: "#{brand}-link") do

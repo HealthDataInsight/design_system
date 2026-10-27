@@ -67,6 +67,16 @@ module DesignSystem
             assert_select 'div.govuk-summary-card__content', text: /Body/
           end
         end
+
+        test 'rendering govuk summary card with specified heading level' do
+          @output_buffer = ds_summary_card(title: 'Karen Francis', heading_level: 3)
+
+          assert_select 'div.govuk-summary-card' do
+            assert_select 'div.govuk-summary-card__title-wrapper' do
+              assert_select 'h3.govuk-summary-card__title', 'Karen Francis'
+            end
+          end
+        end
       end
     end
   end

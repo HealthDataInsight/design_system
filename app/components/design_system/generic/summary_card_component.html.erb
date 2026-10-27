@@ -1,6 +1,6 @@
 <div class="<%= brand %>-card">
   <div class="<%= brand %>-card__heading-container">
-    <%= ds_heading(title, class: "#{brand}-card__heading #{brand}-heading-m") %>
+    <%= ds_heading(title, class: "#{brand}-card__heading #{brand}-heading-m", level: heading_level) %>
     <% if actions.any? %>
       <ul class="<%= brand %>-card__actions">
         <% actions.each do |action| %>
