@@ -34,10 +34,10 @@ jobs:
         working-directory: test/dummy
         run: npm install
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Set up mise
+        uses: jdx/mise-action@v2
         with:
-          bundler-cache: true
+          cache: true
 
       - name: Install Ruby dependencies
         run: |
