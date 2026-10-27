@@ -21,6 +21,20 @@ module DesignSystem
           end
         end
 
+        def to_html
+          previous_page_item, *page_items, next_page_item = pagination.map do |item|
+            item.is_a?(Integer) ? page_number(item) : send(item)
+          end
+
+          html_fragments = [
+            previous_page_item,
+            tag(:ul, page_items.join, class: 'govuk-pagination__list'),
+            next_page_item
+          ]
+
+          html_container(html_fragments.join)
+        end
+
         private
 
         def link_with_prev_title(_text, target, aria_label)
