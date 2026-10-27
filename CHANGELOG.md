@@ -7,14 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated `ds_summary_card` to allow a card's title heading level to be specified via constructor options.
+
+### Fixed
+
 - Fixed the GOVUK `PaginationRenderer` rendering the gap between page numbers as a bare `span`, which is not a
   permitted child of the pagination list and displayed no visible ellipsis. It now renders the GOV.UK ellipses list
   item.
 - Fixed an issue with the GOVUK `PaginationRenderer` that resulted in ARIA attributes being emitted as a stringified
   Ruby hash in the generated HTML.
-- Updated `ds_summary_card` to allow a card's title heading level to be specified via constructor options.
 
 ## [0.16.0] - 2026-10-01
+
+### Fixed
 
 - Fixed an issue with the HTML generated from the GOVUK `PaginationRenderer` where `li` elements had no valid
   parent element (`ul`, `ol`, `menu`).
