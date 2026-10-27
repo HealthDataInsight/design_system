@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fixed an issue with the GOVUK `PaginationRenderer` that resulted in ARIA attributes being emitted as a stringified
+  Ruby hash in the generated HTML.
 - Updated `ds_summary_card` to allow a card's title heading level to be specified via constructor options.
 
 ## [0.16.0] - 2026-10-01

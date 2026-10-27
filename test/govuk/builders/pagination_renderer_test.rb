@@ -27,11 +27,14 @@ module DesignSystem
           @output_buffer = ds_pagination(@assistants)
 
           assert_select('nav.govuk-pagination') do
-            assert_select('ul.govuk-pagination__list') do
-              assert_select('li.govuk-pagination__item.govuk-pagination__item--current') do
-                assert_select('a.govuk-link.govuk-pagination__link') do
-                  1
-                end
+            assert_select('li.govuk-pagination__item.govuk-pagination__item--current') do
+              assert_select('a.govuk-link.govuk-pagination__link[aria-current="page"][aria-label="Page 1"]') do
+                1
+              end
+            end
+            assert_select('li.govuk-pagination__item') do
+              assert_select('a.govuk-link.govuk-pagination__link[aria-label="Page 2"]') do
+                2
               end
             end
           end
