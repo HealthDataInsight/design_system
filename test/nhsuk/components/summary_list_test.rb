@@ -101,6 +101,30 @@ module DesignSystem
             assert_select("dd.nhsuk-summary-list__actions a[href='/view']", text: 'View')
           end
         end
+
+        test 'renders width classes on the key, value and actions columns' do
+          @output_buffer = ds_summary_list do |list|
+            list.add_row(key: 'Definition') do |row|
+              row.add_key('Definition', width: :one_quarter)
+              row.add_value('Cohort', width: :half)
+              row.add_action('Definition (opens in a new tab)', path: '/d', target: '_blank', width: :one_third)
+            end
+          end
+
+          assert_select('dt.nhsuk-summary-list__key.nhsuk-u-width-one-quarter')
+          assert_select('dd.nhsuk-summary-list__value.nhsuk-u-width-one-half')
+          assert_select('dd.nhsuk-summary-list__actions.nhsuk-u-width-one-third') do
+            assert_select("a[target='_blank']:not([width])", text: /Definition/)
+          end
+        end
+
+        test 'raises an error for an unknown width' do
+          assert_raises(ArgumentError) do
+            ds_summary_list do |list|
+              list.add_row(key: 'X') { |row| row.add_action('Edit', width: :enormous) }
+            end
+          end
+        end
       end
     end
   end
