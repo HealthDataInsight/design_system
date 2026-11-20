@@ -1,10 +1,10 @@
 <dl class="<%= brand %>-summary-list">
   <% summary_list.rows.each do |row| %>
     <div class="<%= brand %>-summary-list__row<%= " #{brand}-summary-list__row--no-actions" if row[:actions].blank? %>">
-      <dt class="<%= brand %>-summary-list__key"><%= row[:key][:content] %></dt>
-      <dd class="<%= brand %>-summary-list__value"><%= value_content(row) %></dd>
+      <dt class="<%= column_class(row, :key) %>"><%= row[:key][:content] %></dt>
+      <dd class="<%= column_class(row, :value) %>"><%= value_content(row) %></dd>
       <% if row[:actions].present? %>
-        <dd class="<%= brand %>-summary-list__actions">
+        <dd class="<%= column_class(row, :actions) %>">
           <% if row[:actions].length == 1 %>
             <%= render_action(row[:actions].first) %>
           <% else %>

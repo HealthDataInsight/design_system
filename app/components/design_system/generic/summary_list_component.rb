@@ -21,6 +21,14 @@ module DesignSystem
         end
       end
 
+      # Column (key, value or actions) class, plus a width utility class if one was set.
+      def column_class(row, column)
+        width = row.dig(:widths, column)
+        classes = ["#{brand}-summary-list__#{column}"]
+        classes << width_class(::DesignSystem::Components::Grid::WIDTHS[width][:class]) if width
+        classes.join(' ')
+      end
+
       def render_action(action)
         options = action[:options].dup
         path = options.delete(:path) || '#'
@@ -44,6 +52,11 @@ module DesignSystem
       end
 
       private
+
+      # Width utilities, not grid-column classes: those float, which breaks the table-cell layout.
+      def width_class(width)
+        "#{brand}-!-width-#{width}"
+      end
 
       def value_paragraph_class
         "#{brand}-body"

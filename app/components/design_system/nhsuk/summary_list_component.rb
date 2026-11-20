@@ -9,6 +9,10 @@ module DesignSystem
         nil
       end
 
+      def width_class(width)
+        "#{brand}-u-width-#{width}"
+      end
+
       def render_hidden_text(hidden_text)
         return '' if hidden_text.blank?
 

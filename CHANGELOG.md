@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a `width:` option to `ds_summary_list` row keys, values and actions to resize those columns using the standard grid widths.
+
 ## [0.17.0] - 2026-11-04
 
 ### Changed
