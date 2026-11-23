@@ -89,6 +89,32 @@ module DesignSystem
             end
           end
 
+          test 'ds_check_boxes_fieldset with option small' do
+            @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+              f.ds_check_boxes_fieldset(:desired_filling, small: true) do
+                f.ds_check_box(:desired_filling, {}, :pastrami)
+              end
+            end
+
+            assert_form_group do
+              assert_select("div.#{@brand}-checkboxes.#{@brand}-checkboxes--small") do
+                assert_select("input.#{@brand}-checkboxes__input[value=pastrami]")
+              end
+            end
+          end
+
+          test 'ds_collection_check_boxes with option small' do
+            @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
+              f.ds_collection_check_boxes(:department_id, Department.all, :id, :title, {}, { small: true })
+            end
+
+            assert_form_group do
+              assert_select("div.#{@brand}-checkboxes.#{@brand}-checkboxes--small") do
+                assert_select("input.#{@brand}-checkboxes__input", Department.count)
+              end
+            end
+          end
+
           test 'ds_check_box item translation for activerecord attributes' do
             @output_buffer = ds_form_with(model: assistants(:one), builder: @builder) do |f|
               f.ds_check_box(:terms_agreed, {}, :true)
