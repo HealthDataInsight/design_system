@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added shared `FormBuilderTestable` tests checking that `small: true` renders small checkboxes, so brand plugins such as HDI are covered.
+
 ## [0.17.0] - 2026-11-04
 
 ### Changed
